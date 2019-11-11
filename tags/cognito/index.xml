@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cognito on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/cognito/</link>
+    <description>Recent content in Cognito on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Tue, 05 Nov 2019 22:49:56 +0900</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/cognito/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Congnitoの発行するトークンの意味と動作</title>
+      <link>https://tro3373.github.io/post/cognito-token-refresh/</link>
+      <pubDate>Tue, 05 Nov 2019 22:49:56 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/post/cognito-token-refresh/</guid>
+      <description> 参考URL  https://dev.classmethod.jp/cloud/aws/study-tokens-of-cognito-user-pools/  理解  Cognito トークンには３つ種類がある  IDトークン  クライムを表すトークン (JWT)  アクセストークン  Cognitoユーザ属性を表示、更新等行う為のトークン (JWT)  リフレッシュトークン  IDトークン、アクセストークンを更新する為のもの CognitoクライアントID設定画面で有効期限を設定できる  デフォルトは30日(1-3650日指定可能)  ID/アクセストークンは1時間で無効になる リフレッシュトークンが有効な間はID/アクセストークンは自動更新される  getSession で自動更新     </description>
+    </item>
+    
+  </channel>
+</rss>

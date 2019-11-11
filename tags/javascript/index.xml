@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>javascript on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/javascript/</link>
+    <description>Recent content in javascript on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Sun, 30 Oct 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bookmarklet で煩わしいテストの手助けをする</title>
+      <link>https://tro3373.github.io/post/bookmarklet-defan-wasiitesutonoshou-zhu-kewosuru/</link>
+      <pubDate>Sun, 30 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/bookmarklet-defan-wasiitesutonoshou-zhu-kewosuru/</guid>
+      <description>Bookmarklet で煩わしいテストの手助けをする WEBでテストする際にたまに必要になるのが、100件クリックする、や入力項目全部に入力した状態で、 クリックするなど単純動作を繰り返す事。 単純作業である為、おそらく５回くらいクリックした時点で飽きてしまい、業務中に寝てしまう事になりそう。
+以下のような Bookmarklet を準備しておけば、ちょっとした際に、さらっと js 書いて、100回でも、1000回でも クリックできます。
+javascript:(function(f,urls,i,s){urls=[&amp;quot;//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js&amp;quot;/* ,&amp;quot;URL&amp;quot;,&amp;quot;URL&amp;quot;,... */];for(i=0;i&amp;lt;urls.length;i++){s=document.createElement(&amp;quot;script&amp;quot;);s.src=urls[i];if(i==urls.length-1)s.onload=function(){f(jQuery.noConflict(true))};document.body.appendChild(s)}})(function($){/* 内部コード */})  対象のページにできるだけ影響の無いように、かつ、CDNで jQury を持ってきて、後はやりたいことちょろっと書くだけ。しかもjQuery以外のライブラリもロードできる！ 便利</description>
+    </item>
+    
+    <item>
+      <title>Javascript実行HTMLスケルトン</title>
+      <link>https://tro3373.github.io/post/javascriptshi-xing-htmlsukeruton/</link>
+      <pubDate>Wed, 28 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/javascriptshi-xing-htmlsukeruton/</guid>
+      <description> Javascript実行HTMLスケルトン ちょっとした Javascript を実装してテストする際などに使用するHTMLのスケルトン
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;Convert&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;quot;http://code.jquery.com/jquery-latest.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt; $(function(){ var html = getSrcHtml(); alert(html); }); function getSrcHtml() { return &amp;quot;&amp;quot;; } &amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; test &amp;lt;/html&amp;gt;  </description>
+    </item>
+    
+  </channel>
+</rss>

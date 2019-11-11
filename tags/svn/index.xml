@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>svn on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/svn/</link>
+    <description>Recent content in svn on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Thu, 21 Jun 2012 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/svn/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>玄箱HG（debian lenny）へ SVN を導入する</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lennyhe-svn-wodao-ru-suru/</link>
+      <pubDate>Thu, 21 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lennyhe-svn-wodao-ru-suru/</guid>
+      <description>玄箱HG（debian lenny）へ SVN を導入する 参考  http://wlog.flatlib.jp/item/1289 http://brokendish.org/debian/609/  subversionインストール sudo apt-get install subversion sudo apt-get install libapache2-svn libapache2-mod-encoding  subversionの設定 svnロケーション設定 cd /etc/apache2 sudo vi mods-available/dav_svn.conf  以下を追加
+&amp;lt;Location /svn&amp;gt; DAV svn SVNParentPath /path/to/svn_server_directory SVNListParentPath on #require ssl SSLRequireSSL AuthType Basic # auto commit on SVNAutoversioning on AuthName &amp;quot;Subversion Repository&amp;quot; AuthUserFile /etc/apache2/dav_svn.passwd # require authentication other than require method for read repository. Require valid-user &amp;lt;/Location&amp;gt;  svnルートディレクトリの作成 mkdir -p /path/to/svn_server_directory  svnディレクトリ（プロジェクト単位？）の作成 sudo svnadmin create --fs-type=fsfs /path/to/svn_server_directory/repo sudo chown -R www-data:www-data /path/to/svn_server_directory sudo chmod -R gu+w /path/to/svn_server_directory  svnアクセスユーザの作成 htpasswd -c /etc/apache2/dav_svn.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu で SVN差分のある変更ファイルをexportする</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-de-svnchai-fen-noarubian-geng-huairuwoexportsuru/</link>
+      <pubDate>Wed, 23 Nov 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-de-svnchai-fen-noarubian-geng-huairuwoexportsuru/</guid>
+      <description>Ubuntu で SVN差分のある変更ファイルをexportする やりたいことは以下  SVNコマンドで変更したファイル一覧をExportしたい 変更したファイルについては、変更前のソースもExportしたい 上記２つよりDiffツールを使ってファイル差分を見たい SVNの差分ファイル一覧は svn diff | awk &#39;/^Index/ {print $NF}&#39; で取得できる  以下、作成したプログラム
+#!/bin/bash ################################################################################ # SETTINGS. ROOTDIR=/env/android- OUTDIR=~/デスクトップ FIXDIR=fix ORGDIR=original ################################################################################ shellFileName=`basename $0` fncEchoLog() { dateStr=`date &#39;+%Y%m%d:%H:%M:%S&#39;` outMsg=&amp;quot;[$shellFileName] $dateStr $*&amp;quot; echo &amp;quot;$outMsg&amp;quot; } copyParents() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; cp -p --parents $targetFile $OUTDIR } svnRevert() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; svn revert $targetFile } compareable() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; cp -p --parents $targetFile $OUTDIR/$FIXDIR svn revert $targetFile cp -p --parents $targetFile $OUTDIR/$ORGDIR cp -pf $OUTDIR/$FIXDIR/$targetFile $ROOTDIR/$targetFile } copyRevert() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; cp -p --parents $targetFile $OUTDIR svn revert $targetFile } ################################################################################ fncEchoLog &amp;quot;--------------------------------------------------------------------&amp;quot; fncEchoLog &amp;quot;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; MISSIOIN START&amp;quot; fncEchoLog &amp;quot;--------------------------------------------------------------------&amp;quot; fncEchoLog &amp;quot;TARGET DIR [$ROOTDIR]&amp;quot; fncEchoLog &amp;quot;OUTPUT DIR [$OUTDIR]&amp;quot; cd $ROOTDIR fncEchoLog &amp;quot;now checking fixed files.</description>
+    </item>
+    
+    <item>
+      <title>Unix コマンド色々</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-komandose/</link>
+      <pubDate>Fri, 12 Aug 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-komandose/</guid>
+      <description> Unix コマンド色々 # 検索した結果から削除 find ./ -name &amp;quot;.repo&amp;quot; -exec rm -r {} \; # ファイル差分 diff -y -W 200 ./tmp1/init.rc ./tmp2/init.rc # ディレクトリ差分 diff -rNq --exclude=&amp;quot;.svn&amp;quot; ./tmp1 ./tmp2 # ディレクトリ階層を含めてコピー cp -p --parents test/hogehoge.txt /var/tmp # ダミーファイル作成 dd if=/dev/zero of=220M.dat count=220 bs=1048576 ## svn コマンド # チェックアウト svn co [url] # 差分一覧 svn diff | awk &#39;/^Index/ {print $NF}&#39; # 差分一覧(簡易) svn status  </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    
+      <title>Windows 7 で vaygrant(CentOS 6.5)にRails4.1 &#43; Nginx &#43; Unicorn &#43; Postgres 9.3 を起動する :: tac lifelog — code,tech,log .. </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Virtual Box インストール  Download
+本家 Virtualbox より、 Virtual Box ダウンロード
+ インストール
+  Vagrant インストール  Download
+本家 Vagrant より、 Vagrantダウンロード
+ インストール
+ 再起動が必要
+  仮想マシン（BOX（テンプレート））取得・追加  CnetOS 6.5 用 URL 取得
+Vagrantbox.esより、Virtual Box用、CentOS 6.5 x86_64 URLをコピーする
+ Box add
+cd c:\HashiCorp\Vagrant\ mkdir myhost cd myhost c:\HashiCorp\Vagrant\myhost&amp;gt; vagrant box add centos65 https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box ==&amp;gt; box: Adding box &#39;centos65&#39; (v0) for provider: box: Downloading: https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box box: Progress: 100% (Rate: 3348k/s, Estimated time remaining: --:--:--) ==&amp;gt; box: Successfully added box &#39;centos65&#39; (v0) for &#39;virtualbox&#39;!"/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://tro3373.github.io/post/windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/assets/style.css">
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://tro3373.github.io/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://tro3373.github.io/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Windows 7 で vaygrant(CentOS 6.5)にRails4.1 &#43; Nginx &#43; Unicorn &#43; Postgres 9.3 を起動する"/>
+<meta name="twitter:description" content="Virtual Box インストール  Download
+本家 Virtualbox より、 Virtual Box ダウンロード
+ インストール
+  Vagrant インストール  Download
+本家 Vagrant より、 Vagrantダウンロード
+ インストール
+ 再起動が必要
+  仮想マシン（BOX（テンプレート））取得・追加  CnetOS 6.5 用 URL 取得
+Vagrantbox.esより、Virtual Box用、CentOS 6.5 x86_64 URLをコピーする
+ Box add
+cd c:\HashiCorp\Vagrant\ mkdir myhost cd myhost c:\HashiCorp\Vagrant\myhost&gt; vagrant box add centos65 https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box ==&gt; box: Adding box &#39;centos65&#39; (v0) for provider: box: Downloading: https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box box: Progress: 100% (Rate: 3348k/s, Estimated time remaining: --:--:--) ==&gt; box: Successfully added box &#39;centos65&#39; (v0) for &#39;virtualbox&#39;!"/>
+
+
+
+<meta property="og:title" content="Windows 7 で vaygrant(CentOS 6.5)にRails4.1 &#43; Nginx &#43; Unicorn &#43; Postgres 9.3 を起動する" />
+<meta property="og:description" content="Virtual Box インストール  Download
+本家 Virtualbox より、 Virtual Box ダウンロード
+ インストール
+  Vagrant インストール  Download
+本家 Vagrant より、 Vagrantダウンロード
+ インストール
+ 再起動が必要
+  仮想マシン（BOX（テンプレート））取得・追加  CnetOS 6.5 用 URL 取得
+Vagrantbox.esより、Virtual Box用、CentOS 6.5 x86_64 URLをコピーする
+ Box add
+cd c:\HashiCorp\Vagrant\ mkdir myhost cd myhost c:\HashiCorp\Vagrant\myhost&gt; vagrant box add centos65 https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box ==&gt; box: Adding box &#39;centos65&#39; (v0) for provider: box: Downloading: https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box box: Progress: 100% (Rate: 3348k/s, Estimated time remaining: --:--:--) ==&gt; box: Successfully added box &#39;centos65&#39; (v0) for &#39;virtualbox&#39;!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tro3373.github.io/post/windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/" />
+<meta property="article:published_time" content="2015-01-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-01-29T00:00:00+00:00" /><meta property="og:site_name" content="tac lifelog" />
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">ag -l |sort -r</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+      
+        <ul class="menu__sub-inner">
+          <li class="menu__sub-inner-more-trigger">
+            Show more
+            <span class="menu__sub-inner-more-trigger-icon"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+          </li>
+
+          <ul class="menu__sub-inner-more hidden">
+            
+              
+                <li><a href="/about">About</a></li>
+              
+            
+              
+                <li><a href="/archive">Archives</a></li>
+              
+            
+              
+                <li><a href="/categories">Categories</a></li>
+              
+            
+              
+                <li><a href="/tags">Tags</a></li>
+              
+            
+          </ul>
+        </ul>
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/archive">Archives</a></li>
+      
+    
+      
+        <li><a href="/categories">Categories</a></li>
+      
+    
+      
+        <li><a href="/tags">Tags</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  <div class="post">
+    <h2 class="post-title"><a href="https://tro3373.github.io/post/windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/">Windows 7 で vaygrant(CentOS 6.5)にRails4.1 + Nginx + Unicorn + Postgres 9.3 を起動する</a></h2>
+    <div class="post-meta">
+      
+        <span class="post-date">
+            2015-01-29
+        </span>
+      
+      
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://tro3373.github.io/tags/centos6.5/">centos6.5</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/virtualbox/">virtualbox</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/vagrant/">vagrant</a>&nbsp;
+        
+      </span>
+    
+
+    
+
+    
+    <script data-ad-client="ca-pub-6962926171897574" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+
+    <div class="post-content">
+      
+
+<h1 id="virtual-box-インストール">Virtual Box インストール</h1>
+
+<ol>
+<li><p>Download</p>
+
+<p><a href="https://www.virtualbox.org/wiki/Downloads">本家 Virtualbox</a> より、 Virtual Box ダウンロード</p></li>
+
+<li><p>インストール</p></li>
+</ol>
+
+<h1 id="vagrant-インストール">Vagrant インストール</h1>
+
+<ol>
+<li><p>Download</p>
+
+<p><a href="https://www.vagrantup.com/downloads.html">本家 Vagrant</a> より、 Vagrantダウンロード</p></li>
+
+<li><p>インストール</p></li>
+
+<li><p>再起動が必要</p></li>
+</ol>
+
+<h2 id="仮想マシン-box-テンプレート-取得-追加">仮想マシン（BOX（テンプレート））取得・追加</h2>
+
+<ol>
+<li><p>CnetOS 6.5 用 URL 取得</p>
+
+<p><a href="http://www.vagrantbox.es/">Vagrantbox.es</a>より、Virtual Box用、CentOS 6.5 x86_64 URLをコピーする</p></li>
+
+<li><p>Box add</p>
+
+<pre><code>cd c:\HashiCorp\Vagrant\
+mkdir myhost
+cd myhost
+c:\HashiCorp\Vagrant\myhost&gt; vagrant box add centos65 https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box
+
+==&gt; box: Adding box 'centos65' (v0) for provider:
+    box: Downloading: https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box
+    box: Progress: 100% (Rate: 3348k/s, Estimated time remaining: --:--:--)
+==&gt; box: Successfully added box 'centos65' (v0) for 'virtualbox'!
+</code></pre></li>
+
+<li><p>仮想マシン初期化</p>
+
+<pre><code>c:\HashiCorp\Vagrant\myhost&gt; vagrant init centos65
+</code></pre></li>
+</ol>
+
+<h2 id="ブリッジ設定">ブリッジ設定</h2>
+
+<p><code>c:\HashiCorp\Vagrant\myhost\vagrantfile</code> を編集する</p>
+
+<pre><code>config.vm.network &quot;public_network&quot; # ←アンコメントする
+</code></pre>
+
+<h2 id="仮想マシン起動">仮想マシン起動</h2>
+
+<ol>
+<li><p>仮想マシン起動</p>
+
+<pre><code>c:\HashiCorp\Vagrant\myhost&gt; vagrant up
+
+Bringing machine 'default' up with 'virtualbox' provider...
+==&gt; default: Importing base box 'centos65'...
+==&gt; default: Matching MAC address for NAT networking...
+==&gt; default: Setting the name of the VM: myhost_default_1421716347228_35069
+==&gt; default: Clearing any previously set network interfaces...
+==&gt; default: Preparing network interfaces based on configuration...
+    default: Adapter 1: nat
+==&gt; default: Forwarding ports...
+    default: 22 =&gt; 2222 (adapter 1)
+==&gt; default: Booting VM...
+==&gt; default: Waiting for machine to boot. This may take a few minutes...
+    default: SSH address: 127.0.0.1:2222
+    default: SSH username: vagrant
+    default: SSH auth method: private key
+    default: Warning: Connection timeout. Retrying...
+    default:
+    default: Vagrant insecure key detected. Vagrant will automatically replace
+    default: this with a newly generated keypair for better security.
+    default:
+    default: Inserting generated public key within guest...
+    default: Removing insecure key from the guest if its present...
+    default: Key inserted! Disconnecting and reconnecting using new SSH key...
+==&gt; default: Machine booted and ready!
+==&gt; default: Checking for guest additions in VM...
+==&gt; default: Mounting shared folders...
+    default: /vagrant =&gt; C:/HashiCorp/Vagrant/myhost
+</code></pre></li>
+</ol>
+
+<h2 id="ssh-接続-teraterm-で確認">SSH 接続(TeraTerm で確認)</h2>
+
+<ul>
+<li>アドレス: 127.0.0.1</li>
+<li>ポート: 2222</li>
+<li>ユーザ: vagrant</li>
+<li>パスワード: vagrant</li>
+</ul>
+
+<h2 id="仮想マシン停止">仮想マシン停止</h2>
+
+<p>状態確認</p>
+
+<pre><code>c:\HashiCorp\Vagrant\myhost&gt; vagrant status
+</code></pre>
+
+<p>サスペンド</p>
+
+<pre><code>c:\HashiCorp\Vagrant\myhost&gt; vagrant suspend
+</code></pre>
+
+<p>終了（電源ぶちぎり）</p>
+
+<pre><code>c:\HashiCorp\Vagrant\myhost&gt; vagrant halt
+</code></pre>
+
+<p>仮想マシン内でシャットダウン(これがベストっぽい)</p>
+
+<pre><code>$ sudo shutdown -h 00
+</code></pre>
+
+<h1 id="各種設定">各種設定</h1>
+
+<h2 id="iptables-削除">iptables 削除</h2>
+
+<pre><code># 設定削除
+$ sudo iptables -F
+# 確認
+$ sudo iptables -nL
+# OKであれば保存
+$ sudo /etc/init.d/iptables save
+</code></pre>
+
+<h1 id="rbenv-インストール-via-anyenv">rbenv インストール via anyenv</h1>
+
+<pre><code>$ git clone https://github.com/riywo/anyenv ~/.anyenv
+$ echo 'export PATH=&quot;$HOME/.anyenv/bin:$PATH&quot;' &gt;&gt; ~/.bash_profile
+$ echo 'eval &quot;$(anyenv init -)&quot;' &gt;&gt; ~/.bash_profile
+$ exec $SHELL -l
+$ anyenv install rbenv
+$ exec $SHELL -l
+</code></pre>
+
+<h1 id="ruby-2-2-0-インストール">Ruby 2.2.0 インストール</h1>
+
+<pre><code># バージョン一覧は
+$ rbenv install -list
+# Ruby ビルドで、ビルドエラーが発生するので、 libffi-devel インストール
+$ sudo yum install -y libffi-devel
+$ rbenv install -v 2.2.0
+$ rbenv global 2.2.0
+</code></pre>
+
+<h1 id="rails-インストール">Rails インストール</h1>
+
+<pre><code>$ gem update --system
+$ gem install rails --no-ri --no-rdoc -V # ドキュメントをインストールしない
+$ rbenv rehash
+$ rails -v
+</code></pre>
+
+<h1 id="nginx-インストール">Nginx インストール</h1>
+
+<h2 id="インストール">インストール</h2>
+
+<pre><code>$ sudo yum install -y nginx
+</code></pre>
+
+<h2 id="自動起動設定">自動起動設定</h2>
+
+<pre><code>$ sudo chkconfig --level 35 nginx on
+</code></pre>
+
+<h1 id="mysql-インストール">MySQL インストール</h1>
+
+<h2 id="インストール-1">インストール</h2>
+
+<pre><code>$ sudo yum install -y mysql mysql-server mysql-devel
+</code></pre>
+
+<h2 id="自動起動設定-1">自動起動設定</h2>
+
+<pre><code>$ sudo chkconfig --level 35 mysqld on
+</code></pre>
+
+<h1 id="postgresql-9-3">Postgresql 9.3</h1>
+
+<h2 id="インストール-2">インストール</h2>
+
+<pre><code>$ sudo rpm -i http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-redhat93-9.3-1.noarch.rpm
+$ sudo yum -y install postgresql93-server postgresql93-contrib postgresql-devel
+</code></pre>
+
+<h2 id="postgresql設定">Postgresql設定</h2>
+
+<pre><code>$ sudo service postgresql-9.3 initdb
+# 自動起動設定
+$ sudo chkconfig postgresql-9.3 on
+$ sudo service postgresql-9.3 status
+$ sudo service postgresql-9.3 start
+# タイムゾーン設定
+$ sudo vim /var/lib/pgsql/9.3/data/postgresql.conf
+</code></pre>
+
+<p>以下に設定</p>
+
+<pre><code>timezone = 'Asia/Tokyo'
+</code></pre>
+
+<p>Postgresユーザ設定</p>
+
+<pre><code># 情報確認
+$ id postgres
+# postgres ユーザパスワード設定
+$ sudo passwd postgres
+  'postgres' 2回入力
+$ su - postgres
+-- vagrant ユーザを作成
+postgres=# create user vagrant createdb password 'vagrant' login;
+postgres=# \q
+$ exit
+</code></pre>
+
+<h1 id="rails-app-作成">Rails App 作成</h1>
+
+<pre><code>$ cd /path/to/dir
+$ gem install bundler
+$ rails new myApp -d postgresql
+$ cd myApp
+$ vim Gemfile
+</code></pre>
+
+<p>以下をコメントイン、追記</p>
+
+<pre><code>gem 'therubyracer', platforms: :ruby
+
+...
+
+# Use unicorn as the app server
+gem 'unicorn'
+
+# readline 追記
+gem 'rb-readline'
+</code></pre>
+
+<p>インストール</p>
+
+<pre><code>$ bundle install --path vendor/bundle
+</code></pre>
+
+<ul>
+<li><code>bundle install --path vendor/bundle</code> 時、<code>Text file busy @ unlink_internal...</code> なるエラーとなった場合
+
+<ul>
+<li>アプリの格納先が、VMの共有ファイル上となっていないか確認する
+
+<ul>
+<li>共有フォルダ内にある場合に発生するエラー</li>
+<li><a href="http://dev.classmethod.jp/server-side/ruby-on-rails/tips_ruby-on-railsbundle-install_text-file-busy-error/">[小ネタ][Ruby on Rails]bundle install時にText file busy エラー</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>データベース設定</p>
+
+<pre><code>$ vim conifg/database.yml
+</code></pre>
+
+<p>以下、 utf8 へ変更</p>
+
+<pre><code>default: &amp;default
+  adapter: postgresql
+  encoding: utf8       # utf8 へ変更
+  username: vagrant    # vagrant ユーザを指定
+  password: vagrant    # vagrant ユーザパスを指定
+</code></pre>
+
+<p>Databse作成</p>
+
+<pre><code>$ bundle exec rake db:create
+
+$ bundle exec rails generate scaffold user password:string mail_address:text
+...
+
+# などなど、アプリに応じて設定
+# db/migrate/ 配下の DB作成処理も合わせて修正
+
+# DB作成
+$ bundle exec rake db:migrate
+
+# 削除
+$ bundle exec rails destroy scaffold user
+...
+
+# DB作成しなおし
+$ bundle exec rake db:migrate:reset
+</code></pre>
+
+<h1 id="unicorn-設定">Unicorn 設定</h1>
+
+<pre><code>$ vim conifg/unicorn.rb
+</code></pre>
+
+<p>設定内容は以下</p>
+
+<pre><code>@app_path = '/path/to/dir/myApp'
+
+worker_processes 2
+working_directory &quot;#{@app_path}/&quot;
+
+# This loads the application in the master process before forking
+# worker processes
+# Read more about it here:
+# http://unicorn.bogomips.org/Unicorn/Configurator.html
+preload_app true
+
+timeout 30
+
+# This is where we specify the socket.
+# We will point the upstream Nginx module to this socket later on
+listen &quot;/tmp/unicorn.sock&quot;, :backlog =&gt; 64
+
+pid &quot;/tmp/unicorn.pid&quot;
+
+# Set the path of the log files inside the log folder of the testapp
+stderr_path &quot;#{@app_path}/log/unicorn.stderr.log&quot;
+stdout_path &quot;#{@app_path}/log/unicorn.stdout.log&quot;
+
+before_fork do |server, worker|
+  defined?(ActiveRecord::Base) and ActiveRecord::Base.connection.disconnect!
+
+  old_pid = &quot;#{server.config[:pid]}.oldbin&quot;
+    if old_pid != server.pid
+      begin
+        sig = (worker.nr + 1) &gt;= server.worker_processes ? :QUIT : :TTOU
+        Process.kill(sig, File.read(old_pid).to_i)
+      rescue Errno::ENOENT, Errno::ESRCH
+      end
+    end
+
+    sleep 1
+  end
+
+after_fork do |server, worker|
+  defined?(ActiveRecord::Base) and ActiveRecord::Base.establish_connection
+end
+</code></pre>
+
+<h1 id="nginx-設定">Nginx 設定</h1>
+
+<pre><code>$ sudo mv /etc/nginx/conf.d/default.conf ~
+$ sudo vim /etc/nginx/conf.d/myapp.conf
+</code></pre>
+
+<p>設定内容は以下</p>
+
+<pre><code>upstream unicorn_server {
+    # This is the socket we configured in unicorn.rb
+    server unix:/tmp/unicorn.sock
+    fail_timeout=0;
+}
+
+server {
+    listen 80;
+    client_max_body_size 4G;
+    server_name _;
+
+    keepalive_timeout 5;
+
+    # Location of our static files
+    root /path/to/dir/myApp/public;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+
+        # If you don't find the filename in the static files
+        # Then request it from the unicorn server
+        if (!-f $request_filename) {
+            proxy_pass http://unicorn_server;
+            break;
+        }
+    }
+
+    error_page 500 502 503 504 /500.html;
+    location = /500.html {
+        root /path/to/dir/myApp/public;
+    }
+}
+</code></pre>
+
+<pre><code>$ sudo /etc/init.d/nginx restart
+</code></pre>
+
+<p>Unicorn 起動</p>
+
+<pre><code>$ bundle exec unicorn_rails -c config/unicorn.rb -E development -D
+</code></pre>
+
+<p>Unicorn 停止</p>
+
+<pre><code>$ cat /tmp/unicorn.pid | xargs kill
+# または
+$ ps ax | grep unicorn | awk '{print $1}' | xargs kill
+</code></pre>
+
+<h1 id="自動起動設定-2">自動起動設定</h1>
+
+<pre><code>$ sudo vim /etc/init.d/unicorn
+</code></pre>
+
+<p>設定内容は以下</p>
+
+<pre><code>#!/bin/sh
+
+#chkconfig:2345 85 15
+#description:unicorn shell
+
+NAME=&quot;Unicorn&quot;
+ENV=development
+
+ROOT_DIR=&quot;/home/vagrant/testapp&quot;
+
+#PID=&quot;${ROOT_DIR}/tmp/pids/unicorn.pid&quot;
+PID=&quot;/tmp/unicorn.pid&quot;
+CONF=&quot;${ROOT_DIR}/config/unicorn.rb&quot;
+OPTIONS=&quot;&quot;
+#OPTIONS=&quot;--path /rails_app&quot;
+
+start()
+{
+  if [ -e $PID ]; then
+    echo &quot;$NAME already started&quot;
+    exit 1
+  fi
+  echo &quot;start $NAME&quot;
+  cd $ROOT_DIR
+  su - vagrant -c &quot;cd ${ROOT_DIR} &amp;&amp; bundle exec unicorn_rails -c ${CONF} -E ${ENV} -D ${OPTIONS}&quot;
+}
+
+stop()
+{
+  if [ ! -e $PID ]; then
+    echo &quot;$NAME not started&quot;
+    exit 1
+  fi
+  echo &quot;stop $NAME&quot;
+  kill -QUIT `cat ${PID}`
+}
+
+force_stop()
+{
+  if [ ! -e $PID ]; then
+    echo &quot;$NAME not started&quot;
+    exit 1
+  fi
+  echo &quot;stop $NAME&quot;
+  kill -INT `cat ${PID}`
+}
+
+reload()
+{
+  if [ ! -e $PID ]; then
+    echo &quot;$NAME not started&quot;
+    start
+    exit 0
+  fi
+  echo &quot;reload $NAME&quot;
+  kill -HUP `cat ${PID}`
+}
+
+restart()
+{
+    stop
+    sleep 3
+    start
+}
+
+case &quot;$1&quot; in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  force-stop)
+    force_stop
+    ;;
+  reload)
+    reload
+    ;;
+  restart)
+    restart
+    ;;
+  *)
+    echo &quot;Syntax Error: release [start|stop|force-stop|reload|restart]&quot;
+    ;;
+esac
+</code></pre>
+
+<p>設定反映</p>
+
+<pre><code>$ sudo chmod 755 /etc/init.d/unicorn
+$ sudo chkconfig unicorn on
+</code></pre>
+
+<h2 id="既存の-virtualbox-イメージから-box-を作成する">既存の VirtualBox イメージから Box を作成する</h2>
+
+<p>この時は、いきなり、 vagrat が VM を認識しなくなったので、VirtualBoxを起動して<br />
+イメージ名を確認した。<br />
+下記コマンド、 <code>[Virtual Box Image Name]</code> は その際に確認した名前を指定する</p>
+
+<pre><code>$ vagrant package --base [Virtual Box Image Name] --output [box_name].box
+</code></pre>
+
+<h2 id="作成した-box-ファイルから-別pcで-vm-を起動する">作成した Box ファイルから、別PCで VM を起動する</h2>
+
+<pre><code>$ vagrant box add [image_name] [box_name].box
+$ vagrant box list
+$ vagrant init [image_name]
+$ vagrant up
+</code></pre>
+
+<p>SSH Authentication Errorが発生して、<code>vagrant up</code> が終わらない場合<br />
+以下コマンドにて、 <code>autorized_keys</code> に追記する</p>
+
+<pre><code>$ curl https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub &gt; .ssh/authorized_keys
+</code></pre>
+
+<h1 id="参考">参考</h1>
+
+<ul>
+<li><a href="http://qiita.com/shinyashikis@github/items/ace49154f0c71c65b2c9">rails + nginx + unicorn連携</a></li>
+<li><a href="http://qiita.com/teitei_tk/items/27ae7b7e73791930929d">Vagrant(CentOS6.5)にRuby2.1.2 Rails4.1をインストール</a></li>
+<li><a href="http://qiita.com/teitei_tk/items/74794983d9893c3e7a05">Vagrant(CentOS6.5)にRails4.1 + Nginx + Unicorn + MySQL環境でRailsを起動する。</a></li>
+<li><a href="http://qiita.com/yoh-nak/items/95c735764f38c37ea16a">WindowsでVagrantの環境構築</a></li>
+<li><a href="http://qiita.com/shinyashikis@github/items/ace49154f0c71c65b2c9">rails + nginx + unicorn連携</a></li>
+<li><a href="http://blog.kondoyoshiyuki.com/2014/06/12/windows7-vagrant-ubuntu14-04/">Windows 7マシンで、VirtualBox+Vagrantを使いUbuntu 14.04を動かす</a></li>
+<li><a href="http://taropohci.blogspot.jp/2014/03/windowsvagrantsamba.html">windowsとvagrant間のファイル共有はsambaを使う</a></li>
+<li><a href="http://sui.hateblo.jp/entry/2013/10/25/005752">vagrantにpingが通らなくてハマった話</a></li>
+</ul>
+
+<h1 id="使用ソフト-license">使用ソフト License</h1>
+
+<ul>
+<li>unicorn
+
+<ul>
+<li>Rails Nginx 連携用</li>
+<li><a href="http://unicorn.bogomips.org/">GPLV2,V3</a>
+
+<ul>
+<li>Unicorn is licensed under (your choice) of the GPLv2 or later (GPLv3+ preferred), or Ruby (1.8)-specific terms. See the included LICENSE file for details.</li>
+</ul></li>
+</ul></li>
+<li>rails gem foreigner
+
+<ul>
+<li>外部制約キー導入用</li>
+<li><a href="https://github.com/matthuhiggins/foreigner">MIT</a>
+
+<ul>
+<li>Copyright &copy; 2012 Matthew Higgins, released under the MIT License</li>
+</ul></li>
+</ul></li>
+<li>rails gem composite_primary_keys
+
+<ul>
+<li>複合主キー導入用</li>
+<li><a href="https://github.com/composite-primary-keys/composite_primary_keys/wiki">MIT</a>
+
+<ul>
+<li>This code is free to use under the terms of the MIT licence.</li>
+</ul></li>
+</ul></li>
+<li>rails gem rb-readline
+bundle install error 対応
+
+<ul>
+<li><a href="https://github.com/ConnorAtherton/rb-readline/blob/master/LICENSE">BSD</a></li>
+</ul></li>
+</ul>
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">Read other posts</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="https://tro3373.github.io/post/atomedeitawoppadeinsutorusuru/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Ubuntu14.04 AtomエディタをPPAでインストールする</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="https://tro3373.github.io/post/windows7-netutowakushe-ding-wobiao-zhun-deshi-yong-surutoikenairasii/">
+                <span class="button__text">Windows7 ネットワーク設定を標準で使用するといけないらしい</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+    
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jokrlzy" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">All rights reserved - 2016</div>
+    
+  </div>
+</footer>
+
+<script src="https://tro3373.github.io/assets/main.js"></script>
+<script src="https://tro3373.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-27125974-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+  </body>
+</html>

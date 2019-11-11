@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>php5 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/php5/</link>
+    <description>Recent content in php5 on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Mon, 21 Mar 2011 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/php5/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>玄箱HG debian lenny (9)php5インストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-9php5insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-9php5insutoru/</guid>
+      <description>玄箱HG debian lenny (9)php5インストール php5を導入 インストール sudo apt-get install php5 libapache2-mod-php5 php5-mysql php-pear php5-gd  設定 cd /etc/php5/apache2/  ・バックアップ
+cp php.ini php.orignal  ・php.ini設定
+sudo vi php.ini 以下のように設定 default_charset = UTF-8 expose_php = Off #HTTPヘッダーの PHP に関する情報を隠蔽 display_errors = Off #エラーをブラウザに非表示 error_log = /var/log/php.logエラーログを出力するファイルを指定 mbstring.language = Japanese mbstring.internal_encoding = UTF-8 mbstring.http_input = auto mbstring.http_output = UTF-8 mbstring.encoding_translation = On mbstring.detect_order = auto mbstring.substitute_character = none mbstring.func_overload = 0  ・apache再起動</description>
+    </item>
+    
+  </channel>
+</rss>

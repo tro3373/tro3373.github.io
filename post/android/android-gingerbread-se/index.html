@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    
+      <title>Android GingerBread ビルド色々 :: tac lifelog — code,tech,log .. </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="SDKビルドしたoutディレクトリから、emulatorを立ち上げる cd /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools ./android list # ⇒ 以下が正しく無いとして、起動できず # ・sdklib.jar # ・sdkmanager.jar # ・sdkuilib.jar # ⇒ Eclipseより取得したファイルより、上書き # 以下のように正しく表示される # Available Android targets: # id: 1 or &amp;quot;android-9&amp;quot; # Name: Android 2.3.1 # Type: Platform # API level: 9 # Revision: 1 # Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854 # Available Android Virtual Devices: # The following Android Virtual Devices could not be loaded: # Name: jb # Path: /home/hogeuser/."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://tro3373.github.io/post/android/android-gingerbread-se/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/assets/style.css">
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://tro3373.github.io/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://tro3373.github.io/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android GingerBread ビルド色々"/>
+<meta name="twitter:description" content="SDKビルドしたoutディレクトリから、emulatorを立ち上げる cd /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools ./android list # ⇒ 以下が正しく無いとして、起動できず # ・sdklib.jar # ・sdkmanager.jar # ・sdkuilib.jar # ⇒ Eclipseより取得したファイルより、上書き # 以下のように正しく表示される # Available Android targets: # id: 1 or &quot;android-9&quot; # Name: Android 2.3.1 # Type: Platform # API level: 9 # Revision: 1 # Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854 # Available Android Virtual Devices: # The following Android Virtual Devices could not be loaded: # Name: jb # Path: /home/hogeuser/."/>
+
+
+
+<meta property="og:title" content="Android GingerBread ビルド色々" />
+<meta property="og:description" content="SDKビルドしたoutディレクトリから、emulatorを立ち上げる cd /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools ./android list # ⇒ 以下が正しく無いとして、起動できず # ・sdklib.jar # ・sdkmanager.jar # ・sdkuilib.jar # ⇒ Eclipseより取得したファイルより、上書き # 以下のように正しく表示される # Available Android targets: # id: 1 or &quot;android-9&quot; # Name: Android 2.3.1 # Type: Platform # API level: 9 # Revision: 1 # Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854 # Available Android Virtual Devices: # The following Android Virtual Devices could not be loaded: # Name: jb # Path: /home/hogeuser/." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tro3373.github.io/post/android/android-gingerbread-se/" />
+<meta property="article:published_time" content="2011-01-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2011-01-01T00:00:00+00:00" /><meta property="og:site_name" content="tac lifelog" />
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">ag -l |sort -r</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+      
+        <ul class="menu__sub-inner">
+          <li class="menu__sub-inner-more-trigger">
+            Show more
+            <span class="menu__sub-inner-more-trigger-icon"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+          </li>
+
+          <ul class="menu__sub-inner-more hidden">
+            
+              
+                <li><a href="/about">About</a></li>
+              
+            
+              
+                <li><a href="/archive">Archives</a></li>
+              
+            
+              
+                <li><a href="/categories">Categories</a></li>
+              
+            
+              
+                <li><a href="/tags">Tags</a></li>
+              
+            
+          </ul>
+        </ul>
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/archive">Archives</a></li>
+      
+    
+      
+        <li><a href="/categories">Categories</a></li>
+      
+    
+      
+        <li><a href="/tags">Tags</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  <div class="post">
+    <h2 class="post-title"><a href="https://tro3373.github.io/post/android/android-gingerbread-se/">Android GingerBread ビルド色々</a></h2>
+    <div class="post-meta">
+      
+        <span class="post-date">
+            2011-01-01
+        </span>
+      
+      
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://tro3373.github.io/tags/android-gingerbread/">android-gingerbread</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/android/">android</a>&nbsp;
+        
+      </span>
+    
+
+    
+
+    
+    <script data-ad-client="ca-pub-6962926171897574" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+
+    <div class="post-content">
+      
+
+<h2 id="sdkビルドしたoutディレクトリから-emulatorを立ち上げる">SDKビルドしたoutディレクトリから、emulatorを立ち上げる</h2>
+
+<pre><code class="language-sh">cd /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools
+./android list
+# ⇒    以下が正しく無いとして、起動できず
+#     ・sdklib.jar
+#     ・sdkmanager.jar
+#     ・sdkuilib.jar
+# ⇒    Eclipseより取得したファイルより、上書き
+#     以下のように正しく表示される
+#         Available Android targets:
+#         id: 1 or &quot;android-9&quot;
+#              Name: Android 2.3.1
+#              Type: Platform
+#              API level: 9
+#              Revision: 1
+#              Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854
+#         Available Android Virtual Devices:
+#         The following Android Virtual Devices could not be loaded:
+#             Name: jb
+#             Path: /home/hogeuser/.android/avd/jb.avd
+#            Error: Invalid value in image.sysdir. Run 'android update avd -n jb'
+./android create avd -t -s DTS400 1 -n sdk23_84
+./emulator -avd sdk23_84 -scale 1.0 -skin DTS400
+</code></pre>
+
+<h2 id="sdkビルドしたoutディレクトリから-ログキャットを立ち上げる">SDKビルドしたoutディレクトリから、ログキャットを立ち上げる</h2>
+
+<pre><code class="language-sh">cd out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/platform-tools
+./adb logcat -v time
+</code></pre>
+
+<h2 id="実機カーネルログを出力する">実機カーネルログを出力する</h2>
+
+<pre><code class="language-sh"># adbシェルディレクトリにて、
+adb shell cat /proc/kmsg
+</code></pre>
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">Read other posts</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-9php5insutoru/">
+                <span class="button__icon">←</span>
+                <span class="button__text">玄箱HG debian lenny (9)php5インストール</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="https://tro3373.github.io/post/android/xivisionvega-romushao-ki/">
+                <span class="button__text">Xivision(vega) ロム焼き</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+    
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jokrlzy" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">All rights reserved - 2016</div>
+    
+  </div>
+</footer>
+
+<script src="https://tro3373.github.io/assets/main.js"></script>
+<script src="https://tro3373.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-27125974-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+  </body>
+</html>

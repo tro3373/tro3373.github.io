@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>lenny on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/lenny/</link>
+    <description>Recent content in lenny on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Sat, 20 Oct 2012 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/lenny/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>玄箱HG(debian lenny) mysqlディレクトリ変更</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-mysqldeirekutoribian-geng/</link>
+      <pubDate>Sat, 20 Oct 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-mysqldeirekutoribian-geng/</guid>
+      <description> 参考
+mysql停止 sudo /etc/init.d/mysql stop  データ移行 mkdir -p /path/to/mysql_directory chown mysql:mysql /path/to/mysql_directory cd /path/to/mysql_directory mkdir mysqldata mysqldump chown mysql:mysql mysqldata chown mysql:mysql mysqldump sudo cp -fprv /var/lib/mysql/ ./mysqldata/  ディレクトリ指定設定 sudo vi /etc/mysql/conf.d/my_datadir.cnf  修正内容は以下
+[mysqld] datadir = /path/to/mysql_directory/mysqldata/mysql  正しく設定変更され起動できるか確認する為、元のデータは別場所へ移動 mkdir /data/tmp sudo mv /var/lib/mysql /data/tmp  mysql 再起動 sudo /etc/init.d/mysql restart  不要となったデータを削除 sudo rm /data/tmp  </description>
+    </item>
+    
+    <item>
+      <title>玄箱lenny リストアテストを行う</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-lenny-risutoatesutowoxing-u/</link>
+      <pubDate>Sat, 28 Jul 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-lenny-risutoatesutowoxing-u/</guid>
+      <description>玄箱lenny,リストアテスト 新しく買ってきたWD20 EARX(9Kなり)でリカバリテストを行う
+MBRフォーマットへ切り替え Ubuntu 11.10へUSB接続し、ディスクユーティリティから 対象HDDのフォーマットをマスターブートレコードへ切り替える（もともとなってる？）
+次に、AFT,4096問題 通常パーティション切りで書き込みテストを行う
+sudo fdisk /dev/sdh Disk /dev/sdh: 2000.4 GB, 2000398934016 bytes ヘッド 255, セクタ 63, シリンダ 243201, 合計 3907029168 セクタ Units = セクタ数 of 1 * 512 = 512 バイト セクタサイズ (論理 / 物理): 512 バイト / 512 バイト I/O サイズ (最小 / 推奨): 512 バイト / 512 バイト ディスク識別子: 0x0006c4b4 cd /media/test dd if=/dev/zero of=./hage bs=128k count=32768 32768+0 レコード入力 32768+0 レコード出力 4294967296 バイト (4.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG（debian lenny）へ SVN を導入する</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lennyhe-svn-wodao-ru-suru/</link>
+      <pubDate>Thu, 21 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lennyhe-svn-wodao-ru-suru/</guid>
+      <description>玄箱HG（debian lenny）へ SVN を導入する 参考  http://wlog.flatlib.jp/item/1289 http://brokendish.org/debian/609/  subversionインストール sudo apt-get install subversion sudo apt-get install libapache2-svn libapache2-mod-encoding  subversionの設定 svnロケーション設定 cd /etc/apache2 sudo vi mods-available/dav_svn.conf  以下を追加
+&amp;lt;Location /svn&amp;gt; DAV svn SVNParentPath /path/to/svn_server_directory SVNListParentPath on #require ssl SSLRequireSSL AuthType Basic # auto commit on SVNAutoversioning on AuthName &amp;quot;Subversion Repository&amp;quot; AuthUserFile /etc/apache2/dav_svn.passwd # require authentication other than require method for read repository. Require valid-user &amp;lt;/Location&amp;gt;  svnルートディレクトリの作成 mkdir -p /path/to/svn_server_directory  svnディレクトリ（プロジェクト単位？）の作成 sudo svnadmin create --fs-type=fsfs /path/to/svn_server_directory/repo sudo chown -R www-data:www-data /path/to/svn_server_directory sudo chmod -R gu+w /path/to/svn_server_directory  svnアクセスユーザの作成 htpasswd -c /etc/apache2/dav_svn.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(lenny) Apache2 ssl化</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-sslhua/</link>
+      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-sslhua/</guid>
+      <description>玄箱HG(lenny) Apache2 ssl化 前提条件  opensslはインストール済み apache2で既にサイトが稼働済み su 実行済み  opensslの設定 cd /etc/ssl ls -l 合計 28 drwxr-xr-x 2 root root 12288 2011-11-16 00:11 certs -rw-r--r-- 1 root root 9374 2010-12-06 00:23 openssl.cnf drwx--x--- 2 root ssl-cert 4096 2011-03-19 20:58 private cp -p openssl.cnf openssl.cnf.org vi openssl.cnf  編集内容は以下
+diff ./openssl.cnf.org openssl.cnf 172c172 &amp;lt; # nsCertType = server --- &amp;gt; nsCertType = server 241c241 &amp;lt; # nsCertType = sslCA, emailCA --- &amp;gt; nsCertType = sslCA, emailCA  証明書の作成 場所はどこでもよいと思われる。</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(lenny)へwebdavを導入する</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglennyhewebdavwodao-ru-suru/</link>
+      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglennyhewebdavwodao-ru-suru/</guid>
+      <description>玄箱HG(lenny)へwebdavを導入する 参考  Apache 2.2 WebDAV 設定 Apache関連  前提事項  apache2,sslは導入済み su 実行済み  webdavディレクトリを作成する cd 任意のディレクトリ mkdir webdav chown www-data:www-data webdav chmod 700 webdav  確認
+ls -l drwx------ 2 www-data www-data 4096 2012-05-29 22:22 webdav  webdavアクセスユーザを作成 sudo htpasswd -c /etc/apache2/dav.passwd [username]  確認
+cat /etc/apache2/dav.passwd ちなみにユーザの確認は cat /etc/passwd  apache の設定に Webdav へのアクセスを設定する sudo vi /etc/apache2/sites-available/[target_site_settings_file]  以下を追加
+Alias /webdav &amp;quot;作成したディレクトリ&amp;quot; &amp;lt;Location /webdav&amp;gt; DAV On Options indexes FollowSymlinks Order allow,deny allow from all AuthType Basic AuthName &amp;quot;Authentification Required&amp;quot; AuthUserFile /etc/apache2/dav.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(lenny) Apache2 再起動時にでる警告を消す</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-zai-qi-dong-shi-niderujing-gao-woxiao-su/</link>
+      <pubDate>Mon, 28 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-zai-qi-dong-shi-niderujing-gao-woxiao-su/</guid>
+      <description>玄箱HG(lenny) Apache2 再起動時に警告がでる apache2 再起動やら設定リロードなどで下記エラーが出る場合の対処
+エラー内容 以下のようなログがでる
+Could not reliably determine the server&#39;s fully qualified domain name, using 192.168.24.2 for ServerName ... waiting apache2: Could not reliably determine the server&#39;s fully qualified domain name, using 192.168.24.2 for ServerName ...done.  対処 cd /etc/apache2 vi apache2.conf ### Section 1: Global Environment # # The directives in this section affect the overall operation of Apache, # such as the number of concurrent requests it can handle or where it # can find its configuration files.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</link>
+      <pubDate>Fri, 18 Nov 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</guid>
+      <description>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った 大まかな仕様は以下
+ 通常電源OFF状態の、同一ネットワーク内にあるLinkstationを 定時刻に wakeonlan にて起動 起動した Linkstation をネットワーク経由にてマウント サーバデータを全てrsyncしてバックアップ 処理の開始、終了時、特定のメールアドレスへメール送信する  必要パッケージのインストール sudo apt-get update sudp apt-get upgrade sudo apt-get install wakeonlan sudo apt-get install rsync # mysql はインストール済みとする # python はインストール済みとする  メール送信処理 特定アドレスにGメール送信する処理 Gmail 送信処理本体 GmailApi.py と、それを使用する sendMail.pyで構成
+まずは、Gmail送信処理から
+新規作成 vim GmailApi.py
+#!/usr/bin/python # -*- coding: utf-8 -*- import smtplib from email.MIMEText import MIMEText from email.Header import Header from email.Utils import formatdate class sendGmail: def __init__(self, encoding, subject, body, from_addr, to_addr, login_addr, passwd): self.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</link>
+      <pubDate>Tue, 07 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</guid>
+      <description>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする IntelliParkを無効にする  WD製2TibHDDである、WD20EARS-2TB-SATA300において、HDDアクセスが無かった場合の省電力モードを強制的に無効にする方法です。
+ 省電力モードなるものは一般的にHDDの寿命を縮めるなどの理由より。
+こちらを参考に「ハードウェア linux WD WD20EARSの正しい扱い方」
+  シェルの作成 以下のようなシェルを作成し適当なディレクトリへ配置します
+$ vi disable-intellipark.sh #!/bin/sh while true;do date &amp;gt; /tmp/disable-intellipark sleep 5 done  以下のようなシェルを作成し/etc/init.d 配下に配置します
+$ vi kick.disable-intellipark.sh echo ================================ echo [start] disable-intellipark echo ================================ . /上記シェルスクリプトを配置したディレクトリ/disable-intellipark.sh &amp;amp; echo ================================ echo [end] disable-intellipark echo ================================  起動設定 init.dへ配備します
+$ cd /etc/init.d $ sudo update-rc.d kick.disable-intellipark.sh defaults $ sudo reboot  停止設定 init.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (13) ロケール設定</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-13-rokerushe-ding/</link>
+      <pubDate>Fri, 27 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-13-rokerushe-ding/</guid>
+      <description>玄箱HG debian lenny (13) ロケール設定 ロケール設定 .bashrc 設定 追加＆編集 文字コード設定 export LANG=ja_JP.UTF-8 ls オプション追加 export LS_OPTIONS=&#39;--color=auto --show-control-chars&#39; # eval `dircolors` alias ls=&#39;ls $LS_OPTIONS&#39; alias ll=&#39;ls $LS_OPTIONS -la&#39; alias l=&#39;ls $LS_OPTIONS -lA&#39;  .bashrc を反映させる
+source .bashrc  locales インストール $ sudo apt-get install locales Reading package lists... Done Building dependency tree Reading state information... Done The following packages were automatically installed and are no longer required: python2.6-minimal python2.6 python-minimal libkrb53 libfuse2 python libfusefs-ruby1.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (11)システムまるごとバックアップ</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-11sisutemumarugotobatukuatupu/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-11sisutemumarugotobatukuatupu/</guid>
+      <description>玄箱HG debian lenny (11)システムまるごとバックアップ debian lenny化した玄箱HGをまるごとバックアップする方法。
+現在WD製2TibHDD(WD20EARS-2TB-SATA300)で構築しいる鯖ですが、構成は以下のようになっています。
+   パーティション サイズ 用途     /dev/hda1 2G ブート用   /dev/hda2 512M スワップ領域   /dev/hda3 3G lenny 用   /dev/hda4 残り(およそ1994G) データ用    こちらを参考に構築しましたので。「玄箱に Debian 5.0 (lenny) をインストールする」
+このうち、/dev/hda1と/dev/hda3のみをtarボールバックアップする方法です。
+バックアップ debina lenny起動している玄箱HGをまずは、EMモード化する telnetにてログイン
+telnet myserverIpAddress  スーパユーザへ切り替え
+sudo su - パスワード入力  以下を実行
+※debian2.4化の場合
+$ echo -n &amp;ldquo;NGNG&amp;rdquo; &amp;gt; /dev/fl3
+※debian2.6化パッチのカーネル（私の環境はこちらでした）
+$ echo -n &amp;ldquo;NGNG&amp;rdquo; &amp;gt; /dev/mtdblock2</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (12)システムまるごとリストア(2TibHDDへの移行)</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-12sisutemumarugotorisutoa2tibhddhenoyi-xing/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-12sisutemumarugotorisutoa2tibhddhenoyi-xing/</guid>
+      <description>玄箱HG debian lenny (12)システムまるごとリストア(2TibHDDへの移行)  debian lenny化した玄箱HGをまるごとリストアする方法です。
+ WD製2TibHDD(WD20EARS-2TB-SATA300)へ移行する際のログになります。
+ 2Tib越えのHDDを導入する際の注意点が色々ありますが、なんとか完成しました。
+ AFT(Advanced Format Technology)対応にかなり苦戦；；；
+  以下参考サイトです
+ 「(HDD)WD WD20EARSのベンチマークとAFTの問題」 「[ハードウェア][linux]WD WD20EARSの正しい扱い方」 「初期の玄箱＋KURO-SATAでHDD２Tでセットアップができません。」 「WD20EARS買った。」 「4096 バイトセクタの HDD と Linux」 「玄箱を2TBに増強する。。。。（その１？）」 「玄箱無印のHDDを2TBにしたときのメモ」 「玄箱のバックアップ＆リストア」 「LinuxでAFT仕様のHDDを使用する」  玄箱HGへ2TibHDD導入時の注意点
+ SATAHDDなら[KURO-SATA]は必須 AFT対応として、セクタ開始位置に注意してフォーマットする。 フォーマットには、GPTではなく、MBR スピンアップタイムアウトによる起動時のエラーには、２度押し対応 （これはいるんだったかな？？）ジャンパピンを6-5ショート（転送モード1.5Gらしい）[本家サイト] （これはいるんだったかな？？）でかすぎる容量のフォーマット時にスワップ領域が足りない為エラーとなるので、データ領域は後からフォーマット  ぐらいなのかなぁ。。（記憶があいまいで。。）
+リストア(新しく買ったWD製2TibHDD(WD20EARS-2TB-SATA300)に再現させる) 前準備  （これはいるんだったかな？？）HDDはジャンパピン6-5ショート
+ UbuntuライブCDなどから母艦PCにてUSB接続し、MBRフォーマットへ切り替える
+ 玄箱HGへ2TibHDDを組み込み電源ONしてから2度押しを何度か繰り返すなどしてEMモードへ入れ、
+telnetログインします。
+  パーティション＆フォーマット パーティション境界を 8 セクタ単位とする。
+(細かい設定を以下で設定しなくても、「fdisk -H 224 -S 56 /dev/hda」なる解決策があるようですが、
+ここでは直接セクタ数を指定しています。)
+パーティションをひとつずつ作成。
+$ /sbin/mfdisk -c /dev/hda Command (m for help): m Command action a toggle a bootable flag b edit bsd disklabel c toggle the dos compatibility flag d delete a partition l list known partition types m print this menu n add a new partition o create a new empty DOS partition table p print the partition table q quit without saving changes s create a new empty Sun disklabel t change a partition&#39;s system id u change display/entry units v verify the partition table w write table to disk and exit Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 1 First cylinder (1-19929, default 1):64 Last cylinder or +size or +sizeM or +sizeK (1-19929, default 19929): +4096001 Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 2 First cylinder (256-19929, default 256):4096072 Last cylinder or +size or +sizeM or +sizeK (256-19929, default 19929): +1048577 Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 3 First cylinder (289-19929, default 289):5144656 Last cylinder or +size or +sizeM or +sizeK (289-19929, default 19929): +6144001 (※実際のログが残ってないので怪しいです。。。) # /dev/hda2をswap領域とする Command (m for help): t Partition number (1-4): 2 Hex code (type L to list codes): L 0 Empty 1b Hidden Win95 FA 64 Novell Netware bb Boot Wizard hid 1 FAT12 1c Hidden Win95 FA 65 Novell Netware c1 DRDOS/sec (FAT- 2 XENIX root 1e Hidden Win95 FA 70 DiskSecure Mult c4 DRDOS/sec (FAT- 3 XENIX usr 24 NEC DOS 75 PC/IX c6 DRDOS/sec (FAT- 4 FAT16 &amp;lt;32M 39 Plan 9 80 Old Minix c7 Syrinx 5 Extended 3c PartitionMagic 81 Minix / old Lin da Non-FS data 6 FAT16 40 Venix 80286 82 Linux swap db CP/M / CTOS / .</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (1)lenny化</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-1lennyhua/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-1lennyhua/</guid>
+      <description>玄箱HG debian lenny (1)lenny化 玄人志向.玄箱HG(KURO-BOX/HG)購入しdebian lennyをインストールした時のメモ。
+debian化 ファームウェアアップデート ファイアウォール切断、IPアドレスを玄箱と合わせ(母艦PCのIP⇒192.168.198.XXに変更？だったかな？)、 玄箱手順どおりに最新ファームウェアを導入する。
+本家サイト
+イメージファイルのダウンロード 下記サイトからダウンロードします。
+玄箱に Debian 5.0 (lenny) をインストールする
+以下７ファイル。
+ debian-lenny-installer-kuroBOX-20090317.tgz debian-lenny-kuroBOX-20090317.tgz kuro-bootsel2-debian.tgz kuro-bootsel2.20080419.tar.gz loader.o kernelimage-2.6.25.1-kuroHG.tgz modules-2.6.25.1-kuroHG.tgz  ダウンロードしたファイルを玄箱HGへFTP接続などしてファイルを転送
+/mnt/share/配下に配備する
+インストール $ mkdir /tmp/lenny $ mv /mnt/share/* /tmp/lenny $ cd /tmp/lenny $ tar xvzf debian-lenny-installer-kuroBOX-20090317.tgz $ sh ./debian-lenny-installer-kuroHG.sh  再起動
+$ reboot  接続テスト 玄箱セットアップディスクなどで玄箱HGを検索しIPアドレスを探る
+IPは「192.168.0.100」となっている為、母艦側を玄箱HGに合わせる(192.168.0.XX)
+みつかればtelnetでログインしてみる。</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (10)ddclientインストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-10ddclientinsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-10ddclientinsutoru/</guid>
+      <description>玄箱HG debian lenny (10)ddclientインストール ipアドレスが変更となった場合の更新処理を自動化する。
+ddclientの他にipcheckがあるようですが、ここでは、ddclientで設定します。
+ddclientを導入 インストール 参考
+sudo apt-get install ddclient  設定 インストール時にいろいろ聞かれ /etc/ddclient.conf というサンプルのファイルが出来上がるが dyndnsのサイトが conf ファイルを自動生成してくれるのでそっちを使った方が楽らしい。
+以下が出来上がったファイル
+## ddclient configuration file daemon=600 # check every 600 seconds syslog=yes # log update msgs to syslog mail-failure=メールアドレス # Mail failed updates to user pid=/var/run/ddclient.pid # record PID in file. ## Detect IP with our CheckIP server use=web, web=checkip.dyndns.com/, web-skip=&#39;IP Address&#39; ## DynDNS username and password here login=DynDNSユーザ名 password=DynDNSパスワード ## Default options protocol=dyndns2 server=members.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (2)ユーザ設定</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-2yuzashe-ding/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-2yuzashe-ding/</guid>
+      <description> 玄箱HG debian lenny (2)ユーザ設定 ユーザ設定 root,tmp-kunパスワード変更 $ su $ passwd パスワード入力 $ psswd tmp-kun パスワード入力  新規ユーザ作成 $ useradd -g users -m 作成するユーザ名 $ passwd 作成したユーザ名 パスワード入力  tmp-kunのグループIDをusersに変更 $ usermod -g users tmp-kun  tmp-kunのファイルグループID変更 $ chgrp -R users /home/tmp-kun  グループ tmp-kun を削除 $ delgroup tmp-kun  tmp-kun削除 $ deluser tmp-kun  パスワード、シャドウパスワード編集 $ vipw $ vipw -s  </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (3)ネットワーク設定</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-3netutowakushe-ding/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-3netutowakushe-ding/</guid>
+      <description>玄箱HG debian lenny (3)ネットワーク設定 ネットワーク設定 IP変更 $ vi /etc/network/interfaces address 192.168.0.2 network 192.168.0.0 broadcast 192.168.0.255 gateway 192.168.0.1  hostname変更 $ vi /etc/hostname hogehost  hosts変更 $ vi /etc/hosts 追加 127.0.0.1 localhost.localadmin localhost 192.168.0.2 hogehost 192.168.0.21 hogebokan などなど  DNS設定 $ vi /etc/resolv.conf nameserver=192.168.0.1  再起動</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (4)sudo インストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-4sudo-insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-4sudo-insutoru/</guid>
+      <description>玄箱HG debian lenny (4)sudo インストール sudo インストール こちらを参考に
+パッケージ検索 $ apt-cache search sudo | grep ^sudo sudo - Provide limited super user privileges to specific users sudo-ldap - Provide limited super user privileges to specific users sudoku - console based sudoku  sudoインストール $ apt-get install sudo  ⇒パッケージを署名しているGPG鍵が原因でワーニング（参照）
+The following packages cannot be authenticated  ・GPG鍵更新？
+$ apt-get install debian-archive-keyring Reading package lists... Done Building dependency tree Reading state information.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (5) apt設定他もろもろ</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-5-aptshe-ding-ta-moromoro/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-5-aptshe-ding-ta-moromoro/</guid>
+      <description>玄箱HG debian lenny (5)apt設定&amp;ndash;他もろもろ apt設定（近くのミラーサイトの探し方と APT の設定方法） $ cd /etc/apt $ apt-get install wget $ wget http://www.debian.or.jp/apt/sources.list.http.ring.airnet.ne.jp ⇒index.htmlができる？ $ cp -p sources.list.http.ring.airnet.ne.jp sources.list ⇒「cp -p」パーミッションやタイムスタンプを保持したままコピー ⇒エラー：cp: cannot stat `sources.list.http.ring.airnet.ne.jp&#39;: No such file or directory  ⇒アドレスが古い。squeeze化か！？やり直し(参考)
+・apt-spyパッケージインストール
+$ sudo aptitude install apt-spy  ・ apt-spy を実行。ここでは日本国内の安定版 (stable) を取得する前提でサーバを探す？
+$ sudo apt-spy -s jp -d stable  ・/etc/apt/sources.list の中身を確認してみます。
+・apt-spy が書き込む前のファイルが バックアップされているので、結果が思わしくない場合はここから復帰
+/etc/apt/sources.list.bak  ・データベースの変更を反映
+$ aptitude update  mount設定 玄箱付属のセットアップディスクでファーマットした為、パーティションは/dev/hda3までしか存在しない。</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (6)sambaインストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-6sambainsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-6sambainsutoru/</guid>
+      <description>玄箱HG debian lenny (6)sambaインストール sambaをインストール 参考にしたのはこちら
+ 参考1
+ 参考2
+  インストール $ sudo apt-get update $ sudo apt-get install samba ⇒全てデフォルト。WORKGROUP。  設定 設定ファイル編集
+$ sudo vi /etc/samba/smb.conf  以下のような設定 参考はこちら「samba3: 日本語コード指定方法」
+# [global]セクション # 文字コード設定として以下を追加 dos charset = CP932 unix charset = UTF-8 display charset = UTF-8 # Sambaが通信を許可するホスト、ネットワークIPアドレス、ネットワークインターフェースなどを指定 interfaces = eth0 127.0.0.1 192.168.24.0/24 # Sambaに関係するネーム・サービスへの接続 bind interfaces only = yes # Sambaへの接続を許可するホストやネットワークを指定 hosts allow = 192.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (7)apache2インストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-7apache2insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-7apache2insutoru/</guid>
+      <description> 玄箱HG debian lenny (7)apache2インストール apache2を導入 インストール $ sudo apt-get install apache2  apache2.con設定 $ sudo vi /etc/apache2/apache2.conf #DefaultType text/plain 変更⇒ DefaultType application/octet-stream  バーチャルホスト設定ファイル作成 参考1
+$ cd /etc/apache2/sites-available $ sudo cp default hogehoge $ sudo vi hogehoge  ・サイト有効設定
+$ sudo a2ensite 有効にするサイトを選択「hogehoge」  ・サイト無効設定
+$ sudo a2dissite 無効にするサイトを選択「default」  ・apache 再起動
+$ sudo /etc/init.d/apache2 reload  </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (8)mysqlインストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-8mysqlinsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-8mysqlinsutoru/</guid>
+      <description>玄箱HG debian lenny (8)mysqlインストール mysqlを導入 インストール ・インストール
+$ sudo apt-get install mysql-server  ・mysql動作確認
+$ mysqladmin ping -u root -p 正常動作時 Enter password: mysqld is alive  パスワード変更 $ mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);  ユーザ確認 ログイン $ mysql -u root -p SQL実行 mysql&amp;gt; SELECT host,user,password FROM mysql.user;  文字コード設定 参考1
+参考2
+現状確認
+sql&amp;gt; status Server characterset: latin1 Db characterset: latin1 Client characterset: latin1 Conn. characterset: latin1  /etc/mysql/conf.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (9)php5インストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-9php5insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-9php5insutoru/</guid>
+      <description>玄箱HG debian lenny (9)php5インストール php5を導入 インストール sudo apt-get install php5 libapache2-mod-php5 php5-mysql php-pear php5-gd  設定 cd /etc/php5/apache2/  ・バックアップ
+cp php.ini php.orignal  ・php.ini設定
+sudo vi php.ini 以下のように設定 default_charset = UTF-8 expose_php = Off #HTTPヘッダーの PHP に関する情報を隠蔽 display_errors = Off #エラーをブラウザに非表示 error_log = /var/log/php.logエラーログを出力するファイルを指定 mbstring.language = Japanese mbstring.internal_encoding = UTF-8 mbstring.http_input = auto mbstring.http_output = UTF-8 mbstring.encoding_translation = On mbstring.detect_order = auto mbstring.substitute_character = none mbstring.func_overload = 0  ・apache再起動</description>
+    </item>
+    
+  </channel>
+</rss>

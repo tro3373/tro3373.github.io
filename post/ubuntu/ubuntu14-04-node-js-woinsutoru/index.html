@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    
+      <title>Ubuntu14.04 Node.js をインストール :: tac lifelog — code,tech,log .. </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Ubuntu14.04 Node.jsをインストール install packages. sudo apt-get install git curl build-essential libssl-dev  install nvm. git clone https://github.com/creationix/nvm.git ~/.nvm . ~/.nvm/nvm.sh nvm install 0.10 ######################################################################## 100.0% Now using node v0.10.31 nvm version vi ~/.bashrc # 以下追加 . ~/.nvm/nvm.sh nvm use v0.10.31 # defaultバージョンを指定 nvm alias default v0.10.31 # Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン  hellow world 作成 cd 任意のディレクトリ vim hellowworld.js ------------------------------------- var sys = require(&#39;sys&#39;); var http = require(&#39;http&#39;); var server = http.createServer( function (request, response) { response."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://tro3373.github.io/post/ubuntu/ubuntu14-04-node-js-woinsutoru/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/assets/style.css">
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://tro3373.github.io/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://tro3373.github.io/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ubuntu14.04 Node.js をインストール"/>
+<meta name="twitter:description" content="Ubuntu14.04 Node.jsをインストール install packages. sudo apt-get install git curl build-essential libssl-dev  install nvm. git clone https://github.com/creationix/nvm.git ~/.nvm . ~/.nvm/nvm.sh nvm install 0.10 ######################################################################## 100.0% Now using node v0.10.31 nvm version vi ~/.bashrc # 以下追加 . ~/.nvm/nvm.sh nvm use v0.10.31 # defaultバージョンを指定 nvm alias default v0.10.31 # Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン  hellow world 作成 cd 任意のディレクトリ vim hellowworld.js ------------------------------------- var sys = require(&#39;sys&#39;); var http = require(&#39;http&#39;); var server = http.createServer( function (request, response) { response."/>
+
+
+
+<meta property="og:title" content="Ubuntu14.04 Node.js をインストール" />
+<meta property="og:description" content="Ubuntu14.04 Node.jsをインストール install packages. sudo apt-get install git curl build-essential libssl-dev  install nvm. git clone https://github.com/creationix/nvm.git ~/.nvm . ~/.nvm/nvm.sh nvm install 0.10 ######################################################################## 100.0% Now using node v0.10.31 nvm version vi ~/.bashrc # 以下追加 . ~/.nvm/nvm.sh nvm use v0.10.31 # defaultバージョンを指定 nvm alias default v0.10.31 # Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン  hellow world 作成 cd 任意のディレクトリ vim hellowworld.js ------------------------------------- var sys = require(&#39;sys&#39;); var http = require(&#39;http&#39;); var server = http.createServer( function (request, response) { response." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tro3373.github.io/post/ubuntu/ubuntu14-04-node-js-woinsutoru/" />
+<meta property="article:published_time" content="2014-09-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2014-09-10T00:00:00+00:00" /><meta property="og:site_name" content="tac lifelog" />
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">ag -l |sort -r</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+      
+        <ul class="menu__sub-inner">
+          <li class="menu__sub-inner-more-trigger">
+            Show more
+            <span class="menu__sub-inner-more-trigger-icon"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+          </li>
+
+          <ul class="menu__sub-inner-more hidden">
+            
+              
+                <li><a href="/about">About</a></li>
+              
+            
+              
+                <li><a href="/archive">Archives</a></li>
+              
+            
+              
+                <li><a href="/categories">Categories</a></li>
+              
+            
+              
+                <li><a href="/tags">Tags</a></li>
+              
+            
+          </ul>
+        </ul>
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/archive">Archives</a></li>
+      
+    
+      
+        <li><a href="/categories">Categories</a></li>
+      
+    
+      
+        <li><a href="/tags">Tags</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  <div class="post">
+    <h2 class="post-title"><a href="https://tro3373.github.io/post/ubuntu/ubuntu14-04-node-js-woinsutoru/">Ubuntu14.04 Node.js をインストール</a></h2>
+    <div class="post-meta">
+      
+        <span class="post-date">
+            2014-09-10
+        </span>
+      
+      
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://tro3373.github.io/tags/ubuntu/">ubuntu</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/ubuntu14.04/">ubuntu14.04</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/node.js/">node.js</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/zeromq/">zeroMQ</a>&nbsp;
+        
+      </span>
+    
+
+    
+
+    
+    <script data-ad-client="ca-pub-6962926171897574" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+
+    <div class="post-content">
+      
+
+<h1 id="ubuntu14-04-node-jsをインストール">Ubuntu14.04 Node.jsをインストール</h1>
+
+<h1 id="install-packages">install packages.</h1>
+
+<pre><code>sudo apt-get install git curl build-essential libssl-dev
+</code></pre>
+
+<h1 id="install-nvm">install nvm.</h1>
+
+<pre><code>git clone https://github.com/creationix/nvm.git ~/.nvm
+. ~/.nvm/nvm.sh
+nvm install 0.10
+    ######################################################################## 100.0%
+    Now using node v0.10.31
+nvm version
+vi ~/.bashrc
+    # 以下追加
+    . ~/.nvm/nvm.sh
+    nvm use v0.10.31
+# defaultバージョンを指定
+nvm alias default v0.10.31
+# Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン
+</code></pre>
+
+<h1 id="hellow-world-作成">hellow world 作成</h1>
+
+<pre><code>cd 任意のディレクトリ
+vim hellowworld.js
+-------------------------------------
+    var sys = require('sys');
+    var http = require('http');
+    var server = http.createServer(
+            function (request, response) {
+                response.writeHead(200, {'Content-Type': 'text/plain'});
+                response.write('Hello World!!\n');
+                response.end();
+            }
+        ).listen(8124);
+    sys.log('Server running at http://127.0.0.1:8124/');
+</code></pre>
+
+<h1 id="hellowworld起動">hellowworld起動</h1>
+
+<pre><code>node hellowworls.js
+</code></pre>
+
+<h1 id="browserから起動確認">browserから起動確認</h1>
+
+<pre><code>http://127.0.0.1:8124/ へアクセス
+</code></pre>
+
+<hr />
+
+<h1 id="node-js-socket-io">Node.js socket.io</h1>
+
+<h2 id="install-socket-io">install socket.io</h2>
+
+<pre><code>mkdir test_socketio_standalone &amp;&amp; cd test_socketio_standalone
+sudo npm install socket.io -g
+</code></pre>
+
+<h2 id="create-server-js">create server js</h2>
+
+<pre><code>vim socket.io.server.js
+-----------------------------
+// Server
+var io = require('socket.io').listen(3000); // デフォルトポートは 80
+var log = console.log;
+
+io.sockets.on('connection', function (socket) {
+  log('server connection called. scoket id=' + socket.id);
+  socket.on('cchat', function (data) {
+    socket.broadcast.emit('cchat', {msg: 'server echo:cchat!'});
+    log(data);
+    socket.broadcast.emit('cchat', {msg: 'server echo:' + data.msg});
+    log(&quot;echo message sended.&quot;);
+  });
+});
+</code></pre>
+
+<h2 id="create-ruby-client">create ruby client</h2>
+
+<h3 id="install-socket-io-client-simple">install socket.io-client-simple</h3>
+
+<pre><code>gem install socket.io-client-simple
+</code></pre>
+
+<h3 id="create-client-ruby">create client ruby</h3>
+
+<p><code>vim socket.io.client.rb</code></p>
+
+<pre><code>require 'rubygems'
+require 'socket.io-client-simple'
+
+socket = SocketIO::Client::Simple.connect 'ws://localhost:3000'
+
+socket.on :connect do  ## 接続イベント
+  puts &quot;connect!!!&quot;
+end
+
+socket.on :disconnect do  ## 切断イベント
+  puts &quot;disconnected!!&quot;
+end
+
+## サーバーからイベント&quot;cchat&quot;がemitされたら、このコールバックが呼ばれる
+socket.on :cchat do |data|
+  puts &quot;&gt; &quot; + data['msg']
+end
+
+puts &quot;please input and press Enter key&quot;
+loop do
+  msg = STDIN.gets.strip
+  next if msg.empty?
+
+  ## サーバーにchatイベントを送る
+  socket.emit :cchat, {:msg =&gt; msg, :at =&gt; Time.now}
+end
+</code></pre>
+
+<h2 id="create-html-client">create html client</h2>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Standalone.sample&lt;/title&gt;
+    &lt;script src=&quot;http://172.19.1.94:3000/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+       var socket = io.connect('ws://172.19.1.94:3000/');
+       socket.on('cchat', function (data) {
+         console.log(data);
+//         socket.emit('cchat', data);
+//         socket.emit('cchat', {msg:'wwww'});
+       });
+       socket.emit('cchat', {msg: 'browser echo:cchat!'});
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Standalone Sample&lt;/h1&gt;
+    &lt;p&gt;Welcome to Standalone Sample&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h1 id="zeromqクライアントを作成">ZeroMQクライアントを作成</h1>
+
+<h2 id="install">install</h2>
+
+<pre><code>cd test_socketio_standalone
+sudo npm install zmq -g
+</code></pre>
+
+<h3 id="上記でダメな場合">上記でダメな場合</h3>
+
+<p><code>cat ld.so.conf.d/libc.conf</code>で<code>/usr/local/lib</code>が記載されているか確認<br />
+記載されていない場合は、<code>vim /etc/ld.so.conf.d/zmq.conf</code>で<br />
+<code>/usr/local/lib</code>のみ記載し、<code>sudo ldconfig</code>でシステムにshared libraryを<br />
+認識させる
+その後、<code>export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig</code>、<code>npm install zmq</code><br />
+ソースは以下、<a href="http://www.linuxinstruction.com/?q=node/12">http://www.linuxinstruction.com/?q=node/12</a></p>
+
+<ol>
+<li>Make sure that /usr/local/bin is in your path, since there is where node lives.</li>
+<li>Create the following file: /etc/ld.so.conf.d/zmq.conf
+The contents of the above file is &lsquo;/usr/local/lib&rsquo;.</li>
+<li>Execute the command &lsquo;ldconfig&rsquo;.</li>
+<li>export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig</li>
+<li>npm install zmq
+
+
+<br /></li>
+</ol>
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">Read other posts</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="https://tro3373.github.io/post/ubuntu/ubuntu-14-04-python-dewebsocketshi-zhuang/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Ubuntu 14.04 Python でWebsocket実装</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="https://tro3373.github.io/post/android/android-4-4-2-keystore-grep-jie-guo-memo/">
+                <span class="button__text">android 4.4.2 keystore grep 結果メモ</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+    
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jokrlzy" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">All rights reserved - 2016</div>
+    
+  </div>
+</footer>
+
+<script src="https://tro3373.github.io/assets/main.js"></script>
+<script src="https://tro3373.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-27125974-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+  </body>
+</html>

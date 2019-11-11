@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vim on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/vim/</link>
+    <description>Recent content in vim on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Thu, 23 Oct 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ubuntu14.04 ruby 用 vim 設定</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu14-04-ruby-yong-vim-she-ding/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu14-04-ruby-yong-vim-she-ding/</guid>
+      <description>ruby 開発環境 vim install sudo apt-get install vim vim-gtk vim-gui-common  install vim-nox vim --version |grep ruby +diff +menu -ruby +writebackup sudo apt-get install vim-nox vim --version |grep ruby +diff +menu +ruby +writebackup  settings mkdir -p ~/.vim/bundle cd ~/.vim/bundle/ git clone http://github.com/Shougo/neobundle.vim  vim ~/.vimrc
+set number set nocompatible filetype plugin indent off if has(&#39;vim_starting&#39;) set runtimepath+=~/.vim/bundle/neobundle.vim call neobundle#rc(expand(&#39;~/.vim/bundle&#39;)) endif &amp;quot; 以下は必要に応じて追加 &amp;quot; NeoBundle &#39;Shougo/unite.vim&#39; &amp;quot; NeoBundle &#39;Shougo/neosnippet.vim&#39; NeoBundle &#39;git://github.</description>
+    </item>
+    
+  </channel>
+</rss>

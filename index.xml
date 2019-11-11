@@ -1,0 +1,1219 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tac lifelog</title>
+    <link>https://tro3373.github.io/</link>
+    <description>Recent content on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Mon, 11 Nov 2019 05:45:40 +0900</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ApiGatewayのログを ServerlessFramework で設定したい</title>
+      <link>https://tro3373.github.io/post/enable-apigw-log-via-serverless-framework/</link>
+      <pubDate>Mon, 11 Nov 2019 05:45:40 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/post/enable-apigw-log-via-serverless-framework/</guid>
+      <description>要件としては、ApiGateway &amp;lt;=&amp;gt; Lambda の統合設定条件配下にて、 Lambdaからの応答結果が6MBを超えた場合に以下のようなログが出力される
+Lambda execution failed with status 200 due to customer function error: body size is too long. Lambda request id: XXXX-XXXX...  これに対して、ServerlessFramework でログ設定を行いたい
+参考  https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/ https://github.com/serverless/serverless/issues/6094#issuecomment-490561580 https://github.com/serverless/serverless/issues/6607#issuecomment-525930898  ApiGateway ステージ ログ／トレース の設定と動作 IAM Policy作成含め以下の設定だけで作成される
+provider: logs: restApi: accessLogging: false # Optional configuration which enables or disables access logging. Defaults to true. executionLogging: true # Optional configuration which enables or disables execution logging. Defaults to true.</description>
+    </item>
+    
+    <item>
+      <title>Congnitoの発行するトークンの意味と動作</title>
+      <link>https://tro3373.github.io/post/cognito-token-refresh/</link>
+      <pubDate>Tue, 05 Nov 2019 22:49:56 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/post/cognito-token-refresh/</guid>
+      <description> 参考URL  https://dev.classmethod.jp/cloud/aws/study-tokens-of-cognito-user-pools/  理解  Cognito トークンには３つ種類がある  IDトークン  クライムを表すトークン (JWT)  アクセストークン  Cognitoユーザ属性を表示、更新等行う為のトークン (JWT)  リフレッシュトークン  IDトークン、アクセストークンを更新する為のもの CognitoクライアントID設定画面で有効期限を設定できる  デフォルトは30日(1-3650日指定可能)  ID/アクセストークンは1時間で無効になる リフレッシュトークンが有効な間はID/アクセストークンは自動更新される  getSession で自動更新     </description>
+    </item>
+    
+    <item>
+      <title>Showcase</title>
+      <link>https://tro3373.github.io/showcase/</link>
+      <pubDate>Fri, 18 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/showcase/</guid>
+      <description>Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. Donec quis dolor nec nunc mollis interdum vel in purus. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.</description>
+    </item>
+    
+    <item>
+      <title>Ninja 250R オイル交換</title>
+      <link>https://tro3373.github.io/post/ninja250r-mentenance-oil-element/</link>
+      <pubDate>Sun, 05 Mar 2017 01:11:06 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ninja250r-mentenance-oil-element/</guid>
+      <description>久しく交換していなかったので、天気も良いしNinjaオイル交換.
+使用するもの 今回はエレメント交換も行うので、フィルター. オイル シリコングリス 他にも、ワッシャー、大小オーリングを使用します.
+古いオイルの排出 まずはドレインボルトを外して、ドバーっと古いオイルを出します. これは、外したボルト わかりにくいけど、外したところ ちゃんとお手製のオイル廃棄箱を受け皿にしています. エレメント交換 下の画像の右側の大きな円の部分を外します. これは外したフィルター. 下から除くとこんな穴が空いてます. ドレインボルトよりもこっちを外すほうが、難しいですね.
+円形の全方位からオイルが出てくるので、蓋やレンチや手がオイルで ヌレル こと間違い無し.
+綺麗に拭き取ります. 外したフィルターを分解して、これもオイルを拭き取ります. これは、外した円形の蓋の裏側.
+大きい方のオーリング(黒いゴム製の輪っか)が溝にはまってます.
+今回はこのリングも交換します. これは、フィルタから外したところ.
+画像の下の方に、小さい方のオーリングが同じように溝にはまっているので、 これも取り外して交換です. これが古いオーリング
+新しいオーリングや、軸の部分にはシリコングリスを塗ってから装着.
+オイルを 2L 弱入れて完成.
+良い休日でした.</description>
+    </item>
+    
+    <item>
+      <title>ag 使い方メモ</title>
+      <link>https://tro3373.github.io/post/ag-memo/</link>
+      <pubDate>Fri, 06 Jan 2017 02:13:19 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ag-memo/</guid>
+      <description>The Silver Searcher AG よく使うオプション # ディレクトリ階層の深さ指定 --depth NUM Search up to NUM directories deep (Default: 25) # (マッチした)ファイル名のみを出力 -l --files-with-matches Only print filenames that contain matches (dont print the matching lines) # マッチしなかったファイル名を表示 -L --files-without-matches Only print filenames that dont contain matches # ファイル名にマッチしたものを出力 -g PATTERN Print filenames matching PATTERN # 行番号を非表示 --[no]numbers Print line numbers. Default is to omit line numbers when searching streams # 隠しファイルも検索 --hidden Search hidden files (obeys .</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://tro3373.github.io/about/</link>
+      <pubDate>Wed, 14 Dec 2016 23:09:27 +0300</pubDate>
+      
+      <guid>https://tro3373.github.io/about/</guid>
+      <description>tro3373 Software Engineer.
+日々の作業メモや備忘録をおいています</description>
+    </item>
+    
+    <item>
+      <title>Bookmarklet で煩わしいテストの手助けをする</title>
+      <link>https://tro3373.github.io/post/bookmarklet-defan-wasiitesutonoshou-zhu-kewosuru/</link>
+      <pubDate>Sun, 30 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/bookmarklet-defan-wasiitesutonoshou-zhu-kewosuru/</guid>
+      <description>Bookmarklet で煩わしいテストの手助けをする WEBでテストする際にたまに必要になるのが、100件クリックする、や入力項目全部に入力した状態で、 クリックするなど単純動作を繰り返す事。 単純作業である為、おそらく５回くらいクリックした時点で飽きてしまい、業務中に寝てしまう事になりそう。
+以下のような Bookmarklet を準備しておけば、ちょっとした際に、さらっと js 書いて、100回でも、1000回でも クリックできます。
+javascript:(function(f,urls,i,s){urls=[&amp;quot;//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js&amp;quot;/* ,&amp;quot;URL&amp;quot;,&amp;quot;URL&amp;quot;,... */];for(i=0;i&amp;lt;urls.length;i++){s=document.createElement(&amp;quot;script&amp;quot;);s.src=urls[i];if(i==urls.length-1)s.onload=function(){f(jQuery.noConflict(true))};document.body.appendChild(s)}})(function($){/* 内部コード */})  対象のページにできるだけ影響の無いように、かつ、CDNで jQury を持ってきて、後はやりたいことちょろっと書くだけ。しかもjQuery以外のライブラリもロードできる！ 便利</description>
+    </item>
+    
+    <item>
+      <title>ldapsearch コマンドで AD 情報を検索する</title>
+      <link>https://tro3373.github.io/post/ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</link>
+      <pubDate>Sun, 18 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</guid>
+      <description>もう何がなんだかわからないので、とりあえずメモ。。
+LDAP ワード集  DIT = Directory Information Tree DN = 識別名（Distinguished Name） DC = ドメイン構成要素(domain component) O = 組織名(organization) OU = 組織単位(organizational unit) CN = 一般名称(common name)  sample.local ドメインの場合の検索方法 # ユーザ Administrator を検索 ldapsearch -x -LLL -D &amp;quot;cn=Administrator,cn=Users,dc=sample,dc=local&amp;quot; -W -b &amp;quot;cn=Administrator,cn=Users,dc=sample,dc=local&amp;quot; # CN Users に属するユーザを検索 ldapsearch -x -LLL -D &amp;quot;cn=Administrator,cn=Users,dc=sample,dc=local&amp;quot; -W -b &amp;quot;cn=Users,dc=sample,dc=local&amp;quot;  以下、 ldapsearch コマンドの OPTION 抜粋
+ ldapsearch opens a connection to an LDAP server, binds, and performs a search using specified parameters.</description>
+    </item>
+    
+    <item>
+      <title>Docker Machine(Boot2Docker(Tiny Linux)) 上で docker/gitlab を動かしてみる</title>
+      <link>https://tro3373.github.io/post/docker/docker-machine-docker-gitlab/</link>
+      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/docker/docker-machine-docker-gitlab/</guid>
+      <description>sameersbn/gitlab:8.0.4 オンプレミスな GitHub Clone GitLab
+かなり気持ち悪いロゴ&amp;hellip;(なぜこうなった) バージョンUPでこうなったらしい&amp;hellip; それはいいとして、 Docker image を利用して、公式に公開されている、docker/gitlab
+を docker-machine で作成した docker-host（virtual-box） 上で 動かしてみた。
+インストール ssh で docker-machine ホストOSへ接続した状態でおこなう
+docker-machine ssh dev  docker pull sameersbn/gitlab:8.0.4 cd ~/works/ git clone https://github.com/sameersbn/docker-gitlab.git cd docker-gitlab # Dockerfile からビルドする場合 # docker build --tag=$USER/gitlab .  docker-compose インストール docker コンテナを複数使用するアプリケーションの構成（起動順序や必要リソースなど）をまとめて管理できるのが、 docker-compose
+clone されたディレクトリに、 docker-compose.yml が存在するので、 docker-compose で起動できる。
+# docker-compose ダウンロード cd ~/Downloads wget https://github.com/docker/compose/releases/download/1.4.2/docker-compose-Linux-x86_64 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose sudo chmod 755 /usr/local/bin/docker-compose # version 確認 docker-compose --version # 以下が表示される # docker-compose version: 1.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 上に Docker Machine を インストールする</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</link>
+      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</guid>
+      <description>Docker Machine を試す！
+docker-machine docker-machine は Docker ホストを管理するツールで、ホストとなる Docker コンテナ起動サーバが、VM や AWS、 Digital Ocean などの ホストへ接続し実行する事で、あたかも local で docker コンテナが動いているかのように振る舞うツール。
+Docker コンテナ管理ツールとしても仕様できるみたい。
+docker インストール まずは、 dokcer のインストール
+# Docker install wget -qO- https://get.docker.com/ | sh # version を確認しておく。 docker --version # 以下が表示される # Docker version 1.8.2, build 0a8c2e3 # ユーザーを docker グループに追加 sudo usermod -aG docker $USER  docker-machine インストール 続いて、 docker-machine をインストールする。
+cd ~/Download wget https://github.com/docker/machine/releases/download/v0.4.1/docker-machine_linux-amd64 sudo mkdir -p /opt/bin sudo mv docker-machine_linux-amd64 /opt/bin/docker-machine sudo chmod +x /opt/bin/docker-machine # docker-machine version 確認 # /opt/bin にパスが通っている事！ docker-machine -v # 以下のようにバージョンが表示される # docker-machine version 0.</description>
+    </item>
+    
+    <item>
+      <title>Ghost ブログ Export ファイルを変換するスクリプトを書いた</title>
+      <link>https://tro3373.github.io/post/ghost-burogu-export-huairuwobian-huan-surusukuriputowoshu-ita/</link>
+      <pubDate>Thu, 08 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ghost-burogu-export-huairuwobian-huan-surusukuriputowoshu-ita/</guid>
+      <description>ブログシステムを Ghost へ乗り換えてみたが、 Publish 日付とブログの日付が合わない、といった事象が発生していた。（ブログ再構築の際に順番をいしきしていなかった為、 publish 日付でソートされると、あまり宜しくない結果になった。）
+仕方ない、、、と放置していたが、この度簡単なスクリプトを書いて対応した。
+node のインストールに若干手こずったが、まぁ、Javascript、簡単！
+概要  Ghost 管理メニューより Export した Jsonファイルを用意する。 今回は、ブログタイトルに、記事日付があったので、それを利用した。 title より取り出した 日付で、 publish_at 項目を更新。 本来の日付でソートできた！！
+vim convertMyGhostExport.js  var srcPath = &amp;quot;/home/ghost/Desktop/your-domain.ghost.2015-10-07.json&amp;quot;; var dstPath = &amp;quot;/home/ghost/Desktop/your-domain.ghost.2015-10-07_dst.json&amp;quot;; var json = require(srcPath); json.db[0].data.posts.every(function(post,index,ar){ var dateStr = post.title.substr(0, 8); if (!dateStr.match(/\d{8}/)) { // title の頭８文字が数値出ない場合は対象外 return true; } if (post.status != &amp;quot;published&amp;quot;) { // 公開していない場合は対象外 return true; } var yyyy = dateStr.substr(0,4); var mm = dateStr.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 wireshark 設定</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-wireshark-she-ding/</link>
+      <pubDate>Sat, 12 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-wireshark-she-ding/</guid>
+      <description> Ubuntu 14.04 で wireshark を導入すると、root 権限で起動するなりしないと、 通常はパケットキャプチャできない設定になっている。 ので、任意の一般ユーザをキャプチャできるよう、設定する。
+# wireshark インストール sudo add-apt-repository ppa:wireshark-dev/stable sudo apt-get install wireshark  ## TODO 以下、、必要？？？ # wireshark グループ作成 sudo groupadd wireshark # wireshark グループ に自分を追加 sudo usermod -a -G wireshark [user_name] sudo chgrp wireshark /usr/bin/dumpcap sudo chmod 750 /usr/bin/dumpcap # dumpcapに対して以下のケーバビリティを許可 sudo setcap cap_net_raw,cap_net_admin=eip /usr/bin/dumpcap sudo getcap /usr/bin/dumpcap  それでもダメな場合は、、、 export LIBOVERLAY_SCROLLBAR=0 wireshark  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 Upstart チート</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu14-04-upstart-tito/</link>
+      <pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu14-04-upstart-tito/</guid>
+      <description>/etc/init/ 配下に XXXXX.conf ファイルを作成するのみ
+基本コマンド # 設定を反映 sudo initctl reload-configuration # XXXXX JOB の状態確認 sudo initctl status XXXXX # XXXXX JOB を開始 sudo initctl start XXXXX # XXXXX JOB を停止 sudo initctl stop XXXXX # XXXXX イベントを発生 sudo initctl emmit XXXXX  XXXXX.conf 書き方 Job 基準
+# Job が開始されたら 起動 start on started [開始するためのJOB名] # Job が停止されたら 停止 stop on stopped [開始するためのJOB名]  イベント 基準
+# イベントが発生したら開始 start on [開始するためのイベント名] # イベントが発生したら停止 stop on [停止するためのイベント名]  参考  Upstart を使ってお手軽 daemon 化 いますぐ実践!</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 上に Eclipse Java7 Tomcat6.0 Java EE開発環境を構築する</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-shang-ni-eclipse-java7-tomcat6-0-java-eekai-fa-huan-jing-wogou-zhu-suru/</link>
+      <pubDate>Wed, 09 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-shang-ni-eclipse-java7-tomcat6-0-java-eekai-fa-huan-jing-wogou-zhu-suru/</guid>
+      <description>Install Eclipse mars mkdir -p ~/Downloads/eclipse cd ~/Downloads/eclipse/ # Eclipse install wget http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/mars/R/eclipse-jee-mars-R-linux-gtk-x86_64.tar.gz cd /opt/ sudo tar xvfpz ~/Downloads/eclipse/eclipse-jee-mars-R-linux-gtk-x86_64.tar.gz  Tomcat plugin install cd ~/Downloads/eclipse/ wget http://www.eclipsetotale.com/tomcatPlugin/tomcatPluginV331.zip unzip tomcatPluginV331.zip sudo mv ~/Downloads/eclipse/com.sysdeo.eclipse.tomcat_3.3.1.jar /opt/eclipse/plugins/ # Eclipse 再起動  Install Java 7 sudo add-apt-repository ppa:webupd8team/java sudo apt-get update # Java 7 install sudo apt-get install oracle-java7-installer # Java 6 も入れる場合 # sudo apt-get install oracle-java6-installer # インストール済みJavaを入れ替える場合 update-alternatives --config java # java7 を選択  # 確認 $ java -version java version &amp;quot;1.</description>
+    </item>
+    
+    <item>
+      <title>Gitコマンドあれこれ</title>
+      <link>https://tro3373.github.io/post/git-komando/</link>
+      <pubDate>Sat, 18 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/git-komando/</guid>
+      <description>コミットユーザ名を設定する git config --global user.name [UserName]  コミットユーザ名を設定する git config --global user.email [Email]  コミット時等に使用するエディタを設定する # vim(Linux,mac) git config --global core.editor &amp;quot;vim -c &#39;set fenc=utf-8&#39;&amp;quot; # Sublime(Liux,mac) # subl コマンドが登録できていない場合は以下も実行(mac) # &amp;quot;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&amp;quot; &amp;quot;/usr/local/bin/subl&amp;quot; git config --global core.editor &amp;quot;subl -w&amp;quot; # Sublime(windows) git config --global core.editor &amp;quot;&#39;C:/Program Files/Sublime Text 3/sublime_text.exe&#39; -w&amp;quot;  git の標準出力をカラーリングする git config --global color.ui auto  git push 時の宛先省略時のデフォルト動作設定 simple: カレントブランチに追跡ブランチが設定されている、
+かつローカルとリモートのブランチ名が同じである場合に、追跡ブランチに対して push する。
+git config --global push.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 AtomエディタをPPAでインストールする</title>
+      <link>https://tro3373.github.io/post/atomedeitawoppadeinsutorusuru/</link>
+      <pubDate>Fri, 05 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/atomedeitawoppadeinsutorusuru/</guid>
+      <description> Ubuntu で Github 製エディタ Atom の自動アップデートを有効にする sudo add-apt-repository ppa:webupd8team/atom sudo apt-get update sudo apt-get install atom  </description>
+    </item>
+    
+    <item>
+      <title>Windows 7 で vaygrant(CentOS 6.5)にRails4.1 &#43; Nginx &#43; Unicorn &#43; Postgres 9.3 を起動する</title>
+      <link>https://tro3373.github.io/post/windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/</link>
+      <pubDate>Thu, 29 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/</guid>
+      <description>Virtual Box インストール  Download
+本家 Virtualbox より、 Virtual Box ダウンロード
+ インストール
+  Vagrant インストール  Download
+本家 Vagrant より、 Vagrantダウンロード
+ インストール
+ 再起動が必要
+  仮想マシン（BOX（テンプレート））取得・追加  CnetOS 6.5 用 URL 取得
+Vagrantbox.esより、Virtual Box用、CentOS 6.5 x86_64 URLをコピーする
+ Box add
+cd c:\HashiCorp\Vagrant\ mkdir myhost cd myhost c:\HashiCorp\Vagrant\myhost&amp;gt; vagrant box add centos65 https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box ==&amp;gt; box: Adding box &#39;centos65&#39; (v0) for provider: box: Downloading: https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box box: Progress: 100% (Rate: 3348k/s, Estimated time remaining: --:--:--) ==&amp;gt; box: Successfully added box &#39;centos65&#39; (v0) for &#39;virtualbox&#39;!</description>
+    </item>
+    
+    <item>
+      <title>Windows7 ネットワーク設定を標準で使用するといけないらしい</title>
+      <link>https://tro3373.github.io/post/windows7-netutowakushe-ding-wobiao-zhun-deshi-yong-surutoikenairasii/</link>
+      <pubDate>Thu, 29 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/windows7-netutowakushe-ding-wobiao-zhun-deshi-yong-surutoikenairasii/</guid>
+      <description> 参考  ［Windows 7編］ネットワーク設定を標準で使ってはいけない Windows 7でネットワークドライブ共有ファイルのアクセス速度問題。時間が経つと遅くなる。（解決）  やってみる  現状の確認
+netsh int tcp show global  TCP Chimney Offload の無効化
+netsh int tcp set global chimney=disabled  Receive-Side Scaling（RSS）の無効化
+netsh int tcp set global rss=disabled  Network Direct Memory Access（NetDMA）の無効化
+netsh int tcp set global netdma=disabled  受信側スケーリングの無効化
+コントロール パネル→ネットワークとインターネット→ネットワーク接続→ローカル エリア接続（右クリック）→プロパティ→構成→詳細設定 Receive Side Scaling（RSS）（受信側スケーリング）の無効化
+  </description>
+    </item>
+    
+    <item>
+      <title>Javascript実行HTMLスケルトン</title>
+      <link>https://tro3373.github.io/post/javascriptshi-xing-htmlsukeruton/</link>
+      <pubDate>Wed, 28 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/javascriptshi-xing-htmlsukeruton/</guid>
+      <description> Javascript実行HTMLスケルトン ちょっとした Javascript を実装してテストする際などに使用するHTMLのスケルトン
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;Convert&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;quot;http://code.jquery.com/jquery-latest.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt; $(function(){ var html = getSrcHtml(); alert(html); }); function getSrcHtml() { return &amp;quot;&amp;quot;; } &amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; test &amp;lt;/html&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 bashrc にCentOs6.5 Solarizedカラースキームを設定</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu14-04-bashrc-nicentos6-5-solarizedkarasukimuwoshe-ding/</link>
+      <pubDate>Wed, 21 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu14-04-bashrc-nicentos6-5-solarizedkarasukimuwoshe-ding/</guid>
+      <description> 参考 CentOS環境にSolarizedカラースキームを適用する を参考に
+設定 以下を .bashrc へ追記
+$ vim ~/.bashrc  LS_COLORS=&#39;no=00;38;5;244:rs=0:di=00;38;5;33:ln=00;38;5;37:mh=00:pi=48;5;230;38;5;136;01:so=48;5;230;38;5;136;01:do=48;5;230;38;5;136;01:bd=48;5;230;38;5;244;01:cd=48;5;230;38;5;244;01:or=48;5;235;38;5;160:su=48;5;160;38;5;230:sg=48;5;136;38;5;230:ca=30;41:tw=48;5;64;38;5;230:ow=48;5;235;38;5;33:st=48;5;33;38;5;230:ex=00;38;5;64:*.tar=00;38;5;61:*.tgz=00;38;5;61:*.arj=00;38;5;61:*.taz=00;38;5;61:*.lzh=00;38;5;61:*.lzma=00;38;5;61:*.tlz=00;38;5;61:*.txz=00;38;5;61:*.zip=00;38;5;61:*.z=00;38;5;61:*.Z=00;38;5;61:*.dz=00;38;5;61:*.gz=00;38;5;61:*.lz=00;38;5;61:*.xz=00;38;5;61:*.bz2=00;38;5;61:*.bz=00;38;5;61:*.tbz=00;38;5;61:*.tbz2=00;38;5;61:*.tz=00;38;5;61:*.deb=00;38;5;61:*.rpm=00;38;5;61:*.jar=00;38;5;61:*.rar=00;38;5;61:*.ace=00;38;5;61:*.zoo=00;38;5;61:*.cpio=00;38;5;61:*.7z=00;38;5;61:*.rz=00;38;5;61:*.apk=00;38;5;61:*.gem=00;38;5;61:*.jpg=00;38;5;136:*.JPG=00;38;5;136:*.jpeg=00;38;5;136:*.gif=00;38;5;136:*.bmp=00;38;5;136:*.pbm=00;38;5;136:*.pgm=00;38;5;136:*.ppm=00;38;5;136:*.tga=00;38;5;136:*.xbm=00;38;5;136:*.xpm=00;38;5;136:*.tif=00;38;5;136:*.tiff=00;38;5;136:*.png=00;38;5;136:*.svg=00;38;5;136:*.svgz=00;38;5;136:*.mng=00;38;5;136:*.pcx=00;38;5;136:*.dl=00;38;5;136:*.xcf=00;38;5;136:*.xwd=00;38;5;136:*.yuv=00;38;5;136:*.cgm=00;38;5;136:*.emf=00;38;5;136:*.eps=00;38;5;136:*.CR2=00;38;5;136:*.ico=00;38;5;136:*.tex=00;38;5;245:*.rdf=00;38;5;245:*.owl=00;38;5;245:*.n3=00;38;5;245:*.ttl=00;38;5;245:*.nt=00;38;5;245:*.torrent=00;38;5;245:*.xml=00;38;5;245:*Makefile=00;38;5;245:*Rakefile=00;38;5;245:*build.xml=00;38;5;245:*rc=00;38;5;245:*1=00;38;5;245:*.nfo=00;38;5;245:*README=00;38;5;245:*README.txt=00;38;5;245:*readme.txt=00;38;5;245:*.md=00;38;5;245:*README.markdown=00;38;5;245:*.ini=00;38;5;245:*.yml=00;38;5;245:*.cfg=00;38;5;245:*.conf=00;38;5;245:*.c=00;38;5;245:*.cpp=00;38;5;245:*.cc=00;38;5;245:*.log=00;38;5;240:*.bak=00;38;5;240:*.aux=00;38;5;240:*.lof=00;38;5;240:*.lol=00;38;5;240:*.lot=00;38;5;240:*.out=00;38;5;240:*.toc=00;38;5;240:*.bbl=00;38;5;240:*.blg=00;38;5;240:*~=00;38;5;240:*#=00;38;5;240:*.part=00;38;5;240:*.incomplete=00;38;5;240:*.swp=00;38;5;240:*.tmp=00;38;5;240:*.temp=00;38;5;240:*.o=00;38;5;240:*.pyc=00;38;5;240:*.class=00;38;5;240:*.cache=00;38;5;240:*.aac=00;38;5;166:*.au=00;38;5;166:*.flac=00;38;5;166:*.mid=00;38;5;166:*.midi=00;38;5;166:*.mka=00;38;5;166:*.mp3=00;38;5;166:*.mpc=00;38;5;166:*.ogg=00;38;5;166:*.ra=00;38;5;166:*.wav=00;38;5;166:*.m4a=00;38;5;166:*.axa=00;38;5;166:*.oga=00;38;5;166:*.spx=00;38;5;166:*.xspf=00;38;5;166:*.mov=00;38;5;166:*.mpg=00;38;5;166:*.mpeg=00;38;5;166:*.m2v=00;38;5;166:*.mkv=00;38;5;166:*.ogm=00;38;5;166:*.mp4=00;38;5;166:*.m4v=00;38;5;166:*.mp4v=00;38;5;166:*.vob=00;38;5;166:*.qt=00;38;5;166:*.nuv=00;38;5;166:*.wmv=00;38;5;166:*.asf=00;38;5;166:*.rm=00;38;5;166:*.rmvb=00;38;5;166:*.flc=00;38;5;166:*.avi=00;38;5;166:*.fli=00;38;5;166:*.flv=00;38;5;166:*.gl=00;38;5;166:*.m2ts=00;38;5;166:*.divx=00;38;5;166:*.webm=00;38;5;166:*.axv=00;38;5;166:*.anx=00;38;5;166:*.ogv=00;38;5;166:*.ogx=00;38;5;166:&#39; export LS_COLORS  </description>
+    </item>
+    
+    <item>
+      <title>Nuc(D54250WYKH)に CoreOS をインストールし、Docker を触る</title>
+      <link>https://tro3373.github.io/post/docker/nucd54250wykhni-coreos-woinsutorusi-docker-wohong-ru/</link>
+      <pubDate>Sat, 17 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/docker/nucd54250wykhni-coreos-woinsutorusi-docker-wohong-ru/</guid>
+      <description>Nuc(D54250WYKH)に CoreOS をインストールし、Docker を触る CoreOS インストール ISO イメージダウンロード CoreOS ISO イメージを ここからダウンロード
+または、以下コマンドで取得
+$ curl -o core-os.iso http://alpha.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso?__hstc=112362075.27b09ada9633d5c4e4307490970e61ed.1421419603585.1421419603585.1421419603585.1&amp;amp;__hssc=112362075.1.1421419603585&amp;amp;__hsfp=4136096990  USB 起動ディスクの作成 Mac OS からUSB起動ディスク作成を行う場合は、以下コマンドで、ISO イメージを変換
+$ hdiutil convert -format UDRW -o out.img coreos_production_iso_image.iso  Mac 上の認識デバイスIDを確認
+$ diskutil list  USB アンマウント
+$ diskutil unmountDisk /dev/disk2  イメージ書き込み
+$ sudo dd if=out.img.dmg of=/dev/disk2 bs=1m  USB 取り出し
+$ diskutil eject /dev/disk2  CoreOS を Nuc で起動 USB メモリから起動  insert usb disk.</description>
+    </item>
+    
+    <item>
+      <title>Pandoc でマークダウンから docx へ変換する</title>
+      <link>https://tro3373.github.io/post/pandoc-demakudaunkara-docx-hebian-huan-suru/</link>
+      <pubDate>Wed, 07 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/pandoc-demakudaunkara-docx-hebian-huan-suru/</guid>
+      <description> Pandoc でマークダウンから docx へ変換する方法 pandoc &amp;quot;a.md&amp;quot; -t docx -o &amp;quot;a.docx&amp;quot;  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 terminalからログオフする</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-terminalkararoguohusuru/</link>
+      <pubDate>Fri, 28 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-terminalkararoguohusuru/</guid>
+      <description>Ubuntu 14.04 terminalからログオフする
+ DISPLAY=:0 gnome-session-quit --logout --no-prompt  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 で、ruby on rails passenger をインストールして apache 連携する</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</link>
+      <pubDate>Fri, 14 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</guid>
+      <description>passenger インストール cd ~/ rbenv exec gem install passenger rbenv rehash  passenger-install-apache2-module実行 rbenv exec passenger-install-apache2-module   passenger-install-apache2-module 詳細
+This installer will guide you through the entire installation process. It shouldn&#39;t take more than 3 minutes in total. Here&#39;s what you can expect from the installation process: 1. The Apache 2 module will be installed for you. 2. You&#39;ll learn how to configure Apache. 3. You&#39;ll learn how to deploy a Ruby on Rails application.</description>
+    </item>
+    
+    <item>
+      <title>html ファイルから一括で markdown ファイルへ変換する</title>
+      <link>https://tro3373.github.io/post/html-huairukara-gua-de-markdown-huairuhebian-huan-suru/</link>
+      <pubDate>Tue, 11 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/html-huairukara-gua-de-markdown-huairuhebian-huan-suru/</guid>
+      <description> html から markdown へ変換する 使用したツールは、html2text
+前提条件  python インストール済み git インストール済み 変換する htmlファイルを用意する  インストール git clone して実行するのみです。
+cd works git clone https://github.com/aaronsw/html2text.git cd html2text ./html2text.py hogehoge.html &amp;gt;&amp;gt; hogehoge.md  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 visudo エディタをvimに設定する</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu14-04-visudo-edeitawovimnishe-ding-suru/</link>
+      <pubDate>Mon, 10 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu14-04-visudo-edeitawovimnishe-ding-suru/</guid>
+      <description> Ubuntu14.04 visudo エディタをvimに設定する 以下コマンドでエディタを変更しておく
+sudo update-alternatives --config editor  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 postgresql install</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-postgresql-install/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-postgresql-install/</guid>
+      <description> postgresql install sudo apt-get install postgresql sudo apt-get install libpq-dev  postgresql settings sudo su postgres -c psql postgres=# CREATE ROLE [user] SUPERUSER LOGIN; postgres=# \password [user] [userpassword] [userpassword]  check or list database, tables, indexes, and so on. postgres=# create database [user]; postgres=# select * from pg_user; /* ユーザ一覧 */ postgres=# \d /* 表、インデックスの一覧 */ postgres=# \dt /* 表の一覧 */ postgres=# \d [表名] /* 表の項目一覧 */ postgres=# \l /* データベース一覧、文字コード表示 */ postgres=# \q /* 終了 */ psql -l # データベース 一覧 psql [データベース名] # psql へ切り替え  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 remote desktop with xrdp</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-remote-desktop-with-xrdp/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-remote-desktop-with-xrdp/</guid>
+      <description> install xrdp server sudo apt-get install xrdp sudo apt-get install xlde echo lxsession -s LXDE -e LXDE &amp;gt; ~/.xsession sudo service xrdp restart  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 ruby 用 vim 設定</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu14-04-ruby-yong-vim-she-ding/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu14-04-ruby-yong-vim-she-ding/</guid>
+      <description>ruby 開発環境 vim install sudo apt-get install vim vim-gtk vim-gui-common  install vim-nox vim --version |grep ruby +diff +menu -ruby +writebackup sudo apt-get install vim-nox vim --version |grep ruby +diff +menu +ruby +writebackup  settings mkdir -p ~/.vim/bundle cd ~/.vim/bundle/ git clone http://github.com/Shougo/neobundle.vim  vim ~/.vimrc
+set number set nocompatible filetype plugin indent off if has(&#39;vim_starting&#39;) set runtimepath+=~/.vim/bundle/neobundle.vim call neobundle#rc(expand(&#39;~/.vim/bundle&#39;)) endif &amp;quot; 以下は必要に応じて追加 &amp;quot; NeoBundle &#39;Shougo/unite.vim&#39; &amp;quot; NeoBundle &#39;Shougo/neosnippet.vim&#39; NeoBundle &#39;git://github.</description>
+    </item>
+    
+    <item>
+      <title>wripeでバックアップしたtxtファイルの中身からファイル名を変更する</title>
+      <link>https://tro3373.github.io/post/wripedebatukuatupusitatxthuairunozhong-shen-karahuairuming-wobian-geng-suru/</link>
+      <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/wripedebatukuatupusitatxthuairunozhong-shen-karahuairuming-wobian-geng-suru/</guid>
+      <description>bash script でwripeバックアップファイルの変換処理を書いた
+主な内容  bash script Ubuntu 14.04で確認 UTF8,LF変換にnkf のインストールが必要 ファイル変換内容  １行目（wripeタイトル）から、ファイル名決定  ファイル名に使用できる文字列変換 wripeタイトルに日付が入っていた場合の処理をある程度考慮  １行目は削除 UTF8,LF変換 tag 空白４文字変換   起動引数  第一引数：バックアップファイルの保存先  疲れた&amp;hellip;.
+#!/bin/bash DIR_IN=$1 OUT_NAME=out DIR_OUT=$DIR_IN/$OUT_NAME which nkf 1&amp;gt;/dev/null 2&amp;gt;/dev/null RC=$? if [ $RC -ne 0 ]; then echo &amp;quot;nkf not installed!&amp;quot; return fi if [ &amp;quot;&amp;quot; == &amp;quot;$1&amp;quot; ]; then echo &amp;quot;arg1(input directory) is blank!&amp;quot; return fi if [ -d $DIR_IN ]; then # specified directory is exist.</description>
+    </item>
+    
+    <item>
+      <title>Google Bloggerで highlight.js をつかう</title>
+      <link>https://tro3373.github.io/post/google-bloggerde-highlight-js-wotukau/</link>
+      <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/google-bloggerde-highlight-js-wotukau/</guid>
+      <description> Edit HTML and add this under title tag in head tag. &amp;lt;!-- jokrlzy add --&amp;gt; &amp;lt;!-- &amp;lt;script src=&amp;quot;http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&amp;quot; type=&amp;quot;text/javascript&amp;quot; &amp;gt;&amp;lt;/script&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css&amp;quot;&amp;gt; --&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css&amp;quot;/&amp;gt; &amp;lt;script src=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt;hljs.initHighlightingOnLoad();&amp;lt;/script&amp;gt; &amp;lt;!-- jokrlzy add --&amp;gt;  add custom css body, textarea { font-size: 20px; font-family: &amp;quot;meiryo&amp;quot;,&amp;quot;メイリオ&amp;quot;,&amp;quot;ヒラギノ角ゴ Pro W3&amp;quot;, &amp;quot;ＭＳ Ｐゴシック&amp;quot;, sans-serif; } h1 {font-size: 60px;} h2 {font-size: 50px;} h3 {font-size: 40px;} h4 {font-size: 30px;} h5 {font-size: 20px;} pre {margin-left: 30px;}  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 Change LF UTF-8 Under Specified Directory</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-change-lf-utf-8-under-specified-directory/</link>
+      <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-change-lf-utf-8-under-specified-directory/</guid>
+      <description>Install nkf sudo aptitude install nkf  usege nkf -wLu --overwrite *.txt # -w: change to UTF8 # -Lu: change to LF # --overwrite: overwrite file!  Exclude .git or and so on files, and specified some extension. find . \( -name &amp;quot;i18n&amp;quot; -o -name &amp;quot;.git&amp;quot; -o -name &amp;quot;jquery*.js&amp;quot; -o -name &amp;quot;jquery*.css&amp;quot; \) -prune -o -type f \( -name &amp;quot;*.txt&amp;quot; -o -name &amp;quot;*.js&amp;quot; -o -name &amp;quot;*.css&amp;quot; -o -name &amp;quot;*.html&amp;quot; -o -name &amp;quot;*.</description>
+    </item>
+    
+    <item>
+      <title>debian wheezy mysql 設定、データ移行</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-mysql-she-ding-detayi-xing/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-mysql-she-ding-detayi-xing/</guid>
+      <description>インストール sudo aptitude install mysql-server  alive check mysqladmin ping -u root -p  mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);  ユーザ確認 ログイン mysql -u root -p  SQL実行 SELECT host,user,password FROM mysql.user;  文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: &#39;&#39; Using delimiter: ; Server version: 5.</description>
+    </item>
+    
+    <item>
+      <title>Linkstation(debian wheezy) へ mysql を設定、データ移行</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</guid>
+      <description>インストール sudo aptitude install mysql-server  alive check mysqladmin ping -u root -p  mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);  ユーザ確認 ログイン mysql -u root -p  SQL実行 SELECT host,user,password FROM mysql.user;  文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: &#39;&#39; Using delimiter: ; Server version: 5.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 grive install</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-grive-install/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-grive-install/</guid>
+      <description> install sudo add-apt-repository ppa:nilarimogard/webupd8 sudo apt-get update sudo aptitude install grive mkdir -p ~/grive cd ~/grive grive -a   grive -a コマンドでURL表示 アクセスし、承認するとキーが表示される terminalへ貼り付け！ 同期開始！  file sync cd ~/grive grive  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 Theme をnumixへ変更</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-theme-wonumixhebian-geng/</link>
+      <pubDate>Wed, 08 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-theme-wonumixhebian-geng/</guid>
+      <description>install sudo apt-add-repository ppa:numix/ppa sudo aptitude update sudo aptitude install numix-gtk-theme #sudo aptitude install numix-icon-theme-utouch sudo aptitude install numix-icon-theme sudo aptitude install numix-wallpaper-saucy # ↓この丸いアイコンがすごくよい。 sudo aptitude install numix-icon-theme-circle  theme setting setting from tweak-tool</description>
+    </item>
+    
+    <item>
+      <title>Debian wheezy に Ubuntu 14.04 クライアントからSSH接続する</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</link>
+      <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</guid>
+      <description>[Client] Key generate create pub, private key at ~/.ssh cd ~/.ssh ssh-keygen -t rsa # created under files id_rsa id_rsa.pub  upload public key to server. scp id_rsa.pub [server ip address]:~/  [Client] .ssh/config vim ~/.ssh/config
+Host [server name] HostName [server name or ipaddress] Port 22 User [login user name] IdentityFile ~/.ssh/id_rsa  [server] regist pub key login the server. cd ~ cat rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys  [server] sshd settings sudo vim /etc/ssh/sshd_config check the settings</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 libwebsockets クライアントを試す</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</guid>
+      <description>libwebsockets build sudo aptitude install cmake cd ~/works git clone git://git.libwebsockets.org/libwebsockets cd libwebsockets/ mkdir build cd build cmake .. make -j8 # sudo make install  サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする server  rails 上に em-websocket を実装したcontrollerを用意する
+※ rails に関しては、省略  Ubuntu 14.04 libwebsockets クライアントを試す libwebsockets build sudo aptitude install cmake cd ~/works git clone git://git.libwebsockets.org/libwebsockets cd libwebsockets/ mkdir build cd build cmake .. make -j8 # sudo make install  サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする server  rails 上に em-websocket を実装したcontrollerを用意する</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 rails scoffoldでEntity作成、からDB migrateまで</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-rails-scoffolddeentityzuo-cheng-karadb-migratemade/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-rails-scoffolddeentityzuo-cheng-karadb-migratemade/</guid>
+      <description>以下のような形式で generate できる bundle exec rails generate scaffold [entity_name] [column_name]:[data_type][column_name]:[data_type] # 間違えたら！ bundle exec rails destroy scaffold &amp;quot;name&amp;quot;   data type  integer, string, timestamp などなどが使える   Generateした各ファイルをそれぞれ条件を追加するように、下記のように修正  db/migrate/YYYYMMDDhhmmsscreate[entity_name].rb 以下のように、NotNullや桁指定、デフォルト指定ができる
+class CreateEvents &amp;lt; ActiveRecord::Migration def change create_table :[entity_name] do |t| t.string :column_name, :null =&amp;gt; false, :limit =&amp;gt; 1, :default =&amp;gt; 0 t.timestamps end end end   作成した rb ファイルで、DB再作成 # 通常DB作成 # bundle exec rake db:migrate # DB再作成（db/schema.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 ruby2.1.2 で ActiveRecord4.1.6 を使用し、postgresql4.1.6 へアクセス</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</guid>
+      <description>まずはdatabase 確認 sudo su postgres -c psql  install activerecord,pg mkdir -p ~/works/99_sample/02_activerecord cd ~/works/99_sample/02_activerecord gem install activerecord gem install pg gem list  DBユーザtest_nameを作成しておく sudo su postgres -c psql create role test_name superuser login; \password test_name Enter new password: test_name Enter it again: test_name create database test_name;  config/database.yml mkdir -p config &amp;amp;&amp;amp; vim config/database.yml
+db: production: adapter: postgresql host: localhost username: test_name password: test_name database: test_name development: adapter: postgresql host: localhost username: test_name password: test_name database: test_name  db/migrate配下に、３ファイルを配置(rails環境からコピー) mkdir -p db/migrate</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 で websocket, zeroMQ</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-de-websocket-zeromq/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-de-websocket-zeromq/</guid>
+      <description>rails 、postgresql、zeroMQ、websocketを使って通信するサンプル環境を作成中
+create rails project cd 任意のディレクトリ rails new test_rails_postgres -d postgresql cd test_rails_postgres bundle install --path vendor/bundle bundle exec rake db:create db:migrate  テスト起動確認 cd test_rails_postgres rails server http://[サーバアドレス]:3000へアクセス  git 管理開始 cd test_rails_postgres git init vim .gitignore 以下を追加 doc/ *.swp *~ .project .DS_Store .idea .secret git add . git commit -m &amp;quot;initial commit.&amp;quot;  テスト設定 bundle exec rails generate scaffold book title:string author:string outline:text bundle exec rake db:migrate bundle exec rails server  db確認 -- database list \l -- user list select * from pg_user; -- table list \d  routes の確認 http://localhost:3000/rails/info/routes  rails へwebsocket実装 websocket-rails install cd test_rails_postgres vim Gemfile # 以下を追加 gem &#39;websocket-rails&#39; bundle install rails g websocket_rails:install # コントローラ作成 vim app/controllers/websocket_chat_controller.</description>
+    </item>
+    
+    <item>
+      <title>Mac いろは</title>
+      <link>https://tro3373.github.io/post/mac-iroha/</link>
+      <pubDate>Fri, 26 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/mac-iroha/</guid>
+      <description> 新参者の私は、macを触る機会があったのでメモしています。
+再読み込み command + R  shutdown control + 電源ボタン  terminal 起動 control + space input &#39;terminal&#39; Enter  chrome 起動 control + space input &#39;chrome&#39; Enter  全画面化、解除 command + control + F  Finder 切り取り＆貼り付け command + c # copy command + option + v # paste  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 ランチャーにアプリ(meld)を登録する</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-rantiyaniapurimeldwodeng-lu-suru/</link>
+      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-rantiyaniapurimeldwodeng-lu-suru/</guid>
+      <description> 適当な場所に以下のファイルを作成する vim ~/bin/meld.desktop  以下内容にする [Desktop Entry] Type=Application Name=Meld GenericName=meld Icon=~/bin/meld-1.8.6/data/icons/hicolor/48x48/apps/meld.png Exec=~/bin/meld-1.8.6/bin/meld Terminal=false  </description>
+    </item>
+    
+    <item>
+      <title>UX21A prime へ Win8.1 と Ubuntu14.04のデュアルブート</title>
+      <link>https://tro3373.github.io/post/ubuntu/ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</link>
+      <pubDate>Wed, 24 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</guid>
+      <description> 参考にしたのはここ
+ありがとうございます。これでようやく素敵うぼんとぅライフin電車！
+Windowsリカバリイメージをバックアップ windows 8 標準機能にてバックアップ
+usb ubuntu 14.04を作成 ubuntu 14.04(別PC)よりブータブルUSBの作成からダウンロードしたISOファイルを焼く
+ux21aをUSBから起動 起動時にesc連打し、USBを選択
+パーティション編集 Gpartedパーティション編集ツールにて、Win8システムパーティションより後ろを全て削除
+このへんの記憶が曖昧過ぎて申し訳ないですが、なんせDドライブの一つ左にあるリカバリ用のパーティションを含め削除しても、問題なかった！
+ubuntu インストール  EFI 50Mb作成 /システムパーティション作成(ext4 約141G作成(swap4096Mb引いて作成)) 残りをswapに /システム(/dev/sda6かな？)にブートローダ設定  起動時にESC連打で切り替え可能！右クリックも効いてる！ というより、自然に動き過ぎて怖い。すべて問題なく動作しています。
+起動時に自動で、Ubuntuのブートローダが自動で windows8 認識しており、
+起動時に esc 連打しなくても勝手に選択画面に移動するし。。。
+ステキ！あーすーす、あ、ちが、えいすぅーすぅたまぁ！
+ wifi bluetooth mouse pad 音量設定 etc&amp;hellip;  </description>
+    </item>
+    
+    <item>
+      <title>Windows7 Putty で自動ログインバッチファイルを作成する</title>
+      <link>https://tro3373.github.io/post/windows7-putty-dezi-dong-roguinbatutihuairuwozuo-cheng-suru/</link>
+      <pubDate>Fri, 19 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/windows7-putty-dezi-dong-roguinbatutihuairuwozuo-cheng-suru/</guid>
+      <description>以下をショートカットプロパティへ設定する
+&amp;quot;C:\Program Files (x86)\PuTTY\putty.exe&amp;quot; -load 「セッション名」 -l 「ユーザ名」 -pw 「パスワード」  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 にrbenvを使用し、ruby2.1.2をインストールする</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-nirbenvwoshi-yong-si-ruby2-1-2woinsutorusuru/</link>
+      <pubDate>Thu, 18 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-nirbenvwoshi-yong-si-ruby2-1-2woinsutorusuru/</guid>
+      <description>install packages sudo add-apt-repository ppa:chris-lea/node.js sudo apt-get update sudo apt-get install build-essential git curl zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev sqlite3 libsqlite3-dev nodejs tk ruby-dev  rbenv install git clone https://github.com/sstephenson/rbenv.git ~/.rbenv git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build echo &#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc echo &#39;eval &amp;quot;$(rbenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc . .bashrc gem install rbenv-rehash gem install bundler  ruby install rbenv install -list rbenv install 2.1.2 rbenv versions rbenv global 2.</description>
+    </item>
+    
+    <item>
+      <title>Linkstation(ls-xhle) へdebian wheezy を導入する</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</link>
+      <pubDate>Sat, 13 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</guid>
+      <description>パーティション構成 /dev/sda1 /boot /dev/sda2 / /dev/sda3 swap /dev/sda4 /data  ここを参考に &amp;gt; update 2013.05.15: Now when Debian 7 wheezy is stable, i made a new image. &amp;gt; &amp;gt; I created a minimal debian wheezy bootstrap for our Linkstations. It comes with 3.9.2 kernels for both LS-CHLv2 and LS-XHL, which you can find here. &amp;gt; &amp;gt; ### Infos &amp;gt; Changes to plain debootstrap &amp;gt; This is a ready to use image, no need to tweak device specific stuff after install e.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 日本語ディレクトリ名を英語にする</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-ri-ben-yu-deirekutoriming-woying-yu-nisuru/</link>
+      <pubDate>Thu, 11 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-ri-ben-yu-deirekutoriming-woying-yu-nisuru/</guid>
+      <description> Ubuntu 14.04 日本語ディレクトリ名を英語にする terminal で以下を実行 env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update  以下を実行  ログアウト ログイン 古い名前のままにするかどうかを聞かれる これ以上表示させないにチェックを付けて終了  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 Python でWebsocket実装</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-python-dewebsocketshi-zhuang/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-python-dewebsocketshi-zhuang/</guid>
+      <description>Ubuntu14.04 Python 2.7.6 でWebsocket実装 モジュールのインストール sudo apt-get install libevent-dev python-dev python-setuptools sudo easy_install gevent sudo easy_install gevent-websocket  サーバスクリプト作成 vi chat.py
+#! /usr/bin/python # -*- coding: utf-8 -*- import os import random from geventwebsocket.handler import WebSocketHandler from gevent import pywsgi, sleep ws_list = set() def chat_handle(environ, start_response): global cnt ws = environ[&#39;wsgi.websocket&#39;] ws_list.add(ws)a print &#39;enter!&#39;, len(ws_list) while 1: msg = ws.receive() if msg is None: break remove = set() for s in ws_list: try: s.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 Node.js をインストール</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu14-04-node-js-woinsutoru/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu14-04-node-js-woinsutoru/</guid>
+      <description>Ubuntu14.04 Node.jsをインストール install packages. sudo apt-get install git curl build-essential libssl-dev  install nvm. git clone https://github.com/creationix/nvm.git ~/.nvm . ~/.nvm/nvm.sh nvm install 0.10 ######################################################################## 100.0% Now using node v0.10.31 nvm version vi ~/.bashrc # 以下追加 . ~/.nvm/nvm.sh nvm use v0.10.31 # defaultバージョンを指定 nvm alias default v0.10.31 # Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン  hellow world 作成 cd 任意のディレクトリ vim hellowworld.js ------------------------------------- var sys = require(&#39;sys&#39;); var http = require(&#39;http&#39;); var server = http.createServer( function (request, response) { response.</description>
+    </item>
+    
+    <item>
+      <title>android 4.4.2 keystore grep 結果メモ</title>
+      <link>https://tro3373.github.io/post/android/android-4-4-2-keystore-grep-jie-guo-memo/</link>
+      <pubDate>Thu, 29 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/android/android-4-4-2-keystore-grep-jie-guo-memo/</guid>
+      <description>android 4.4.2 keystore grep 結果メモ 調査した際のログメモ
+$ cd env/android/android-4.4.2_r2/ $ ls Makefile art bootable cts developers device external hardware libnativehelper packages prebuilts system abi bionic build dalvik development docs frameworks libcore ndk pdk sdk tools $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java ^C $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java $ find ./packages/apps/ -name CredentialHelper.java ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java $ find ./packages/apps/CertInstaller/ -name *.java |xargs grep createSystemInstallIntent |grep createSystemInstallIntent ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java: mCredentials.createSystemInstallIntent(), ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java: Intent createSystemInstallIntent() { $ find .</description>
+    </item>
+    
+    <item>
+      <title>dyndns.org の無料 DNS が切れたので、mydns へ変更</title>
+      <link>https://tro3373.github.io/post/dyndns-org-nowu-liao-dns-gaqie-retanode-mydns-hebian-geng/</link>
+      <pubDate>Mon, 05 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/dyndns-org-nowu-liao-dns-gaqie-retanode-mydns-hebian-geng/</guid>
+      <description>mydnsにてドメイン登録（複数ドメイン→複数アカウントを作成） アカウントID・パスワードを書き留めておく
+apache2設定 cd /etc/apache2/sites-available ※もとサイト用の設定をコピーして再度作成しなおす  サイト有効化
+sudo a2ensite [create_site_setting_file_name]  dyndns自動更新 参考
+手動通知での確認
+wget http://www.mydns.jp/login.html --http-user=[user_account_name] --http-passwd=[user_account_password] -O /dev/null wget -q -O - &#39;http://[user_account_name]:[user_account_password]@www.mydns.jp/login.html&#39; |grep &amp;quot;login_status&amp;quot;  スクリプト作成
+vi /path/to/exec_file_setting_directory/ddns.sh
+ファイル内容は以下
+#!/bin/sh ##DDNS updata script. # #check wget if ! [ -x /usr/bin/wget ] then echo &amp;quot;Not found : wget&amp;quot;; exit 0 fi #updata DDNS #[site_url] echo [site_url] wget... wget -q -O - &#39;http://[user_account_name]:[user_account_password]@www.mydns.jp/login.html&#39; |grep &amp;quot;login_status&amp;quot; exit 0  権限付与</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 12.04 でメディア自動マウントを無効化する</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-12-04-demedeiazi-dong-mauntowowu-xiao-hua-suru/</link>
+      <pubDate>Sat, 08 Jun 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-12-04-demedeiazi-dong-mauntowowu-xiao-hua-suru/</guid>
+      <description> Ubuntu 12.04 でメディア自動マウントを無効化する Ubuntu 12.04のGNOMEのメディア自動マウントを無効化する
+自動マウントは便利といえば便利なのだが、ファイルシステム復旧のようなセンシティブな作業をしているときにやられると困る場合がある。
+その際に、無効化するには、以下のコマンドを実行する。
+$ gsettings get org.gnome.desktop.media-handling automount true ←有効の状態 $ gsettings set org.gnome.desktop.media-handling automount false $ gsettings get org.gnome.desktop.media-handling automount false ←無効になった  </description>
+    </item>
+    
+    <item>
+      <title>Microsoft wiress mouse 3500 ubuntu patch settings</title>
+      <link>https://tro3373.github.io/post/ubuntu/microsoft-wiress-mouse-3500-ubuntu-patch-settings/</link>
+      <pubDate>Thu, 23 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/microsoft-wiress-mouse-3500-ubuntu-patch-settings/</guid>
+      <description>Microsoft wiress mouse 3500 ubuntu patch settings 参考
+Ubuntu で Microsoft Wiress Mouse 3500 を使用した際、マウスホイールの動きが おかしいので、パッチを当てる、という話。</description>
+    </item>
+    
+    <item>
+      <title>Ninja250R オイル交換</title>
+      <link>https://tro3373.github.io/post/etc/ninja250r-oirujiao-huan/</link>
+      <pubDate>Thu, 04 Apr 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/etc/ninja250r-oirujiao-huan/</guid>
+      <description>Ninja250R オイル交換 参考URL  Ninja250R オイル・エレメント交換　用意するもの。 Ｎｉｎｊａ250Ｒ オイル交換・エレメント交換  オイル  CASTROL [ カストロール ] Activ 4T [ アクティブ 4T ] 10W-40 [ 部分合成油 ] 4L 16933 [HTRC3] 3,943円   シリコングリス  ワコーズ シリコーングリース SG-T 100g チューブ WAKO&amp;rsquo;S 万能シリコーングリース V250 3,530円（内送料840円）   オーリング大・小  kawasaki オンライン見積フォーム 部品番号 671B2590 389円 部品番号 670B2016 179円 送料 800円  シーリングワッシャー  キタコ KITACO アルミドレン ／ シーリングワッシャー 寸法A ： Φ12 × B ： Φ20 × C ： 1．5mm 749円（内送料600円）  オイルフィルター  KIJIMA（キジマ）　オイルフィルター 1,037円（内送料580円） KIJIMA[キジマ]：オイルフィルター エレメント NINJA 250R K8F-KBF（08-12） 【105-504】  オイルジョッキ - フルプラ　オイルジョッキ　ＮＯ．３５０　５Ｌ - 1,605円（内送料500円）</description>
+    </item>
+    
+    <item>
+      <title>MNP大作戦</title>
+      <link>https://tro3373.github.io/post/etc/mnpda-zuo-zhan/</link>
+      <pubDate>Thu, 22 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/etc/mnpda-zuo-zhan/</guid>
+      <description>MNPで携帯ゲットログ 完全に自分用ログなのでお気になさらずに。
+b-mobile(20121122〜20121201: MNP弾) 初期手数料 3,150 基本使用料 1,293 違約金 5,250 MNP手数料 2,100 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 11,793  SC-02E MNP新規契約 端末代 5,780(77,280-40,000(K&#39;sMNP割引)-31,500(家族セット割+K&#39;s割引)) 初期手数料 3,150 iコンシェル 105 Videoストア 525 コンテンツ(Newsdas) 315 コンテンツ(ソラダス) 105 携帯補償お届け 399 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 10,379   月々
+1年間基本使用料無料 780-780 パケホライト 4,935(3G縛り) (参考)パケホフラット 5,985(7G縛り) (参考)パケホダブル 2,100〜6,510(7G縛り) spモード 315 ユニバーサルサービス料 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 5,253(1年目) 6,033(2年目) 月々サポート -3,675(88,200(3675×24)) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 1,578(1年目) 2,358(2年目)   SH-11C 端末代 0 初期手数料 3,150 i-mode 315 iチャネル 157 iコンシェル 105 ケータイデータお預かり 105 ケータイ補償 294 ユニバーサルサービス料 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 4,129   月々</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(debian lenny) mysqlディレクトリ変更</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-mysqldeirekutoribian-geng/</link>
+      <pubDate>Sat, 20 Oct 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-mysqldeirekutoribian-geng/</guid>
+      <description> 参考
+mysql停止 sudo /etc/init.d/mysql stop  データ移行 mkdir -p /path/to/mysql_directory chown mysql:mysql /path/to/mysql_directory cd /path/to/mysql_directory mkdir mysqldata mysqldump chown mysql:mysql mysqldata chown mysql:mysql mysqldump sudo cp -fprv /var/lib/mysql/ ./mysqldata/  ディレクトリ指定設定 sudo vi /etc/mysql/conf.d/my_datadir.cnf  修正内容は以下
+[mysqld] datadir = /path/to/mysql_directory/mysqldata/mysql  正しく設定変更され起動できるか確認する為、元のデータは別場所へ移動 mkdir /data/tmp sudo mv /var/lib/mysql /data/tmp  mysql 再起動 sudo /etc/init.d/mysql restart  不要となったデータを削除 sudo rm /data/tmp  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntuで壁紙を自動で変更する</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntudebi-zhi-wozi-dong-debian-geng-suru/</link>
+      <pubDate>Thu, 20 Sep 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntudebi-zhi-wozi-dong-debian-geng-suru/</guid>
+      <description> Ubuntuで壁紙を自動で変更する 参考
+tool/installを変更 #timeout=$1 #enabled=$2 #depth=$3 #shift;shift;shift #base=$@ base=$1 timeout=$2 enabled=$3 depth=$4  kickerを新規作成 vim ~/bin/kick-wp-show.sh
+#! /bin/bash cd ~/bin/gnome-3-wp-gnome-3-wp nohup ./wp-show &amp;amp; wait 1 exit  </description>
+    </item>
+    
+    <item>
+      <title>tf201 root化</title>
+      <link>https://tro3373.github.io/post/android/tf201-roothua/</link>
+      <pubDate>Thu, 16 Aug 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/android/tf201-roothua/</guid>
+      <description>tags: tf201, Asus Tranceformaer Prime, android
+title: 20120816 tf201 root化 tf201 root化 参考１ 参考２
+bootloader unlock  download apk here Unlock Device App install apk &amp;amp; done  flash recovery clockworkmod  fastboot mode
+ Boot your tablet into fastboot by holding down the power and volume-down buttons.
+The tablet will power off and reboot.
+Wait until you see several lines of white text in the upper-left corner of the screen,</description>
+    </item>
+    
+    <item>
+      <title>玄箱lenny リストアテストを行う</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-lenny-risutoatesutowoxing-u/</link>
+      <pubDate>Sat, 28 Jul 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-lenny-risutoatesutowoxing-u/</guid>
+      <description>玄箱lenny,リストアテスト 新しく買ってきたWD20 EARX(9Kなり)でリカバリテストを行う
+MBRフォーマットへ切り替え Ubuntu 11.10へUSB接続し、ディスクユーティリティから 対象HDDのフォーマットをマスターブートレコードへ切り替える（もともとなってる？）
+次に、AFT,4096問題 通常パーティション切りで書き込みテストを行う
+sudo fdisk /dev/sdh Disk /dev/sdh: 2000.4 GB, 2000398934016 bytes ヘッド 255, セクタ 63, シリンダ 243201, 合計 3907029168 セクタ Units = セクタ数 of 1 * 512 = 512 バイト セクタサイズ (論理 / 物理): 512 バイト / 512 バイト I/O サイズ (最小 / 推奨): 512 バイト / 512 バイト ディスク識別子: 0x0006c4b4 cd /media/test dd if=/dev/zero of=./hage bs=128k count=32768 32768+0 レコード入力 32768+0 レコード出力 4294967296 バイト (4.</description>
+    </item>
+    
+    <item>
+      <title>ubuntu11.10でGoogle日本語入力</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu11-11degoogleri-ben-yu-ru-li/</link>
+      <pubDate>Fri, 13 Jul 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu11-11degoogleri-ben-yu-ru-li/</guid>
+      <description> ubuntu11.10でGoogle日本語入力 参考
+sudo apt-get install ibus-mozc mozc-server mozc-utils-gui  </description>
+    </item>
+    
+    <item>
+      <title>Windows でコマンドプロンプトのフォントを変更する</title>
+      <link>https://tro3373.github.io/post/windows-dekomandopuronputonohuontowobian-geng-suru/</link>
+      <pubDate>Thu, 28 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/windows-dekomandopuronputonohuontowobian-geng-suru/</guid>
+      <description> ファイル名を指定して実行より、regeditを実行
+以下の順にたどる
+HKEY_LOCAL_MACHINE - SOFTWARE - Microsoft - Windows NT - CurrentVersion - console - TrueTypeFont
+ 932.を追加し、値にMigu 1Mなど、使用したいフォント名を入力する
+ コマンドプロンプトから、フォントを変更する
+  </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG（debian lenny）へ SVN を導入する</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lennyhe-svn-wodao-ru-suru/</link>
+      <pubDate>Thu, 21 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lennyhe-svn-wodao-ru-suru/</guid>
+      <description>玄箱HG（debian lenny）へ SVN を導入する 参考  http://wlog.flatlib.jp/item/1289 http://brokendish.org/debian/609/  subversionインストール sudo apt-get install subversion sudo apt-get install libapache2-svn libapache2-mod-encoding  subversionの設定 svnロケーション設定 cd /etc/apache2 sudo vi mods-available/dav_svn.conf  以下を追加
+&amp;lt;Location /svn&amp;gt; DAV svn SVNParentPath /path/to/svn_server_directory SVNListParentPath on #require ssl SSLRequireSSL AuthType Basic # auto commit on SVNAutoversioning on AuthName &amp;quot;Subversion Repository&amp;quot; AuthUserFile /etc/apache2/dav_svn.passwd # require authentication other than require method for read repository. Require valid-user &amp;lt;/Location&amp;gt;  svnルートディレクトリの作成 mkdir -p /path/to/svn_server_directory  svnディレクトリ（プロジェクト単位？）の作成 sudo svnadmin create --fs-type=fsfs /path/to/svn_server_directory/repo sudo chown -R www-data:www-data /path/to/svn_server_directory sudo chmod -R gu+w /path/to/svn_server_directory  svnアクセスユーザの作成 htpasswd -c /etc/apache2/dav_svn.</description>
+    </item>
+    
+    <item>
+      <title>android Toastを上げるサンプル</title>
+      <link>https://tro3373.github.io/post/android/android-toastwoshang-gerusanpuru/</link>
+      <pubDate>Wed, 20 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/android/android-toastwoshang-gerusanpuru/</guid>
+      <description> android Toastを上げるサンプル Toast.makeText( this, &amp;quot;Build.DEVICE=&amp;quot; + Build.DEVICE + &amp;quot;:&amp;quot; + &amp;quot;Build.VERSION.SDK_INT=&amp;quot; + Build.VERSION.SDK_INT, android.widget.Toast.LENGTH_LONG).show(); Intent intent = new Intent(); intent.setClassName(&amp;quot;com.google.android.gsf&amp;quot;, &amp;quot;com.google.android.gsf.gtalkservice.diagnostics.GTalkDiagnostics&amp;quot;); startActivity(intent);  </description>
+    </item>
+    
+    <item>
+      <title>Galaxy Nexus タップ時の音を変更する</title>
+      <link>https://tro3373.github.io/post/android/galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</link>
+      <pubDate>Sat, 09 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/android/galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</guid>
+      <description> Galaxy Nexus タップ時の音を変更する  タップ時に鳴らす音を用意する（NexusSより抜いた）
+ 名前を以下に変更する
+Effect_Tick.ogg
+ /systemを書き込み権限付きでremountする（要ルート）
+mount -o rw,remount /system
+ adbでpushする
+adb push ./Effect_Tick.ogg /system/media/audio/ui
+  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu11.10にてNAS(玄箱HG)を自動マウントする</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/ubuntu11-10nitenasxuan-xiang-hgwozi-dong-mauntosuru/</link>
+      <pubDate>Wed, 30 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/ubuntu11-10nitenasxuan-xiang-hgwozi-dong-mauntosuru/</guid>
+      <description> Ubuntu11.10にてNAS(玄箱HG)を自動マウントする 参考
+fastab 編集 以下を追加※パスワードを/root配下に置くなどして、隠蔽化する
+//サーバ名/マウントディレクトリ /ローカルマウントディレクトリ cifs iocharset=utf8,uid=ローカル.uid,gid=ローカル.gid,credentials=/root/secret.txt 0 0  /root へNAS接続パスワードを配置
+sudo vi /root/secret.txt  ファイル内容は以下
+username=NAS接続ユーザ名 password=NAS接続ユーザパスワード  マウント・接続テスト
+sudo mount -a  </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(lenny) Apache2 ssl化</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-sslhua/</link>
+      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-sslhua/</guid>
+      <description>玄箱HG(lenny) Apache2 ssl化 前提条件  opensslはインストール済み apache2で既にサイトが稼働済み su 実行済み  opensslの設定 cd /etc/ssl ls -l 合計 28 drwxr-xr-x 2 root root 12288 2011-11-16 00:11 certs -rw-r--r-- 1 root root 9374 2010-12-06 00:23 openssl.cnf drwx--x--- 2 root ssl-cert 4096 2011-03-19 20:58 private cp -p openssl.cnf openssl.cnf.org vi openssl.cnf  編集内容は以下
+diff ./openssl.cnf.org openssl.cnf 172c172 &amp;lt; # nsCertType = server --- &amp;gt; nsCertType = server 241c241 &amp;lt; # nsCertType = sslCA, emailCA --- &amp;gt; nsCertType = sslCA, emailCA  証明書の作成 場所はどこでもよいと思われる。</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(lenny)へwebdavを導入する</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglennyhewebdavwodao-ru-suru/</link>
+      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglennyhewebdavwodao-ru-suru/</guid>
+      <description>玄箱HG(lenny)へwebdavを導入する 参考  Apache 2.2 WebDAV 設定 Apache関連  前提事項  apache2,sslは導入済み su 実行済み  webdavディレクトリを作成する cd 任意のディレクトリ mkdir webdav chown www-data:www-data webdav chmod 700 webdav  確認
+ls -l drwx------ 2 www-data www-data 4096 2012-05-29 22:22 webdav  webdavアクセスユーザを作成 sudo htpasswd -c /etc/apache2/dav.passwd [username]  確認
+cat /etc/apache2/dav.passwd ちなみにユーザの確認は cat /etc/passwd  apache の設定に Webdav へのアクセスを設定する sudo vi /etc/apache2/sites-available/[target_site_settings_file]  以下を追加
+Alias /webdav &amp;quot;作成したディレクトリ&amp;quot; &amp;lt;Location /webdav&amp;gt; DAV On Options indexes FollowSymlinks Order allow,deny allow from all AuthType Basic AuthName &amp;quot;Authentification Required&amp;quot; AuthUserFile /etc/apache2/dav.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(lenny) Apache2 再起動時にでる警告を消す</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-zai-qi-dong-shi-niderujing-gao-woxiao-su/</link>
+      <pubDate>Mon, 28 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-zai-qi-dong-shi-niderujing-gao-woxiao-su/</guid>
+      <description>玄箱HG(lenny) Apache2 再起動時に警告がでる apache2 再起動やら設定リロードなどで下記エラーが出る場合の対処
+エラー内容 以下のようなログがでる
+Could not reliably determine the server&#39;s fully qualified domain name, using 192.168.24.2 for ServerName ... waiting apache2: Could not reliably determine the server&#39;s fully qualified domain name, using 192.168.24.2 for ServerName ...done.  対処 cd /etc/apache2 vi apache2.conf ### Section 1: Global Environment # # The directives in this section affect the overall operation of Apache, # such as the number of concurrent requests it can handle or where it # can find its configuration files.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu11.10 chromeでyoutubeを見ると、どれを見ても青いバグを解消する</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu11-10-chromedeyoutubewojian-ruto-dorewojian-temoqing-ibaguwojie-xiao-suru/</link>
+      <pubDate>Sun, 20 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu11-10-chromedeyoutubewojian-ruto-dorewojian-temoqing-ibaguwojie-xiao-suru/</guid>
+      <description> Ubuntu11.10 chromeでyoutubeを見ると、どれを見ても青いバグを解消する という現状が起きた時の対処があった
+ http://ameblo.jp/newcomer-t/entry-11244836873.html 解決方法？
+sudo mkdir /etc/adobe echo -e &amp;quot;EnableLinuxHWVideoDecode=1\nOverrideGPUValidation=true&amp;quot; | sudo tee /etc/adobe/mms.cfg &amp;gt; /dev/null   </description>
+    </item>
+    
+    <item>
+      <title>mysql で sql ファイルを流し実行する</title>
+      <link>https://tro3373.github.io/post/mysql-de-sql-huairuwoliu-sishi-xing-suru/</link>
+      <pubDate>Fri, 04 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/mysql-de-sql-huairuwoliu-sishi-xing-suru/</guid>
+      <description> mysql で sql ファイルを流し実行する sql の記載されたファイルの中身を mysql で実行する
+mysql -u [username] -h [hostname] -p # パスワード入力 use [database_name] SET AUTOCOMMIT=0; # auto commit 無効化 START TRANSACTION; # 明示的にトランザクション開始 source /path/to/sqlファイル; commit;   参考  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu geditショートカットキーを変更する</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-geditsiyotokatutokiwobian-geng-suru/</link>
+      <pubDate>Sat, 31 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-geditsiyotokatutokiwobian-geng-suru/</guid>
+      <description> Ubuntu geditショートカットキーを変更する 設定ファイル 設定ファイルの先頭のコメント外し設定する
+vim ~/.config/gedit/accels  </description>
+    </item>
+    
+    <item>
+      <title>android メモリリーク調査</title>
+      <link>https://tro3373.github.io/post/android/android-memoririkudiao-cha/</link>
+      <pubDate>Thu, 01 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/android/android-memoririkudiao-cha/</guid>
+      <description> android メモリリーク調査  Eclise 新規ソフトウェアーより、以下を追加
+BIRT http://download.eclipse.org/birt/update-site/3.7 BIRT 3.7 Engine OSGi Runtime SDK 0.0.0 mat http://download.eclipse.org/mat/1.1.1/update-site/
+   DDMS、Deviceより。Heapを選択。↓矢印のついているheapアイコンでhprofファイルが作成される できたhprofファイルは現状バグっているらしいので、hprofツールで再度加工しなおす。 /env/gb234/android/out/host/linux-x86/bin/hprof-conv system_process.hprof ./TMP/temp.hprof eclipseファイルを開くから、できたhprofを選択すると、展開され、hprof取得タイミングでのメモリ情報が表示される。
+ </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu で SVN差分のある変更ファイルをexportする</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-de-svnchai-fen-noarubian-geng-huairuwoexportsuru/</link>
+      <pubDate>Wed, 23 Nov 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-de-svnchai-fen-noarubian-geng-huairuwoexportsuru/</guid>
+      <description>Ubuntu で SVN差分のある変更ファイルをexportする やりたいことは以下  SVNコマンドで変更したファイル一覧をExportしたい 変更したファイルについては、変更前のソースもExportしたい 上記２つよりDiffツールを使ってファイル差分を見たい SVNの差分ファイル一覧は svn diff | awk &#39;/^Index/ {print $NF}&#39; で取得できる  以下、作成したプログラム
+#!/bin/bash ################################################################################ # SETTINGS. ROOTDIR=/env/android- OUTDIR=~/デスクトップ FIXDIR=fix ORGDIR=original ################################################################################ shellFileName=`basename $0` fncEchoLog() { dateStr=`date &#39;+%Y%m%d:%H:%M:%S&#39;` outMsg=&amp;quot;[$shellFileName] $dateStr $*&amp;quot; echo &amp;quot;$outMsg&amp;quot; } copyParents() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; cp -p --parents $targetFile $OUTDIR } svnRevert() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; svn revert $targetFile } compareable() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; cp -p --parents $targetFile $OUTDIR/$FIXDIR svn revert $targetFile cp -p --parents $targetFile $OUTDIR/$ORGDIR cp -pf $OUTDIR/$FIXDIR/$targetFile $ROOTDIR/$targetFile } copyRevert() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; cp -p --parents $targetFile $OUTDIR svn revert $targetFile } ################################################################################ fncEchoLog &amp;quot;--------------------------------------------------------------------&amp;quot; fncEchoLog &amp;quot;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; MISSIOIN START&amp;quot; fncEchoLog &amp;quot;--------------------------------------------------------------------&amp;quot; fncEchoLog &amp;quot;TARGET DIR [$ROOTDIR]&amp;quot; fncEchoLog &amp;quot;OUTPUT DIR [$OUTDIR]&amp;quot; cd $ROOTDIR fncEchoLog &amp;quot;now checking fixed files.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</link>
+      <pubDate>Fri, 18 Nov 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</guid>
+      <description>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った 大まかな仕様は以下
+ 通常電源OFF状態の、同一ネットワーク内にあるLinkstationを 定時刻に wakeonlan にて起動 起動した Linkstation をネットワーク経由にてマウント サーバデータを全てrsyncしてバックアップ 処理の開始、終了時、特定のメールアドレスへメール送信する  必要パッケージのインストール sudo apt-get update sudp apt-get upgrade sudo apt-get install wakeonlan sudo apt-get install rsync # mysql はインストール済みとする # python はインストール済みとする  メール送信処理 特定アドレスにGメール送信する処理 Gmail 送信処理本体 GmailApi.py と、それを使用する sendMail.pyで構成
+まずは、Gmail送信処理から
+新規作成 vim GmailApi.py
+#!/usr/bin/python # -*- coding: utf-8 -*- import smtplib from email.MIMEText import MIMEText from email.Header import Header from email.Utils import formatdate class sendGmail: def __init__(self, encoding, subject, body, from_addr, to_addr, login_addr, passwd): self.</description>
+    </item>
+    
+    <item>
+      <title>chromium os install -&gt; Failed!</title>
+      <link>https://tro3373.github.io/post/chromium-os-install-failed/</link>
+      <pubDate>Wed, 26 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/chromium-os-install-failed/</guid>
+      <description> Install chromium os&amp;hellip; failed&amp;hellip;  download usb chromium os.
+ http://chromeos.hexxeh.net/vanilla.php ChromeOS-Vanilla-1217.0.2011_10_25_1632-r9de021da.tar.gz  partition 調査
+cat /proc/partitions  write to usb
+ /dev/sdg1 sudo umount /media/2799-4470 sudo dd if=/home/[username]/work/20111026.chromium.os.install/dl/ChromeOS-Vanilla-1217.0.2011_10_24_1637-r9de021da.img of=/dev/sdg bs=1k → error...quit!   http://www.mimimemo.net/2011/01/chromium-os-zero/ install tool  USB-ImageWriter   start up from usb to old pc.
+ install to hdd used usb start up img. http://yanotaka2.wordpress.com/2011/07/08/%E7%B5%90%E5%B1%80%E3%80%81chromeos%E3%82%92hdd%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%A6%E3%81%97%E3%81%BE%E3%81%A3%E3%81%9F%E3%80%82/
+  </description>
+    </item>
+    
+    <item>
+      <title>mysql 操作色々</title>
+      <link>https://tro3373.github.io/post/mysql-cao-zuo-se/</link>
+      <pubDate>Sat, 22 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/mysql-cao-zuo-se/</guid>
+      <description>mysql 設定＆操作色々 mysql-server local以外からもアクセス出きるように設定する  参考
+ MySQLユーザの追加   my.cnf編集 Debian/lenny MySQLに外部マシンから接続(リモート接続)
+$ sudo vi /etc/mysql/my.cnf #bind-address = 127.0.0.1 bind-address = [server_name]  再起動 $ /etc/init.d/mysql restart  リモートマシンからも接続可能なユーザを作成 # 現状確認 $ mysql -u root -p mysql&amp;gt; select User,Host from mysql.user; mysql&amp;gt; grant all on *.* to [user_name]@&amp;quot;[client_hostname]&amp;quot;identified by &amp;quot;[user_password]&amp;quot;;  リモートマシン（Ubuntu）にクライアントをインストール $ apt-get install mysql-client  リモートから接続 $ mysql -u [user_name] -h [host_name] -p  データベース作成 接続 $ mysql -u [user_name] -h [host_name] -p  データベース確認 mysql&amp;gt; show databases;  データベース作成 mysql&amp;gt; create database [database_name] default character set utf8; mysql&amp;gt; show create database [database_name];  使用するデータベースの選択 mysql&amp;gt; use [database_name];  テーブル確認 mysql&amp;gt; show tables;  テーブル削除 mysql&amp;gt; drop table [database_name].</description>
+    </item>
+    
+    <item>
+      <title>Unix コマンド色々</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-komandose/</link>
+      <pubDate>Fri, 12 Aug 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-komandose/</guid>
+      <description> Unix コマンド色々 # 検索した結果から削除 find ./ -name &amp;quot;.repo&amp;quot; -exec rm -r {} \; # ファイル差分 diff -y -W 200 ./tmp1/init.rc ./tmp2/init.rc # ディレクトリ差分 diff -rNq --exclude=&amp;quot;.svn&amp;quot; ./tmp1 ./tmp2 # ディレクトリ階層を含めてコピー cp -p --parents test/hogehoge.txt /var/tmp # ダミーファイル作成 dd if=/dev/zero of=220M.dat count=220 bs=1048576 ## svn コマンド # チェックアウト svn co [url] # 差分一覧 svn diff | awk &#39;/^Index/ {print $NF}&#39; # 差分一覧(簡易) svn status  </description>
+    </item>
+    
+    <item>
+      <title>oracle9i から oracle10g Express Edition へ移行する</title>
+      <link>https://tro3373.github.io/post/oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/</link>
+      <pubDate>Sat, 06 Aug 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/</guid>
+      <description>Oracle 10g XE install OracleXEUniv.exe  → web login用に使用する「system」ユーザのパスワードを設定する → TODO netstat -ano でリスニングポートがワンサカ
+Oracel web login http://127.0.0.1:8081/apexへアクセス
+user : system pass : インストール時に設定したパスワード   作成されるデフォルトオブジェクト
+表領域 ファイル名 サイズ(MB) 最大サイズ(MB) 自動拡張可 SYSAUX C:\ORACLEXE\ORADATA\XE\SYSAUX.DBF 430 32,768 YES SYSTEM C:\ORACLEXE\ORADATA\XE\SYSTEM.DBF 340 600 YES UNDO C:\ORACLEXE\ORADATA\XE\UNDO.DBF 90 500 YES USERS C:\ORACLEXE\ORADATA\XE\USERS.DBF 100 5,120 YES  作成されるユーザ
+HR SYSTEM？ ほか？  環境変数設定
+ ORACLE_BASE C:\oracle\ ORACLE_HOME C:\oraclexe\app\oracle\product\10.2.0\server ORACLE_SID [sample name] Path %ORACLE_HOME%\bin   新規インスタンス(SID)作成(文字コード変換 XEデフォルトAL32UTF8→現行9i用JA16SJIS)  参考：Oracle Database 10g XE(Windows版)の文字コードを変換する方法</description>
+    </item>
+    
+    <item>
+      <title>Nexus S ビルド〜ロム焼き まで</title>
+      <link>https://tro3373.github.io/post/android/nexus-s-birudo-romushao-ki-made/</link>
+      <pubDate>Sat, 30 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/android/nexus-s-birudo-romushao-ki-made/</guid>
+      <description>Nexus S ビルド〜ロム焼き まで Nexus S 目指せ文鎮化！ぐらいの勢いで、ソースビルドからロム焼き
+前提条件  環境PC  Ubuntu 10.10  端末  Samsung製 Nexus S gingerbread 2.3.4 GRJ22  ベースバンドバージョン  I9023XXKD1  カーネルバージョン  2.6.35.7-ge382d80 android-build@apa28 #1  ソース  android 2.3.4ソースをrepoより取得している。 ライブラリ等については、通常ビルドできる状態とする。   Ubuntu 10.10 に Nexus S を認識させる。  lsusb で Google inc. を探す sudo gedit /etc/udev/rules.d/51-android.rulesでデバイス情報を登録してやる
+# 以下を追加 SUBSYSTEM==&amp;quot;usb&amp;quot;, SYSFS{idVendor}==&amp;quot;18d1&amp;quot;, MODE=&amp;quot;0666&amp;quot;   リカバリイメージのダウンロード  Clockwork Recovery image置き場  ビルド用のソースを取得 ソース取得したいディレクトリへ移動</description>
+    </item>
+    
+    <item>
+      <title>androidフレームワーク開発Tips</title>
+      <link>https://tro3373.github.io/post/android/androidhuremuwakukai-fa-tips/</link>
+      <pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/android/androidhuremuwakukai-fa-tips/</guid>
+      <description>Android Life Cycle Activity Fragment ビルド # For Nexus S cd /path/to/the/sourcedirectory/ source build/envsetup.sh lunch 4 time make -j9 update-api time make -j9 # For vega source build/envsetup.sh time brunch vega -j9 # For Xoom export USE_CCACHE=1 TMP_CCACHE_DIR=/env/build.cache/wingray.tmp export CCACHE_DIR=$TMP_CCACHE_DIR/.ccache prebuilt/linux-x86/ccache/ccache -M 20G source build/envsetup.sh lunch 5 time make -j9  Flash image # crespo(Nexus S) ENVPATH=/env/nexus/kmpf-android-2.3.4 DEVICE_NAME=crespo fastboot flash boot $ENVPATH/out/target/product/${DEVICE_NAME}/boot.img fastboot flash recovery $ENVPATH/out/target/product/${DEVICE_NAME}/recovery.img fastboot flash userdata $ENVPATH/out/target/product/${DEVICE_NAME}/userdata.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntuのgrubを用いてWindowsとデュアルブートする</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntunogrubwoyong-itewindowstodeyuarubutosuru/</link>
+      <pubDate>Wed, 08 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntunogrubwoyong-itewindowstodeyuarubutosuru/</guid>
+      <description>Ubuntuのgrubを用いてWindowsとデュアルブートする grubをもちいて、Ubuntu側の設定でWindowsとデュアルブート 参考はこちら
+ 「GRUB2」 「Grub2 でのUUID 変更方法を教えてください。」  構造(流れ) /etc/default/grubを編集 sudo update-grub /boot/grub/grub.cfgへ反映される  手動で追加 1.手動で追加する場合は、/etc/grub.d/40_customに、grub.cfgに書かれているようにOS設定を登録
+2.sudo update-grub で完了のはず
+編集する
+$ sudo gedit /etc/grub.d/40_custom 以下を追加 menuentry &amp;quot;Windows XP Service Pack 3 (on /dev/sdb1)&amp;quot; { insmod part_msdos insmod ntfs set root=&#39;(hd1,1)&#39; chainloader +1 }  ※(hd1,1)・・・HDDの2番目、2番目のパーティションの意味(どちらも0オリジン)。
+反映
+$ sudo update-grub Generating grub.cfg ... Found linux image: /boot/vmlinuz-2.6.35-28-generic Found initrd image: /boot/initrd.img-2.6.35-28-generic Found linux image: /boot/vmlinuz-2.6.35-22-generic Found initrd image: /boot/initrd.img-2.6.35-22-generic Found memtest86+ image: /boot/memtest86+.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</link>
+      <pubDate>Tue, 07 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</guid>
+      <description>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする IntelliParkを無効にする  WD製2TibHDDである、WD20EARS-2TB-SATA300において、HDDアクセスが無かった場合の省電力モードを強制的に無効にする方法です。
+ 省電力モードなるものは一般的にHDDの寿命を縮めるなどの理由より。
+こちらを参考に「ハードウェア linux WD WD20EARSの正しい扱い方」
+  シェルの作成 以下のようなシェルを作成し適当なディレクトリへ配置します
+$ vi disable-intellipark.sh #!/bin/sh while true;do date &amp;gt; /tmp/disable-intellipark sleep 5 done  以下のようなシェルを作成し/etc/init.d 配下に配置します
+$ vi kick.disable-intellipark.sh echo ================================ echo [start] disable-intellipark echo ================================ . /上記シェルスクリプトを配置したディレクトリ/disable-intellipark.sh &amp;amp; echo ================================ echo [end] disable-intellipark echo ================================  起動設定 init.dへ配備します
+$ cd /etc/init.d $ sudo update-rc.d kick.disable-intellipark.sh defaults $ sudo reboot  停止設定 init.</description>
+    </item>
+    
+    <item>
+      <title>UbuntuとWindowsXPデュアルブート環境にて、Windowsの時刻が大幅に（９時間程ずれる）場合の設定</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntutowindowsxpdeyuarubutohuan-jing-nite-windowsnoshi-ke-gada-fu-ni9shi-jian-cheng-zureruchang-he-noshe-ding/</link>
+      <pubDate>Sat, 04 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntutowindowsxpdeyuarubutohuan-jing-nite-windowsnoshi-ke-gada-fu-ni9shi-jian-cheng-zureruchang-he-noshe-ding/</guid>
+      <description>UbuntuとWindowsをデュアルブート環境にしてさぁ、とおもったらWindowsの時刻が大幅にずれている。。 そんなことになったら、これ。
+参考
+/etc/default/rcSを書き換える
+$ sudo gedit /etc/default/rcS 以下のように書き換える UTC=yes =&amp;gt; no  以上！</description>
+    </item>
+    
+    <item>
+      <title>WindowsのブートローダーでUbuntuとデュアルブートする</title>
+      <link>https://tro3373.github.io/post/ubuntu/windowsnobutorodadeubuntutodeyuarubutosuru/</link>
+      <pubDate>Tue, 31 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/windowsnobutorodadeubuntutodeyuarubutosuru/</guid>
+      <description>WindowsのブートローダーでUbuntuとデュアルブートする grub4dosをもちいて、WindowsブートローダでUbuntuとデュアルブート 参考はこちら
+ 「Ubuntu Windows デュアルブート」 「Windows XPとUbuntu 10.10をMBMを使ってデュアルブートしました！」 「WindowsのブートローダーでLinuxとデュアルブートする方法 - Ubuntu 10.04 LTS, Grub 2の場合」 「WindowsのブートローダーでLinuxとデュアルブートする方法 - Ubuntu 11.04, Grub2の場合」   ・grub4dosダウンロードこちらからダウンロード
+・grub4dosを解凍しc:¥直下に配置
+以下２ファイル grldr.mbr grldr  ・c:¥menu.list作成
+内容は以下 # ３番目のデバイスの１番目のパーティション指定UUIDなども使用できるそう。 title Ubuntu /dev/sdc1 root (hd2,0) kernel /boot/grub/core.img  ※(hd2,0)・・・HDDの3番目、1番目のパーティションの意味(どちらも0オリジン)。</description>
+    </item>
+    
+    <item>
+      <title>Windowsをまるごとバックアップする</title>
+      <link>https://tro3373.github.io/post/windowswomarugotobatukuatupusuru/</link>
+      <pubDate>Tue, 31 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/windowswomarugotobatukuatupusuru/</guid>
+      <description>Partition Imageをつかってシステムをバックアップする 参考はこちら「システムバックアップ(PartitionImage)」</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (13) ロケール設定</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-13-rokerushe-ding/</link>
+      <pubDate>Fri, 27 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-13-rokerushe-ding/</guid>
+      <description>玄箱HG debian lenny (13) ロケール設定 ロケール設定 .bashrc 設定 追加＆編集 文字コード設定 export LANG=ja_JP.UTF-8 ls オプション追加 export LS_OPTIONS=&#39;--color=auto --show-control-chars&#39; # eval `dircolors` alias ls=&#39;ls $LS_OPTIONS&#39; alias ll=&#39;ls $LS_OPTIONS -la&#39; alias l=&#39;ls $LS_OPTIONS -lA&#39;  .bashrc を反映させる
+source .bashrc  locales インストール $ sudo apt-get install locales Reading package lists... Done Building dependency tree Reading state information... Done The following packages were automatically installed and are no longer required: python2.6-minimal python2.6 python-minimal libkrb53 libfuse2 python libfusefs-ruby1.</description>
+    </item>
+    
+    <item>
+      <title>Linux vs Windows コマンドラインからシャットダウンする</title>
+      <link>https://tro3373.github.io/post/linux-vs-windows-komandorainkarasiyatutodaunsuru/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/linux-vs-windows-komandorainkarasiyatutodaunsuru/</guid>
+      <description> Linux vs Windows コマンドラインからシャットダウンする Linux shutdown -h now または、 shutdown -h 00  Windows shutdown -s -t 00  </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (11)システムまるごとバックアップ</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-11sisutemumarugotobatukuatupu/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-11sisutemumarugotobatukuatupu/</guid>
+      <description>玄箱HG debian lenny (11)システムまるごとバックアップ debian lenny化した玄箱HGをまるごとバックアップする方法。
+現在WD製2TibHDD(WD20EARS-2TB-SATA300)で構築しいる鯖ですが、構成は以下のようになっています。
+   パーティション サイズ 用途     /dev/hda1 2G ブート用   /dev/hda2 512M スワップ領域   /dev/hda3 3G lenny 用   /dev/hda4 残り(およそ1994G) データ用    こちらを参考に構築しましたので。「玄箱に Debian 5.0 (lenny) をインストールする」
+このうち、/dev/hda1と/dev/hda3のみをtarボールバックアップする方法です。
+バックアップ debina lenny起動している玄箱HGをまずは、EMモード化する telnetにてログイン
+telnet myserverIpAddress  スーパユーザへ切り替え
+sudo su - パスワード入力  以下を実行
+※debian2.4化の場合
+$ echo -n &amp;ldquo;NGNG&amp;rdquo; &amp;gt; /dev/fl3
+※debian2.6化パッチのカーネル（私の環境はこちらでした）
+$ echo -n &amp;ldquo;NGNG&amp;rdquo; &amp;gt; /dev/mtdblock2</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (12)システムまるごとリストア(2TibHDDへの移行)</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-12sisutemumarugotorisutoa2tibhddhenoyi-xing/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-12sisutemumarugotorisutoa2tibhddhenoyi-xing/</guid>
+      <description>玄箱HG debian lenny (12)システムまるごとリストア(2TibHDDへの移行)  debian lenny化した玄箱HGをまるごとリストアする方法です。
+ WD製2TibHDD(WD20EARS-2TB-SATA300)へ移行する際のログになります。
+ 2Tib越えのHDDを導入する際の注意点が色々ありますが、なんとか完成しました。
+ AFT(Advanced Format Technology)対応にかなり苦戦；；；
+  以下参考サイトです
+ 「(HDD)WD WD20EARSのベンチマークとAFTの問題」 「[ハードウェア][linux]WD WD20EARSの正しい扱い方」 「初期の玄箱＋KURO-SATAでHDD２Tでセットアップができません。」 「WD20EARS買った。」 「4096 バイトセクタの HDD と Linux」 「玄箱を2TBに増強する。。。。（その１？）」 「玄箱無印のHDDを2TBにしたときのメモ」 「玄箱のバックアップ＆リストア」 「LinuxでAFT仕様のHDDを使用する」  玄箱HGへ2TibHDD導入時の注意点
+ SATAHDDなら[KURO-SATA]は必須 AFT対応として、セクタ開始位置に注意してフォーマットする。 フォーマットには、GPTではなく、MBR スピンアップタイムアウトによる起動時のエラーには、２度押し対応 （これはいるんだったかな？？）ジャンパピンを6-5ショート（転送モード1.5Gらしい）[本家サイト] （これはいるんだったかな？？）でかすぎる容量のフォーマット時にスワップ領域が足りない為エラーとなるので、データ領域は後からフォーマット  ぐらいなのかなぁ。。（記憶があいまいで。。）
+リストア(新しく買ったWD製2TibHDD(WD20EARS-2TB-SATA300)に再現させる) 前準備  （これはいるんだったかな？？）HDDはジャンパピン6-5ショート
+ UbuntuライブCDなどから母艦PCにてUSB接続し、MBRフォーマットへ切り替える
+ 玄箱HGへ2TibHDDを組み込み電源ONしてから2度押しを何度か繰り返すなどしてEMモードへ入れ、
+telnetログインします。
+  パーティション＆フォーマット パーティション境界を 8 セクタ単位とする。
+(細かい設定を以下で設定しなくても、「fdisk -H 224 -S 56 /dev/hda」なる解決策があるようですが、
+ここでは直接セクタ数を指定しています。)
+パーティションをひとつずつ作成。
+$ /sbin/mfdisk -c /dev/hda Command (m for help): m Command action a toggle a bootable flag b edit bsd disklabel c toggle the dos compatibility flag d delete a partition l list known partition types m print this menu n add a new partition o create a new empty DOS partition table p print the partition table q quit without saving changes s create a new empty Sun disklabel t change a partition&#39;s system id u change display/entry units v verify the partition table w write table to disk and exit Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 1 First cylinder (1-19929, default 1):64 Last cylinder or +size or +sizeM or +sizeK (1-19929, default 19929): +4096001 Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 2 First cylinder (256-19929, default 256):4096072 Last cylinder or +size or +sizeM or +sizeK (256-19929, default 19929): +1048577 Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 3 First cylinder (289-19929, default 289):5144656 Last cylinder or +size or +sizeM or +sizeK (289-19929, default 19929): +6144001 (※実際のログが残ってないので怪しいです。。。) # /dev/hda2をswap領域とする Command (m for help): t Partition number (1-4): 2 Hex code (type L to list codes): L 0 Empty 1b Hidden Win95 FA 64 Novell Netware bb Boot Wizard hid 1 FAT12 1c Hidden Win95 FA 65 Novell Netware c1 DRDOS/sec (FAT- 2 XENIX root 1e Hidden Win95 FA 70 DiskSecure Mult c4 DRDOS/sec (FAT- 3 XENIX usr 24 NEC DOS 75 PC/IX c6 DRDOS/sec (FAT- 4 FAT16 &amp;lt;32M 39 Plan 9 80 Old Minix c7 Syrinx 5 Extended 3c PartitionMagic 81 Minix / old Lin da Non-FS data 6 FAT16 40 Venix 80286 82 Linux swap db CP/M / CTOS / .</description>
+    </item>
+    
+    <item>
+      <title>UML 作成参考サイト</title>
+      <link>https://tro3373.github.io/post/uml-zuo-cheng-can-kao-saito/</link>
+      <pubDate>Fri, 20 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/uml-zuo-cheng-can-kao-saito/</guid>
+      <description>UML 作成参考サイト 参考になるサイトがあったのでメモ
+UML 作成参考サイト UML クラス図解説</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (1)lenny化</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-1lennyhua/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-1lennyhua/</guid>
+      <description>玄箱HG debian lenny (1)lenny化 玄人志向.玄箱HG(KURO-BOX/HG)購入しdebian lennyをインストールした時のメモ。
+debian化 ファームウェアアップデート ファイアウォール切断、IPアドレスを玄箱と合わせ(母艦PCのIP⇒192.168.198.XXに変更？だったかな？)、 玄箱手順どおりに最新ファームウェアを導入する。
+本家サイト
+イメージファイルのダウンロード 下記サイトからダウンロードします。
+玄箱に Debian 5.0 (lenny) をインストールする
+以下７ファイル。
+ debian-lenny-installer-kuroBOX-20090317.tgz debian-lenny-kuroBOX-20090317.tgz kuro-bootsel2-debian.tgz kuro-bootsel2.20080419.tar.gz loader.o kernelimage-2.6.25.1-kuroHG.tgz modules-2.6.25.1-kuroHG.tgz  ダウンロードしたファイルを玄箱HGへFTP接続などしてファイルを転送
+/mnt/share/配下に配備する
+インストール $ mkdir /tmp/lenny $ mv /mnt/share/* /tmp/lenny $ cd /tmp/lenny $ tar xvzf debian-lenny-installer-kuroBOX-20090317.tgz $ sh ./debian-lenny-installer-kuroHG.sh  再起動
+$ reboot  接続テスト 玄箱セットアップディスクなどで玄箱HGを検索しIPアドレスを探る
+IPは「192.168.0.100」となっている為、母艦側を玄箱HGに合わせる(192.168.0.XX)
+みつかればtelnetでログインしてみる。</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (10)ddclientインストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-10ddclientinsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-10ddclientinsutoru/</guid>
+      <description>玄箱HG debian lenny (10)ddclientインストール ipアドレスが変更となった場合の更新処理を自動化する。
+ddclientの他にipcheckがあるようですが、ここでは、ddclientで設定します。
+ddclientを導入 インストール 参考
+sudo apt-get install ddclient  設定 インストール時にいろいろ聞かれ /etc/ddclient.conf というサンプルのファイルが出来上がるが dyndnsのサイトが conf ファイルを自動生成してくれるのでそっちを使った方が楽らしい。
+以下が出来上がったファイル
+## ddclient configuration file daemon=600 # check every 600 seconds syslog=yes # log update msgs to syslog mail-failure=メールアドレス # Mail failed updates to user pid=/var/run/ddclient.pid # record PID in file. ## Detect IP with our CheckIP server use=web, web=checkip.dyndns.com/, web-skip=&#39;IP Address&#39; ## DynDNS username and password here login=DynDNSユーザ名 password=DynDNSパスワード ## Default options protocol=dyndns2 server=members.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (2)ユーザ設定</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-2yuzashe-ding/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-2yuzashe-ding/</guid>
+      <description> 玄箱HG debian lenny (2)ユーザ設定 ユーザ設定 root,tmp-kunパスワード変更 $ su $ passwd パスワード入力 $ psswd tmp-kun パスワード入力  新規ユーザ作成 $ useradd -g users -m 作成するユーザ名 $ passwd 作成したユーザ名 パスワード入力  tmp-kunのグループIDをusersに変更 $ usermod -g users tmp-kun  tmp-kunのファイルグループID変更 $ chgrp -R users /home/tmp-kun  グループ tmp-kun を削除 $ delgroup tmp-kun  tmp-kun削除 $ deluser tmp-kun  パスワード、シャドウパスワード編集 $ vipw $ vipw -s  </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (3)ネットワーク設定</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-3netutowakushe-ding/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-3netutowakushe-ding/</guid>
+      <description>玄箱HG debian lenny (3)ネットワーク設定 ネットワーク設定 IP変更 $ vi /etc/network/interfaces address 192.168.0.2 network 192.168.0.0 broadcast 192.168.0.255 gateway 192.168.0.1  hostname変更 $ vi /etc/hostname hogehost  hosts変更 $ vi /etc/hosts 追加 127.0.0.1 localhost.localadmin localhost 192.168.0.2 hogehost 192.168.0.21 hogebokan などなど  DNS設定 $ vi /etc/resolv.conf nameserver=192.168.0.1  再起動</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (4)sudo インストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-4sudo-insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-4sudo-insutoru/</guid>
+      <description>玄箱HG debian lenny (4)sudo インストール sudo インストール こちらを参考に
+パッケージ検索 $ apt-cache search sudo | grep ^sudo sudo - Provide limited super user privileges to specific users sudo-ldap - Provide limited super user privileges to specific users sudoku - console based sudoku  sudoインストール $ apt-get install sudo  ⇒パッケージを署名しているGPG鍵が原因でワーニング（参照）
+The following packages cannot be authenticated  ・GPG鍵更新？
+$ apt-get install debian-archive-keyring Reading package lists... Done Building dependency tree Reading state information.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (5) apt設定他もろもろ</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-5-aptshe-ding-ta-moromoro/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-5-aptshe-ding-ta-moromoro/</guid>
+      <description>玄箱HG debian lenny (5)apt設定&amp;ndash;他もろもろ apt設定（近くのミラーサイトの探し方と APT の設定方法） $ cd /etc/apt $ apt-get install wget $ wget http://www.debian.or.jp/apt/sources.list.http.ring.airnet.ne.jp ⇒index.htmlができる？ $ cp -p sources.list.http.ring.airnet.ne.jp sources.list ⇒「cp -p」パーミッションやタイムスタンプを保持したままコピー ⇒エラー：cp: cannot stat `sources.list.http.ring.airnet.ne.jp&#39;: No such file or directory  ⇒アドレスが古い。squeeze化か！？やり直し(参考)
+・apt-spyパッケージインストール
+$ sudo aptitude install apt-spy  ・ apt-spy を実行。ここでは日本国内の安定版 (stable) を取得する前提でサーバを探す？
+$ sudo apt-spy -s jp -d stable  ・/etc/apt/sources.list の中身を確認してみます。
+・apt-spy が書き込む前のファイルが バックアップされているので、結果が思わしくない場合はここから復帰
+/etc/apt/sources.list.bak  ・データベースの変更を反映
+$ aptitude update  mount設定 玄箱付属のセットアップディスクでファーマットした為、パーティションは/dev/hda3までしか存在しない。</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (6)sambaインストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-6sambainsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-6sambainsutoru/</guid>
+      <description>玄箱HG debian lenny (6)sambaインストール sambaをインストール 参考にしたのはこちら
+ 参考1
+ 参考2
+  インストール $ sudo apt-get update $ sudo apt-get install samba ⇒全てデフォルト。WORKGROUP。  設定 設定ファイル編集
+$ sudo vi /etc/samba/smb.conf  以下のような設定 参考はこちら「samba3: 日本語コード指定方法」
+# [global]セクション # 文字コード設定として以下を追加 dos charset = CP932 unix charset = UTF-8 display charset = UTF-8 # Sambaが通信を許可するホスト、ネットワークIPアドレス、ネットワークインターフェースなどを指定 interfaces = eth0 127.0.0.1 192.168.24.0/24 # Sambaに関係するネーム・サービスへの接続 bind interfaces only = yes # Sambaへの接続を許可するホストやネットワークを指定 hosts allow = 192.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (7)apache2インストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-7apache2insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-7apache2insutoru/</guid>
+      <description> 玄箱HG debian lenny (7)apache2インストール apache2を導入 インストール $ sudo apt-get install apache2  apache2.con設定 $ sudo vi /etc/apache2/apache2.conf #DefaultType text/plain 変更⇒ DefaultType application/octet-stream  バーチャルホスト設定ファイル作成 参考1
+$ cd /etc/apache2/sites-available $ sudo cp default hogehoge $ sudo vi hogehoge  ・サイト有効設定
+$ sudo a2ensite 有効にするサイトを選択「hogehoge」  ・サイト無効設定
+$ sudo a2dissite 無効にするサイトを選択「default」  ・apache 再起動
+$ sudo /etc/init.d/apache2 reload  </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (8)mysqlインストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-8mysqlinsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-8mysqlinsutoru/</guid>
+      <description>玄箱HG debian lenny (8)mysqlインストール mysqlを導入 インストール ・インストール
+$ sudo apt-get install mysql-server  ・mysql動作確認
+$ mysqladmin ping -u root -p 正常動作時 Enter password: mysqld is alive  パスワード変更 $ mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);  ユーザ確認 ログイン $ mysql -u root -p SQL実行 mysql&amp;gt; SELECT host,user,password FROM mysql.user;  文字コード設定 参考1
+参考2
+現状確認
+sql&amp;gt; status Server characterset: latin1 Db characterset: latin1 Client characterset: latin1 Conn. characterset: latin1  /etc/mysql/conf.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (9)php5インストール</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-9php5insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-9php5insutoru/</guid>
+      <description>玄箱HG debian lenny (9)php5インストール php5を導入 インストール sudo apt-get install php5 libapache2-mod-php5 php5-mysql php-pear php5-gd  設定 cd /etc/php5/apache2/  ・バックアップ
+cp php.ini php.orignal  ・php.ini設定
+sudo vi php.ini 以下のように設定 default_charset = UTF-8 expose_php = Off #HTTPヘッダーの PHP に関する情報を隠蔽 display_errors = Off #エラーをブラウザに非表示 error_log = /var/log/php.logエラーログを出力するファイルを指定 mbstring.language = Japanese mbstring.internal_encoding = UTF-8 mbstring.http_input = auto mbstring.http_output = UTF-8 mbstring.encoding_translation = On mbstring.detect_order = auto mbstring.substitute_character = none mbstring.func_overload = 0  ・apache再起動</description>
+    </item>
+    
+    <item>
+      <title>Android GingerBread ビルド色々</title>
+      <link>https://tro3373.github.io/post/android/android-gingerbread-se/</link>
+      <pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/android/android-gingerbread-se/</guid>
+      <description>SDKビルドしたoutディレクトリから、emulatorを立ち上げる cd /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools ./android list # ⇒ 以下が正しく無いとして、起動できず # ・sdklib.jar # ・sdkmanager.jar # ・sdkuilib.jar # ⇒ Eclipseより取得したファイルより、上書き # 以下のように正しく表示される # Available Android targets: # id: 1 or &amp;quot;android-9&amp;quot; # Name: Android 2.3.1 # Type: Platform # API level: 9 # Revision: 1 # Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854 # Available Android Virtual Devices: # The following Android Virtual Devices could not be loaded: # Name: jb # Path: /home/hogeuser/.</description>
+    </item>
+    
+    <item>
+      <title>Xivision(vega) ロム焼き</title>
+      <link>https://tro3373.github.io/post/android/xivisionvega-romushao-ki/</link>
+      <pubDate>Tue, 10 Aug 2010 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/android/xivisionvega-romushao-ki/</guid>
+      <description># Xivision(vega) ロム焼き TOOLS_DIR=~/work/30.tools OUT_DIR=/env/vega/vega/out/target/product/vega nvflash --bl $TOOLS_DIR/bootloader.bin --go nvflash -r --download 8 $OUT_DIR/system.img --download 7 $OUT_DIR/boot.img --download 11 $OUT_DIR/userdata.img --download 6 $OUT_DIR/recovery.img  </description>
+    </item>
+    
+    <item>
+      <title>Hello Friend</title>
+      <link>https://tro3373.github.io/post/hello/</link>
+      <pubDate>Wed, 17 Sep 1986 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/hello/</guid>
+      <description> &amp;ldquo;Hello, friend?&amp;rdquo; That&amp;rsquo;s lame. Maybe I should give you a name&amp;hellip; But that&amp;rsquo;s a slippery slope. You&amp;rsquo;re only in my head. We have to remember that&amp;hellip; Shit. It&amp;rsquo;s actually happened. I&amp;rsquo;m talking to an imaginary person.
+— Mr. Robot S01E01
+ </description>
+    </item>
+    
+    <item>
+      <title>Archive</title>
+      <link>https://tro3373.github.io/archive/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/archive/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

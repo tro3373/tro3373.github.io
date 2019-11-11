@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>markdown on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/markdown/</link>
+    <description>Recent content in markdown on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Wed, 07 Jan 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pandoc でマークダウンから docx へ変換する</title>
+      <link>https://tro3373.github.io/post/pandoc-demakudaunkara-docx-hebian-huan-suru/</link>
+      <pubDate>Wed, 07 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/pandoc-demakudaunkara-docx-hebian-huan-suru/</guid>
+      <description> Pandoc でマークダウンから docx へ変換する方法 pandoc &amp;quot;a.md&amp;quot; -t docx -o &amp;quot;a.docx&amp;quot;  </description>
+    </item>
+    
+    <item>
+      <title>html ファイルから一括で markdown ファイルへ変換する</title>
+      <link>https://tro3373.github.io/post/html-huairukara-gua-de-markdown-huairuhebian-huan-suru/</link>
+      <pubDate>Tue, 11 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/html-huairukara-gua-de-markdown-huairuhebian-huan-suru/</guid>
+      <description> html から markdown へ変換する 使用したツールは、html2text
+前提条件  python インストール済み git インストール済み 変換する htmlファイルを用意する  インストール git clone して実行するのみです。
+cd works git clone https://github.com/aaronsw/html2text.git cd html2text ./html2text.py hogehoge.html &amp;gt;&amp;gt; hogehoge.md  </description>
+    </item>
+    
+  </channel>
+</rss>

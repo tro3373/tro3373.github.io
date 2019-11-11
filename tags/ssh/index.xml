@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ssh on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ssh/</link>
+    <description>Recent content in ssh on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Tue, 07 Oct 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Debian wheezy に Ubuntu 14.04 クライアントからSSH接続する</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</link>
+      <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</guid>
+      <description>[Client] Key generate create pub, private key at ~/.ssh cd ~/.ssh ssh-keygen -t rsa # created under files id_rsa id_rsa.pub  upload public key to server. scp id_rsa.pub [server ip address]:~/  [Client] .ssh/config vim ~/.ssh/config
+Host [server name] HostName [server name or ipaddress] Port 22 User [login user name] IdentityFile ~/.ssh/id_rsa  [server] regist pub key login the server. cd ~ cat rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys  [server] sshd settings sudo vim /etc/ssh/sshd_config check the settings</description>
+    </item>
+    
+  </channel>
+</rss>

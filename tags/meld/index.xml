@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>meld on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/meld/</link>
+    <description>Recent content in meld on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Thu, 25 Sep 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/meld/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ubuntu 14.04 ランチャーにアプリ(meld)を登録する</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-rantiyaniapurimeldwodeng-lu-suru/</link>
+      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-rantiyaniapurimeldwodeng-lu-suru/</guid>
+      <description> 適当な場所に以下のファイルを作成する vim ~/bin/meld.desktop  以下内容にする [Desktop Entry] Type=Application Name=Meld GenericName=meld Icon=~/bin/meld-1.8.6/data/icons/hicolor/48x48/apps/meld.png Exec=~/bin/meld-1.8.6/bin/meld Terminal=false  </description>
+    </item>
+    
+  </channel>
+</rss>

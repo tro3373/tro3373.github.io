@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PostgreSQL on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/postgresql/</link>
+    <description>Recent content in PostgreSQL on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Thu, 23 Oct 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ubuntu 14.04 postgresql install</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-postgresql-install/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-postgresql-install/</guid>
+      <description> postgresql install sudo apt-get install postgresql sudo apt-get install libpq-dev  postgresql settings sudo su postgres -c psql postgres=# CREATE ROLE [user] SUPERUSER LOGIN; postgres=# \password [user] [userpassword] [userpassword]  check or list database, tables, indexes, and so on. postgres=# create database [user]; postgres=# select * from pg_user; /* ユーザ一覧 */ postgres=# \d /* 表、インデックスの一覧 */ postgres=# \dt /* 表の一覧 */ postgres=# \d [表名] /* 表の項目一覧 */ postgres=# \l /* データベース一覧、文字コード表示 */ postgres=# \q /* 終了 */ psql -l # データベース 一覧 psql [データベース名] # psql へ切り替え  </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 ruby2.1.2 で ActiveRecord4.1.6 を使用し、postgresql4.1.6 へアクセス</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</guid>
+      <description>まずはdatabase 確認 sudo su postgres -c psql  install activerecord,pg mkdir -p ~/works/99_sample/02_activerecord cd ~/works/99_sample/02_activerecord gem install activerecord gem install pg gem list  DBユーザtest_nameを作成しておく sudo su postgres -c psql create role test_name superuser login; \password test_name Enter new password: test_name Enter it again: test_name create database test_name;  config/database.yml mkdir -p config &amp;amp;&amp;amp; vim config/database.yml
+db: production: adapter: postgresql host: localhost username: test_name password: test_name database: test_name development: adapter: postgresql host: localhost username: test_name password: test_name database: test_name  db/migrate配下に、３ファイルを配置(rails環境からコピー) mkdir -p db/migrate</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 で websocket, zeroMQ</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-de-websocket-zeromq/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-de-websocket-zeromq/</guid>
+      <description>rails 、postgresql、zeroMQ、websocketを使って通信するサンプル環境を作成中
+create rails project cd 任意のディレクトリ rails new test_rails_postgres -d postgresql cd test_rails_postgres bundle install --path vendor/bundle bundle exec rake db:create db:migrate  テスト起動確認 cd test_rails_postgres rails server http://[サーバアドレス]:3000へアクセス  git 管理開始 cd test_rails_postgres git init vim .gitignore 以下を追加 doc/ *.swp *~ .project .DS_Store .idea .secret git add . git commit -m &amp;quot;initial commit.&amp;quot;  テスト設定 bundle exec rails generate scaffold book title:string author:string outline:text bundle exec rake db:migrate bundle exec rails server  db確認 -- database list \l -- user list select * from pg_user; -- table list \d  routes の確認 http://localhost:3000/rails/info/routes  rails へwebsocket実装 websocket-rails install cd test_rails_postgres vim Gemfile # 以下を追加 gem &#39;websocket-rails&#39; bundle install rails g websocket_rails:install # コントローラ作成 vim app/controllers/websocket_chat_controller.</description>
+    </item>
+    
+  </channel>
+</rss>

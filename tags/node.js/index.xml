@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>node.js on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/node.js/</link>
+    <description>Recent content in node.js on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Thu, 08 Oct 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ghost ブログ Export ファイルを変換するスクリプトを書いた</title>
+      <link>https://tro3373.github.io/post/ghost-burogu-export-huairuwobian-huan-surusukuriputowoshu-ita/</link>
+      <pubDate>Thu, 08 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ghost-burogu-export-huairuwobian-huan-surusukuriputowoshu-ita/</guid>
+      <description>ブログシステムを Ghost へ乗り換えてみたが、 Publish 日付とブログの日付が合わない、といった事象が発生していた。（ブログ再構築の際に順番をいしきしていなかった為、 publish 日付でソートされると、あまり宜しくない結果になった。）
+仕方ない、、、と放置していたが、この度簡単なスクリプトを書いて対応した。
+node のインストールに若干手こずったが、まぁ、Javascript、簡単！
+概要  Ghost 管理メニューより Export した Jsonファイルを用意する。 今回は、ブログタイトルに、記事日付があったので、それを利用した。 title より取り出した 日付で、 publish_at 項目を更新。 本来の日付でソートできた！！
+vim convertMyGhostExport.js  var srcPath = &amp;quot;/home/ghost/Desktop/your-domain.ghost.2015-10-07.json&amp;quot;; var dstPath = &amp;quot;/home/ghost/Desktop/your-domain.ghost.2015-10-07_dst.json&amp;quot;; var json = require(srcPath); json.db[0].data.posts.every(function(post,index,ar){ var dateStr = post.title.substr(0, 8); if (!dateStr.match(/\d{8}/)) { // title の頭８文字が数値出ない場合は対象外 return true; } if (post.status != &amp;quot;published&amp;quot;) { // 公開していない場合は対象外 return true; } var yyyy = dateStr.substr(0,4); var mm = dateStr.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 Node.js をインストール</title>
+      <link>https://tro3373.github.io/post/ubuntu/ubuntu14-04-node-js-woinsutoru/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ubuntu/ubuntu14-04-node-js-woinsutoru/</guid>
+      <description>Ubuntu14.04 Node.jsをインストール install packages. sudo apt-get install git curl build-essential libssl-dev  install nvm. git clone https://github.com/creationix/nvm.git ~/.nvm . ~/.nvm/nvm.sh nvm install 0.10 ######################################################################## 100.0% Now using node v0.10.31 nvm version vi ~/.bashrc # 以下追加 . ~/.nvm/nvm.sh nvm use v0.10.31 # defaultバージョンを指定 nvm alias default v0.10.31 # Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン  hellow world 作成 cd 任意のディレクトリ vim hellowworld.js ------------------------------------- var sys = require(&#39;sys&#39;); var http = require(&#39;http&#39;); var server = http.createServer( function (request, response) { response.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ninja on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ninja/</link>
+    <description>Recent content in Ninja on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Sun, 05 Mar 2017 01:11:06 +0900</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/ninja/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ninja 250R オイル交換</title>
+      <link>https://tro3373.github.io/post/ninja250r-mentenance-oil-element/</link>
+      <pubDate>Sun, 05 Mar 2017 01:11:06 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/post/ninja250r-mentenance-oil-element/</guid>
+      <description>久しく交換していなかったので、天気も良いしNinjaオイル交換.
+使用するもの 今回はエレメント交換も行うので、フィルター. オイル シリコングリス 他にも、ワッシャー、大小オーリングを使用します.
+古いオイルの排出 まずはドレインボルトを外して、ドバーっと古いオイルを出します. これは、外したボルト わかりにくいけど、外したところ ちゃんとお手製のオイル廃棄箱を受け皿にしています. エレメント交換 下の画像の右側の大きな円の部分を外します. これは外したフィルター. 下から除くとこんな穴が空いてます. ドレインボルトよりもこっちを外すほうが、難しいですね.
+円形の全方位からオイルが出てくるので、蓋やレンチや手がオイルで ヌレル こと間違い無し.
+綺麗に拭き取ります. 外したフィルターを分解して、これもオイルを拭き取ります. これは、外した円形の蓋の裏側.
+大きい方のオーリング(黒いゴム製の輪っか)が溝にはまってます.
+今回はこのリングも交換します. これは、フィルタから外したところ.
+画像の下の方に、小さい方のオーリングが同じように溝にはまっているので、 これも取り外して交換です. これが古いオーリング
+新しいオーリングや、軸の部分にはシリコングリスを塗ってから装着.
+オイルを 2L 弱入れて完成.
+良い休日でした.</description>
+    </item>
+    
+    <item>
+      <title>Ninja250R オイル交換</title>
+      <link>https://tro3373.github.io/post/etc/ninja250r-oirujiao-huan/</link>
+      <pubDate>Thu, 04 Apr 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/etc/ninja250r-oirujiao-huan/</guid>
+      <description>Ninja250R オイル交換 参考URL  Ninja250R オイル・エレメント交換　用意するもの。 Ｎｉｎｊａ250Ｒ オイル交換・エレメント交換  オイル  CASTROL [ カストロール ] Activ 4T [ アクティブ 4T ] 10W-40 [ 部分合成油 ] 4L 16933 [HTRC3] 3,943円   シリコングリス  ワコーズ シリコーングリース SG-T 100g チューブ WAKO&amp;rsquo;S 万能シリコーングリース V250 3,530円（内送料840円）   オーリング大・小  kawasaki オンライン見積フォーム 部品番号 671B2590 389円 部品番号 670B2016 179円 送料 800円  シーリングワッシャー  キタコ KITACO アルミドレン ／ シーリングワッシャー 寸法A ： Φ12 × B ： Φ20 × C ： 1．5mm 749円（内送料600円）  オイルフィルター  KIJIMA（キジマ）　オイルフィルター 1,037円（内送料580円） KIJIMA[キジマ]：オイルフィルター エレメント NINJA 250R K8F-KBF（08-12） 【105-504】  オイルジョッキ - フルプラ　オイルジョッキ　ＮＯ．３５０　５Ｌ - 1,605円（内送料500円）</description>
+    </item>
+    
+  </channel>
+</rss>

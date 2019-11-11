@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vega on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/vega/</link>
+    <description>Recent content in vega on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Tue, 10 Aug 2010 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/vega/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Xivision(vega) ロム焼き</title>
+      <link>https://tro3373.github.io/post/android/xivisionvega-romushao-ki/</link>
+      <pubDate>Tue, 10 Aug 2010 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/android/xivisionvega-romushao-ki/</guid>
+      <description># Xivision(vega) ロム焼き TOOLS_DIR=~/work/30.tools OUT_DIR=/env/vega/vega/out/target/product/vega nvflash --bl $TOOLS_DIR/bootloader.bin --go nvflash -r --download 8 $OUT_DIR/system.img --download 7 $OUT_DIR/boot.img --download 11 $OUT_DIR/userdata.img --download 6 $OUT_DIR/recovery.img  </description>
+    </item>
+    
+  </channel>
+</rss>

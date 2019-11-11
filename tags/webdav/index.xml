@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>webdav on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/webdav/</link>
+    <description>Recent content in webdav on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Tue, 29 May 2012 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/webdav/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>玄箱HG(lenny)へwebdavを導入する</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglennyhewebdavwodao-ru-suru/</link>
+      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglennyhewebdavwodao-ru-suru/</guid>
+      <description>玄箱HG(lenny)へwebdavを導入する 参考  Apache 2.2 WebDAV 設定 Apache関連  前提事項  apache2,sslは導入済み su 実行済み  webdavディレクトリを作成する cd 任意のディレクトリ mkdir webdav chown www-data:www-data webdav chmod 700 webdav  確認
+ls -l drwx------ 2 www-data www-data 4096 2012-05-29 22:22 webdav  webdavアクセスユーザを作成 sudo htpasswd -c /etc/apache2/dav.passwd [username]  確認
+cat /etc/apache2/dav.passwd ちなみにユーザの確認は cat /etc/passwd  apache の設定に Webdav へのアクセスを設定する sudo vi /etc/apache2/sites-available/[target_site_settings_file]  以下を追加
+Alias /webdav &amp;quot;作成したディレクトリ&amp;quot; &amp;lt;Location /webdav&amp;gt; DAV On Options indexes FollowSymlinks Order allow,deny allow from all AuthType Basic AuthName &amp;quot;Authentification Required&amp;quot; AuthUserFile /etc/apache2/dav.</description>
+    </item>
+    
+  </channel>
+</rss>

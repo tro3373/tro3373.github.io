@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    
+      <title>mysql 操作色々 :: tac lifelog — code,tech,log .. </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="mysql 設定＆操作色々 mysql-server local以外からもアクセス出きるように設定する  参考
+ MySQLユーザの追加   my.cnf編集 Debian/lenny MySQLに外部マシンから接続(リモート接続)
+$ sudo vi /etc/mysql/my.cnf #bind-address = 127.0.0.1 bind-address = [server_name]  再起動 $ /etc/init.d/mysql restart  リモートマシンからも接続可能なユーザを作成 # 現状確認 $ mysql -u root -p mysql&amp;gt; select User,Host from mysql.user; mysql&amp;gt; grant all on *.* to [user_name]@&amp;quot;[client_hostname]&amp;quot;identified by &amp;quot;[user_password]&amp;quot;;  リモートマシン（Ubuntu）にクライアントをインストール $ apt-get install mysql-client  リモートから接続 $ mysql -u [user_name] -h [host_name] -p  データベース作成 接続 $ mysql -u [user_name] -h [host_name] -p  データベース確認 mysql&amp;gt; show databases;  データベース作成 mysql&amp;gt; create database [database_name] default character set utf8; mysql&amp;gt; show create database [database_name];  使用するデータベースの選択 mysql&amp;gt; use [database_name];  テーブル確認 mysql&amp;gt; show tables;  テーブル削除 mysql&amp;gt; drop table [database_name]."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://tro3373.github.io/post/mysql-cao-zuo-se/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/assets/style.css">
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://tro3373.github.io/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://tro3373.github.io/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="mysql 操作色々"/>
+<meta name="twitter:description" content="mysql 設定＆操作色々 mysql-server local以外からもアクセス出きるように設定する  参考
+ MySQLユーザの追加   my.cnf編集 Debian/lenny MySQLに外部マシンから接続(リモート接続)
+$ sudo vi /etc/mysql/my.cnf #bind-address = 127.0.0.1 bind-address = [server_name]  再起動 $ /etc/init.d/mysql restart  リモートマシンからも接続可能なユーザを作成 # 現状確認 $ mysql -u root -p mysql&gt; select User,Host from mysql.user; mysql&gt; grant all on *.* to [user_name]@&quot;[client_hostname]&quot;identified by &quot;[user_password]&quot;;  リモートマシン（Ubuntu）にクライアントをインストール $ apt-get install mysql-client  リモートから接続 $ mysql -u [user_name] -h [host_name] -p  データベース作成 接続 $ mysql -u [user_name] -h [host_name] -p  データベース確認 mysql&gt; show databases;  データベース作成 mysql&gt; create database [database_name] default character set utf8; mysql&gt; show create database [database_name];  使用するデータベースの選択 mysql&gt; use [database_name];  テーブル確認 mysql&gt; show tables;  テーブル削除 mysql&gt; drop table [database_name]."/>
+
+
+
+<meta property="og:title" content="mysql 操作色々" />
+<meta property="og:description" content="mysql 設定＆操作色々 mysql-server local以外からもアクセス出きるように設定する  参考
+ MySQLユーザの追加   my.cnf編集 Debian/lenny MySQLに外部マシンから接続(リモート接続)
+$ sudo vi /etc/mysql/my.cnf #bind-address = 127.0.0.1 bind-address = [server_name]  再起動 $ /etc/init.d/mysql restart  リモートマシンからも接続可能なユーザを作成 # 現状確認 $ mysql -u root -p mysql&gt; select User,Host from mysql.user; mysql&gt; grant all on *.* to [user_name]@&quot;[client_hostname]&quot;identified by &quot;[user_password]&quot;;  リモートマシン（Ubuntu）にクライアントをインストール $ apt-get install mysql-client  リモートから接続 $ mysql -u [user_name] -h [host_name] -p  データベース作成 接続 $ mysql -u [user_name] -h [host_name] -p  データベース確認 mysql&gt; show databases;  データベース作成 mysql&gt; create database [database_name] default character set utf8; mysql&gt; show create database [database_name];  使用するデータベースの選択 mysql&gt; use [database_name];  テーブル確認 mysql&gt; show tables;  テーブル削除 mysql&gt; drop table [database_name]." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tro3373.github.io/post/mysql-cao-zuo-se/" />
+<meta property="article:published_time" content="2011-10-22T00:00:00+00:00" />
+<meta property="article:modified_time" content="2011-10-22T00:00:00+00:00" /><meta property="og:site_name" content="tac lifelog" />
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">ag -l |sort -r</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+      
+        <ul class="menu__sub-inner">
+          <li class="menu__sub-inner-more-trigger">
+            Show more
+            <span class="menu__sub-inner-more-trigger-icon"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+          </li>
+
+          <ul class="menu__sub-inner-more hidden">
+            
+              
+                <li><a href="/about">About</a></li>
+              
+            
+              
+                <li><a href="/archive">Archives</a></li>
+              
+            
+              
+                <li><a href="/categories">Categories</a></li>
+              
+            
+              
+                <li><a href="/tags">Tags</a></li>
+              
+            
+          </ul>
+        </ul>
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/archive">Archives</a></li>
+      
+    
+      
+        <li><a href="/categories">Categories</a></li>
+      
+    
+      
+        <li><a href="/tags">Tags</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  <div class="post">
+    <h2 class="post-title"><a href="https://tro3373.github.io/post/mysql-cao-zuo-se/">mysql 操作色々</a></h2>
+    <div class="post-meta">
+      
+        <span class="post-date">
+            2011-10-22
+        </span>
+      
+      
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://tro3373.github.io/tags/mysql/">mysql</a>&nbsp;
+        
+      </span>
+    
+
+    
+
+    
+    <script data-ad-client="ca-pub-6962926171897574" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+
+    <div class="post-content">
+      
+
+<h1 id="mysql-設定-操作色々">mysql 設定＆操作色々</h1>
+
+<h1 id="mysql-server-local以外からもアクセス出きるように設定する">mysql-server local以外からもアクセス出きるように設定する</h1>
+
+<ul>
+<li><p>参考</p>
+
+<ul>
+<li><a href="http://phpspot.net/php/pgMySQL%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E8%BF%BD%E5%8A%A0.html">MySQLユーザの追加</a></li>
+</ul></li>
+</ul>
+
+<h2 id="my-cnf編集">my.cnf編集</h2>
+
+<p><a href="http://somenotes.seesaa.net/category/7286175-1.html">Debian/lenny MySQLに外部マシンから接続(リモート接続)</a></p>
+
+<pre><code>$ sudo vi /etc/mysql/my.cnf
+    #bind-address           = 127.0.0.1
+    bind-address            = [server_name]
+</code></pre>
+
+<h2 id="再起動">再起動</h2>
+
+<pre><code>$ /etc/init.d/mysql restart
+</code></pre>
+
+<h2 id="リモートマシンからも接続可能なユーザを作成">リモートマシンからも接続可能なユーザを作成</h2>
+
+<pre><code># 現状確認
+$ mysql -u root -p
+mysql&gt; select User,Host from mysql.user;
+mysql&gt; grant all on *.* to [user_name]@&quot;[client_hostname]&quot;identified by &quot;[user_password]&quot;;
+</code></pre>
+
+<h2 id="リモートマシン-ubuntu-にクライアントをインストール">リモートマシン（Ubuntu）にクライアントをインストール</h2>
+
+<pre><code>$ apt-get install mysql-client
+</code></pre>
+
+<h2 id="リモートから接続">リモートから接続</h2>
+
+<pre><code>$ mysql -u [user_name] -h [host_name] -p
+</code></pre>
+
+<h1 id="データベース作成">データベース作成</h1>
+
+<h2 id="接続">接続</h2>
+
+<pre><code>$ mysql -u [user_name] -h [host_name] -p
+</code></pre>
+
+<h2 id="データベース確認">データベース確認</h2>
+
+<pre><code>mysql&gt; show databases;
+</code></pre>
+
+<h2 id="データベース作成-1">データベース作成</h2>
+
+<pre><code>mysql&gt; create database [database_name] default character set utf8;
+mysql&gt; show create database [database_name];
+</code></pre>
+
+<h2 id="使用するデータベースの選択">使用するデータベースの選択</h2>
+
+<pre><code>mysql&gt; use [database_name];
+</code></pre>
+
+<h2 id="テーブル確認">テーブル確認</h2>
+
+<pre><code>mysql&gt; show tables;
+</code></pre>
+
+<h2 id="テーブル削除">テーブル削除</h2>
+
+<pre><code>mysql&gt; drop table [database_name].[table_name];
+</code></pre>
+
+<h2 id="インデックス作成">インデックス作成</h2>
+
+<pre><code>mysql&gt; alter table [database_name].[table_name] add index ([column_name]);
+</code></pre>
+
+<h2 id="インデックス確認">インデックス確認</h2>
+
+<pre><code>mysql&gt; show indexes from [table_name];
+</code></pre>
+
+<h2 id="テーブル確認-1">テーブル確認</h2>
+
+<pre><code>mysql&gt; show table status;
+</code></pre>
+
+<h2 id="innodb変換">innodb変換</h2>
+
+<pre><code>mysql&gt; alter table [table_name] engine = innodb;
+</code></pre>
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">Read other posts</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="https://tro3373.github.io/post/chromium-os-install-failed/">
+                <span class="button__icon">←</span>
+                <span class="button__text">chromium os install -&gt; Failed!</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="https://tro3373.github.io/post/ubuntu/ubuntu-komandose/">
+                <span class="button__text">Unix コマンド色々</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+    
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jokrlzy" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">All rights reserved - 2016</div>
+    
+  </div>
+</footer>
+
+<script src="https://tro3373.github.io/assets/main.js"></script>
+<script src="https://tro3373.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-27125974-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+  </body>
+</html>

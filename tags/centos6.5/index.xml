@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>centos6.5 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/centos6.5/</link>
+    <description>Recent content in centos6.5 on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Thu, 29 Jan 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/centos6.5/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Windows 7 で vaygrant(CentOS 6.5)にRails4.1 &#43; Nginx &#43; Unicorn &#43; Postgres 9.3 を起動する</title>
+      <link>https://tro3373.github.io/post/windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/</link>
+      <pubDate>Thu, 29 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/</guid>
+      <description>Virtual Box インストール  Download
+本家 Virtualbox より、 Virtual Box ダウンロード
+ インストール
+  Vagrant インストール  Download
+本家 Vagrant より、 Vagrantダウンロード
+ インストール
+ 再起動が必要
+  仮想マシン（BOX（テンプレート））取得・追加  CnetOS 6.5 用 URL 取得
+Vagrantbox.esより、Virtual Box用、CentOS 6.5 x86_64 URLをコピーする
+ Box add
+cd c:\HashiCorp\Vagrant\ mkdir myhost cd myhost c:\HashiCorp\Vagrant\myhost&amp;gt; vagrant box add centos65 https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box ==&amp;gt; box: Adding box &#39;centos65&#39; (v0) for provider: box: Downloading: https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box box: Progress: 100% (Rate: 3348k/s, Estimated time remaining: --:--:--) ==&amp;gt; box: Successfully added box &#39;centos65&#39; (v0) for &#39;virtualbox&#39;!</description>
+    </item>
+    
+  </channel>
+</rss>

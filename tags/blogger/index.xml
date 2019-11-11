@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogger on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/blogger/</link>
+    <description>Recent content in Blogger on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Sat, 18 Oct 2014 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/blogger/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Google Bloggerで highlight.js をつかう</title>
+      <link>https://tro3373.github.io/post/google-bloggerde-highlight-js-wotukau/</link>
+      <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/google-bloggerde-highlight-js-wotukau/</guid>
+      <description> Edit HTML and add this under title tag in head tag. &amp;lt;!-- jokrlzy add --&amp;gt; &amp;lt;!-- &amp;lt;script src=&amp;quot;http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&amp;quot; type=&amp;quot;text/javascript&amp;quot; &amp;gt;&amp;lt;/script&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css&amp;quot;&amp;gt; --&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css&amp;quot;/&amp;gt; &amp;lt;script src=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt;hljs.initHighlightingOnLoad();&amp;lt;/script&amp;gt; &amp;lt;!-- jokrlzy add --&amp;gt;  add custom css body, textarea { font-size: 20px; font-family: &amp;quot;meiryo&amp;quot;,&amp;quot;メイリオ&amp;quot;,&amp;quot;ヒラギノ角ゴ Pro W3&amp;quot;, &amp;quot;ＭＳ Ｐゴシック&amp;quot;, sans-serif; } h1 {font-size: 60px;} h2 {font-size: 50px;} h3 {font-size: 40px;} h4 {font-size: 30px;} h5 {font-size: 20px;} pre {margin-left: 30px;}  </description>
+    </item>
+    
+  </channel>
+</rss>

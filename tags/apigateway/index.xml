@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ApiGateway on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/apigateway/</link>
+    <description>Recent content in ApiGateway on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Mon, 11 Nov 2019 05:45:40 +0900</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/apigateway/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ApiGatewayのログを ServerlessFramework で設定したい</title>
+      <link>https://tro3373.github.io/post/enable-apigw-log-via-serverless-framework/</link>
+      <pubDate>Mon, 11 Nov 2019 05:45:40 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/post/enable-apigw-log-via-serverless-framework/</guid>
+      <description>要件としては、ApiGateway &amp;lt;=&amp;gt; Lambda の統合設定条件配下にて、 Lambdaからの応答結果が6MBを超えた場合に以下のようなログが出力される
+Lambda execution failed with status 200 due to customer function error: body size is too long. Lambda request id: XXXX-XXXX...  これに対して、ServerlessFramework でログ設定を行いたい
+参考  https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/ https://github.com/serverless/serverless/issues/6094#issuecomment-490561580 https://github.com/serverless/serverless/issues/6607#issuecomment-525930898  ApiGateway ステージ ログ／トレース の設定と動作 IAM Policy作成含め以下の設定だけで作成される
+provider: logs: restApi: accessLogging: false # Optional configuration which enables or disables access logging. Defaults to true. executionLogging: true # Optional configuration which enables or disables execution logging. Defaults to true.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    
+      <title>玄箱HG（debian lenny）へ SVN を導入する :: tac lifelog — code,tech,log .. </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="玄箱HG（debian lenny）へ SVN を導入する 参考  http://wlog.flatlib.jp/item/1289 http://brokendish.org/debian/609/  subversionインストール sudo apt-get install subversion sudo apt-get install libapache2-svn libapache2-mod-encoding  subversionの設定 svnロケーション設定 cd /etc/apache2 sudo vi mods-available/dav_svn.conf  以下を追加
+&amp;lt;Location /svn&amp;gt; DAV svn SVNParentPath /path/to/svn_server_directory SVNListParentPath on #require ssl SSLRequireSSL AuthType Basic # auto commit on SVNAutoversioning on AuthName &amp;quot;Subversion Repository&amp;quot; AuthUserFile /etc/apache2/dav_svn.passwd # require authentication other than require method for read repository. Require valid-user &amp;lt;/Location&amp;gt;  svnルートディレクトリの作成 mkdir -p /path/to/svn_server_directory  svnディレクトリ（プロジェクト単位？）の作成 sudo svnadmin create --fs-type=fsfs /path/to/svn_server_directory/repo sudo chown -R www-data:www-data /path/to/svn_server_directory sudo chmod -R gu&#43;w /path/to/svn_server_directory  svnアクセスユーザの作成 htpasswd -c /etc/apache2/dav_svn."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lennyhe-svn-wodao-ru-suru/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/assets/style.css">
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://tro3373.github.io/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://tro3373.github.io/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="玄箱HG（debian lenny）へ SVN を導入する"/>
+<meta name="twitter:description" content="玄箱HG（debian lenny）へ SVN を導入する 参考  http://wlog.flatlib.jp/item/1289 http://brokendish.org/debian/609/  subversionインストール sudo apt-get install subversion sudo apt-get install libapache2-svn libapache2-mod-encoding  subversionの設定 svnロケーション設定 cd /etc/apache2 sudo vi mods-available/dav_svn.conf  以下を追加
+&lt;Location /svn&gt; DAV svn SVNParentPath /path/to/svn_server_directory SVNListParentPath on #require ssl SSLRequireSSL AuthType Basic # auto commit on SVNAutoversioning on AuthName &quot;Subversion Repository&quot; AuthUserFile /etc/apache2/dav_svn.passwd # require authentication other than require method for read repository. Require valid-user &lt;/Location&gt;  svnルートディレクトリの作成 mkdir -p /path/to/svn_server_directory  svnディレクトリ（プロジェクト単位？）の作成 sudo svnadmin create --fs-type=fsfs /path/to/svn_server_directory/repo sudo chown -R www-data:www-data /path/to/svn_server_directory sudo chmod -R gu&#43;w /path/to/svn_server_directory  svnアクセスユーザの作成 htpasswd -c /etc/apache2/dav_svn."/>
+
+
+
+<meta property="og:title" content="玄箱HG（debian lenny）へ SVN を導入する" />
+<meta property="og:description" content="玄箱HG（debian lenny）へ SVN を導入する 参考  http://wlog.flatlib.jp/item/1289 http://brokendish.org/debian/609/  subversionインストール sudo apt-get install subversion sudo apt-get install libapache2-svn libapache2-mod-encoding  subversionの設定 svnロケーション設定 cd /etc/apache2 sudo vi mods-available/dav_svn.conf  以下を追加
+&lt;Location /svn&gt; DAV svn SVNParentPath /path/to/svn_server_directory SVNListParentPath on #require ssl SSLRequireSSL AuthType Basic # auto commit on SVNAutoversioning on AuthName &quot;Subversion Repository&quot; AuthUserFile /etc/apache2/dav_svn.passwd # require authentication other than require method for read repository. Require valid-user &lt;/Location&gt;  svnルートディレクトリの作成 mkdir -p /path/to/svn_server_directory  svnディレクトリ（プロジェクト単位？）の作成 sudo svnadmin create --fs-type=fsfs /path/to/svn_server_directory/repo sudo chown -R www-data:www-data /path/to/svn_server_directory sudo chmod -R gu&#43;w /path/to/svn_server_directory  svnアクセスユーザの作成 htpasswd -c /etc/apache2/dav_svn." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lennyhe-svn-wodao-ru-suru/" />
+<meta property="article:published_time" content="2012-06-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2012-06-21T00:00:00+00:00" /><meta property="og:site_name" content="tac lifelog" />
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">ag -l |sort -r</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+      
+        <ul class="menu__sub-inner">
+          <li class="menu__sub-inner-more-trigger">
+            Show more
+            <span class="menu__sub-inner-more-trigger-icon"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+          </li>
+
+          <ul class="menu__sub-inner-more hidden">
+            
+              
+                <li><a href="/about">About</a></li>
+              
+            
+              
+                <li><a href="/archive">Archives</a></li>
+              
+            
+              
+                <li><a href="/categories">Categories</a></li>
+              
+            
+              
+                <li><a href="/tags">Tags</a></li>
+              
+            
+          </ul>
+        </ul>
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/archive">Archives</a></li>
+      
+    
+      
+        <li><a href="/categories">Categories</a></li>
+      
+    
+      
+        <li><a href="/tags">Tags</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  <div class="post">
+    <h2 class="post-title"><a href="https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lennyhe-svn-wodao-ru-suru/">玄箱HG（debian lenny）へ SVN を導入する</a></h2>
+    <div class="post-meta">
+      
+        <span class="post-date">
+            2012-06-21
+        </span>
+      
+      
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://tro3373.github.io/tags/%E7%8E%84%E7%AE%B1hg/">玄箱HG</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/debian/">debian</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/lenny/">lenny</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/svn/">svn</a>&nbsp;
+        
+      </span>
+    
+
+    
+
+    
+    <script data-ad-client="ca-pub-6962926171897574" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+
+    <div class="post-content">
+      
+
+<h1 id="玄箱hg-debian-lenny-へ-svn-を導入する">玄箱HG（debian lenny）へ SVN を導入する</h1>
+
+<h2 id="参考">参考</h2>
+
+<ul>
+<li><a href="http://wlog.flatlib.jp/item/1289">http://wlog.flatlib.jp/item/1289</a></li>
+<li><a href="http://brokendish.org/debian/609/">http://brokendish.org/debian/609/</a></li>
+</ul>
+
+<h2 id="subversionインストール">subversionインストール</h2>
+
+<pre><code>sudo apt-get install subversion
+sudo apt-get install libapache2-svn libapache2-mod-encoding
+</code></pre>
+
+<h1 id="subversionの設定">subversionの設定</h1>
+
+<h2 id="svnロケーション設定">svnロケーション設定</h2>
+
+<pre><code>cd /etc/apache2
+sudo vi mods-available/dav_svn.conf 
+</code></pre>
+
+<p>以下を追加</p>
+
+<pre><code>&lt;Location /svn&gt;
+  DAV svn
+  SVNParentPath /path/to/svn_server_directory
+  SVNListParentPath on
+
+  #require ssl
+  SSLRequireSSL
+  AuthType Basic
+  # auto commit on
+  SVNAutoversioning on
+  AuthName &quot;Subversion Repository&quot;
+  AuthUserFile /etc/apache2/dav_svn.passwd
+  # require authentication other than require method for read repository.
+  Require valid-user
+&lt;/Location&gt;
+</code></pre>
+
+<h2 id="svnルートディレクトリの作成">svnルートディレクトリの作成</h2>
+
+<pre><code>mkdir -p /path/to/svn_server_directory
+</code></pre>
+
+<h2 id="svnディレクトリ-プロジェクト単位-の作成">svnディレクトリ（プロジェクト単位？）の作成</h2>
+
+<pre><code>sudo svnadmin create --fs-type=fsfs /path/to/svn_server_directory/repo
+sudo chown -R www-data:www-data /path/to/svn_server_directory
+sudo chmod -R gu+w /path/to/svn_server_directory
+</code></pre>
+
+<h2 id="svnアクセスユーザの作成">svnアクセスユーザの作成</h2>
+
+<pre><code>htpasswd -c /etc/apache2/dav_svn.passwd [user_name]
+</code></pre>
+
+<h2 id="作成したdav-svnの有効化">作成したdav_svnの有効化</h2>
+
+<pre><code>sudo a2dismod dav_svn
+sudo a2enmod dav_svn
+sudo /etc/init.d/apache2 restart
+</code></pre>
+
+<h2 id="svn基本ディレクトリを作成">svn基本ディレクトリを作成</h2>
+
+<pre><code>svn mkdir https://[server_url]/svn/repo/trunk -m &quot;create&quot;
+svn mkdir https://[server_url]/svn/repo/branches -m &quot;create&quot;
+svn mkdir https://[server_url]/svn/repo/tags -m &quot;create&quot;
+</code></pre>
+
+<h2 id="オラオラ認証のエラー対応">オラオラ認証のエラー対応</h2>
+
+<p>オラオラ認証なので以下のようなメッセージがでる。</p>
+
+<pre><code>'https://[server_url]:443' のサーバ証明書の認証中にエラーが発生しました:
+- 証明書は信頼のおける機関が発行したものではありません。証明書を手動で認証
+  するためにフィンガープリントを用いてください!
+    :
+    :
+</code></pre>
+
+<p>下記で対応する</p>
+
+<pre><code>cd
+vi .subversion/servers
+# ssl-authority-files = /path/to/CAcert.pem;/path/to/CAcert2.pem
+ssl-authority-files = /etc/apache2/ssl/server.crt
+</code></pre>
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">Read other posts</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="https://tro3373.github.io/post/windows-dekomandopuronputonohuontowobian-geng-suru/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Windows でコマンドプロンプトのフォントを変更する</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="https://tro3373.github.io/post/android/android-toastwoshang-gerusanpuru/">
+                <span class="button__text">android Toastを上げるサンプル</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+    
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jokrlzy" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">All rights reserved - 2016</div>
+    
+  </div>
+</footer>
+
+<script src="https://tro3373.github.io/assets/main.js"></script>
+<script src="https://tro3373.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-27125974-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+  </body>
+</html>

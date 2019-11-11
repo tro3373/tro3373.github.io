@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    
+      <title>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った :: tac lifelog — code,tech,log .. </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った 大まかな仕様は以下
+ 通常電源OFF状態の、同一ネットワーク内にあるLinkstationを 定時刻に wakeonlan にて起動 起動した Linkstation をネットワーク経由にてマウント サーバデータを全てrsyncしてバックアップ 処理の開始、終了時、特定のメールアドレスへメール送信する  必要パッケージのインストール sudo apt-get update sudp apt-get upgrade sudo apt-get install wakeonlan sudo apt-get install rsync # mysql はインストール済みとする # python はインストール済みとする  メール送信処理 特定アドレスにGメール送信する処理 Gmail 送信処理本体 GmailApi.py と、それを使用する sendMail.pyで構成
+まずは、Gmail送信処理から
+新規作成 vim GmailApi.py
+#!/usr/bin/python # -*- coding: utf-8 -*- import smtplib from email.MIMEText import MIMEText from email.Header import Header from email.Utils import formatdate class sendGmail: def __init__(self, encoding, subject, body, from_addr, to_addr, login_addr, passwd): self."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/" />
+
+
+
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/assets/style.css">
+
+
+<link rel="stylesheet" href="https://tro3373.github.io/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://tro3373.github.io/img/apple-touch-icon-144-precomposed.png">
+<link rel="shortcut icon" href="https://tro3373.github.io/img/favicon.png">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った"/>
+<meta name="twitter:description" content="玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った 大まかな仕様は以下
+ 通常電源OFF状態の、同一ネットワーク内にあるLinkstationを 定時刻に wakeonlan にて起動 起動した Linkstation をネットワーク経由にてマウント サーバデータを全てrsyncしてバックアップ 処理の開始、終了時、特定のメールアドレスへメール送信する  必要パッケージのインストール sudo apt-get update sudp apt-get upgrade sudo apt-get install wakeonlan sudo apt-get install rsync # mysql はインストール済みとする # python はインストール済みとする  メール送信処理 特定アドレスにGメール送信する処理 Gmail 送信処理本体 GmailApi.py と、それを使用する sendMail.pyで構成
+まずは、Gmail送信処理から
+新規作成 vim GmailApi.py
+#!/usr/bin/python # -*- coding: utf-8 -*- import smtplib from email.MIMEText import MIMEText from email.Header import Header from email.Utils import formatdate class sendGmail: def __init__(self, encoding, subject, body, from_addr, to_addr, login_addr, passwd): self."/>
+
+
+
+<meta property="og:title" content="玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った" />
+<meta property="og:description" content="玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った 大まかな仕様は以下
+ 通常電源OFF状態の、同一ネットワーク内にあるLinkstationを 定時刻に wakeonlan にて起動 起動した Linkstation をネットワーク経由にてマウント サーバデータを全てrsyncしてバックアップ 処理の開始、終了時、特定のメールアドレスへメール送信する  必要パッケージのインストール sudo apt-get update sudp apt-get upgrade sudo apt-get install wakeonlan sudo apt-get install rsync # mysql はインストール済みとする # python はインストール済みとする  メール送信処理 特定アドレスにGメール送信する処理 Gmail 送信処理本体 GmailApi.py と、それを使用する sendMail.pyで構成
+まずは、Gmail送信処理から
+新規作成 vim GmailApi.py
+#!/usr/bin/python # -*- coding: utf-8 -*- import smtplib from email.MIMEText import MIMEText from email.Header import Header from email.Utils import formatdate class sendGmail: def __init__(self, encoding, subject, body, from_addr, to_addr, login_addr, passwd): self." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/" />
+<meta property="article:published_time" content="2011-11-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2011-11-18T00:00:00+00:00" /><meta property="og:site_name" content="tac lifelog" />
+
+
+
+
+
+
+  </head>
+  <body class="">
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a href="/" class="logo" style="text-decoration: none;">
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+    <span class="logo__text">ag -l |sort -r</span>
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+        <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+      
+        <ul class="menu__sub-inner">
+          <li class="menu__sub-inner-more-trigger">
+            Show more
+            <span class="menu__sub-inner-more-trigger-icon"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367"/>
+</svg>
+</span>
+          </li>
+
+          <ul class="menu__sub-inner-more hidden">
+            
+              
+                <li><a href="/about">About</a></li>
+              
+            
+              
+                <li><a href="/archive">Archives</a></li>
+              
+            
+              
+                <li><a href="/categories">Categories</a></li>
+              
+            
+              
+                <li><a href="/tags">Tags</a></li>
+              
+            
+          </ul>
+        </ul>
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/archive">Archives</a></li>
+      
+    
+      
+        <li><a href="/categories">Categories</a></li>
+      
+    
+      
+        <li><a href="/tags">Tags</a></li>
+      
+    
+  </ul>
+</nav>
+
+        <span class="menu-trigger">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </span>
+      
+      <span class="theme-toggle">
+        <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"/>
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  <div class="post">
+    <h2 class="post-title"><a href="https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/">玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った</a></h2>
+    <div class="post-meta">
+      
+        <span class="post-date">
+            2011-11-18
+        </span>
+      
+      
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://tro3373.github.io/tags/%E7%8E%84%E7%AE%B1hg/">玄箱HG</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/debian/">debian</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/rsync/">rsync</a>&nbsp;
+        
+          #<a href="https://tro3373.github.io/tags/lenny/">lenny</a>&nbsp;
+        
+      </span>
+    
+
+    
+
+    
+    <script data-ad-client="ca-pub-6962926171897574" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+
+    <div class="post-content">
+      
+
+<h1 id="玄箱hg-debian-lenny-のデータをlinkstationを起動-マウントして-rsyncするバックアップ処理を作った">玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った</h1>
+
+<p>大まかな仕様は以下</p>
+
+<ul>
+<li>通常電源OFF状態の、同一ネットワーク内にあるLinkstationを 定時刻に wakeonlan にて起動</li>
+<li>起動した Linkstation をネットワーク経由にてマウント</li>
+<li>サーバデータを全てrsyncしてバックアップ</li>
+<li>処理の開始、終了時、特定のメールアドレスへメール送信する</li>
+</ul>
+
+<h2 id="必要パッケージのインストール">必要パッケージのインストール</h2>
+
+<pre><code>sudo apt-get update
+sudp apt-get upgrade
+sudo apt-get install wakeonlan
+sudo apt-get install rsync
+# mysql はインストール済みとする
+# python はインストール済みとする
+</code></pre>
+
+<h2 id="メール送信処理">メール送信処理</h2>
+
+<p>特定アドレスにGメール送信する処理
+Gmail 送信処理本体 <code>GmailApi.py</code> と、それを使用する <code>sendMail.py</code>で構成</p>
+
+<p>まずは、Gmail送信処理から</p>
+
+<p>新規作成 <code>vim GmailApi.py</code></p>
+
+<pre><code>#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import smtplib
+from email.MIMEText import MIMEText
+from email.Header import Header
+from email.Utils import formatdate
+
+class sendGmail:
+    def __init__(self, encoding, subject, body, from_addr, to_addr, login_addr, passwd):
+        self.date = formatdate()
+        self.encoding = encoding
+        self.subject = subject
+        self.body = body.encode('utf-8')
+        self.from_addr = from_addr
+        self.to_addr = to_addr
+        self.login_addr = login_addr
+        self.passwd = passwd
+
+    def sendMail(self):
+        msg = MIMEText(self.body, 'html', self.encoding)
+        msg['Subject'] = Header(self.subject, self.encoding)
+        msg['From'] = self.from_addr
+        msg['To'] = self.to_addr
+        msg['Date'] = self.date
+
+        s = smtplib.SMTP('smtp.gmail.com', 587)
+        s.ehlo()
+        s.starttls()
+        s.ehlo()
+        s.login(self.login_addr, self.passwd)
+        s.sendmail(self.from_addr, self.to_addr, msg.as_string())
+        s.close()
+</code></pre>
+
+<p>上記を使用し、Gmail送信する処理
+引数は以下で</p>
+
+<ol>
+<li>送信先アドレス</li>
+<li>タイトル</li>
+<li>メール本文</li>
+</ol>
+
+<p>新規作成 <code>vim sendMail.py</code></p>
+
+<pre><code>#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import sys
+from GmailApi import *
+
+argvs = sys.argv
+argc = len(argvs)
+
+if (argc != 4):
+    print 'start arg count is not 4.'
+    sys.exit(1)
+
+encoding = 'utf-8'
+to_addr = argvs[1]
+subject = argvs[2]
+body = argvs[3]
+from_addr = 'XXXXXXXX@gmail.com'  # 送信元Gmailのアドレスを指定
+login_addr = 'XXXXXXXX@gmail.com' # 送信元Gmailのアドレスを指定
+passwd = '********'               # 送信元Gmailのパスワードを指定
+
+sg = sendGmail(encoding, subject, body, from_addr, to_addr, login_addr, passwd)
+sg.sendMail()
+</code></pre>
+
+<h2 id="マジックパケットによる-wakeonlan-起動処理">マジックパケットによる、wakeonlan 起動処理</h2>
+
+<p>Macaddress, IPアドレス（ブロードキャスト）、送信間隔を指定して、Magicpacket を送信し続ける処理<br />
+終了はKillで
+新規作成 <code>vim magic.packet.sh</code></p>
+
+<pre><code>#!/bin/bash
+BROADCAST=$1 # ブロードキャストIPアドレス
+MAC_ADDR=$2  # Linkstaionの Macaddress
+INTERVAL=$3  # 送信間隔
+
+fncMagicPacket()
+{
+    /usr/bin/wakeonlan -i $1 $2 &gt;/dev/null 2&gt;&amp;1
+}
+
+while true
+do
+    fncMagicPacket $BROADCAST $MAC_ADDR
+    sleep $INTERVAL
+done
+</code></pre>
+
+<h2 id="バックアップ処理本体">バックアップ処理本体</h2>
+
+<p>以下仕様</p>
+
+<ul>
+<li>処理開始・終了時指定アドレスへGmail送信</li>
+<li>同一ネットワーク内 Linkstation を wakeonlan 起動</li>
+<li>起動した Linkstaion をネットワークマウント</li>
+<li>mysql dump し dump ファイルをHDD保存</li>
+<li>サーバデータ全てを対象に Linkstaion へ rsync バックアップ</li>
+<li>完全同期型（サーバから消去されたデータは バックアップ先からも削除）</li>
+</ul>
+
+<p>新規作成 <code>vim backupserver.sh</code></p>
+
+<pre><code>#!/bin/bash
+################################################################################
+#   SETTINGS
+################################################################################
+#=========================================
+#   BASE SETTINGS
+#=========================================
+SHELL_FLNM=`basename $0`
+DIR_BIN=/tmp/bin # このファイル含め全てのプログラムが配置されているディレクトリを指定
+DIR_LOG=/tmp/log # ディレクトリ作成済みのこと
+DATE_STR=&quot;`date '+%Y%m%d.%H%M%S'`&quot;
+FIL_LOG=${DIR_LOG}/${SHELL_FLNM}.${DATE_STR}.log
+
+#=========================================
+#   ERROR MAIL PACKET SETTINGS
+#=========================================
+SEND_MAIL=${DIR_BIN}/sendMail.py
+SEND_MAIL_TO=xxxxxxx@xxxx.xxx # バックアップ処理結果送信先を指定
+SEND_MAIL_SUBJECT=&quot;好きなメールタイトルを&quot;
+SEND_MAIL_BODY=&quot;&quot;
+
+#=========================================
+#   MAGIC PACKET SETTINGS
+#=========================================
+MAGIC_PACCKET=$DIR_BIN/magic.packet.sh
+IP_BROADCAST=192.168.24.255 # ブロードキャストアドレスを指定
+MACADDR_BACKUP_SRV=XX:XX:XX:XX:XX:XX # 対象の Linkstaion Macaddress を指定
+MPACKET_INTERVAL=60 # マジックパケット送信間隔
+MAGIC_PACCKET_PID=&quot;&quot;
+
+#=========================================
+#   MOUNT SETTINGS
+#=========================================
+MOUNT_POINT_BKUP_SRV=/media/ls-xhle74 # Linkstaion マウント先
+MOUNT_AT_BKUP_SRV=//ls-xhle74/share # Linkstaion 共有ディレクトリ
+MOUNT_USR_NAME=XXXXX # Linkstaion マウントユーザを指定
+MOUNT_USR_PWD=******** # Linkstaion マウントユーザパスワードを指定
+MOUNT_UID=1000 # マウントオプション UID
+MOUNT_GID=1000 # マウントオプション GID
+MOUNT_INTERVAL_INIT=70 # マジックパケット初回wait
+MOUNT_INTERVAL=10 # wakeonlan 起動待ち時、sleep時間
+MOUNT_RETRY_LIMIT=6 # マウントリトライ最大回数
+
+#=========================================
+#   MYSQL SETTINGS
+#=========================================
+MYSQLDUMP_USR=XXXX # mysql ログインユーザ
+MYSQLDUMP_PWD=******* # mysql ログインユーザパスワード
+MYSQLDUMP_HST=localhost # mysql ホスト名
+MYSQLDUMP_DATABASE=XXXXXXXXX # バックアップ対象データベース名
+DIR_MYSQLDUMP=/tmp/mysqldump # データダンプバックアップ先
+MYSQLDUMP_BASENAME=${MYSQLDUMP_DATABASE}.dump
+
+#=========================================
+#   RSYNC SETTINGS
+#=========================================
+RSYNC_FROM=/tmp # バックアップ対象 ROOT ディレクトリ
+RSYNC_TO=${MOUNT_POINT_BKUP_SRV}/bkup # バックアップ先（Linkstaion）ディレクトリ
+################################################################################
+
+fncHandleError()
+{
+    if [ $1 -ne 0 ]
+    then
+        fncEndProc $1
+    fi
+}
+fncLog()
+{
+    echo &quot;$*&quot; &gt;&gt; $FIL_LOG
+}
+fncEchoLog()
+{
+    MSG=$*
+    DSTR=`date '+%Y%m%d:%H:%M:%S'`
+    OUTMSG=&quot;[$SHELL_FLNM] $DSTR $MSG&quot;
+    fncLog &quot;$OUTMSG&quot;
+    echo &quot;$OUTMSG&quot;
+}
+fncIsDirectoryCheck() {
+
+    if [ ! -d $1 ] ; then
+        fncEchoLog &quot;[$1] is not directory.&quot;
+        fncEndProc 1
+    fi
+}
+fncWaitEnter()
+{
+    fncEchoLog &quot;when you quit this program, input 'n' and enter.&quot;
+    read Wait
+    if [ &quot;$Wait&quot; = &quot;n&quot; ]
+    then
+        fncEchoLog &quot;######################################&quot;
+        fncEchoLog &quot;            Quited program            &quot;
+        fncEchoLog &quot;######################################&quot;
+        read Wait
+        exit
+    fi
+}
+fncStartProc()
+{
+    fncEchoLog &quot;######################################&quot;
+    fncEchoLog &quot;            Start program             &quot;
+    fncEchoLog &quot;######################################&quot;
+    $SEND_MAIL $SEND_MAIL_TO &quot;(PROCESS STARTED) $SEND_MAIL_SUBJECT&quot; &quot;server backup process is started.&quot;
+}
+fncEndProc()
+{
+    if [ $1 -ne 0 ]
+    then
+        fncEchoLog &quot;######################################&quot;
+        fncEchoLog &quot;          !! Exception !!             &quot;
+        fncEchoLog &quot;######################################&quot;
+        $SEND_MAIL $SEND_MAIL_TO &quot;( !!! EXCEPTION OCCURED !!! ) $SEND_MAIL_SUBJECT&quot; &quot;---&lt; EXCEPTION OCCURED &gt;--- $SEND_MAIL_BODY&quot;
+    else
+        fncEchoLog &quot;######################################&quot;
+        fncEchoLog &quot;          mission completed.          &quot;
+        fncEchoLog &quot;######################################&quot;
+        $SEND_MAIL $SEND_MAIL_TO &quot;(MISSION COMPLETED) $SEND_MAIL_SUBJECT&quot; &quot;server backup process is completed.&quot;
+    fi
+    exit
+}
+
+fncExecInternal()
+{
+    CMD=$*
+    fncEchoLog &quot;###########################################&quot;
+    fncEchoLog &quot;  exec command. [$CMD]&quot;
+    fncEchoLog &quot;###########################################&quot;
+    $CMD &gt;&gt;$FIL_LOG 2&gt;&amp;1
+    RC=$?
+}
+
+fncExec()
+{
+    fncExecInternal $*
+    if [ $RC -ne 0 ] ; then
+        fncEndProc $RC
+    fi
+}
+
+fncExecAllowError()
+{
+    fncExecInternal $*
+}
+
+fncStartMagicPacket()
+{
+    SEND_MAIL_BODY=&quot;error at magic packet process.&quot;
+    fncEchoLog &quot;Start magic packet process.&quot;
+    fncEchoLog &quot;###########################################&quot;
+    fncEchoLog &quot;  exec command. [$MAGIC_PACCKET $IP_BROADCAST $MACADDR_BACKUP_SRV $MPACKET_INTERVAL &amp; &gt;&gt;$FIL_LOG 2&gt;&amp;1]&quot;
+    fncEchoLog &quot;###########################################&quot;
+    $MAGIC_PACCKET $IP_BROADCAST $MACADDR_BACKUP_SRV $MPACKET_INTERVAL &amp; &gt;&gt;$FIL_LOG 2&gt;&amp;1
+    MAGIC_PACCKET_PID=$!
+    fncEchoLog &quot;magic packet process started. pid=$MAGIC_PACCKET_PID&quot;
+}
+
+fncStopMagicPacket()
+{
+    SEND_MAIL_BODY=&quot;error at stop magic packet process.&quot;
+    fncEchoLog &quot;Stop magic packet process.&quot;
+    fncExec kill -9 $MAGIC_PACCKET_PID
+}
+
+fncWaitMountBkSrv()
+{
+    SEND_MAIL_BODY=&quot;error at mount linkstation process.&quot;
+    fncEchoLog &quot;Mounting. LinkStation.&quot;
+    FLG_MOUNTED=0
+    TRYCOUNT=1
+    while [ $TRYCOUNT -le $MOUNT_RETRY_LIMIT ]
+    do
+        fncEchoLog &quot;###########################################&quot;
+        fncEchoLog &quot;  exec command. [mount -vt cifs $MOUNT_AT_BKUP_SRV $MOUNT_POINT_BKUP_SRV -o username=$MOUNT_USR_NAME,password=*****,iocharset=utf8,uid=$MOUNT_UID,gid=$MOUNT_GID]&quot;
+        fncEchoLog &quot;###########################################&quot;
+        mount -vt cifs $MOUNT_AT_BKUP_SRV $MOUNT_POINT_BKUP_SRV -o username=$MOUNT_USR_NAME,password=$MOUNT_USR_PWD,iocharset=utf8,uid=$MOUNT_UID,gid=$MOUNT_GID &gt;&gt;$FIL_LOG 2&gt;&amp;1
+        MOUNTRC=$?
+        if [ $MOUNTRC -ne 0 ] ; then
+            fncEchoLog &quot;(RC=$MOUNTRC) mount error. try count $TRYCOUNT.&quot;
+        else
+            fncEchoLog &quot;mount ok. try count $TRYCOUNT.&quot;
+            FLG_MOUNTED=1
+            break
+        fi
+        if [ $TRYCOUNT -eq 1 ] ; then
+            fncEchoLog &quot;Waiting for boot to complete the LinkStation. sleep ${MOUNT_INTERVAL_INIT} s&quot;
+            fncExec sleep $MOUNT_INTERVAL_INIT
+        else
+            fncExec sleep $MOUNT_INTERVAL
+        fi
+        TRYCOUNT=$(($TRYCOUNT+1))
+    done
+    if [ $FLG_MOUNTED -eq 0 ] ; then
+        fncEchoLog &quot;we could not mounted $MOUNT_AT_BKUP_SRV. we retry $MOUNT_RETRY_LIMIT count. last return cord is $MOUNTRC. we give up.&quot;
+        fncEndProc $MOUNTRC
+    fi
+}
+
+fncUnMountBkSrv()
+{
+    SEND_MAIL_BODY=&quot;error at umount linkstation process.&quot;
+    fncExec umount $MOUNT_POINT_BKUP_SRV
+}
+
+fncBackupArchiveDatabase()
+{
+    SEND_MAIL_BODY=&quot;error at backup and archice database process.&quot;
+    cd $DIR_MYSQLDUMP
+    MYSQLDUMP_DUMPSQL=${MYSQLDUMP_BASENAME}.${DATE_STR}.sql
+    MYSQLDUMP_DUMPTARGZ=${MYSQLDUMP_DUMPSQL}.tar.gz
+
+    fncEchoLog &quot;###########################################&quot;
+    fncEchoLog &quot;  exec command. [mysqldump -u $MYSQLDUMP_USR -h $MYSQLDUMP_HST $MYSQLDUMP_DATABASE -p***** &gt; $MYSQLDUMP_DUMPSQL]&quot;
+    fncEchoLog &quot;###########################################&quot;
+    mysqldump -u $MYSQLDUMP_USR -h $MYSQLDUMP_HST $MYSQLDUMP_DATABASE -p$MYSQLDUMP_PWD &gt; $MYSQLDUMP_DUMPSQL
+    RC=$?
+    if [ $RC -ne 0 ] ; then
+        fncEndProc $RC
+    fi
+    fncExec tar cvfpz $MYSQLDUMP_DUMPTARGZ $MYSQLDUMP_DUMPSQL
+    fncExec rm -fv $MYSQLDUMP_DUMPSQL
+    # todo old data remove?
+}
+
+fncBackupAllData()
+{
+    SEND_MAIL_BODY=&quot;error at rsync process.&quot;
+    fncEchoLog &quot;Start sync to backup data. from=[$RSYNC_FROM] to=[$RSYNC_TO]&quot;
+    fncExec rsync -vrual --delete $RSYNC_FROM $RSYNC_TO
+}
+
+fncMain()
+{
+    fncStartProc
+
+    # start magic packet.
+    fncStartMagicPacket
+
+    # wait and mount linkstation
+    fncWaitMountBkSrv
+
+    # buckup and archive database
+    fncBackupArchiveDatabase
+
+    # backup all data
+    fncBackupAllData
+
+    # unmount linkstation
+    fncUnMountBkSrv
+
+    # stop magic packet.
+    fncStopMagicPacket
+
+    fncEndProc $RC
+}
+
+fncMain
+</code></pre>
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">Read other posts</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+            <span class="button previous">
+              <a href="https://tro3373.github.io/post/ubuntu/ubuntu-de-svnchai-fen-noarubian-geng-huairuwoexportsuru/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Ubuntu で SVN差分のある変更ファイルをexportする</span>
+              </a>
+            </span>
+          
+          
+            <span class="button next">
+              <a href="https://tro3373.github.io/post/chromium-os-install-failed/">
+                <span class="button__text">chromium os install -&gt; Failed!</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+    
+    <br />
+    <br />
+    <br />
+    <br />
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jokrlzy" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+    </div>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">All rights reserved - 2016</div>
+    
+  </div>
+</footer>
+
+<script src="https://tro3373.github.io/assets/main.js"></script>
+<script src="https://tro3373.github.io/assets/prism.js"></script>
+
+
+      
+    </div>
+
+    
+      
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-27125974-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    
+  </body>
+</html>

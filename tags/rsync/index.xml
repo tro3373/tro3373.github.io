@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rsync on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/rsync/</link>
+    <description>Recent content in rsync on tac lifelog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>All rights reserved - 2016</copyright>
+    <lastBuildDate>Fri, 18 Nov 2011 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://tro3373.github.io/tags/rsync/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った</title>
+      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</link>
+      <pubDate>Fri, 18 Nov 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</guid>
+      <description>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った 大まかな仕様は以下
+ 通常電源OFF状態の、同一ネットワーク内にあるLinkstationを 定時刻に wakeonlan にて起動 起動した Linkstation をネットワーク経由にてマウント サーバデータを全てrsyncしてバックアップ 処理の開始、終了時、特定のメールアドレスへメール送信する  必要パッケージのインストール sudo apt-get update sudp apt-get upgrade sudo apt-get install wakeonlan sudo apt-get install rsync # mysql はインストール済みとする # python はインストール済みとする  メール送信処理 特定アドレスにGメール送信する処理 Gmail 送信処理本体 GmailApi.py と、それを使用する sendMail.pyで構成
+まずは、Gmail送信処理から
+新規作成 vim GmailApi.py
+#!/usr/bin/python # -*- coding: utf-8 -*- import smtplib from email.MIMEText import MIMEText from email.Header import Header from email.Utils import formatdate class sendGmail: def __init__(self, encoding, subject, body, from_addr, to_addr, login_addr, passwd): self.</description>
+    </item>
+    
+  </channel>
+</rss>
