@@ -1,41 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>windows7 on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/windows7/</link>
-    <description>Recent content in windows7 on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Thu, 29 Jan 2015 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/windows7/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Windows7 ネットワーク設定を標準で使用するといけないらしい</title>
-      <link>https://tro3373.github.io/post/windows7-netutowakushe-ding-wobiao-zhun-deshi-yong-surutoikenairasii/</link>
-      <pubDate>Thu, 29 Jan 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/windows7-netutowakushe-ding-wobiao-zhun-deshi-yong-surutoikenairasii/</guid>
-      <description> 参考  ［Windows 7編］ネットワーク設定を標準で使ってはいけない Windows 7でネットワークドライブ共有ファイルのアクセス速度問題。時間が経つと遅くなる。（解決）  やってみる  現状の確認
-netsh int tcp show global  TCP Chimney Offload の無効化
-netsh int tcp set global chimney=disabled  Receive-Side Scaling（RSS）の無効化
-netsh int tcp set global rss=disabled  Network Direct Memory Access（NetDMA）の無効化
-netsh int tcp set global netdma=disabled  受信側スケーリングの無効化
-コントロール パネル→ネットワークとインターネット→ネットワーク接続→ローカル エリア接続（右クリック）→プロパティ→構成→詳細設定 Receive Side Scaling（RSS）（受信側スケーリング）の無効化
-  </description>
-    </item>
-    
-    <item>
-      <title>Windows7 Putty で自動ログインバッチファイルを作成する</title>
-      <link>https://tro3373.github.io/post/windows7-putty-dezi-dong-roguinbatutihuairuwozuo-cheng-suru/</link>
-      <pubDate>Fri, 19 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/windows7-putty-dezi-dong-roguinbatutihuairuwozuo-cheng-suru/</guid>
-      <description>以下をショートカットプロパティへ設定する
-&amp;quot;C:\Program Files (x86)\PuTTY\putty.exe&amp;quot; -load 「セッション名」 -l 「ユーザ名」 -pw 「パスワード」  </description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>windows7 on tac lifelog</title><link>https://tro3373.github.io/tags/windows7/</link><description>Recent content in windows7 on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Thu, 29 Jan 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/windows7/index.xml" rel="self" type="application/rss+xml"/><item><title>Windows7 ネットワーク設定を標準で使用するといけないらしい</title><link>https://tro3373.github.io/post/windows7-netutowakushe-ding-wobiao-zhun-deshi-yong-surutoikenairasii/</link><pubDate>Thu, 29 Jan 2015 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/windows7-netutowakushe-ding-wobiao-zhun-deshi-yong-surutoikenairasii/</guid><description>参考 ［Windows 7編］ネットワーク設定を標準で使ってはいけない Windows 7でネットワークドライブ共有ファイルのアクセス速度問題。時間が経つと遅くなる。（解決） やってみる 現状の確認
+netsh int tcp show global TCP Chimney Offload の無効化
+netsh int tcp set global chimney=disabled Receive-Side Scaling（RSS）の無効化
+netsh int tcp set global rss=disabled Network Direct Memory Access（NetDMA）の無効化
+netsh int tcp set global netdma=disabled 受信側スケーリングの無効化
+コントロール パネル→ネットワークとインターネット→ネットワーク接続→ローカル エリア接続（右クリック）→プロパティ→構成→詳細設定 Receive Side Scaling（RSS）（受信側スケーリング）の無効化</description></item><item><title>Windows7 Putty で自動ログインバッチファイルを作成する</title><link>https://tro3373.github.io/post/windows7-putty-dezi-dong-roguinbatutihuairuwozuo-cheng-suru/</link><pubDate>Fri, 19 Sep 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/windows7-putty-dezi-dong-roguinbatutihuairuwozuo-cheng-suru/</guid><description>以下をショートカットプロパティへ設定する
+&amp;#34;C:\Program Files (x86)\PuTTY\putty.exe&amp;#34; -load 「セッション名」 -l 「ユーザ名」 -pw 「パスワード」</description></item></channel></rss>

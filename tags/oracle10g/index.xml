@@ -1,30 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>oracle10g on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/oracle10g/</link>
-    <description>Recent content in oracle10g on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sat, 06 Aug 2011 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/oracle10g/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>oracle9i から oracle10g Express Edition へ移行する</title>
-      <link>https://tro3373.github.io/post/oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/</link>
-      <pubDate>Sat, 06 Aug 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/</guid>
-      <description>Oracle 10g XE install OracleXEUniv.exe  → web login用に使用する「system」ユーザのパスワードを設定する → TODO netstat -ano でリスニングポートがワンサカ
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>oracle10g on tac lifelog</title><link>https://tro3373.github.io/tags/oracle10g/</link><description>Recent content in oracle10g on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Sat, 06 Aug 2011 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/oracle10g/index.xml" rel="self" type="application/rss+xml"/><item><title>oracle9i から oracle10g Express Edition へ移行する</title><link>https://tro3373.github.io/post/oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/</link><pubDate>Sat, 06 Aug 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/</guid><description>Oracle 10g XE install OracleXEUniv.exe → web login用に使用する「system」ユーザのパスワードを設定する → TODO netstat -ano でリスニングポートがワンサカ
 Oracel web login http://127.0.0.1:8081/apexへアクセス
-user : system pass : インストール時に設定したパスワード   作成されるデフォルトオブジェクト
-表領域 ファイル名 サイズ(MB) 最大サイズ(MB) 自動拡張可 SYSAUX C:\ORACLEXE\ORADATA\XE\SYSAUX.DBF 430 32,768 YES SYSTEM C:\ORACLEXE\ORADATA\XE\SYSTEM.DBF 340 600 YES UNDO C:\ORACLEXE\ORADATA\XE\UNDO.DBF 90 500 YES USERS C:\ORACLEXE\ORADATA\XE\USERS.DBF 100 5,120 YES  作成されるユーザ
-HR SYSTEM？ ほか？  環境変数設定
- ORACLE_BASE C:\oracle\ ORACLE_HOME C:\oraclexe\app\oracle\product\10.2.0\server ORACLE_SID [sample name] Path %ORACLE_HOME%\bin   新規インスタンス(SID)作成(文字コード変換 XEデフォルトAL32UTF8→現行9i用JA16SJIS)  参考：Oracle Database 10g XE(Windows版)の文字コードを変換する方法</description>
-    </item>
-    
-  </channel>
-</rss>
+user : system pass : インストール時に設定したパスワード 作成されるデフォルトオブジェクト
+表領域 ファイル名 サイズ(MB) 最大サイズ(MB) 自動拡張可 SYSAUX C:\ORACLEXE\ORADATA\XE\SYSAUX.DBF 430 32,768 YES SYSTEM C:\ORACLEXE\ORADATA\XE\SYSTEM.DBF 340 600 YES UNDO C:\ORACLEXE\ORADATA\XE\UNDO.DBF 90 500 YES USERS C:\ORACLEXE\ORADATA\XE\USERS.DBF 100 5,120 YES 作成されるユーザ
+HR SYSTEM？ ほか？ 環境変数設定
+ORACLE_BASE C:\oracle\ ORACLE_HOME C:\oraclexe\app\oracle\product\10.</description></item></channel></rss>

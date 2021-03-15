@@ -1,80 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>mysql on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/mysql/</link>
-    <description>Recent content in mysql on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sat, 11 Oct 2014 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>debian wheezy mysql 設定、データ移行</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-mysql-she-ding-detayi-xing/</link>
-      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-mysql-she-ding-detayi-xing/</guid>
-      <description>インストール sudo aptitude install mysql-server  alive check mysqladmin ping -u root -p  mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);  ユーザ確認 ログイン mysql -u root -p  SQL実行 SELECT host,user,password FROM mysql.user;  文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: &#39;&#39; Using delimiter: ; Server version: 5.</description>
-    </item>
-    
-    <item>
-      <title>Linkstation(debian wheezy) へ mysql を設定、データ移行</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</link>
-      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</guid>
-      <description>インストール sudo aptitude install mysql-server  alive check mysqladmin ping -u root -p  mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);  ユーザ確認 ログイン mysql -u root -p  SQL実行 SELECT host,user,password FROM mysql.user;  文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: &#39;&#39; Using delimiter: ; Server version: 5.</description>
-    </item>
-    
-    <item>
-      <title>玄箱HG(debian lenny) mysqlディレクトリ変更</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-mysqldeirekutoribian-geng/</link>
-      <pubDate>Sat, 20 Oct 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-mysqldeirekutoribian-geng/</guid>
-      <description> 参考
-mysql停止 sudo /etc/init.d/mysql stop  データ移行 mkdir -p /path/to/mysql_directory chown mysql:mysql /path/to/mysql_directory cd /path/to/mysql_directory mkdir mysqldata mysqldump chown mysql:mysql mysqldata chown mysql:mysql mysqldump sudo cp -fprv /var/lib/mysql/ ./mysqldata/  ディレクトリ指定設定 sudo vi /etc/mysql/conf.d/my_datadir.cnf  修正内容は以下
-[mysqld] datadir = /path/to/mysql_directory/mysqldata/mysql  正しく設定変更され起動できるか確認する為、元のデータは別場所へ移動 mkdir /data/tmp sudo mv /var/lib/mysql /data/tmp  mysql 再起動 sudo /etc/init.d/mysql restart  不要となったデータを削除 sudo rm /data/tmp  </description>
-    </item>
-    
-    <item>
-      <title>mysql で sql ファイルを流し実行する</title>
-      <link>https://tro3373.github.io/post/mysql-de-sql-huairuwoliu-sishi-xing-suru/</link>
-      <pubDate>Fri, 04 May 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/mysql-de-sql-huairuwoliu-sishi-xing-suru/</guid>
-      <description> mysql で sql ファイルを流し実行する sql の記載されたファイルの中身を mysql で実行する
-mysql -u [username] -h [hostname] -p # パスワード入力 use [database_name] SET AUTOCOMMIT=0; # auto commit 無効化 START TRANSACTION; # 明示的にトランザクション開始 source /path/to/sqlファイル; commit;   参考  </description>
-    </item>
-    
-    <item>
-      <title>mysql 操作色々</title>
-      <link>https://tro3373.github.io/post/mysql-cao-zuo-se/</link>
-      <pubDate>Sat, 22 Oct 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/mysql-cao-zuo-se/</guid>
-      <description>mysql 設定＆操作色々 mysql-server local以外からもアクセス出きるように設定する  参考
- MySQLユーザの追加   my.cnf編集 Debian/lenny MySQLに外部マシンから接続(リモート接続)
-$ sudo vi /etc/mysql/my.cnf #bind-address = 127.0.0.1 bind-address = [server_name]  再起動 $ /etc/init.d/mysql restart  リモートマシンからも接続可能なユーザを作成 # 現状確認 $ mysql -u root -p mysql&amp;gt; select User,Host from mysql.user; mysql&amp;gt; grant all on *.* to [user_name]@&amp;quot;[client_hostname]&amp;quot;identified by &amp;quot;[user_password]&amp;quot;;  リモートマシン（Ubuntu）にクライアントをインストール $ apt-get install mysql-client  リモートから接続 $ mysql -u [user_name] -h [host_name] -p  データベース作成 接続 $ mysql -u [user_name] -h [host_name] -p  データベース確認 mysql&amp;gt; show databases;  データベース作成 mysql&amp;gt; create database [database_name] default character set utf8; mysql&amp;gt; show create database [database_name];  使用するデータベースの選択 mysql&amp;gt; use [database_name];  テーブル確認 mysql&amp;gt; show tables;  テーブル削除 mysql&amp;gt; drop table [database_name].</description>
-    </item>
-    
-    <item>
-      <title>玄箱HG debian lenny (8)mysqlインストール</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-8mysqlinsutoru/</link>
-      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-8mysqlinsutoru/</guid>
-      <description>玄箱HG debian lenny (8)mysqlインストール mysqlを導入 インストール ・インストール
-$ sudo apt-get install mysql-server  ・mysql動作確認
-$ mysqladmin ping -u root -p 正常動作時 Enter password: mysqld is alive  パスワード変更 $ mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);  ユーザ確認 ログイン $ mysql -u root -p SQL実行 mysql&amp;gt; SELECT host,user,password FROM mysql.user;  文字コード設定 参考1
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mysql on tac lifelog</title><link>https://tro3373.github.io/tags/mysql/</link><description>Recent content in mysql on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Sat, 11 Oct 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>debian wheezy mysql 設定、データ移行</title><link>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-mysql-she-ding-detayi-xing/</link><pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-mysql-she-ding-detayi-xing/</guid><description>インストール sudo aptitude install mysql-server alive check mysqladmin ping -u root -p mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD('new_password'); ユーザ確認 ログイン mysql -u root -p SQL実行 SELECT host,user,password FROM mysql.user; 文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: '' Using delimiter: ; Server version: 5.</description></item><item><title>Linkstation(debian wheezy) へ mysql を設定、データ移行</title><link>https://tro3373.github.io/post/kurobox-linkstation/linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</link><pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</guid><description>インストール sudo aptitude install mysql-server alive check mysqladmin ping -u root -p mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD('new_password'); ユーザ確認 ログイン mysql -u root -p SQL実行 SELECT host,user,password FROM mysql.user; 文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: '' Using delimiter: ; Server version: 5.</description></item><item><title>玄箱HG(debian lenny) mysqlディレクトリ変更</title><link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-mysqldeirekutoribian-geng/</link><pubDate>Sat, 20 Oct 2012 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hgdebian-lenny-mysqldeirekutoribian-geng/</guid><description>参考
+mysql停止 sudo /etc/init.d/mysql stop データ移行 mkdir -p /path/to/mysql_directory chown mysql:mysql /path/to/mysql_directory cd /path/to/mysql_directory mkdir mysqldata mysqldump chown mysql:mysql mysqldata chown mysql:mysql mysqldump sudo cp -fprv /var/lib/mysql/ ./mysqldata/ ディレクトリ指定設定 sudo vi /etc/mysql/conf.d/my_datadir.cnf 修正内容は以下
+[mysqld] datadir = /path/to/mysql_directory/mysqldata/mysql 正しく設定変更され起動できるか確認する為、元のデータは別場所へ移動 mkdir /data/tmp sudo mv /var/lib/mysql /data/tmp mysql 再起動 sudo /etc/init.d/mysql restart 不要となったデータを削除 sudo rm /data/tmp</description></item><item><title>mysql で sql ファイルを流し実行する</title><link>https://tro3373.github.io/post/mysql-de-sql-huairuwoliu-sishi-xing-suru/</link><pubDate>Fri, 04 May 2012 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/mysql-de-sql-huairuwoliu-sishi-xing-suru/</guid><description>mysql で sql ファイルを流し実行する sql の記載されたファイルの中身を mysql で実行する
+mysql -u [username] -h [hostname] -p # パスワード入力 use [database_name] SET AUTOCOMMIT=0; # auto commit 無効化 START TRANSACTION; # 明示的にトランザクション開始 source /path/to/sqlファイル; commit; 参考</description></item><item><title>mysql 操作色々</title><link>https://tro3373.github.io/post/mysql-cao-zuo-se/</link><pubDate>Sat, 22 Oct 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/mysql-cao-zuo-se/</guid><description>mysql 設定＆操作色々 mysql-server local以外からもアクセス出きるように設定する 参考
+MySQLユーザの追加 my.cnf編集 Debian/lenny MySQLに外部マシンから接続(リモート接続)
+$ sudo vi /etc/mysql/my.cnf #bind-address = 127.0.0.1 bind-address = [server_name] 再起動 $ /etc/init.d/mysql restart リモートマシンからも接続可能なユーザを作成 # 現状確認 $ mysql -u root -p mysql&amp;gt; select User,Host from mysql.user; mysql&amp;gt; grant all on *.* to [user_name]@&amp;quot;[client_hostname]&amp;quot;identified by &amp;quot;[user_password]&amp;quot;; リモートマシン（Ubuntu）にクライアントをインストール $ apt-get install mysql-client リモートから接続 $ mysql -u [user_name] -h [host_name] -p データベース作成 接続 $ mysql -u [user_name] -h [host_name] -p データベース確認 mysql&amp;gt; show databases; データベース作成 mysql&amp;gt; create database [database_name] default character set utf8; mysql&amp;gt; show create database [database_name]; 使用するデータベースの選択 mysql&amp;gt; use [database_name]; テーブル確認 mysql&amp;gt; show tables; テーブル削除 mysql&amp;gt; drop table [database_name].</description></item><item><title>玄箱HG debian lenny (8)mysqlインストール</title><link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-8mysqlinsutoru/</link><pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-8mysqlinsutoru/</guid><description>玄箱HG debian lenny (8)mysqlインストール mysqlを導入 インストール ・インストール
+$ sudo apt-get install mysql-server ・mysql動作確認
+$ mysqladmin ping -u root -p 正常動作時 Enter password: mysqld is alive パスワード変更 $ mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD('new_password'); ユーザ確認 ログイン $ mysql -u root -p SQL実行 mysql&amp;gt; SELECT host,user,password FROM mysql.user; 文字コード設定 参考1
 参考2
 現状確認
-sql&amp;gt; status Server characterset: latin1 Db characterset: latin1 Client characterset: latin1 Conn. characterset: latin1  /etc/mysql/conf.</description>
-    </item>
-    
-  </channel>
-</rss>
+sql&amp;gt; status Server characterset: latin1 Db characterset: latin1 Client characterset: latin1 Conn. characterset: latin1 /etc/mysql/conf.</description></item></channel></rss>

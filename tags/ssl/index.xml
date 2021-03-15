@@ -1,26 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>ssl on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/ssl/</link>
-    <description>Recent content in ssl on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Tue, 29 May 2012 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/ssl/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>玄箱HG(lenny) Apache2 ssl化</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-sslhua/</link>
-      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-sslhua/</guid>
-      <description>玄箱HG(lenny) Apache2 ssl化 前提条件  opensslはインストール済み apache2で既にサイトが稼働済み su 実行済み  opensslの設定 cd /etc/ssl ls -l 合計 28 drwxr-xr-x 2 root root 12288 2011-11-16 00:11 certs -rw-r--r-- 1 root root 9374 2010-12-06 00:23 openssl.cnf drwx--x--- 2 root ssl-cert 4096 2011-03-19 20:58 private cp -p openssl.cnf openssl.cnf.org vi openssl.cnf  編集内容は以下
-diff ./openssl.cnf.org openssl.cnf 172c172 &amp;lt; # nsCertType = server --- &amp;gt; nsCertType = server 241c241 &amp;lt; # nsCertType = sslCA, emailCA --- &amp;gt; nsCertType = sslCA, emailCA  証明書の作成 場所はどこでもよいと思われる。</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ssl on tac lifelog</title><link>https://tro3373.github.io/tags/ssl/</link><description>Recent content in ssl on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Tue, 29 May 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/ssl/index.xml" rel="self" type="application/rss+xml"/><item><title>玄箱HG(lenny) Apache2 ssl化</title><link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-sslhua/</link><pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hglenny-apache2-sslhua/</guid><description>玄箱HG(lenny) Apache2 ssl化 前提条件 opensslはインストール済み apache2で既にサイトが稼働済み su 実行済み opensslの設定 cd /etc/ssl ls -l 合計 28 drwxr-xr-x 2 root root 12288 2011-11-16 00:11 certs -rw-r--r-- 1 root root 9374 2010-12-06 00:23 openssl.cnf drwx--x--- 2 root ssl-cert 4096 2011-03-19 20:58 private cp -p openssl.cnf openssl.cnf.org vi openssl.cnf 編集内容は以下
+diff ./openssl.cnf.org openssl.cnf 172c172 &amp;lt; # nsCertType = server --- &amp;gt; nsCertType = server 241c241 &amp;lt; # nsCertType = sslCA, emailCA --- &amp;gt; nsCertType = sslCA, emailCA 証明書の作成 場所はどこでもよいと思われる。</description></item></channel></rss>

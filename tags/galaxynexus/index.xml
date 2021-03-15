@@ -1,32 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>GalaxyNexus on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/galaxynexus/</link>
-    <description>Recent content in GalaxyNexus on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sat, 09 Jun 2012 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/galaxynexus/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Galaxy Nexus タップ時の音を変更する</title>
-      <link>https://tro3373.github.io/post/android/galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</link>
-      <pubDate>Sat, 09 Jun 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</guid>
-      <description> Galaxy Nexus タップ時の音を変更する  タップ時に鳴らす音を用意する（NexusSより抜いた）
- 名前を以下に変更する
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GalaxyNexus on tac lifelog</title><link>https://tro3373.github.io/tags/galaxynexus/</link><description>Recent content in GalaxyNexus on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Sat, 09 Jun 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/galaxynexus/index.xml" rel="self" type="application/rss+xml"/><item><title>Galaxy Nexus タップ時の音を変更する</title><link>https://tro3373.github.io/post/android/galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</link><pubDate>Sat, 09 Jun 2012 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</guid><description>Galaxy Nexus タップ時の音を変更する タップ時に鳴らす音を用意する（NexusSより抜いた）
+名前を以下に変更する
 Effect_Tick.ogg
- /systemを書き込み権限付きでremountする（要ルート）
+/systemを書き込み権限付きでremountする（要ルート）
 mount -o rw,remount /system
- adbでpushする
-adb push ./Effect_Tick.ogg /system/media/audio/ui
-  </description>
-    </item>
-    
-  </channel>
-</rss>
+adbでpushする
+adb push ./Effect_Tick.ogg /system/media/audio/ui</description></item></channel></rss>

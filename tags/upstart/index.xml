@@ -1,28 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>upstart on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/upstart/</link>
-    <description>Recent content in upstart on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Thu, 10 Sep 2015 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/upstart/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Ubuntu14.04 Upstart チート</title>
-      <link>https://tro3373.github.io/post/ubuntu/ubuntu14-04-upstart-tito/</link>
-      <pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/ubuntu/ubuntu14-04-upstart-tito/</guid>
-      <description>/etc/init/ 配下に XXXXX.conf ファイルを作成するのみ
-基本コマンド # 設定を反映 sudo initctl reload-configuration # XXXXX JOB の状態確認 sudo initctl status XXXXX # XXXXX JOB を開始 sudo initctl start XXXXX # XXXXX JOB を停止 sudo initctl stop XXXXX # XXXXX イベントを発生 sudo initctl emmit XXXXX  XXXXX.conf 書き方 Job 基準
-# Job が開始されたら 起動 start on started [開始するためのJOB名] # Job が停止されたら 停止 stop on stopped [開始するためのJOB名]  イベント 基準
-# イベントが発生したら開始 start on [開始するためのイベント名] # イベントが発生したら停止 stop on [停止するためのイベント名]  参考  Upstart を使ってお手軽 daemon 化 いますぐ実践!</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>upstart on tac lifelog</title><link>https://tro3373.github.io/tags/upstart/</link><description>Recent content in upstart on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Thu, 10 Sep 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/upstart/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu14.04 Upstart チート</title><link>https://tro3373.github.io/post/ubuntu/ubuntu14-04-upstart-tito/</link><pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/ubuntu/ubuntu14-04-upstart-tito/</guid><description>/etc/init/ 配下に XXXXX.conf ファイルを作成するのみ
+基本コマンド # 設定を反映 sudo initctl reload-configuration # XXXXX JOB の状態確認 sudo initctl status XXXXX # XXXXX JOB を開始 sudo initctl start XXXXX # XXXXX JOB を停止 sudo initctl stop XXXXX # XXXXX イベントを発生 sudo initctl emmit XXXXX XXXXX.conf 書き方 Job 基準
+# Job が開始されたら 起動 start on started [開始するためのJOB名] # Job が停止されたら 停止 stop on stopped [開始するためのJOB名] イベント 基準
+# イベントが発生したら開始 start on [開始するためのイベント名] # イベントが発生したら停止 stop on [停止するためのイベント名] 参考 Upstart を使ってお手軽 daemon 化 いますぐ実践!</description></item></channel></rss>

@@ -1,30 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>chromiumos on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/chromiumos/</link>
-    <description>Recent content in chromiumos on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Wed, 26 Oct 2011 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/chromiumos/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>chromium os install -&gt; Failed!</title>
-      <link>https://tro3373.github.io/post/chromium-os-install-failed/</link>
-      <pubDate>Wed, 26 Oct 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/chromium-os-install-failed/</guid>
-      <description> Install chromium os&amp;hellip; failed&amp;hellip;  download usb chromium os.
- http://chromeos.hexxeh.net/vanilla.php ChromeOS-Vanilla-1217.0.2011_10_25_1632-r9de021da.tar.gz  partition 調査
-cat /proc/partitions  write to usb
- /dev/sdg1 sudo umount /media/2799-4470 sudo dd if=/home/[username]/work/20111026.chromium.os.install/dl/ChromeOS-Vanilla-1217.0.2011_10_24_1637-r9de021da.img of=/dev/sdg bs=1k → error...quit!   http://www.mimimemo.net/2011/01/chromium-os-zero/ install tool  USB-ImageWriter   start up from usb to old pc.
- install to hdd used usb start up img. http://yanotaka2.wordpress.com/2011/07/08/%E7%B5%90%E5%B1%80%E3%80%81chromeos%E3%82%92hdd%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%A6%E3%81%97%E3%81%BE%E3%81%A3%E3%81%9F%E3%80%82/
-  </description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>chromiumos on tac lifelog</title><link>https://tro3373.github.io/tags/chromiumos/</link><description>Recent content in chromiumos on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Wed, 26 Oct 2011 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/chromiumos/index.xml" rel="self" type="application/rss+xml"/><item><title>chromium os install -> Failed!</title><link>https://tro3373.github.io/post/chromium-os-install-failed/</link><pubDate>Wed, 26 Oct 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/chromium-os-install-failed/</guid><description>Install chromium os&amp;hellip; failed&amp;hellip; download usb chromium os.
+http://chromeos.hexxeh.net/vanilla.php ChromeOS-Vanilla-1217.0.2011_10_25_1632-r9de021da.tar.gz partition 調査
+cat /proc/partitions write to usb
+/dev/sdg1 sudo umount /media/2799-4470 sudo dd if=/home/[username]/work/20111026.chromium.os.install/dl/ChromeOS-Vanilla-1217.0.2011_10_24_1637-r9de021da.img of=/dev/sdg bs=1k → error...quit! http://www.mimimemo.net/2011/01/chromium-os-zero/ install tool USB-ImageWriter start up from usb to old pc.
+install to hdd used usb start up img. http://yanotaka2.wordpress.com/2011/07/08/%E7%B5%90%E5%B1%80%E3%80%81chromeos%E3%82%92hdd%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%A6%E3%81%97%E3%81%BE%E3%81%A3%E3%81%9F%E3%80%82/</description></item></channel></rss>

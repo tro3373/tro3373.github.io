@@ -1,32 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>coreos on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/coreos/</link>
-    <description>Recent content in coreos on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sat, 17 Jan 2015 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/coreos/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Nuc(D54250WYKH)に CoreOS をインストールし、Docker を触る</title>
-      <link>https://tro3373.github.io/post/docker/nucd54250wykhni-coreos-woinsutorusi-docker-wohong-ru/</link>
-      <pubDate>Sat, 17 Jan 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/docker/nucd54250wykhni-coreos-woinsutorusi-docker-wohong-ru/</guid>
-      <description>Nuc(D54250WYKH)に CoreOS をインストールし、Docker を触る CoreOS インストール ISO イメージダウンロード CoreOS ISO イメージを ここからダウンロード
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>coreos on tac lifelog</title><link>https://tro3373.github.io/tags/coreos/</link><description>Recent content in coreos on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Sat, 17 Jan 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/coreos/index.xml" rel="self" type="application/rss+xml"/><item><title>Nuc(D54250WYKH)に CoreOS をインストールし、Docker を触る</title><link>https://tro3373.github.io/post/docker/nucd54250wykhni-coreos-woinsutorusi-docker-wohong-ru/</link><pubDate>Sat, 17 Jan 2015 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/docker/nucd54250wykhni-coreos-woinsutorusi-docker-wohong-ru/</guid><description>Nuc(D54250WYKH)に CoreOS をインストールし、Docker を触る CoreOS インストール ISO イメージダウンロード CoreOS ISO イメージを ここからダウンロード
 または、以下コマンドで取得
-$ curl -o core-os.iso http://alpha.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso?__hstc=112362075.27b09ada9633d5c4e4307490970e61ed.1421419603585.1421419603585.1421419603585.1&amp;amp;__hssc=112362075.1.1421419603585&amp;amp;__hsfp=4136096990  USB 起動ディスクの作成 Mac OS からUSB起動ディスク作成を行う場合は、以下コマンドで、ISO イメージを変換
-$ hdiutil convert -format UDRW -o out.img coreos_production_iso_image.iso  Mac 上の認識デバイスIDを確認
-$ diskutil list  USB アンマウント
-$ diskutil unmountDisk /dev/disk2  イメージ書き込み
-$ sudo dd if=out.img.dmg of=/dev/disk2 bs=1m  USB 取り出し
-$ diskutil eject /dev/disk2  CoreOS を Nuc で起動 USB メモリから起動  insert usb disk.</description>
-    </item>
-    
-  </channel>
-</rss>
+$ curl -o core-os.iso http://alpha.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso?__hstc=112362075.27b09ada9633d5c4e4307490970e61ed.1421419603585.1421419603585.1421419603585.1&amp;amp;__hssc=112362075.1.1421419603585&amp;amp;__hsfp=4136096990 USB 起動ディスクの作成 Mac OS からUSB起動ディスク作成を行う場合は、以下コマンドで、ISO イメージを変換
+$ hdiutil convert -format UDRW -o out.img coreos_production_iso_image.iso Mac 上の認識デバイスIDを確認
+$ diskutil list USB アンマウント
+$ diskutil unmountDisk /dev/disk2 イメージ書き込み
+$ sudo dd if=out.img.dmg of=/dev/disk2 bs=1m USB 取り出し
+$ diskutil eject /dev/disk2 CoreOS を Nuc で起動 USB メモリから起動 insert usb disk.</description></item></channel></rss>

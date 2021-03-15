@@ -1,115 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>android on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/android/</link>
-    <description>Recent content in android on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Thu, 29 May 2014 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>android 4.4.2 keystore grep 結果メモ</title>
-      <link>https://tro3373.github.io/post/android/android-4-4-2-keystore-grep-jie-guo-memo/</link>
-      <pubDate>Thu, 29 May 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/android-4-4-2-keystore-grep-jie-guo-memo/</guid>
-      <description>android 4.4.2 keystore grep 結果メモ 調査した際のログメモ
-$ cd env/android/android-4.4.2_r2/ $ ls Makefile art bootable cts developers device external hardware libnativehelper packages prebuilts system abi bionic build dalvik development docs frameworks libcore ndk pdk sdk tools $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java ^C $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java $ find ./packages/apps/ -name CredentialHelper.java ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java $ find ./packages/apps/CertInstaller/ -name *.java |xargs grep createSystemInstallIntent |grep createSystemInstallIntent ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java: mCredentials.createSystemInstallIntent(), ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java: Intent createSystemInstallIntent() { $ find .</description>
-    </item>
-    
-    <item>
-      <title>tf201 root化</title>
-      <link>https://tro3373.github.io/post/android/tf201-roothua/</link>
-      <pubDate>Thu, 16 Aug 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/tf201-roothua/</guid>
-      <description>tags: tf201, Asus Tranceformaer Prime, android
-title: 20120816 tf201 root化 tf201 root化 参考１ 参考２
-bootloader unlock  download apk here Unlock Device App install apk &amp;amp; done  flash recovery clockworkmod  fastboot mode
- Boot your tablet into fastboot by holding down the power and volume-down buttons.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>android on tac lifelog</title><link>https://tro3373.github.io/tags/android/</link><description>Recent content in android on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Thu, 29 May 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/android/index.xml" rel="self" type="application/rss+xml"/><item><title>android 4.4.2 keystore grep 結果メモ</title><link>https://tro3373.github.io/post/android/android-4-4-2-keystore-grep-jie-guo-memo/</link><pubDate>Thu, 29 May 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/android-4-4-2-keystore-grep-jie-guo-memo/</guid><description>android 4.4.2 keystore grep 結果メモ 調査した際のログメモ
+$ cd env/android/android-4.4.2_r2/ $ ls Makefile art bootable cts developers device external hardware libnativehelper packages prebuilts system abi bionic build dalvik development docs frameworks libcore ndk pdk sdk tools $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java ^C $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java $ find ./packages/apps/ -name CredentialHelper.java ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java $ find ./packages/apps/CertInstaller/ -name *.java |xargs grep createSystemInstallIntent |grep createSystemInstallIntent ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java: mCredentials.createSystemInstallIntent(), ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java: Intent createSystemInstallIntent() { $ find ./frameworks/base/core -name CredentialStorage.</description></item><item><title>tf201 root化</title><link>https://tro3373.github.io/post/android/tf201-roothua/</link><pubDate>Thu, 16 Aug 2012 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/tf201-roothua/</guid><description>tags: tf201, Asus Tranceformaer Prime, android title: 20120816 tf201 root化 tf201 root化 参考１ 参考２
+bootloader unlock download apk here Unlock Device App install apk &amp;amp; done flash recovery clockworkmod fastboot mode
+Boot your tablet into fastboot by holding down the power and volume-down buttons.
 The tablet will power off and reboot.
-Wait until you see several lines of white text in the upper-left corner of the screen,</description>
-    </item>
-    
-    <item>
-      <title>android Toastを上げるサンプル</title>
-      <link>https://tro3373.github.io/post/android/android-toastwoshang-gerusanpuru/</link>
-      <pubDate>Wed, 20 Jun 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/android-toastwoshang-gerusanpuru/</guid>
-      <description> android Toastを上げるサンプル Toast.makeText( this, &amp;quot;Build.DEVICE=&amp;quot; + Build.DEVICE + &amp;quot;:&amp;quot; + &amp;quot;Build.VERSION.SDK_INT=&amp;quot; + Build.VERSION.SDK_INT, android.widget.Toast.LENGTH_LONG).show(); Intent intent = new Intent(); intent.setClassName(&amp;quot;com.google.android.gsf&amp;quot;, &amp;quot;com.google.android.gsf.gtalkservice.diagnostics.GTalkDiagnostics&amp;quot;); startActivity(intent);  </description>
-    </item>
-    
-    <item>
-      <title>Galaxy Nexus タップ時の音を変更する</title>
-      <link>https://tro3373.github.io/post/android/galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</link>
-      <pubDate>Sat, 09 Jun 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</guid>
-      <description> Galaxy Nexus タップ時の音を変更する  タップ時に鳴らす音を用意する（NexusSより抜いた）
- 名前を以下に変更する
+Wait until you see several lines of white text in the upper-left corner of the screen,</description></item><item><title>android Toastを上げるサンプル</title><link>https://tro3373.github.io/post/android/android-toastwoshang-gerusanpuru/</link><pubDate>Wed, 20 Jun 2012 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/android-toastwoshang-gerusanpuru/</guid><description>android Toastを上げるサンプル Toast.makeText( this, &amp;quot;Build.DEVICE=&amp;quot; + Build.DEVICE + &amp;quot;:&amp;quot; + &amp;quot;Build.VERSION.SDK_INT=&amp;quot; + Build.VERSION.SDK_INT, android.widget.Toast.LENGTH_LONG).show(); Intent intent = new Intent(); intent.setClassName(&amp;quot;com.google.android.gsf&amp;quot;, &amp;quot;com.google.android.gsf.gtalkservice.diagnostics.GTalkDiagnostics&amp;quot;); startActivity(intent);</description></item><item><title>Galaxy Nexus タップ時の音を変更する</title><link>https://tro3373.github.io/post/android/galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</link><pubDate>Sat, 09 Jun 2012 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</guid><description>Galaxy Nexus タップ時の音を変更する タップ時に鳴らす音を用意する（NexusSより抜いた）
+名前を以下に変更する
 Effect_Tick.ogg
- /systemを書き込み権限付きでremountする（要ルート）
+/systemを書き込み権限付きでremountする（要ルート）
 mount -o rw,remount /system
- adbでpushする
-adb push ./Effect_Tick.ogg /system/media/audio/ui
-  </description>
-    </item>
-    
-    <item>
-      <title>android メモリリーク調査</title>
-      <link>https://tro3373.github.io/post/android/android-memoririkudiao-cha/</link>
-      <pubDate>Thu, 01 Dec 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/android-memoririkudiao-cha/</guid>
-      <description> android メモリリーク調査  Eclise 新規ソフトウェアーより、以下を追加
+adbでpushする
+adb push ./Effect_Tick.ogg /system/media/audio/ui</description></item><item><title>android メモリリーク調査</title><link>https://tro3373.github.io/post/android/android-memoririkudiao-cha/</link><pubDate>Thu, 01 Dec 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/android-memoririkudiao-cha/</guid><description>android メモリリーク調査 Eclise 新規ソフトウェアーより、以下を追加
 BIRT http://download.eclipse.org/birt/update-site/3.7 BIRT 3.7 Engine OSGi Runtime SDK 0.0.0 mat http://download.eclipse.org/mat/1.1.1/update-site/
-   DDMS、Deviceより。Heapを選択。↓矢印のついているheapアイコンでhprofファイルが作成される できたhprofファイルは現状バグっているらしいので、hprofツールで再度加工しなおす。 /env/gb234/android/out/host/linux-x86/bin/hprof-conv system_process.hprof ./TMP/temp.hprof eclipseファイルを開くから、できたhprofを選択すると、展開され、hprof取得タイミングでのメモリ情報が表示される。
- </description>
-    </item>
-    
-    <item>
-      <title>Nexus S ビルド〜ロム焼き まで</title>
-      <link>https://tro3373.github.io/post/android/nexus-s-birudo-romushao-ki-made/</link>
-      <pubDate>Sat, 30 Jul 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/nexus-s-birudo-romushao-ki-made/</guid>
-      <description>Nexus S ビルド〜ロム焼き まで Nexus S 目指せ文鎮化！ぐらいの勢いで、ソースビルドからロム焼き
-前提条件  環境PC  Ubuntu 10.10  端末  Samsung製 Nexus S gingerbread 2.3.4 GRJ22  ベースバンドバージョン  I9023XXKD1  カーネルバージョン  2.6.35.7-ge382d80 android-build@apa28 #1  ソース  android 2.3.4ソースをrepoより取得している。 ライブラリ等については、通常ビルドできる状態とする。   Ubuntu 10.10 に Nexus S を認識させる。  lsusb で Google inc. を探す sudo gedit /etc/udev/rules.d/51-android.rulesでデバイス情報を登録してやる
-# 以下を追加 SUBSYSTEM==&amp;quot;usb&amp;quot;, SYSFS{idVendor}==&amp;quot;18d1&amp;quot;, MODE=&amp;quot;0666&amp;quot;   リカバリイメージのダウンロード  Clockwork Recovery image置き場  ビルド用のソースを取得 ソース取得したいディレクトリへ移動</description>
-    </item>
-    
-    <item>
-      <title>androidフレームワーク開発Tips</title>
-      <link>https://tro3373.github.io/post/android/androidhuremuwakukai-fa-tips/</link>
-      <pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/androidhuremuwakukai-fa-tips/</guid>
-      <description>Android Life Cycle Activity Fragment ビルド # For Nexus S cd /path/to/the/sourcedirectory/ source build/envsetup.sh lunch 4 time make -j9 update-api time make -j9 # For vega source build/envsetup.sh time brunch vega -j9 # For Xoom export USE_CCACHE=1 TMP_CCACHE_DIR=/env/build.cache/wingray.tmp export CCACHE_DIR=$TMP_CCACHE_DIR/.ccache prebuilt/linux-x86/ccache/ccache -M 20G source build/envsetup.sh lunch 5 time make -j9  Flash image # crespo(Nexus S) ENVPATH=/env/nexus/kmpf-android-2.3.4 DEVICE_NAME=crespo fastboot flash boot $ENVPATH/out/target/product/${DEVICE_NAME}/boot.img fastboot flash recovery $ENVPATH/out/target/product/${DEVICE_NAME}/recovery.img fastboot flash userdata $ENVPATH/out/target/product/${DEVICE_NAME}/userdata.</description>
-    </item>
-    
-    <item>
-      <title>Android GingerBread ビルド色々</title>
-      <link>https://tro3373.github.io/post/android/android-gingerbread-se/</link>
-      <pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/android-gingerbread-se/</guid>
-      <description>SDKビルドしたoutディレクトリから、emulatorを立ち上げる cd /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools ./android list # ⇒ 以下が正しく無いとして、起動できず # ・sdklib.jar # ・sdkmanager.jar # ・sdkuilib.jar # ⇒ Eclipseより取得したファイルより、上書き # 以下のように正しく表示される # Available Android targets: # id: 1 or &amp;quot;android-9&amp;quot; # Name: Android 2.3.1 # Type: Platform # API level: 9 # Revision: 1 # Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854 # Available Android Virtual Devices: # The following Android Virtual Devices could not be loaded: # Name: jb # Path: /home/hogeuser/.</description>
-    </item>
-    
-    <item>
-      <title>Xivision(vega) ロム焼き</title>
-      <link>https://tro3373.github.io/post/android/xivisionvega-romushao-ki/</link>
-      <pubDate>Tue, 10 Aug 2010 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/xivisionvega-romushao-ki/</guid>
-      <description># Xivision(vega) ロム焼き TOOLS_DIR=~/work/30.tools OUT_DIR=/env/vega/vega/out/target/product/vega nvflash --bl $TOOLS_DIR/bootloader.bin --go nvflash -r --download 8 $OUT_DIR/system.img --download 7 $OUT_DIR/boot.img --download 11 $OUT_DIR/userdata.img --download 6 $OUT_DIR/recovery.img  </description>
-    </item>
-    
-  </channel>
-</rss>
+DDMS、Deviceより。Heapを選択。↓矢印のついているheapアイコンでhprofファイルが作成される できたhprofファイルは現状バグっているらしいので、hprofツールで再度加工しなおす。 /env/gb234/android/out/host/linux-x86/bin/hprof-conv system_process.hprof ./TMP/temp.hprof eclipseファイルを開くから、できたhprofを選択すると、展開され、hprof取得タイミングでのメモリ情報が表示される。</description></item><item><title>Nexus S ビルド〜ロム焼き まで</title><link>https://tro3373.github.io/post/android/nexus-s-birudo-romushao-ki-made/</link><pubDate>Sat, 30 Jul 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/nexus-s-birudo-romushao-ki-made/</guid><description>Nexus S ビルド〜ロム焼き まで Nexus S 目指せ文鎮化！ぐらいの勢いで、ソースビルドからロム焼き
+前提条件 環境PC Ubuntu 10.10 端末 Samsung製 Nexus S gingerbread 2.3.4 GRJ22 ベースバンドバージョン I9023XXKD1 カーネルバージョン 2.6.35.7-ge382d80 android-build@apa28 #1 ソース android 2.3.4ソースをrepoより取得している。 ライブラリ等については、通常ビルドできる状態とする。 Ubuntu 10.10 に Nexus S を認識させる。 lsusb で Google inc. を探す
+sudo gedit /etc/udev/rules.d/51-android.rulesでデバイス情報を登録してやる
+# 以下を追加 SUBSYSTEM==&amp;quot;usb&amp;quot;, SYSFS{idVendor}==&amp;quot;18d1&amp;quot;, MODE=&amp;quot;0666&amp;quot; リカバリイメージのダウンロード Clockwork Recovery image置き場 ビルド用のソースを取得 ソース取得したいディレクトリへ移動</description></item><item><title>androidフレームワーク開発Tips</title><link>https://tro3373.github.io/post/android/androidhuremuwakukai-fa-tips/</link><pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/androidhuremuwakukai-fa-tips/</guid><description>Android Life Cycle Activity Fragment ビルド # For Nexus S cd /path/to/the/sourcedirectory/ source build/envsetup.sh lunch 4 time make -j9 update-api time make -j9 # For vega source build/envsetup.sh time brunch vega -j9 # For Xoom export USE_CCACHE=1 TMP_CCACHE_DIR=/env/build.cache/wingray.tmp export CCACHE_DIR=$TMP_CCACHE_DIR/.ccache prebuilt/linux-x86/ccache/ccache -M 20G source build/envsetup.sh lunch 5 time make -j9 Flash image # crespo(Nexus S) ENVPATH=/env/nexus/kmpf-android-2.3.4 DEVICE_NAME=crespo fastboot flash boot $ENVPATH/out/target/product/${DEVICE_NAME}/boot.img fastboot flash recovery $ENVPATH/out/target/product/${DEVICE_NAME}/recovery.img fastboot flash userdata $ENVPATH/out/target/product/${DEVICE_NAME}/userdata.img fastboot flash system $ENVPATH/out/target/product/${DEVICE_NAME}/system.</description></item><item><title>Android GingerBread ビルド色々</title><link>https://tro3373.github.io/post/android/android-gingerbread-se/</link><pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/android-gingerbread-se/</guid><description>SDKビルドしたoutディレクトリから、emulatorを立ち上げる cd /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools ./android list # ⇒ 以下が正しく無いとして、起動できず # ・sdklib.jar # ・sdkmanager.jar # ・sdkuilib.jar # ⇒ Eclipseより取得したファイルより、上書き # 以下のように正しく表示される # Available Android targets: # id: 1 or &amp;#34;android-9&amp;#34; # Name: Android 2.3.1 # Type: Platform # API level: 9 # Revision: 1 # Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854 # Available Android Virtual Devices: # The following Android Virtual Devices could not be loaded: # Name: jb # Path: /home/hogeuser/.</description></item><item><title>Xivision(vega) ロム焼き</title><link>https://tro3373.github.io/post/android/xivisionvega-romushao-ki/</link><pubDate>Tue, 10 Aug 2010 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/xivisionvega-romushao-ki/</guid><description># Xivision(vega) ロム焼き TOOLS_DIR=~/work/30.tools OUT_DIR=/env/vega/vega/out/target/product/vega nvflash --bl $TOOLS_DIR/bootloader.bin --go nvflash -r --download 8 $OUT_DIR/system.img --download 7 $OUT_DIR/boot.img --download 11 $OUT_DIR/userdata.img --download 6 $OUT_DIR/recovery.img</description></item></channel></rss>

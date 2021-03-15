@@ -1,53 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>wheezy on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/wheezy/</link>
-    <description>Recent content in wheezy on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sat, 11 Oct 2014 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/wheezy/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>debian wheezy mysql 設定、データ移行</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-mysql-she-ding-detayi-xing/</link>
-      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-mysql-she-ding-detayi-xing/</guid>
-      <description>インストール sudo aptitude install mysql-server  alive check mysqladmin ping -u root -p  mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);  ユーザ確認 ログイン mysql -u root -p  SQL実行 SELECT host,user,password FROM mysql.user;  文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: &#39;&#39; Using delimiter: ; Server version: 5.</description>
-    </item>
-    
-    <item>
-      <title>Linkstation(debian wheezy) へ mysql を設定、データ移行</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</link>
-      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</guid>
-      <description>インストール sudo aptitude install mysql-server  alive check mysqladmin ping -u root -p  mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);  ユーザ確認 ログイン mysql -u root -p  SQL実行 SELECT host,user,password FROM mysql.user;  文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: &#39;&#39; Using delimiter: ; Server version: 5.</description>
-    </item>
-    
-    <item>
-      <title>Debian wheezy に Ubuntu 14.04 クライアントからSSH接続する</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</link>
-      <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</guid>
-      <description>[Client] Key generate create pub, private key at ~/.ssh cd ~/.ssh ssh-keygen -t rsa # created under files id_rsa id_rsa.pub  upload public key to server. scp id_rsa.pub [server ip address]:~/  [Client] .ssh/config vim ~/.ssh/config
-Host [server name] HostName [server name or ipaddress] Port 22 User [login user name] IdentityFile ~/.ssh/id_rsa  [server] regist pub key login the server. cd ~ cat rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys  [server] sshd settings sudo vim /etc/ssh/sshd_config check the settings</description>
-    </item>
-    
-    <item>
-      <title>Linkstation(ls-xhle) へdebian wheezy を導入する</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</link>
-      <pubDate>Sat, 13 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</guid>
-      <description>パーティション構成 /dev/sda1 /boot /dev/sda2 / /dev/sda3 swap /dev/sda4 /data  ここを参考に &amp;gt; update 2013.05.15: Now when Debian 7 wheezy is stable, i made a new image. &amp;gt; &amp;gt; I created a minimal debian wheezy bootstrap for our Linkstations. It comes with 3.9.2 kernels for both LS-CHLv2 and LS-XHL, which you can find here. &amp;gt; &amp;gt; ### Infos &amp;gt; Changes to plain debootstrap &amp;gt; This is a ready to use image, no need to tweak device specific stuff after install e.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>wheezy on tac lifelog</title><link>https://tro3373.github.io/tags/wheezy/</link><description>Recent content in wheezy on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Sat, 11 Oct 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/wheezy/index.xml" rel="self" type="application/rss+xml"/><item><title>debian wheezy mysql 設定、データ移行</title><link>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-mysql-she-ding-detayi-xing/</link><pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-mysql-she-ding-detayi-xing/</guid><description>インストール sudo aptitude install mysql-server alive check mysqladmin ping -u root -p mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD('new_password'); ユーザ確認 ログイン mysql -u root -p SQL実行 SELECT host,user,password FROM mysql.user; 文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: '' Using delimiter: ; Server version: 5.</description></item><item><title>Linkstation(debian wheezy) へ mysql を設定、データ移行</title><link>https://tro3373.github.io/post/kurobox-linkstation/linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</link><pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</guid><description>インストール sudo aptitude install mysql-server alive check mysqladmin ping -u root -p mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD('new_password'); ユーザ確認 ログイン mysql -u root -p SQL実行 SELECT host,user,password FROM mysql.user; 文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: '' Using delimiter: ; Server version: 5.</description></item><item><title>Debian wheezy に Ubuntu 14.04 クライアントからSSH接続する</title><link>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</link><pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</guid><description>[Client] Key generate create pub, private key at ~/.ssh cd ~/.ssh ssh-keygen -t rsa # created under files id_rsa id_rsa.pub upload public key to server. scp id_rsa.pub [server ip address]:~/ [Client] .ssh/config vim ~/.ssh/config
+Host [server name] HostName [server name or ipaddress] Port 22 User [login user name] IdentityFile ~/.ssh/id_rsa [server] regist pub key login the server. cd ~ cat rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys [server] sshd settings sudo vim /etc/ssh/sshd_config check the settings</description></item><item><title>Linkstation(ls-xhle) へdebian wheezy を導入する</title><link>https://tro3373.github.io/post/kurobox-linkstation/linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</link><pubDate>Sat, 13 Sep 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</guid><description>パーティション構成 /dev/sda1 /boot /dev/sda2 / /dev/sda3 swap /dev/sda4 /data ここを参考に
+update 2013.05.15: Now when Debian 7 wheezy is stable, i made a new image.
+I created a minimal debian wheezy bootstrap for our Linkstations. It comes with 3.9.2 kernels for both LS-CHLv2 and LS-XHL, which you can find here.
+Infos Changes to plain debootstrap This is a ready to use image, no need to tweak device specific stuff after install e.</description></item></channel></rss>

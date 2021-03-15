@@ -1,32 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>mydns on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/mydns/</link>
-    <description>Recent content in mydns on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Mon, 05 May 2014 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/mydns/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>dyndns.org の無料 DNS が切れたので、mydns へ変更</title>
-      <link>https://tro3373.github.io/post/dyndns-org-nowu-liao-dns-gaqie-retanode-mydns-hebian-geng/</link>
-      <pubDate>Mon, 05 May 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/dyndns-org-nowu-liao-dns-gaqie-retanode-mydns-hebian-geng/</guid>
-      <description>mydnsにてドメイン登録（複数ドメイン→複数アカウントを作成） アカウントID・パスワードを書き留めておく
-apache2設定 cd /etc/apache2/sites-available ※もとサイト用の設定をコピーして再度作成しなおす  サイト有効化
-sudo a2ensite [create_site_setting_file_name]  dyndns自動更新 参考
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mydns on tac lifelog</title><link>https://tro3373.github.io/tags/mydns/</link><description>Recent content in mydns on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Mon, 05 May 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/mydns/index.xml" rel="self" type="application/rss+xml"/><item><title>dyndns.org の無料 DNS が切れたので、mydns へ変更</title><link>https://tro3373.github.io/post/dyndns-org-nowu-liao-dns-gaqie-retanode-mydns-hebian-geng/</link><pubDate>Mon, 05 May 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/dyndns-org-nowu-liao-dns-gaqie-retanode-mydns-hebian-geng/</guid><description>mydnsにてドメイン登録（複数ドメイン→複数アカウントを作成） アカウントID・パスワードを書き留めておく
+apache2設定 cd /etc/apache2/sites-available ※もとサイト用の設定をコピーして再度作成しなおす サイト有効化
+sudo a2ensite [create_site_setting_file_name] dyndns自動更新 参考
 手動通知での確認
-wget http://www.mydns.jp/login.html --http-user=[user_account_name] --http-passwd=[user_account_password] -O /dev/null wget -q -O - &#39;http://[user_account_name]:[user_account_password]@www.mydns.jp/login.html&#39; |grep &amp;quot;login_status&amp;quot;  スクリプト作成
+wget http://www.mydns.jp/login.html --http-user=[user_account_name] --http-passwd=[user_account_password] -O /dev/null wget -q -O - 'http://[user_account_name]:[user_account_password]@www.mydns.jp/login.html' |grep &amp;quot;login_status&amp;quot; スクリプト作成
 vi /path/to/exec_file_setting_directory/ddns.sh
 ファイル内容は以下
-#!/bin/sh ##DDNS updata script. # #check wget if ! [ -x /usr/bin/wget ] then echo &amp;quot;Not found : wget&amp;quot;; exit 0 fi #updata DDNS #[site_url] echo [site_url] wget... wget -q -O - &#39;http://[user_account_name]:[user_account_password]@www.mydns.jp/login.html&#39; |grep &amp;quot;login_status&amp;quot; exit 0  権限付与</description>
-    </item>
-    
-  </channel>
-</rss>
+#!/bin/sh ##DDNS updata script. # #check wget if ! [ -x /usr/bin/wget ] then echo &amp;quot;Not found : wget&amp;quot;; exit 0 fi #updata DDNS #[site_url] echo [site_url] wget... wget -q -O - 'http://[user_account_name]:[user_account_password]@www.mydns.jp/login.html' |grep &amp;quot;login_status&amp;quot; exit 0 権限付与</description></item></channel></rss>

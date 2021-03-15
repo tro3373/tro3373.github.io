@@ -1,27 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>NexusS on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/nexuss/</link>
-    <description>Recent content in NexusS on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sat, 30 Jul 2011 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/nexuss/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Nexus S ビルド〜ロム焼き まで</title>
-      <link>https://tro3373.github.io/post/android/nexus-s-birudo-romushao-ki-made/</link>
-      <pubDate>Sat, 30 Jul 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/android/nexus-s-birudo-romushao-ki-made/</guid>
-      <description>Nexus S ビルド〜ロム焼き まで Nexus S 目指せ文鎮化！ぐらいの勢いで、ソースビルドからロム焼き
-前提条件  環境PC  Ubuntu 10.10  端末  Samsung製 Nexus S gingerbread 2.3.4 GRJ22  ベースバンドバージョン  I9023XXKD1  カーネルバージョン  2.6.35.7-ge382d80 android-build@apa28 #1  ソース  android 2.3.4ソースをrepoより取得している。 ライブラリ等については、通常ビルドできる状態とする。   Ubuntu 10.10 に Nexus S を認識させる。  lsusb で Google inc. を探す sudo gedit /etc/udev/rules.d/51-android.rulesでデバイス情報を登録してやる
-# 以下を追加 SUBSYSTEM==&amp;quot;usb&amp;quot;, SYSFS{idVendor}==&amp;quot;18d1&amp;quot;, MODE=&amp;quot;0666&amp;quot;   リカバリイメージのダウンロード  Clockwork Recovery image置き場  ビルド用のソースを取得 ソース取得したいディレクトリへ移動</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>NexusS on tac lifelog</title><link>https://tro3373.github.io/tags/nexuss/</link><description>Recent content in NexusS on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Sat, 30 Jul 2011 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/nexuss/index.xml" rel="self" type="application/rss+xml"/><item><title>Nexus S ビルド〜ロム焼き まで</title><link>https://tro3373.github.io/post/android/nexus-s-birudo-romushao-ki-made/</link><pubDate>Sat, 30 Jul 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/android/nexus-s-birudo-romushao-ki-made/</guid><description>Nexus S ビルド〜ロム焼き まで Nexus S 目指せ文鎮化！ぐらいの勢いで、ソースビルドからロム焼き
+前提条件 環境PC Ubuntu 10.10 端末 Samsung製 Nexus S gingerbread 2.3.4 GRJ22 ベースバンドバージョン I9023XXKD1 カーネルバージョン 2.6.35.7-ge382d80 android-build@apa28 #1 ソース android 2.3.4ソースをrepoより取得している。 ライブラリ等については、通常ビルドできる状態とする。 Ubuntu 10.10 に Nexus S を認識させる。 lsusb で Google inc. を探す
+sudo gedit /etc/udev/rules.d/51-android.rulesでデバイス情報を登録してやる
+# 以下を追加 SUBSYSTEM==&amp;quot;usb&amp;quot;, SYSFS{idVendor}==&amp;quot;18d1&amp;quot;, MODE=&amp;quot;0666&amp;quot; リカバリイメージのダウンロード Clockwork Recovery image置き場 ビルド用のソースを取得 ソース取得したいディレクトリへ移動</description></item></channel></rss>

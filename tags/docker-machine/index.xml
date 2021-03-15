@@ -1,45 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>docker-machine on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/docker-machine/</link>
-    <description>Recent content in docker-machine on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sat, 10 Oct 2015 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/docker-machine/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Docker Machine(Boot2Docker(Tiny Linux)) 上で docker/gitlab を動かしてみる</title>
-      <link>https://tro3373.github.io/post/docker/docker-machine-docker-gitlab/</link>
-      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/docker/docker-machine-docker-gitlab/</guid>
-      <description>sameersbn/gitlab:8.0.4 オンプレミスな GitHub Clone GitLab
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>docker-machine on tac lifelog</title><link>https://tro3373.github.io/tags/docker-machine/</link><description>Recent content in docker-machine on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Sat, 10 Oct 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/docker-machine/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker Machine(Boot2Docker(Tiny Linux)) 上で docker/gitlab を動かしてみる</title><link>https://tro3373.github.io/post/docker/docker-machine-docker-gitlab/</link><pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/docker/docker-machine-docker-gitlab/</guid><description>sameersbn/gitlab:8.0.4 オンプレミスな GitHub Clone GitLab
 かなり気持ち悪いロゴ&amp;hellip;(なぜこうなった) バージョンUPでこうなったらしい&amp;hellip; それはいいとして、 Docker image を利用して、公式に公開されている、docker/gitlab
 を docker-machine で作成した docker-host（virtual-box） 上で 動かしてみた。
 インストール ssh で docker-machine ホストOSへ接続した状態でおこなう
-docker-machine ssh dev  docker pull sameersbn/gitlab:8.0.4 cd ~/works/ git clone https://github.com/sameersbn/docker-gitlab.git cd docker-gitlab # Dockerfile からビルドする場合 # docker build --tag=$USER/gitlab .  docker-compose インストール docker コンテナを複数使用するアプリケーションの構成（起動順序や必要リソースなど）をまとめて管理できるのが、 docker-compose
+docker-machine ssh dev docker pull sameersbn/gitlab:8.0.4 cd ~/works/ git clone https://github.com/sameersbn/docker-gitlab.git cd docker-gitlab # Dockerfile からビルドする場合 # docker build --tag=$USER/gitlab . docker-compose インストール docker コンテナを複数使用するアプリケーションの構成（起動順序や必要リソースなど）をまとめて管理できるのが、 docker-compose
 clone されたディレクトリに、 docker-compose.yml が存在するので、 docker-compose で起動できる。
-# docker-compose ダウンロード cd ~/Downloads wget https://github.com/docker/compose/releases/download/1.4.2/docker-compose-Linux-x86_64 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose sudo chmod 755 /usr/local/bin/docker-compose # version 確認 docker-compose --version # 以下が表示される # docker-compose version: 1.</description>
-    </item>
-    
-    <item>
-      <title>Ubuntu 14.04 上に Docker Machine を インストールする</title>
-      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</link>
-      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</guid>
-      <description>Docker Machine を試す！
+# docker-compose ダウンロード cd ~/Downloads wget https://github.com/docker/compose/releases/download/1.4.2/docker-compose-Linux-x86_64 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose sudo chmod 755 /usr/local/bin/docker-compose # version 確認 docker-compose --version # 以下が表示される # docker-compose version: 1.</description></item><item><title>Ubuntu 14.04 上に Docker Machine を インストールする</title><link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</link><pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</guid><description>Docker Machine を試す！
 docker-machine docker-machine は Docker ホストを管理するツールで、ホストとなる Docker コンテナ起動サーバが、VM や AWS、 Digital Ocean などの ホストへ接続し実行する事で、あたかも local で docker コンテナが動いているかのように振る舞うツール。
 Docker コンテナ管理ツールとしても仕様できるみたい。
 docker インストール まずは、 dokcer のインストール
-# Docker install wget -qO- https://get.docker.com/ | sh # version を確認しておく。 docker --version # 以下が表示される # Docker version 1.8.2, build 0a8c2e3 # ユーザーを docker グループに追加 sudo usermod -aG docker $USER  docker-machine インストール 続いて、 docker-machine をインストールする。
-cd ~/Download wget https://github.com/docker/machine/releases/download/v0.4.1/docker-machine_linux-amd64 sudo mkdir -p /opt/bin sudo mv docker-machine_linux-amd64 /opt/bin/docker-machine sudo chmod +x /opt/bin/docker-machine # docker-machine version 確認 # /opt/bin にパスが通っている事！ docker-machine -v # 以下のようにバージョンが表示される # docker-machine version 0.</description>
-    </item>
-    
-  </channel>
-</rss>
+# Docker install wget -qO- https://get.docker.com/ | sh # version を確認しておく。 docker --version # 以下が表示される # Docker version 1.8.2, build 0a8c2e3 # ユーザーを docker グループに追加 sudo usermod -aG docker $USER docker-machine インストール 続いて、 docker-machine をインストールする。
+cd ~/Download wget https://github.com/docker/machine/releases/download/v0.4.1/docker-machine_linux-amd64 sudo mkdir -p /opt/bin sudo mv docker-machine_linux-amd64 /opt/bin/docker-machine sudo chmod +x /opt/bin/docker-machine # docker-machine version 確認 # /opt/bin にパスが通っている事！ docker-machine -v # 以下のようにバージョンが表示される # docker-machine version 0.</description></item></channel></rss>

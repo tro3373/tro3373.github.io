@@ -1,26 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Python on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/python/</link>
-    <description>Recent content in Python on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Wed, 10 Sep 2014 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Ubuntu 14.04 Python でWebsocket実装</title>
-      <link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-python-dewebsocketshi-zhuang/</link>
-      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-python-dewebsocketshi-zhuang/</guid>
-      <description>Ubuntu14.04 Python 2.7.6 でWebsocket実装 モジュールのインストール sudo apt-get install libevent-dev python-dev python-setuptools sudo easy_install gevent sudo easy_install gevent-websocket  サーバスクリプト作成 vi chat.py
-#! /usr/bin/python # -*- coding: utf-8 -*- import os import random from geventwebsocket.handler import WebSocketHandler from gevent import pywsgi, sleep ws_list = set() def chat_handle(environ, start_response): global cnt ws = environ[&#39;wsgi.websocket&#39;] ws_list.add(ws)a print &#39;enter!&#39;, len(ws_list) while 1: msg = ws.receive() if msg is None: break remove = set() for s in ws_list: try: s.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on tac lifelog</title><link>https://tro3373.github.io/tags/python/</link><description>Recent content in Python on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Wed, 10 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu 14.04 Python でWebsocket実装</title><link>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-python-dewebsocketshi-zhuang/</link><pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/ubuntu/ubuntu-14-04-python-dewebsocketshi-zhuang/</guid><description>Ubuntu14.04 Python 2.7.6 でWebsocket実装 モジュールのインストール sudo apt-get install libevent-dev python-dev python-setuptools sudo easy_install gevent sudo easy_install gevent-websocket サーバスクリプト作成 vi chat.py
+#! /usr/bin/python # -*- coding: utf-8 -*- import os import random from geventwebsocket.handler import WebSocketHandler from gevent import pywsgi, sleep ws_list = set() def chat_handle(environ, start_response): global cnt ws = environ['wsgi.websocket'] ws_list.add(ws)a print 'enter!', len(ws_list) while 1: msg = ws.receive() if msg is None: break remove = set() for s in ws_list: try: s.</description></item></channel></rss>

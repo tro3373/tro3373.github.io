@@ -1,28 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>windowsXP on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/windowsxp/</link>
-    <description>Recent content in windowsXP on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sat, 04 Jun 2011 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/windowsxp/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>UbuntuとWindowsXPデュアルブート環境にて、Windowsの時刻が大幅に（９時間程ずれる）場合の設定</title>
-      <link>https://tro3373.github.io/post/ubuntu/ubuntutowindowsxpdeyuarubutohuan-jing-nite-windowsnoshi-ke-gada-fu-ni9shi-jian-cheng-zureruchang-he-noshe-ding/</link>
-      <pubDate>Sat, 04 Jun 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/ubuntu/ubuntutowindowsxpdeyuarubutohuan-jing-nite-windowsnoshi-ke-gada-fu-ni9shi-jian-cheng-zureruchang-he-noshe-ding/</guid>
-      <description>UbuntuとWindowsをデュアルブート環境にしてさぁ、とおもったらWindowsの時刻が大幅にずれている。。 そんなことになったら、これ。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>windowsXP on tac lifelog</title><link>https://tro3373.github.io/tags/windowsxp/</link><description>Recent content in windowsXP on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Sat, 04 Jun 2011 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/windowsxp/index.xml" rel="self" type="application/rss+xml"/><item><title>UbuntuとWindowsXPデュアルブート環境にて、Windowsの時刻が大幅に（９時間程ずれる）場合の設定</title><link>https://tro3373.github.io/post/ubuntu/ubuntutowindowsxpdeyuarubutohuan-jing-nite-windowsnoshi-ke-gada-fu-ni9shi-jian-cheng-zureruchang-he-noshe-ding/</link><pubDate>Sat, 04 Jun 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/ubuntu/ubuntutowindowsxpdeyuarubutohuan-jing-nite-windowsnoshi-ke-gada-fu-ni9shi-jian-cheng-zureruchang-he-noshe-ding/</guid><description>UbuntuとWindowsをデュアルブート環境にしてさぁ、とおもったらWindowsの時刻が大幅にずれている。。 そんなことになったら、これ。
 参考
 /etc/default/rcSを書き換える
-$ sudo gedit /etc/default/rcS 以下のように書き換える UTC=yes =&amp;gt; no  以上！</description>
-    </item>
-    
-  </channel>
-</rss>
+$ sudo gedit /etc/default/rcS 以下のように書き換える UTC=yes =&amp;gt; no 以上！</description></item></channel></rss>

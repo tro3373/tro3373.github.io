@@ -1,30 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>mount on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/mount/</link>
-    <description>Recent content in mount on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Wed, 30 May 2012 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/mount/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Ubuntu11.10にてNAS(玄箱HG)を自動マウントする</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/ubuntu11-10nitenasxuan-xiang-hgwozi-dong-mauntosuru/</link>
-      <pubDate>Wed, 30 May 2012 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/ubuntu11-10nitenasxuan-xiang-hgwozi-dong-mauntosuru/</guid>
-      <description> Ubuntu11.10にてNAS(玄箱HG)を自動マウントする 参考
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mount on tac lifelog</title><link>https://tro3373.github.io/tags/mount/</link><description>Recent content in mount on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Wed, 30 May 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/mount/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu11.10にてNAS(玄箱HG)を自動マウントする</title><link>https://tro3373.github.io/post/kurobox-linkstation/ubuntu11-10nitenasxuan-xiang-hgwozi-dong-mauntosuru/</link><pubDate>Wed, 30 May 2012 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/ubuntu11-10nitenasxuan-xiang-hgwozi-dong-mauntosuru/</guid><description>Ubuntu11.10にてNAS(玄箱HG)を自動マウントする 参考
 fastab 編集 以下を追加※パスワードを/root配下に置くなどして、隠蔽化する
-//サーバ名/マウントディレクトリ /ローカルマウントディレクトリ cifs iocharset=utf8,uid=ローカル.uid,gid=ローカル.gid,credentials=/root/secret.txt 0 0  /root へNAS接続パスワードを配置
-sudo vi /root/secret.txt  ファイル内容は以下
-username=NAS接続ユーザ名 password=NAS接続ユーザパスワード  マウント・接続テスト
-sudo mount -a  </description>
-    </item>
-    
-  </channel>
-</rss>
+//サーバ名/マウントディレクトリ /ローカルマウントディレクトリ cifs iocharset=utf8,uid=ローカル.uid,gid=ローカル.gid,credentials=/root/secret.txt 0 0 /root へNAS接続パスワードを配置
+sudo vi /root/secret.txt ファイル内容は以下
+username=NAS接続ユーザ名 password=NAS接続ユーザパスワード マウント・接続テスト
+sudo mount -a</description></item></channel></rss>

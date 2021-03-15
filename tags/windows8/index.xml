@@ -1,36 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>windows8 on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/windows8/</link>
-    <description>Recent content in windows8 on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Wed, 24 Sep 2014 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/windows8/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>UX21A prime へ Win8.1 と Ubuntu14.04のデュアルブート</title>
-      <link>https://tro3373.github.io/post/ubuntu/ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</link>
-      <pubDate>Wed, 24 Sep 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/ubuntu/ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</guid>
-      <description> 参考にしたのはここ
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>windows8 on tac lifelog</title><link>https://tro3373.github.io/tags/windows8/</link><description>Recent content in windows8 on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Wed, 24 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/windows8/index.xml" rel="self" type="application/rss+xml"/><item><title>UX21A prime へ Win8.1 と Ubuntu14.04のデュアルブート</title><link>https://tro3373.github.io/post/ubuntu/ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</link><pubDate>Wed, 24 Sep 2014 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/ubuntu/ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</guid><description>参考にしたのはここ
 ありがとうございます。これでようやく素敵うぼんとぅライフin電車！
 Windowsリカバリイメージをバックアップ windows 8 標準機能にてバックアップ
 usb ubuntu 14.04を作成 ubuntu 14.04(別PC)よりブータブルUSBの作成からダウンロードしたISOファイルを焼く
 ux21aをUSBから起動 起動時にesc連打し、USBを選択
 パーティション編集 Gpartedパーティション編集ツールにて、Win8システムパーティションより後ろを全て削除
 このへんの記憶が曖昧過ぎて申し訳ないですが、なんせDドライブの一つ左にあるリカバリ用のパーティションを含め削除しても、問題なかった！
-ubuntu インストール  EFI 50Mb作成 /システムパーティション作成(ext4 約141G作成(swap4096Mb引いて作成)) 残りをswapに /システム(/dev/sda6かな？)にブートローダ設定  起動時にESC連打で切り替え可能！右クリックも効いてる！ というより、自然に動き過ぎて怖い。すべて問題なく動作しています。
+ubuntu インストール EFI 50Mb作成 /システムパーティション作成(ext4 約141G作成(swap4096Mb引いて作成)) 残りをswapに /システム(/dev/sda6かな？)にブートローダ設定 起動時にESC連打で切り替え可能！右クリックも効いてる！ というより、自然に動き過ぎて怖い。すべて問題なく動作しています。
 起動時に自動で、Ubuntuのブートローダが自動で windows8 認識しており、
 起動時に esc 連打しなくても勝手に選択画面に移動するし。。。
 ステキ！あーすーす、あ、ちが、えいすぅーすぅたまぁ！
- wifi bluetooth mouse pad 音量設定 etc&amp;hellip;  </description>
-    </item>
-    
-  </channel>
-</rss>
+wifi bluetooth mouse pad 音量設定 etc&amp;hellip;</description></item></channel></rss>

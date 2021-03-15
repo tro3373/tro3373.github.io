@@ -1,31 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>gitlab on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/gitlab/</link>
-    <description>Recent content in gitlab on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sat, 10 Oct 2015 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Docker Machine(Boot2Docker(Tiny Linux)) 上で docker/gitlab を動かしてみる</title>
-      <link>https://tro3373.github.io/post/docker/docker-machine-docker-gitlab/</link>
-      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/docker/docker-machine-docker-gitlab/</guid>
-      <description>sameersbn/gitlab:8.0.4 オンプレミスな GitHub Clone GitLab
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>gitlab on tac lifelog</title><link>https://tro3373.github.io/tags/gitlab/</link><description>Recent content in gitlab on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Sat, 10 Oct 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/gitlab/index.xml" rel="self" type="application/rss+xml"/><item><title>Docker Machine(Boot2Docker(Tiny Linux)) 上で docker/gitlab を動かしてみる</title><link>https://tro3373.github.io/post/docker/docker-machine-docker-gitlab/</link><pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/docker/docker-machine-docker-gitlab/</guid><description>sameersbn/gitlab:8.0.4 オンプレミスな GitHub Clone GitLab
 かなり気持ち悪いロゴ&amp;hellip;(なぜこうなった) バージョンUPでこうなったらしい&amp;hellip; それはいいとして、 Docker image を利用して、公式に公開されている、docker/gitlab
 を docker-machine で作成した docker-host（virtual-box） 上で 動かしてみた。
 インストール ssh で docker-machine ホストOSへ接続した状態でおこなう
-docker-machine ssh dev  docker pull sameersbn/gitlab:8.0.4 cd ~/works/ git clone https://github.com/sameersbn/docker-gitlab.git cd docker-gitlab # Dockerfile からビルドする場合 # docker build --tag=$USER/gitlab .  docker-compose インストール docker コンテナを複数使用するアプリケーションの構成（起動順序や必要リソースなど）をまとめて管理できるのが、 docker-compose
+docker-machine ssh dev docker pull sameersbn/gitlab:8.0.4 cd ~/works/ git clone https://github.com/sameersbn/docker-gitlab.git cd docker-gitlab # Dockerfile からビルドする場合 # docker build --tag=$USER/gitlab . docker-compose インストール docker コンテナを複数使用するアプリケーションの構成（起動順序や必要リソースなど）をまとめて管理できるのが、 docker-compose
 clone されたディレクトリに、 docker-compose.yml が存在するので、 docker-compose で起動できる。
-# docker-compose ダウンロード cd ~/Downloads wget https://github.com/docker/compose/releases/download/1.4.2/docker-compose-Linux-x86_64 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose sudo chmod 755 /usr/local/bin/docker-compose # version 確認 docker-compose --version # 以下が表示される # docker-compose version: 1.</description>
-    </item>
-    
-  </channel>
-</rss>
+# docker-compose ダウンロード cd ~/Downloads wget https://github.com/docker/compose/releases/download/1.4.2/docker-compose-Linux-x86_64 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose sudo chmod 755 /usr/local/bin/docker-compose # version 確認 docker-compose --version # 以下が表示される # docker-compose version: 1.</description></item></channel></rss>

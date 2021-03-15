@@ -1,27 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>ldapsearch on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/ldapsearch/</link>
-    <description>Recent content in ldapsearch on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Sun, 18 Oct 2015 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/ldapsearch/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>ldapsearch コマンドで AD 情報を検索する</title>
-      <link>https://tro3373.github.io/post/ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</link>
-      <pubDate>Sun, 18 Oct 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</guid>
-      <description>もう何がなんだかわからないので、とりあえずメモ。。
-LDAP ワード集  DIT = Directory Information Tree DN = 識別名（Distinguished Name） DC = ドメイン構成要素(domain component) O = 組織名(organization) OU = 組織単位(organizational unit) CN = 一般名称(common name)  sample.local ドメインの場合の検索方法 # ユーザ Administrator を検索 ldapsearch -x -LLL -D &amp;quot;cn=Administrator,cn=Users,dc=sample,dc=local&amp;quot; -W -b &amp;quot;cn=Administrator,cn=Users,dc=sample,dc=local&amp;quot; # CN Users に属するユーザを検索 ldapsearch -x -LLL -D &amp;quot;cn=Administrator,cn=Users,dc=sample,dc=local&amp;quot; -W -b &amp;quot;cn=Users,dc=sample,dc=local&amp;quot;  以下、 ldapsearch コマンドの OPTION 抜粋
- ldapsearch opens a connection to an LDAP server, binds, and performs a search using specified parameters.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ldapsearch on tac lifelog</title><link>https://tro3373.github.io/tags/ldapsearch/</link><description>Recent content in ldapsearch on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Sun, 18 Oct 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/ldapsearch/index.xml" rel="self" type="application/rss+xml"/><item><title>ldapsearch コマンドで AD 情報を検索する</title><link>https://tro3373.github.io/post/ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</link><pubDate>Sun, 18 Oct 2015 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</guid><description>もう何がなんだかわからないので、とりあえずメモ。。
+LDAP ワード集 DIT = Directory Information Tree DN = 識別名（Distinguished Name） DC = ドメイン構成要素(domain component) O = 組織名(organization) OU = 組織単位(organizational unit) CN = 一般名称(common name) sample.local ドメインの場合の検索方法 # ユーザ Administrator を検索 ldapsearch -x -LLL -D &amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34; -W -b &amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34; # CN Users に属するユーザを検索 ldapsearch -x -LLL -D &amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34; -W -b &amp;#34;cn=Users,dc=sample,dc=local&amp;#34; 以下、 ldapsearch コマンドの OPTION 抜粋
+ldapsearch opens a connection to an LDAP server, binds, and performs a search using specified parameters.</description></item></channel></rss>

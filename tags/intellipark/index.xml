@@ -1,31 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>IntelliPark on tac lifelog</title>
-    <link>https://tro3373.github.io/tags/intellipark/</link>
-    <description>Recent content in IntelliPark on tac lifelog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>ja</language>
-    <copyright>All rights reserved - 2016</copyright>
-    <lastBuildDate>Tue, 07 Jun 2011 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://tro3373.github.io/tags/intellipark/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする</title>
-      <link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</link>
-      <pubDate>Tue, 07 Jun 2011 00:00:00 +0000</pubDate>
-      
-      <guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</guid>
-      <description>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする IntelliParkを無効にする  WD製2TibHDDである、WD20EARS-2TB-SATA300において、HDDアクセスが無かった場合の省電力モードを強制的に無効にする方法です。
- 省電力モードなるものは一般的にHDDの寿命を縮めるなどの理由より。
-こちらを参考に「ハードウェア linux WD WD20EARSの正しい扱い方」
-  シェルの作成 以下のようなシェルを作成し適当なディレクトリへ配置します
-$ vi disable-intellipark.sh #!/bin/sh while true;do date &amp;gt; /tmp/disable-intellipark sleep 5 done  以下のようなシェルを作成し/etc/init.d 配下に配置します
-$ vi kick.disable-intellipark.sh echo ================================ echo [start] disable-intellipark echo ================================ . /上記シェルスクリプトを配置したディレクトリ/disable-intellipark.sh &amp;amp; echo ================================ echo [end] disable-intellipark echo ================================  起動設定 init.dへ配備します
-$ cd /etc/init.d $ sudo update-rc.d kick.disable-intellipark.sh defaults $ sudo reboot  停止設定 init.</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>IntelliPark on tac lifelog</title><link>https://tro3373.github.io/tags/intellipark/</link><description>Recent content in IntelliPark on tac lifelog</description><generator>Hugo -- gohugo.io</generator><language>ja</language><copyright>All rights reserved - 2016</copyright><lastBuildDate>Tue, 07 Jun 2011 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/intellipark/index.xml" rel="self" type="application/rss+xml"/><item><title>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする</title><link>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</link><pubDate>Tue, 07 Jun 2011 00:00:00 +0000</pubDate><guid>https://tro3373.github.io/post/kurobox-linkstation/xuan-xiang-hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</guid><description>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする IntelliParkを無効にする WD製2TibHDDである、WD20EARS-2TB-SATA300において、HDDアクセスが無かった場合の省電力モードを強制的に無効にする方法です。 省電力モードなるものは一般的にHDDの寿命を縮めるなどの理由より。
+こちらを参考に「ハードウェア linux WD WD20EARSの正しい扱い方」 シェルの作成 以下のようなシェルを作成し適当なディレクトリへ配置します
+$ vi disable-intellipark.sh #!/bin/sh while true;do date &amp;gt; /tmp/disable-intellipark sleep 5 done 以下のようなシェルを作成し/etc/init.d 配下に配置します
+$ vi kick.disable-intellipark.sh echo ================================ echo [start] disable-intellipark echo ================================ . /上記シェルスクリプトを配置したディレクトリ/disable-intellipark.sh &amp;amp; echo ================================ echo [end] disable-intellipark echo ================================ 起動設定 init.dへ配備します
+$ cd /etc/init.d $ sudo update-rc.d kick.disable-intellipark.sh defaults $ sudo reboot 停止設定 init.dから排除します
+$ cd /etc/init.</description></item></channel></rss>
