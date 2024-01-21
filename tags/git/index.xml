@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>git on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/git/</link>
+    <description>Recent content in git on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 18 Jul 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gitコマンドあれこれ</title>
+      <link>https://tro3373.github.io/posts/2015-07-18-git-komando/</link>
+      <pubDate>Sat, 18 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015-07-18-git-komando/</guid>
+      <description>コミットユーザ名を設定する git config --global user.name [UserName] コミットユーザ名を設定する git config --global user.email [Email] コミット時等に使用するエディタを設定する # vim(Linux,mac) git config --global core.editor &amp;#34;vim -c &amp;#39;set fenc=utf-8&amp;#39;&amp;#34; # Sublime(Liux,mac) # subl コマンドが登録できていない場合は以下も実行(mac) # &amp;#34;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&amp;#34; &amp;#34;/usr/local/bin/subl&amp;#34; git config --global core.editor &amp;#34;subl -w&amp;#34; # Sublime(windows) git config --global core.editor &amp;#34;&amp;#39;C:/Program Files/Sublime Text 3/sublime_text.exe&amp;#39; -w&amp;#34; git の標準出力をカラーリングする git config --global color.ui auto git push 時の宛先省略時のデフォルト動作設定 simple: カレントブランチに追跡ブランチが設定されている、
+かつローカルとリモートのブランチ名が同じである場合に、追跡ブランチに対して push する。
+git config --global push.default simple 日本語ファイルの文字化け対応 git config --global core.</description>
+    </item>
+    
+  </channel>
+</rss>
