@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>golang on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/golang/</link>
+    <description>Recent content in golang on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 24 Sep 2023 10:29:16 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go モジュールの編成</title>
+      <link>https://tro3373.github.io/posts/2023-09-24-organizing-a-go-module/</link>
+      <pubDate>Sun, 24 Sep 2023 10:29:16 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023-09-24-organizing-a-go-module/</guid>
+      <description>先日バズってた Go のプロジェクトディレクトリの正式見解というか本家の推奨記事.
+気になってたので、読んでみた
+以下翻訳結果
+ファイルやフォルダのレイアウトに関して、Go を初めて使う開発者によくある質問は「Go プロジェクトをどのように整理すればいいのか」というものです。このドキュメントの目的は、この質問に答えるためのガイドラインを提供することです。このドキュメントを最大限に活用するために、チュートリアルを読み、モジュールソースを管理することで、Goモジュールの基本に精通していることを確認してください。
+Go プロジェクトには、パッケージ、コマンドライン・プログラム、またはその 2 つの組み合わせがあります。このガイドはプロジェクトの種類別に構成されています。
+基本パッケージ 基本的なGoパッケージは、すべてのコードがプロジェクトのルートディレクトリにあります。プロジェクトは1つのモジュールで構成され、1つのパッケージで構成されます。パッケージ名はモジュール名の最後のパスコンポーネントと一致します。単一のGoファイルを必要とする非常に単純なパッケージの場合、プロジェクトの構造は次のようになります：
+project-root-directory/ go.mod modname.go modname_test.go [この文書中、ファイル名/パッケージ名は完全に任意です]。
+このディレクトリが github.com/someuser/modname のGitHubリポジトリにアップロードされていると仮定すると、 go.mod ファイルのモジュール行には、 module github.com/someuser/modname と書かれているはずです。
+modname.go のコードでパッケージを宣言します：
+package modname // ... パッケージのコードはここ ユーザーは、Goのコードでこのパッケージをインポートすることで、このパッケージに依存することができます：
+import &amp;#34;github.com/someuser/modname&amp;#34; Goパッケージは複数のファイルに分割することができます：
+project-root-directory/ go.mod modname.go modname_test.go auth.go auth_test.go hash.go hash_test.go ディレクトリ内のファイルはすべてmodnameパッケージを宣言している。
+基本コマンド 基本的な実行可能プログラム（またはコマンドラインツール）は、その複雑さとコードサイズに応じて構成されます。最も単純なプログラムは、 func main が定義された1つのGoファイルで構成されます。より大きなプログラムでは、コードが複数のファイルに分割され、すべて main パッケージを宣言します：
+project-root-directory/ go.mod auth.go auth_test.go client.go main.go ここで main.go ファイルには func main が含まれているが、これは単なる慣例である。main ファイルは、modname.go（modnameの適切な値に対して）とか、他の名前にすることもできる。
+このディレクトリが github.com/someuser/modname のGitHubリポジトリにアップロードされていると仮定すると、 go.</description>
+    </item>
+    
+    <item>
+      <title>slices.Contains について少し調べた</title>
+      <link>https://tro3373.github.io/posts/2023-09-14-golang-about-slices-contains/</link>
+      <pubDate>Thu, 14 Sep 2023 09:00:17 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023-09-14-golang-about-slices-contains/</guid>
+      <description>slices.Contains を使用しようとして、コンパイルエラーになったので、少し中身を追ってみた
+以下が、実際の実装部分 slices.go func Contains[S ~[]E, E comparable](s S, v E) bool { return Index(s, v) &amp;gt;= 0 } Genericsを使用していて、E は comparable で S はその E の Sliceかー。
+では、S ~[]E の ~ とはなんだろうか？
+以下 ChatGPT さんの回答
+S ~[]E の表記は、Goの新しいジェネリクス機能において、型Sが型Eのスライスであるという制約を示します。この制約は、ジェネリクス関数やジェネリクス型を定義する際に使用されます。
+~ 演算子は、&amp;ldquo;型の等価性&amp;quot;を示すために使用されます。具体的には、S が []E という具体的な型であるか、それに等価な型（例えば、型エイリアスなど）である必要があります。
+例えば、以下のような型があるとします：
+type MyInt int type MySlice []MyInt この場合、Contains[MySlice, MyInt] のように関数を呼び出すことができます。なぜなら、MySlice は []MyInt に等価であり、MyInt は int に等価だからです。
+この ~ 演算子と型制約は、Goのジェネリクスが提供する強力な型安全性を維持する一方で、柔軟性も提供します。それによって、コンパイル時に型の不一致や他の型関連のエラーを防ぐことができます。
+~ は それに等価な型という制約 comparable な 型の Slice のようなものは許す みたいな感じか</description>
+    </item>
+    
+    <item>
+      <title>GoReleaser を GitHub workflow で設定する最低限の方法</title>
+      <link>https://tro3373.github.io/posts/2023-08-09-setup-minimum-github-workflow-go-releaser/</link>
+      <pubDate>Wed, 09 Aug 2023 10:53:44 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023-08-09-setup-minimum-github-workflow-go-releaser/</guid>
+      <description>手っ取り早くリポジトリの WorkFlow つかって Go の リリースを実装する為の設定をメモしておく v0.0.1 みたいな形式のタグを打てばリリースされる こんな感じのヤツ 1. goreleaser init で .goreleaser.yaml を生成する デフォルトでこんな感じで生成される
+# This is an example .goreleaser.yml file with some sensible defaults. # Make sure to check the documentation at https://goreleaser.com before: hooks: # You may remove this if you don&amp;#39;t use go modules. - go mod tidy # # you may remove this if you don&amp;#39;t need go generate - go generate ./... builds: - env: - CGO_ENABLED=0 goos: - linux - windows - darwin archives: - format: tar.</description>
+    </item>
+    
+    <item>
+      <title>Golangでディレクトリ内が空かどうかを判定する</title>
+      <link>https://tro3373.github.io/posts/2022-05-30-golang-implement-is-empty-directory/</link>
+      <pubDate>Fri, 21 Apr 2023 22:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022-05-30-golang-implement-is-empty-directory/</guid>
+      <description>最終的にはこれ func IsEmpty(name string) (bool, error) { f, err := os.Open(name) if err != nil { return false, err } defer f.Close() _, err = f.Readdirnames(1) // Or f.Readdir(1) if err == io.EOF { return true, nil } return false, err // Either not empty or error, suits both cases } つまり システムにはディレクトリが空かどうかの情報は無いからディレクトリの子があるかどうかで判断するしか無い File.Readdirnames() が最速 以下日本語要約 ディレクトリが空であるか否かは、その名前、作成時間、またはそのサイズ（ファイルの場合）のようなファイルシステムレベルのプロパティとして保存されていません。
+つまり、os.FileInfoからこの情報を直接取得することはできません。最も簡単な方法は、ディレクトリの子（内容）をクエリすることです。
+ioutil.ReadDir()はあまり良い選択ではありません。なぜなら、これはまず指定されたディレクトリのすべての内容を読み取り、それらを名前でソートし、その後スライスを返すからです。最も速い方法はDave Cが言及したように、File.Readdir()または（好ましくは）File.Readdirnames()を使用してディレクトリの子をクエリすることです。
+File.Readdir()とFile.Readdirnames()の両方は、返される値の数を制限するために使用されるパラメータを取ります。1つの子をクエリするだけで十分です。Readdirnames()は名前のみを返すので、FileInfo構造体を取得（および構築）するためのさらなる呼び出しが必要ないため、速度が速くなります。
+ディレクトリが空の場合、io.EOFがエラーとして返され（空のスライスやnilのスライスではない）ため、返された名前のスライスは必要ありません。
+以下抜粋 Whether a directory is empty or not is not stored in the file-system level as properties like its name, creation time or its size (in case of files).</description>
+    </item>
+    
+    <item>
+      <title>Go では 複雑でコストのかかる処理を構文で隠してはいけないという基本的なルールがあります。</title>
+      <link>https://tro3373.github.io/posts/2022-07-15-go-there-is-a-general-rule-that-syntax-shold-not-hide-complex-costly-operations/</link>
+      <pubDate>Fri, 15 Jul 2022 19:37:28 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022-07-15-go-there-is-a-general-rule-that-syntax-shold-not-hide-complex-costly-operations/</guid>
+      <description>Go では複雑でコストのかかる処理を隠すような機能は実装されない []string を []interface{} に自動変換する良い方法や提供されている機能は無い func foo([]interface{}) { /* do somthing */ } func main() { var a[]string = []string{&amp;#34;hello&amp;#34;, &amp;#34;world&amp;#34;} for(a) } 毎回以下のように実装する必要がある
+b = make([]interface{}, len(a), len(a)) for i := range a { b[i] = a[i] } 参考 go - Type converting slices of interfaces - Stack Overflow In Go, there is a general rule that syntax should not hide complex/costly operations.
+Converting a string to an interface{} is done in O(1) time.</description>
+    </item>
+    
+    <item>
+      <title>Golang 組み込み構造体へのキャスト方法(Goのポリモーフィズムの実現)</title>
+      <link>https://tro3373.github.io/posts/2022-07-11-golang-how-to-cast-to-embedded-struct/</link>
+      <pubDate>Mon, 11 Jul 2022 09:26:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022-07-11-golang-how-to-cast-to-embedded-struct/</guid>
+      <description>Golang 組み込み構造体へのキャスト方法(Goのポリモーフィズムの実現) Golangで組み込み構造体（親）へのキャストを行いたい場合は(ポリモーフィズムを得るためには)、インターフェイスの実装が必要 子から親への参照はある インターフェースの名前はGolangでは er が慣例 package main import &amp;#34;fmt&amp;#34; type Parent struct { Attr1 string } type Parenter interface { GetParent() Parent } type Child struct { Parent //embed Attr string } func (c Child) GetParent() Parent { return c.Parent } func setf(p Parenter) { fmt.Println(p) } func main() { var ch Child ch.Attr = &amp;#34;1&amp;#34; ch.Attr1 = &amp;#34;2&amp;#34; setf(ch) } // result {{2} 1} 参考 go - Golang interface cast to embedded struct - Stack Overflow あなたは、継承を使ったオブジェクト指向のデザインパターンを使おうとしています。これはGoでのやり方ではありません。また、Javaや同等のオブジェクト指向言語では、インターフェース名は&amp;rsquo;able&amp;rsquo;で終わります。Goでは、インターフェイス名は&amp;rsquo;er&amp;rsquo;で終わるのが慣例です。 You are trying to use an object oriented design pattern with inheritance.</description>
+    </item>
+    
+    <item>
+      <title>go generate assests box</title>
+      <link>https://tro3373.github.io/posts/2022-06-22-go-generate-assests-box/</link>
+      <pubDate>Wed, 22 Jun 2022 04:53:06 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022-06-22-go-generate-assests-box/</guid>
+      <description>go generate を使った assets ディレクトリの静的組み込みバイナリ処理 モノリポで管理しているSPAなクライアント側の成果物 (dist) を gin で静的配布 できないかと思った際に調べた内容。 結局使用していないが、バイナリ化する手順としては使えそうなのでメモしておく。
+ディレクトリは以下の様な形
+├── Makefile ├── assets -&amp;gt; ../../client/back/dist ├── box │ ├── blob.go │ └── box.go └─generator.go Makefile まずは関係ないけど、Makefileって@書けば &amp;amp;&amp;amp; バックスラッシュ連結とかいらんのかという発見 ./... 指定で全てを対象に指定 generate: @go generate ./... @echo &amp;#34;[OK] Files added to embed box!&amp;#34; generator.go 1行目はfmtをかけると自動付与された // +build ignore コメントにより通常ビルド対象から外れる設定 生成される go ファイルは blob.go で box 配下に出力される f, err := os.Create(blobFileName) や、 embedFolder string = &amp;quot;../assets/&amp;quot; から current directory は box 配下の模様 //go:build ignore // +build ignore package main import ( &amp;#34;bytes&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;go/format&amp;#34; &amp;#34;io/ioutil&amp;#34; &amp;#34;log&amp;#34; &amp;#34;os&amp;#34; &amp;#34;path/filepath&amp;#34; &amp;#34;strings&amp;#34; &amp;#34;text/template&amp;#34; ) const ( blobFileName string = &amp;#34;blob.</description>
+    </item>
+    
+    <item>
+      <title>aws vault invalid client token id error</title>
+      <link>https://tro3373.github.io/posts/2021-12-02-aws-vault-invalid-client-token-id-error/</link>
+      <pubDate>Thu, 02 Dec 2021 22:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2021-12-02-aws-vault-invalid-client-token-id-error/</guid>
+      <description>aws-vault で InvalidClientTokenId: The security token included in the request is invalid で怒られる │ Error: error reading IAM Role (rds-enhanced-monitoring-dev-db): InvalidClientTokenId: The security token included in the request is invalid │ status code: 403, request id: d09fe380-0c00-4485-9aeb-1e58740fdcb3 ここに答えがあった
+Error: The security token included in the request is invalid · Issue #260 · 99designs/aws-vault · GitHub I&amp;rsquo;ve encountered the same problem. It&amp;rsquo;s caused by the AWS API restrictions, that won&amp;rsquo;t allow you to touch IAM related APIs using the account with MFA enabled, unless you pass the MFA token within the request.</description>
+    </item>
+    
+    <item>
+      <title>別ファイルに書いた main パッケージの Function が undefined 判定される</title>
+      <link>https://tro3373.github.io/posts/2021-11-26-go_function_in_another_file_undefined_in_go_run_main_go/</link>
+      <pubDate>Fri, 26 Nov 2021 17:18:00 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2021-11-26-go_function_in_another_file_undefined_in_go_run_main_go/</guid>
+      <description>別ファイルに書いた main パッケージの Function が undefined 判定される ここに答えがあった
+go - &amp;ldquo;undefined&amp;rdquo; function declared in another file? - Stack Overflow Please read &amp;ldquo;How to Write Go Code&amp;rdquo;.
+Use go build or go install within the package directory, or supply an import path for the package. Do not use file arguments for build or install.
+While you can use file arguments for go run, you should build a package instead, usually with go run .</description>
+    </item>
+    
+  </channel>
+</rss>
