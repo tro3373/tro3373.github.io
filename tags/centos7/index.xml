@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>centos7 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/centos7/</link>
+    <description>Recent content in centos7 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 18 Oct 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/centos7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ldapsearch コマンドで AD 情報を検索する</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-18-ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</link>
+      <pubDate>Sun, 18 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-10-18-ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</guid>
+      <description>もう何がなんだかわからないので、とりあえずメモ。。
+LDAP ワード集 DIT = Directory Information Tree DN = 識別名（Distinguished Name） DC = ドメイン構成要素(domain component) O = 組織名(organization) OU = 組織単位(organizational unit) CN = 一般名称(common name) sample.local ドメインの場合の検索方法 # ユーザ Administrator を検索 ldapsearch -x -LLL -D &amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34; -W -b &amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34; # CN Users に属するユーザを検索 ldapsearch -x -LLL -D &amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34; -W -b &amp;#34;cn=Users,dc=sample,dc=local&amp;#34; 以下、 ldapsearch コマンドの OPTION 抜粋
+ldapsearch opens a connection to an LDAP server, binds, and performs a search using specified parameters.</description>
+    </item>
+    
+  </channel>
+</rss>

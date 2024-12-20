@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Python on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/python/</link>
+    <description>Recent content in Python on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 04 Jul 2024 13:36:09 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>alembic で modelクラスを全てまるっとインポートする</title>
+      <link>https://tro3373.github.io/posts/2024/2024-07-04-import-all-models-from-directory-for-alembic/</link>
+      <pubDate>Thu, 04 Jul 2024 13:36:09 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-07-04-import-all-models-from-directory-for-alembic/</guid>
+      <description>はじめに alembic 自動生成する際に、指定ディレクトリ配下のクラスを全てまるっとインポートする方法 問題 疑問 自動生成したい対象のModelクラスをインポートしないと生成してくれない まとめ 結果 解決方法 以下を env.py 先頭に追記して、 app/models 配下の全てのクラスをインポートする
+# Import all models in app.models model_path = os.path.dirname(os.path.join(os.path.dirname(os.path.abspath(__file__)), &amp;#39;../app/models/&amp;#39;)) for py in [f[:-3] for f in os.listdir(model_path) if f.endswith(&amp;#39;.py&amp;#39;) and (f != &amp;#39;__init__.py&amp;#39; and f != &amp;#39;base_model.py&amp;#39;)]: mod = __import__(&amp;#39;.&amp;#39;.join([&amp;#39;app.modesl&amp;#39;, py])) classes = [getattr(mod, x) for x in dir(mod) if isinstance(getattr(mod, x), type)] for cls in classes: setattr(sys.modules[__name__], cls.__name__, cls) Refs python - Import all classes in directory?</description>
+    </item>
+    
+    <item>
+      <title>Alembic revision --autogenerate で変更がなくても空のrevisionファイルができるのを避ける</title>
+      <link>https://tro3373.github.io/posts/2024/2024-07-04-prevent-empty-revision-in-alembic-revision-autogenerate/</link>
+      <pubDate>Thu, 04 Jul 2024 11:41:33 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-07-04-prevent-empty-revision-in-alembic-revision-autogenerate/</guid>
+      <description>はじめに Alembic revision &amp;ndash;autogenerate で変更がなくても空のrevisionファイルができるのを避ける python 3.11, alembic 1.7.7, sqlalchemy 2.0.30, sqlmodel 0.0.18 問題 疑問 変更がなくても空のrevisionファイルが生成されてしまう
+まとめ 結果 解決方法 以下のような process_revision_directives を設定することで、差分がない場合は空のrevisionファイルを生成しない def run_migrations_online(): : def process_revision_directives(context, revision, directives): if config.cmd_opts.autogenerate: script = directives[0] if script.upgrade_ops.is_empty(): directives[:] = [] print(&amp;#39;No changes in schema detected.&amp;#39;) : with connectable.connect() as connection: context.configure( connection=connection, target_metadata=target_metadata, include_schemas=True, dialect_opts={&amp;#34;paramstyle&amp;#34;: &amp;#34;named&amp;#34;}, include_name=include_name, process_revision_directives=process_revision_directives, ) Refs python - How to prevent alembic revision &amp;ndash;autogenerate from making revision file if it has not detected any changes?</description>
+    </item>
+    
+    <item>
+      <title>Alembic revision --autogenerate で差分のマイグレーションファイルができない</title>
+      <link>https://tro3373.github.io/posts/2024/2024-07-04-alembic-revision-autogenerate-always-generate-new-table/</link>
+      <pubDate>Thu, 04 Jul 2024 11:33:14 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-07-04-alembic-revision-autogenerate-always-generate-new-table/</guid>
+      <description>はじめに Alembic revision &amp;ndash;autogenerate で差分のマイグレーションファイルができない python 3.11, alembic 1.7.7, sqlalchemy 2.0.30, sqlmodel 0.0.18 問題 毎回テーブル作成のマイグレーションファイルが生成されてしまう
+解決方法 以下のような include_name を設定することで、デフォルトスキーマに限定する
+connection は schema 指定でアクセスしている為、type_=schema で name=None で検出される # exclude system table def include_name(name, type_, parent_names): if type_ == &amp;#34;schema&amp;#34;: return name in [None] else: return True def run_migrations_online(): : with connectable.connect() as connection: context.configure( connection=connection, target_metadata=target_metadata, dialect_opts={&amp;#34;paramstyle&amp;#34;: &amp;#34;named&amp;#34;}, include_schemas=True, include_name=include_name, ) Refs python - Alembic revision &amp;ndash;autogenerate always detects a new table, instead of detecting new columns - Stack Overflow </description>
+    </item>
+    
+    <item>
+      <title>SQLAlchemy で Flake8 error: E712 comparison to True should be &#39;if cond is True:&#39; or &#39;if cond:&#39; の lint エラーに対応する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-16-fix-python-sqlalchemy-flake8-e712-comarison-to-true-should-be/</link>
+      <pubDate>Wed, 16 Aug 2023 15:36:12 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-08-16-fix-python-sqlalchemy-flake8-e712-comarison-to-true-should-be/</guid>
+      <description>発生したのは、以下のような sqlalchemy での条件文が flake8 の lint エラーになったので、対応したかった。
+Flake8 error: E712 comparison to True should be &amp;#39;if cond is True:&amp;#39; or &amp;#39;if cond:&amp;#39; 実装していた処理は以下
+ExampleModel.sa.delete_flag == True これが lint エラーになるからって、以下にすると、解消するけど、うまく動かない（条件判定がおかしくなる）
+落とし穴!!!
+ExampleModel.sa.delete_flag is True # または ExampleModel.sa.delete_flag # 上記や、上記の否定など not ExampleModel.sa.delete_flag 結論としては、sqlalchemy.sql.expression.true, sqlalchemy.sql.expression.false あるからそれ使う
+# import from sqlalchemy import false, true # ussage ExampleModel.sa.delete_flag == true() いやいやいや&amp;hellip;
+Refs python - Flake8 error: E712 comparison to True should be &amp;lsquo;if cond is True:&amp;rsquo; or &amp;lsquo;if cond:&amp;rsquo; - Stack Overflow python - SQLAlchemy Core select where condition contains boolean expression is False - Stack Overflow Column Elements and Expressions — SQLAlchemy 2.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 Python でWebsocket実装</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu-14-04-python-dewebsocketshi-zhuang/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu-14-04-python-dewebsocketshi-zhuang/</guid>
+      <description>Ubuntu14.04 Python 2.7.6 でWebsocket実装 モジュールのインストール sudo apt-get install libevent-dev python-dev python-setuptools sudo easy_install gevent sudo easy_install gevent-websocket サーバスクリプト作成 vi chat.py
+#! /usr/bin/python # -*- coding: utf-8 -*- import os import random from geventwebsocket.handler import WebSocketHandler from gevent import pywsgi, sleep ws_list = set() def chat_handle(environ, start_response): global cnt ws = environ[&#39;wsgi.websocket&#39;] ws_list.add(ws)a print &#39;enter!&#39;, len(ws_list) while 1: msg = ws.receive() if msg is None: break remove = set() for s in ws_list: try: s.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>android on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/android/</link>
+    <description>Recent content in android on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 22 Dec 2022 14:02:17 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Android でリリース用KeyStoreだけでなく、デバッグ用も外だし（共通化）してコマンドからAPKを作る</title>
+      <link>https://tro3373.github.io/posts/2022/2022-12-22-make_sign_debug_apk_from_command_line/</link>
+      <pubDate>Thu, 22 Dec 2022 14:02:17 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-12-22-make_sign_debug_apk_from_command_line/</guid>
+      <description>build.gradle signingConfig/ 配下を外だしするので、build.gradleではIncludeするような指定を行う apply from: &#39;signingConfigs/config.gradle&#39;, to: android の部分 signingConfig signingConfigs.debug の部分を追加することで、 通常のAndroid署名キー（ %USERPROFILE%/.android/debug.keystore ）を参照しなくなる模様 apply from: &amp;#39;signingConfigs/config.gradle&amp;#39;, to: android buildTypes { debug { debuggable true applicationIdSuffix = &amp;#39;.debug&amp;#39; versionNameSuffix = &amp;#39;-debug&amp;#39; signingConfig signingConfigs.debug } release { minifyEnabled false proguardFiles getDefaultProguardFile(&amp;#39;proguard-android-optimize.txt&amp;#39;), &amp;#39;proguard-rules.pro&amp;#39; signingConfig signingConfigs.release } } signingConfig/config.gradle VCS管理外のシークレット情報として、以下 app/signingConfig/** signingConfigs/ ├── config.gradle ├── debug.jks └── release.jks debug.jks は Windowsの場合 %USERPROFILE%/.android/debug.keystore からコピーすると Windowsで使用していた署名キーを引き継げる. storePassword や keyAlias は Androidデフォルトの値
+signingConfigs { debug { storeFile file(&amp;#39;.</description>
+    </item>
+    
+    <item>
+      <title>Android アプリ開発時にアンインストール=&gt;インストールでデータが残る問題</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-24-disable_account_remaining_cache_when_reinstall_android_debug_app/</link>
+      <pubDate>Mon, 24 Oct 2022 19:04:55 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-10-24-disable_account_remaining_cache_when_reinstall_android_debug_app/</guid>
+      <description>アプリで保存したデータが再インストールで復活する事や、 WebViewで実装した画面のローカルストレージ保存したデータ等が復活する事が気になっていたの調べた.
+特にWebViewでログイン画面実装して、アカウント情報などをWebViewキャッシュ保存とかしてると、 再インストールとかしたのに復活するので、開発時などは無効設定が好ましい.
+単純にAndroidのバックアップ機能が有効になっていた.
+AndroidManifest.xml android:allowBackup: バックアップ自体を実施するかどうか &amp;lt;application android:allowBackup=&amp;#34;false&amp;#34; ... /&amp;gt; android:fullBackupContent: バックアップする内容を指定 android:fullBackupContent &amp;lt;application android:allowBackup=&amp;#34;true&amp;#34; android:fullBackupContent=&amp;#34;@xml/backup_rules&amp;#34; ... /&amp;gt; @xml/backup_rules &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34;?&amp;gt; &amp;lt;full-backup-content&amp;gt; &amp;lt;include domain=&amp;#34;sharedpref&amp;#34; path=&amp;#34;.&amp;#34;/&amp;gt; &amp;lt;exclude domain=&amp;#34;sharedpref&amp;#34; path=&amp;#34;device.xml&amp;#34;/&amp;gt; &amp;lt;/full-backup-content&amp;gt; ユーザデータの自動バックアップ設定 Android 6.0（API レベル 23）以上をターゲットとするアプリで、自動的に自動バックアップが有効 アプリデータはGoogleDriveにバックアップされる Android9以降のデバイスでは、デバイスのPIN、パスワード、パターンを使用し、エンドツーエンドで暗号化 アプリ1つあたり25Mb,最新データのみ保存 バックアップデータに関しては追加料金なし Refs 自動バックアップでユーザーデータをバックアップする | Android デベロッパー | Android Developers </description>
+    </item>
+    
+    <item>
+      <title>Android で環境設定ファイルからBuildConfig環境変数を生成する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-18-android_generate_build_config_class_for_env_variable_from_env_properties_file/</link>
+      <pubDate>Tue, 18 Oct 2022 17:38:21 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-10-18-android_generate_build_config_class_for_env_variable_from_env_properties_file/</guid>
+      <description>環境設定ファイル(env.propertiese)に定義したをビルドタイプで設定値を読み分ける関数を定義して、 それぞれの環境ビルド時に buildConfigField で定義 という感じ
+def envPropertiesFile = rootProject.file(&amp;#34;env.properties&amp;#34;); def envProperties = new Properties() envProperties.load(new FileInputStream(envPropertiesFile)) ext.buildConfigFieldFromEnvProp = { env -&amp;gt; def keys = [&amp;#34;apiPrefix&amp;#34;, &amp;#34;cognitoPoolId&amp;#34;, &amp;#34;cognitoClientId&amp;#34;, &amp;#34;cognitoClientSecret&amp;#34;, &amp;#34;cognitoRegion&amp;#34;] for (key in keys) { defaultConfig.buildConfigField(&amp;#34;String&amp;#34;, key, &amp;#34;\&amp;#34;${envProperties[&amp;#34;$env.$key&amp;#34;]}\&amp;#34;&amp;#34;) } } buildTypes { debug { debuggable true applicationIdSuffix = &amp;#39;.debug&amp;#39; versionNameSuffix = &amp;#39;-debug&amp;#39; buildConfigFieldFromEnvProp(&amp;#34;dev&amp;#34;) } release { minifyEnabled false proguardFiles getDefaultProguardFile(&amp;#39;proguard-android-optimize.txt&amp;#39;), &amp;#39;proguard-rules.pro&amp;#39; signingConfig signingConfigs.release buildConfigFieldFromEnvProp(&amp;#34;prd&amp;#34;) } } dev.apiPrefix=https://xxxx dev.cognitoPoolId=xxx dev.cognitoClientId=xxx dev.cognitoClientSecret=xxx dev.cognitoRegion=xxx </description>
+    </item>
+    
+    <item>
+      <title>Android で 位置情報取得＆Bluetooth接続を定期実行するForegroundServiceを実装する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-07-implment_android_persistent_forground_service/</link>
+      <pubDate>Fri, 07 Oct 2022 18:41:13 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-10-07-implment_android_persistent_forground_service/</guid>
+      <description>Android で 位置情報取得を定期実行する方法をしらべたので、メモっておく
+Foreground 実装 フォアグラウンドサービスの最低限の実装について【Kotlin, Android Studio, バックグラウンドでのアプリ実行】 - アンラッキーシステムズのやり方、方法論。 Foreground Serviceの基本 - Qiita AndroidアプリでForeground Serviceを使って、画面スリープ状態でも位置情報を定期取得する | DevelopersIO Android Service の使い方 趣味のプログラム: Android Foreground Serviceのメモ フォアグラウンド サービスの起動に関する制限 | Android 12 | Android Developers Android - Foreground Service実行 長期間Serviceを起動したい時 | 技術情報 | アプリ関連ニュース | ギガスジャパン Auto-Start Foreground Service in Android | by CodingwithSaud | The Startup | Medium Androidアプリでバックグラウンド状態で位置情報が取得できるのか調査した - 酢ろぐ！ バックグラウンドで位置情報アクセスするアプリには特別な審査が必要
+審査に必要なものは、Google公式のバックグラウンド位置情報にアクセスするアプリの審査を円滑に進めるためのヒントにも書かれている通り以下のものを準備する必要がある。
+機密情報に関わる申請 を行う ・デモ動画が必要 アプリ内での位置情報使用の開示を行う (位置情報許諾ダイアログ) プライバシーポリシー にバックグラウンドで位置情報を取得する件について書く</description>
+    </item>
+    
+    <item>
+      <title>Android で kotlin-logging を使用してLogcatと同時にファイル出力も行う</title>
+      <link>https://tro3373.github.io/posts/2022/2022-09-13-enable-kotlin-logging/</link>
+      <pubDate>Tue, 13 Sep 2022 16:03:14 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-09-13-enable-kotlin-logging/</guid>
+      <description>とある案件でネイティブAndroidアプリを作成しているが、内部でエラーが発生したか、 どう動いたかなど、問い合わせがあった場合にログが無い困るケースがあった
+標準のログではLogcatで流れてしまい、また端末をPCへ接続できないと、やはりデバッグとしては辛い
+Android でログをファイル出力する方法を模索し、slf4j 使ってファイル保存することにした。 保存したログファイルは別途S3へアップロード ここでは、slf4j でログ出力するところを記載
+app/build.gradle implementation &amp;#39;org.slf4j:slf4j-api:1.7.25&amp;#39; implementation &amp;#39;com.github.tony19:logback-android:2.0.0&amp;#39; app/src/main/assets/logback.xml &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;configuration debug=&amp;#34;true&amp;#34;&amp;gt; &amp;lt;appender name=&amp;#34;logcat&amp;#34; class=&amp;#34;ch.qos.logback.classic.android.LogcatAppender&amp;#34;&amp;gt; &amp;lt;tagEncoder&amp;gt; &amp;lt;pattern&amp;gt;%d{yyyy-MM-dd HH:mm:ss.SSS} %class{0}.%method:%L&amp;lt;/pattern&amp;gt; &amp;lt;/tagEncoder&amp;gt; &amp;lt;encoder&amp;gt; &amp;lt;pattern&amp;gt;[%t] %-5level %msg%n&amp;lt;/pattern&amp;gt; &amp;lt;/encoder&amp;gt; &amp;lt;/appender&amp;gt; &amp;lt;property name=&amp;#34;LOG_DIR&amp;#34; value=&amp;#34;/data/data/${PACKAGE_NAME}/files/logs&amp;#34; /&amp;gt; &amp;lt;appender name=&amp;#34;file&amp;#34; class=&amp;#34;ch.qos.logback.core.rolling.RollingFileAppender&amp;#34;&amp;gt; &amp;lt;file&amp;gt;${LOG_DIR}/app.log&amp;lt;/file&amp;gt; &amp;lt;rollingPolicy class=&amp;#34;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&amp;#34;&amp;gt; &amp;lt;fileNamePattern&amp;gt;${LOG_DIR}/archives/app.%d{yyyy-MM-dd}.%i.log.gz&amp;lt;/fileNamePattern&amp;gt; &amp;lt;!-- each archived file, size max 10MB --&amp;gt; &amp;lt;maxFileSize&amp;gt;10MB&amp;lt;/maxFileSize&amp;gt; &amp;lt;!-- total size of all archive files, if total size &amp;gt; 5GB, it will delete old archived file --&amp;gt; &amp;lt;totalSizeCap&amp;gt;5GB&amp;lt;/totalSizeCap&amp;gt; &amp;lt;maxHistory&amp;gt;60&amp;lt;/maxHistory&amp;gt; &amp;lt;/rollingPolicy&amp;gt; &amp;lt;append&amp;gt;true&amp;lt;/append&amp;gt; &amp;lt;encoder&amp;gt; &amp;lt;!</description>
+    </item>
+    
+    <item>
+      <title>android 4.4.2 keystore grep 結果メモ</title>
+      <link>https://tro3373.github.io/posts/2014/2014-05-29-android-4-4-2-keystore-grep-jie-guo-memo/</link>
+      <pubDate>Thu, 29 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-05-29-android-4-4-2-keystore-grep-jie-guo-memo/</guid>
+      <description>android 4.4.2 keystore grep 結果メモ 調査した際のログメモ
+$ cd env/android/android-4.4.2_r2/ $ ls Makefile art bootable cts developers device external hardware libnativehelper packages prebuilts system abi bionic build dalvik development docs frameworks libcore ndk pdk sdk tools $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java ^C $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java $ find ./packages/apps/ -name CredentialHelper.java ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java $ find ./packages/apps/CertInstaller/ -name *.java |xargs grep createSystemInstallIntent |grep createSystemInstallIntent ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java: mCredentials.createSystemInstallIntent(), ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java: Intent createSystemInstallIntent() { $ find ./frameworks/base/core -name CredentialStorage.</description>
+    </item>
+    
+    <item>
+      <title>tf201 root化</title>
+      <link>https://tro3373.github.io/posts/2012/2012-08-16-tf201-roothua/</link>
+      <pubDate>Thu, 16 Aug 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-08-16-tf201-roothua/</guid>
+      <description>tags: [&amp;ldquo;tf201&amp;rdquo;,&amp;ldquo;android&amp;rdquo;] title: 20120816 tf201 root化
+tf201 root化 参考１ 参考２ bootloader unlock download apk here Unlock Device App install apk &amp;amp; done flash recovery clockworkmod fastboot mode
+Boot your tablet into fastboot by holding down the power and volume-down buttons.
+The tablet will power off and reboot.
+Wait until you see several lines of white text in the upper-left corner of the screen,
+then let go of the power and volume buttons.</description>
+    </item>
+    
+    <item>
+      <title>android Toastを上げるサンプル</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-20-android-toastwoshang-gerusanpuru/</link>
+      <pubDate>Wed, 20 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-06-20-android-toastwoshang-gerusanpuru/</guid>
+      <description>android Toastを上げるサンプル Toast.makeText( this, &amp;quot;Build.DEVICE=&amp;quot; + Build.DEVICE + &amp;quot;:&amp;quot; + &amp;quot;Build.VERSION.SDK_INT=&amp;quot; + Build.VERSION.SDK_INT, android.widget.Toast.LENGTH_LONG).show(); Intent intent = new Intent(); intent.setClassName(&amp;quot;com.google.android.gsf&amp;quot;, &amp;quot;com.google.android.gsf.gtalkservice.diagnostics.GTalkDiagnostics&amp;quot;); startActivity(intent); </description>
+    </item>
+    
+    <item>
+      <title>Galaxy Nexus タップ時の音を変更する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-09-galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</link>
+      <pubDate>Sat, 09 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-06-09-galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</guid>
+      <description>Galaxy Nexus タップ時の音を変更する タップ時に鳴らす音を用意する（NexusSより抜いた）
+名前を以下に変更する
+Effect_Tick.ogg
+/systemを書き込み権限付きでremountする（要ルート）
+mount -o rw,remount /system
+adbでpushする
+adb push ./Effect_Tick.ogg /system/media/audio/ui</description>
+    </item>
+    
+    <item>
+      <title>android メモリリーク調査</title>
+      <link>https://tro3373.github.io/posts/2011/2011-12-01-android-memoririkudiao-cha/</link>
+      <pubDate>Thu, 01 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-12-01-android-memoririkudiao-cha/</guid>
+      <description>android メモリリーク調査 Eclise 新規ソフトウェアーより、以下を追加
+BIRT http://download.eclipse.org/birt/update-site/3.7 BIRT 3.7 Engine OSGi Runtime SDK 0.0.0 mat http://download.eclipse.org/mat/1.1.1/update-site/ DDMS、Deviceより。Heapを選択。↓矢印のついているheapアイコンでhprofファイルが作成される できたhprofファイルは現状バグっているらしいので、hprofツールで再度加工しなおす。 /env/gb234/android/out/host/linux-x86/bin/hprof-conv system_process.hprof ./TMP/temp.hprof eclipseファイルを開くから、できたhprofを選択すると、展開され、hprof取得タイミングでのメモリ情報が表示される。</description>
+    </item>
+    
+    <item>
+      <title>Nexus S ビルド〜ロム焼き まで</title>
+      <link>https://tro3373.github.io/posts/2011/2011-07-30-nexus-s-birudo-romushao-ki-made/</link>
+      <pubDate>Sat, 30 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-07-30-nexus-s-birudo-romushao-ki-made/</guid>
+      <description>Nexus S ビルド〜ロム焼き まで Nexus S 目指せ文鎮化！ぐらいの勢いで、ソースビルドからロム焼き
+前提条件 環境PC Ubuntu 10.10 端末 Samsung製 Nexus S gingerbread 2.3.4 GRJ22 ベースバンドバージョン I9023XXKD1 カーネルバージョン 2.6.35.7-ge382d80 android-build@apa28 #1 ソース android 2.3.4ソースをrepoより取得している。 ライブラリ等については、通常ビルドできる状態とする。 Ubuntu 10.10 に Nexus S を認識させる。 lsusb で Google inc. を探す
+sudo gedit /etc/udev/rules.d/51-android.rulesでデバイス情報を登録してやる
+# 以下を追加 SUBSYSTEM==&amp;quot;usb&amp;quot;, SYSFS{idVendor}==&amp;quot;18d1&amp;quot;, MODE=&amp;quot;0666&amp;quot; リカバリイメージのダウンロード Clockwork Recovery image置き場 ビルド用のソースを取得 ソース取得したいディレクトリへ移動
+cd ソース取得したいディレクトリ repo 初期化
+repo init -u git://android.git.kernel.org/platform/manifest.git 取得対象のブランチ一覧を表示する（ 参考 ）
+cd ./.repo/manifest git branch -r 対象ブランチの決定</description>
+    </item>
+    
+    <item>
+      <title>androidフレームワーク開発Tips</title>
+      <link>https://tro3373.github.io/posts/2011/2011-07-01-androidhuremuwakukai-fa-tips/</link>
+      <pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-07-01-androidhuremuwakukai-fa-tips/</guid>
+      <description>Android Life Cycle Activity Fragment ビルド # For Nexus S cd /path/to/the/sourcedirectory/ source build/envsetup.sh lunch 4 time make -j9 update-api time make -j9 # For vega source build/envsetup.sh time brunch vega -j9 # For Xoom export USE_CCACHE=1 TMP_CCACHE_DIR=/env/build.cache/wingray.tmp export CCACHE_DIR=$TMP_CCACHE_DIR/.ccache prebuilt/linux-x86/ccache/ccache -M 20G source build/envsetup.sh lunch 5 time make -j9 Flash image # crespo(Nexus S) ENVPATH=/env/nexus/kmpf-android-2.3.4 DEVICE_NAME=crespo fastboot flash boot $ENVPATH/out/target/product/${DEVICE_NAME}/boot.img fastboot flash recovery $ENVPATH/out/target/product/${DEVICE_NAME}/recovery.img fastboot flash userdata $ENVPATH/out/target/product/${DEVICE_NAME}/userdata.img fastboot flash system $ENVPATH/out/target/product/${DEVICE_NAME}/system.</description>
+    </item>
+    
+    <item>
+      <title>Android GingerBread ビルド色々</title>
+      <link>https://tro3373.github.io/posts/2011/2011-01-01-android-gingerbread-se/</link>
+      <pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-01-01-android-gingerbread-se/</guid>
+      <description>SDKビルドしたoutディレクトリから、emulatorを立ち上げる cd /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools ./android list # ⇒ 以下が正しく無いとして、起動できず # ・sdklib.jar # ・sdkmanager.jar # ・sdkuilib.jar # ⇒ Eclipseより取得したファイルより、上書き # 以下のように正しく表示される # Available Android targets: # id: 1 or &amp;#34;android-9&amp;#34; # Name: Android 2.3.1 # Type: Platform # API level: 9 # Revision: 1 # Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854 # Available Android Virtual Devices: # The following Android Virtual Devices could not be loaded: # Name: jb # Path: /home/hogeuser/.</description>
+    </item>
+    
+    <item>
+      <title>Xivision(vega) ロム焼き</title>
+      <link>https://tro3373.github.io/posts/2010/2010-08-10-xivisionvega-romushao-ki/</link>
+      <pubDate>Tue, 10 Aug 2010 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2010/2010-08-10-xivisionvega-romushao-ki/</guid>
+      <description> # Xivision(vega) ロム焼き TOOLS_DIR=~/work/30.tools OUT_DIR=/env/vega/vega/out/target/product/vega nvflash --bl $TOOLS_DIR/bootloader.bin --go nvflash -r --download 8 $OUT_DIR/system.img --download 7 $OUT_DIR/boot.img --download 11 $OUT_DIR/userdata.img --download 6 $OUT_DIR/recovery.img </description>
+    </item>
+    
+  </channel>
+</rss>
