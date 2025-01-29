@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>unix on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/unix/</link>
+    <description>Recent content in unix on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 12 Aug 2011 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/unix/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Unix コマンド色々</title>
+      <link>https://tro3373.github.io/posts/2011/2011-08-12-ubuntu-komandose/</link>
+      <pubDate>Fri, 12 Aug 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-08-12-ubuntu-komandose/</guid>
+      <description>Unix コマンド色々 # 検索した結果から削除 find ./ -name &amp;#34;.repo&amp;#34; -exec rm -r {} \; # ファイル差分 diff -y -W 200 ./tmp1/init.rc ./tmp2/init.rc # ディレクトリ差分 diff -rNq --exclude=&amp;#34;.svn&amp;#34; ./tmp1 ./tmp2 # ディレクトリ階層を含めてコピー cp -p --parents test/hogehoge.txt /var/tmp # ダミーファイル作成 dd if=/dev/zero of=220M.dat count=220 bs=1048576 ## svn コマンド # チェックアウト svn co [url] # 差分一覧 svn diff | awk &amp;#39;/^Index/ {print $NF}&amp;#39; # 差分一覧(簡易) svn status </description>
+    </item>
+    
+  </channel>
+</rss>

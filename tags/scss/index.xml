@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>scss on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/scss/</link>
+    <description>Recent content in scss on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 16 Nov 2022 09:44:05 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/scss/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sass でのハイフン2個から始まる変数は必須</title>
+      <link>https://tro3373.github.io/posts/2022/2022-11-16-scss_variable_must_use_double_hyphen_prefix/</link>
+      <pubDate>Wed, 16 Nov 2022 09:44:05 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-11-16-scss_variable_must_use_double_hyphen_prefix/</guid>
+      <description>ハイフンハイフンから始まる変数名でないとエラーになる You must use &amp;ndash; in variables, otherwise, it will result in an error. Property names that are prefixed with &amp;ndash;, like &amp;ndash;example-name, represent custom properties that contain a value that can be used in other declarations using the var() function.
+Illegal Statement (Without the use of &amp;ndash;)
+Sass ではハイフンとアンダースコアは同一 Sassの変数名ではハイフン（-）とアンダースコア（_）が同一視される。
+Sass と SASS と SCSS Sass: css を拡張したメタ言語 SASS: Sassの記法 拡張子は .sass セミコロンや波括弧を使用しない コードが簡略化 書く際の負担が少ない SCSS: Sassの記法 拡張子は .scss 書き方がCSSに似ている CSSのようにネストを使用する SCSSのほうが一般的に普及 Sass のメリット CSS を拡張するメリット</description>
+    </item>
+    
+  </channel>
+</rss>

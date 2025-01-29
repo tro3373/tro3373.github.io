@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>android-gingerbread on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/android-gingerbread/</link>
+    <description>Recent content in android-gingerbread on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 01 Jul 2011 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/android-gingerbread/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>androidフレームワーク開発Tips</title>
+      <link>https://tro3373.github.io/posts/2011/2011-07-01-androidhuremuwakukai-fa-tips/</link>
+      <pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-07-01-androidhuremuwakukai-fa-tips/</guid>
+      <description>Android Life Cycle Activity Fragment ビルド # For Nexus S cd /path/to/the/sourcedirectory/ source build/envsetup.sh lunch 4 time make -j9 update-api time make -j9 # For vega source build/envsetup.sh time brunch vega -j9 # For Xoom export USE_CCACHE=1 TMP_CCACHE_DIR=/env/build.cache/wingray.tmp export CCACHE_DIR=$TMP_CCACHE_DIR/.ccache prebuilt/linux-x86/ccache/ccache -M 20G source build/envsetup.sh lunch 5 time make -j9 Flash image # crespo(Nexus S) ENVPATH=/env/nexus/kmpf-android-2.3.4 DEVICE_NAME=crespo fastboot flash boot $ENVPATH/out/target/product/${DEVICE_NAME}/boot.img fastboot flash recovery $ENVPATH/out/target/product/${DEVICE_NAME}/recovery.img fastboot flash userdata $ENVPATH/out/target/product/${DEVICE_NAME}/userdata.img fastboot flash system $ENVPATH/out/target/product/${DEVICE_NAME}/system.</description>
+    </item>
+    
+    <item>
+      <title>Android GingerBread ビルド色々</title>
+      <link>https://tro3373.github.io/posts/2011/2011-01-01-android-gingerbread-se/</link>
+      <pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-01-01-android-gingerbread-se/</guid>
+      <description>SDKビルドしたoutディレクトリから、emulatorを立ち上げる cd /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools ./android list # ⇒ 以下が正しく無いとして、起動できず # ・sdklib.jar # ・sdkmanager.jar # ・sdkuilib.jar # ⇒ Eclipseより取得したファイルより、上書き # 以下のように正しく表示される # Available Android targets: # id: 1 or &amp;#34;android-9&amp;#34; # Name: Android 2.3.1 # Type: Platform # API level: 9 # Revision: 1 # Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854 # Available Android Virtual Devices: # The following Android Virtual Devices could not be loaded: # Name: jb # Path: /home/hogeuser/.</description>
+    </item>
+    
+  </channel>
+</rss>

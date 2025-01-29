@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>openssh on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/openssh/</link>
+    <description>Recent content in openssh on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 19 Oct 2023 19:21:59 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/openssh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OpenSSH 9.0から認証は SSH セッションを使用するが、ファイル転送にはSFTPプロトコルが使用される</title>
+      <link>https://tro3373.github.io/posts/2023/2023-10-19-use-sftp-protocol-as-default-if-scp-command-in-openssh9.0/</link>
+      <pubDate>Thu, 19 Oct 2023 19:21:59 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-10-19-use-sftp-protocol-as-default-if-scp-command-in-openssh9.0/</guid>
+      <description>ManjaroからAndroid(UserLand)へ ssh できるのに、scp しようとすると以下エラーになった。
+scp: Connection closed 調べていると、以下にたどり着いた。
+SCP and SFTP - ArchWiki Note: Since OpenSSH 9.0 the scp utility uses the SFTP protocol by default. The -O option must be used to use the legacy SCP protocol.
+注: OpenSSH 9.0 以降、scp ユーティリティはデフォルトで SFTP プロトコルを使用します。レガシー SCP プロトコルを使用するには、-O オプションを使用する必要があります。
+Warning: The scp protocol is outdated, inflexible and not readily fixed. Its authors recommend the use of more modern protocols like sftp and rsync for file transfer instead.</description>
+    </item>
+    
+  </channel>
+</rss>

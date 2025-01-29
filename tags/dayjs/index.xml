@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>dayjs on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/dayjs/</link>
+    <description>Recent content in dayjs on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 20 Dec 2022 19:14:14 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/dayjs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node.js dayjs フォーマット指定時に意図しない結果になる</title>
+      <link>https://tro3373.github.io/posts/2022/2022-12-20-nodejs_dayjs_instance_with_iso_format_not_work/</link>
+      <pubDate>Tue, 20 Dec 2022 19:14:14 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-12-20-nodejs_dayjs_instance_with_iso_format_not_work/</guid>
+      <description>customParseFormat 拡張した dayjs で TZ 環境変数 と指定するフォーマットで罠にハマる Z 指定したUTC日付はフォーマットで渡してパースしてもUTC扱いされると思ってた。 フォーマット指定では Z があろうが TZ 環境変数に依存する模様 いやいやいや。。。
+フォーマット指定時に意図しない結果になる TZ=UTC dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;, &amp;#39;YYYY-MM-DD[T]HH:mm:ss.SSS[Z]&amp;#39;).toDate() // =&amp;gt; 2022-12-17T11:43:29.277Z TZ=Asia/Tokyo TZ=Asia/Tokyoの場合は -9 時間されインスタンス化される!!!!!!(いやいやいや！！！)
+dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;, &amp;#39;YYYY-MM-DD[T]HH:mm:ss.SSS[Z]&amp;#39;).toDate() // =&amp;gt; 2022-12-17T02:43:29.277Z フォーマットを指定しなければ問題ない
+TZ=UTC dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;).toDate() // =&amp;gt; 2022-12-17T11:43:29.277Z TZ=Asia/Tokyo dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;).toDate() // =&amp;gt; 2022-12-17T11:43:29.277Z </description>
+    </item>
+    
+  </channel>
+</rss>
