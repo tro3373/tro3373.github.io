@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>SQLAlchemy on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/sqlalchemy/</link>
+    <description>Recent content in SQLAlchemy on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 16 Aug 2023 15:36:12 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/sqlalchemy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SQLAlchemy で Flake8 error: E712 comparison to True should be &#39;if cond is True:&#39; or &#39;if cond:&#39; の lint エラーに対応する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-16-fix-python-sqlalchemy-flake8-e712-comarison-to-true-should-be/</link>
+      <pubDate>Wed, 16 Aug 2023 15:36:12 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-08-16-fix-python-sqlalchemy-flake8-e712-comarison-to-true-should-be/</guid>
+      <description>発生したのは、以下のような sqlalchemy での条件文が flake8 の lint エラーになったので、対応したかった。
+Flake8 error: E712 comparison to True should be &amp;#39;if cond is True:&amp;#39; or &amp;#39;if cond:&amp;#39; 実装していた処理は以下
+ExampleModel.sa.delete_flag == True これが lint エラーになるからって、以下にすると、解消するけど、うまく動かない（条件判定がおかしくなる）
+落とし穴!!!
+ExampleModel.sa.delete_flag is True # または ExampleModel.sa.delete_flag # 上記や、上記の否定など not ExampleModel.sa.delete_flag 結論としては、sqlalchemy.sql.expression.true, sqlalchemy.sql.expression.false あるからそれ使う
+# import from sqlalchemy import false, true # ussage ExampleModel.sa.delete_flag == true() いやいやいや&amp;hellip;
+Refs python - Flake8 error: E712 comparison to True should be &amp;lsquo;if cond is True:&amp;rsquo; or &amp;lsquo;if cond:&amp;rsquo; - Stack Overflow python - SQLAlchemy Core select where condition contains boolean expression is False - Stack Overflow Column Elements and Expressions — SQLAlchemy 2.</description>
+    </item>
+    
+  </channel>
+</rss>

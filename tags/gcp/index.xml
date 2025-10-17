@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>GCP on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/gcp/</link>
+    <description>Recent content in GCP on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 01 Sep 2025 10:39:07 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/gcp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title> GCP ErrorReporting でのエラー通知動作</title>
+      <link>https://tro3373.github.io/posts/2025/2025-09-01-gcp-errorreporting-error-notification-behavior/</link>
+      <pubDate>Mon, 01 Sep 2025 10:39:07 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-09-01-gcp-errorreporting-error-notification-behavior/</guid>
+      <description>疑問 GCP ErrorReporting でのエラー通知の挙動についてわかっていなかったので、メモ まとめ ErrorReporting に出力され、通知設定先（Email/Slack）に内容が飛ぶ 同じエラーはグループ化され、既存のエラーグループに属する場合は通知されない 原則として「新しいタイプのエラー」や「一度解決済みとマークされたエラーが再発したとき」にのみ通知 解決済みとすれば再度通知される エラーが原因で発生する通知は、1時間に最大5回まで送信可能 </description>
+    </item>
+    
+    <item>
+      <title>Cloud Function から IAM認証で CloudSQL(PostgreSQL) へ接続する</title>
+      <link>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</link>
+      <pubDate>Wed, 29 Jan 2025 15:43:25 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</guid>
+      <description>はじめに クラウド環境でのデータベース管理において、セキュリティは日々進化する脅威への対応が求められる重要課題です。特に、以下の課題が顕在化しています：
+従来の認証情報（パスワード）の漏洩リスク 認証情報のローテーション管理の煩雑さ アプリケーション展開時の認証情報受け渡しの安全性確保 これらの課題に対し、IAM認証を活用することで、より強固でかつ運用負荷の少ないセキュリティ体制を実現できます。IAM認証のメリットは以下の通りです：
+一時的な認証トークンの利用による漏洩リスクの低減 クラウドプロバイダーの統合認証基盤との連携による管理の一元化 きめ細かなアクセス制御とアクセスログの監査対応 本ガイドでは、Cloud FunctionsからCloudSQL(PostgreSQL)へIAM認証で接続する実践的な手順を解説します。この設定により、セキュアかつスケーラブルなデータベースアクセス環境を構築できます。
+Cloud Function から CloudSQL(PostgreSQL) へ IAM 認証で接続するために必要な手順 Cloud Function 用 Service Account に必要な権限を付与 PGUSER の作成（IAM認証用） データベースへの権限付与 Cloud Function の実装 Service Account での Cloud Function のデプロイ 具体的な設定手順 1. Cloud Function 用 Service Account に必要な権限を付与 以下の権限が必要:
+Cloud SQL インスタンス ユーザー Cloud SQL クライアント 今回はコンソールから設定したが、以下のコマンドで設定も可能:
+gcloud projects add-iam-policy-binding example-project \ --member=&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34; \ --role=&amp;#34;roles/cloudsql.instanceUser&amp;#34; gcloud projects add-iam-policy-binding example-project \ --member=&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34; \ --role=&amp;#34;roles/cloudsql.client&amp;#34; 2. PGUSER の作成 IAM認証用のユーザーを作成する。</description>
+    </item>
+    
+    <item>
+      <title>BigQueryテーブルへのパーティション追加</title>
+      <link>https://tro3373.github.io/posts/2025/2025-01-16-add-partitions-to-bigquery-table/</link>
+      <pubDate>Thu, 16 Jan 2025 11:19:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-01-16-add-partitions-to-bigquery-table/</guid>
+      <description>BigQueryテーブルへのパーティション追加 概要 既存の非パーティションテーブルを直接パーティションテーブルに変更することはできない 新しいパーティションテーブルを作成し、データをコピーする方法で実現可能 手順 新しいパーティションテーブルの作成とデータのコピー CREATE TABLE `project_id.dataset_id.new_partitioned_table` PARTITION BY DATE(timestamp_column) AS SELECT * FROM `project_id.dataset_id.original_table`; 元のテーブルの削除と新テーブルの名前変更 DROP TABLE `project_id.dataset_id.original_table`; ALTER TABLE `project_id.dataset_id.new_partitioned_table` RENAME TO `project_id.dataset_id.original_table`; 注意点 大量データの場合、時間とリソースを要する パーティションキーの列は適切なデータ型である必要がある テーブル設計に影響を与えるため、慎重な計画が必要 メリット クエリパフォーマンスの向上 コスト削減の可能性 その他 時系列パーティショニング以外に、整数範囲パーティショニングも利用可能 整数範囲パーティショニングを使用する場合は、CREATE TABLE文を適宜調整する </description>
+    </item>
+    
+    <item>
+      <title>Terraform backend を GCS backet に設定する script 書いた</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-20-make-script-that-make-gcp-bucket-for-terraform-tf-state/</link>
+      <pubDate>Wed, 20 Nov 2024 19:12:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-20-make-script-that-make-gcp-bucket-for-terraform-tf-state/</guid>
+      <description>terrarorm init で バケットがなければ作成する バケット名は ${project_id}-${app}-tfstate とする project_id, app は Makefile で指定 terraform コマンドをラップした Makefile app := sample project_id := project-a export init_tfstate_gs: @init_gs_tfstate_if_needed init: init_tfstate_gs @echo &amp;#34;==&amp;gt; Initializing terraform...&amp;#34; @make _tf cmd=init init_if_needed: @if [[ ! -e envs/$(stage)/.terraform ]]; then \ make init; \ fi login: @make _tf cmd=login init_upgrade: @make _tf cmd=init opt=&amp;#34;-upgrade=true&amp;#34; init_migrate_state: @make _tf cmd=init opt=&amp;#34;-migrate-state&amp;#34; plan: init_if_needed @make _tf cmd=plan apply: init_if_needed @make _tf cmd=apply apply-auto-approve: @make _tf cmd=apply opt=-auto-approve apply-refresh: @make _tf cmd=apply opt=-refresh-only destroy: @make _tf cmd=destroy refresh: @make _tf cmd=refresh show: @make _tf cmd=show output: @make _tf cmd=output opt=-json console: @make _tf cmd=console validate: @make _tf cmd=validate _check_env: @test -e envs/$(stage) || (echo &amp;#39;No such stage:envs/$(stage) exist.</description>
+    </item>
+    
+    <item>
+      <title>Terraform で google_api_gateway_api_config に api_config_id を設定すると再作成時に罠がある</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-15-should-not-set-api-config-id-in-google-api-gateway-api-config/</link>
+      <pubDate>Fri, 15 Nov 2024 19:05:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-15-should-not-set-api-config-id-in-google-api-gateway-api-config/</guid>
+      <description>まとめ Terraform で google_api_gateway_api_config に api_config_id は設定しない 以下詳細 以下のように api_config_id を設定すると、再作成時にエラーが発生する resource &amp;#34;google_api_gateway_api_config&amp;#34; &amp;#34;default&amp;#34; { project = var.project_id provider = google-beta api = google_api_gateway_api.default.api_id api_config_id = &amp;#34;${var.env}-${var.service}-api-config&amp;#34; openapi_documents { document { path = &amp;#34;openapi.yaml&amp;#34; contents = base64encode(templatefile(&amp;#34;${path.module}/openapi.yaml&amp;#34;, { title = &amp;#34;${var.env} ${var.service} API&amp;#34; description = &amp;#34;This is the API for ${var.env} ${var.service}&amp;#34; version = &amp;#34;1.0.0&amp;#34; managed_service = google_api_gateway_api.default.managed_service func_url = google_cloud_run_service.default.status[0].url })) } } lifecycle { create_before_destroy = true } } │ Error: Error creating ApiConfig: googleapi: Error 409: Resource &amp;#39;projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_name}&amp;#39; already exists │ Details: │ [ │ { │ &amp;#34;@type&amp;#34;: &amp;#34;type.</description>
+    </item>
+    
+    <item>
+      <title>GCP ApiGateway &#43; CloudRun で CORS を設定する</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-15-enable-cors-in-apigateway-on-gcp-with-cloud-run/</link>
+      <pubDate>Fri, 15 Nov 2024 17:30:01 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-15-enable-cors-in-apigateway-on-gcp-with-cloud-run/</guid>
+      <description>構成 GCP ApiGateway -&amp;gt; CloudRun ApiGateway で OpenAPI yaml を定義している 1. OpenAPI yaml で x-google-endpoints に allowCors: True を設定して、バックエンドでCORSリクエストを処理する x-google-endpoints: - name: ${managed_service} allowCors: True # バックエンドでCORSリクエストを処理する 2. CloudRun で OPTIONS メソッドを設定する // 以下のように cors ミドルウェアを挟む http.HandleFunc(&amp;#34;/example&amp;#34;, cors(user.Handler)) // 定義はこんな感じ func cors(next http.HandlerFunc) http.HandlerFunc { return func(w http.ResponseWriter, r *http.Request) { if r.Method == &amp;#34;OPTIONS&amp;#34; { slog.Info(&amp;#34;==&amp;gt; Reply OPTIONS Request&amp;#34;, &amp;#34;status&amp;#34;, http.StatusNoContent) w.Header().Set(&amp;#34;Access-Control-Allow-Origin&amp;#34;, &amp;#34;*&amp;#34;) w.Header().Set(&amp;#34;Access-Control-Allow-Methods&amp;#34;, &amp;#34;GET, POST, PUT, PATCH, DELETE, OPTIONS&amp;#34;) w.</description>
+    </item>
+    
+  </channel>
+</rss>

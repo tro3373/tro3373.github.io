@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>bigquery on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/bigquery/</link>
+    <description>Recent content in bigquery on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 16 Jan 2025 11:19:32 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/bigquery/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BigQueryテーブルへのパーティション追加</title>
+      <link>https://tro3373.github.io/posts/2025/2025-01-16-add-partitions-to-bigquery-table/</link>
+      <pubDate>Thu, 16 Jan 2025 11:19:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-01-16-add-partitions-to-bigquery-table/</guid>
+      <description>BigQueryテーブルへのパーティション追加 概要 既存の非パーティションテーブルを直接パーティションテーブルに変更することはできない 新しいパーティションテーブルを作成し、データをコピーする方法で実現可能 手順 新しいパーティションテーブルの作成とデータのコピー CREATE TABLE `project_id.dataset_id.new_partitioned_table` PARTITION BY DATE(timestamp_column) AS SELECT * FROM `project_id.dataset_id.original_table`; 元のテーブルの削除と新テーブルの名前変更 DROP TABLE `project_id.dataset_id.original_table`; ALTER TABLE `project_id.dataset_id.new_partitioned_table` RENAME TO `project_id.dataset_id.original_table`; 注意点 大量データの場合、時間とリソースを要する パーティションキーの列は適切なデータ型である必要がある テーブル設計に影響を与えるため、慎重な計画が必要 メリット クエリパフォーマンスの向上 コスト削減の可能性 その他 時系列パーティショニング以外に、整数範囲パーティショニングも利用可能 整数範囲パーティショニングを使用する場合は、CREATE TABLE文を適宜調整する </description>
+    </item>
+    
+  </channel>
+</rss>

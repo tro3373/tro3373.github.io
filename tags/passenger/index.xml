@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>passenger on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/passenger/</link>
+    <description>Recent content in passenger on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 14 Nov 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/passenger/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu 14.04 で、ruby on rails passenger をインストールして apache 連携する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</link>
+      <pubDate>Fri, 14 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</guid>
+      <description>passenger インストール cd ~/ rbenv exec gem install passenger rbenv rehash passenger-install-apache2-module実行 rbenv exec passenger-install-apache2-module passenger-install-apache2-module 詳細
+This installer will guide you through the entire installation process. It shouldn&#39;t take more than 3 minutes in total. Here&#39;s what you can expect from the installation process: 1. The Apache 2 module will be installed for you. 2. You&#39;ll learn how to configure Apache. 3. You&#39;ll learn how to deploy a Ruby on Rails application.</description>
+    </item>
+    
+  </channel>
+</rss>

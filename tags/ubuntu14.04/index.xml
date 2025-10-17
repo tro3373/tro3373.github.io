@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ubuntu14.04 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ubuntu14.04/</link>
+    <description>Recent content in ubuntu14.04 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 10 Oct 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/ubuntu14.04/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Machine(Boot2Docker(Tiny Linux)) 上で docker/gitlab を動かしてみる</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/</link>
+      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/</guid>
+      <description>sameersbn/gitlab:8.0.4 オンプレミスな GitHub Clone GitLab
+かなり気持ち悪いロゴ&amp;hellip;(なぜこうなった) バージョンUPでこうなったらしい&amp;hellip; それはいいとして、 Docker image を利用して、公式に公開されている、docker/gitlab
+を docker-machine で作成した docker-host（virtual-box） 上で 動かしてみた。
+インストール ssh で docker-machine ホストOSへ接続した状態でおこなう
+docker-machine ssh dev docker pull sameersbn/gitlab:8.0.4 cd ~/works/ git clone https://github.com/sameersbn/docker-gitlab.git cd docker-gitlab # Dockerfile からビルドする場合 # docker build --tag=$USER/gitlab . docker-compose インストール docker コンテナを複数使用するアプリケーションの構成（起動順序や必要リソースなど）をまとめて管理できるのが、 docker-compose
+clone されたディレクトリに、 docker-compose.yml が存在するので、 docker-compose で起動できる。
+# docker-compose ダウンロード cd ~/Downloads wget https://github.com/docker/compose/releases/download/1.4.2/docker-compose-Linux-x86_64 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose sudo chmod 755 /usr/local/bin/docker-compose # version 確認 docker-compose --version # 以下が表示される # docker-compose version: 1.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 上に Docker Machine を インストールする</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-10-ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</link>
+      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-10-10-ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</guid>
+      <description>Docker Machine を試す！
+docker-machine docker-machine は Docker ホストを管理するツールで、ホストとなる Docker コンテナ起動サーバが、VM や AWS、 Digital Ocean などの ホストへ接続し実行する事で、あたかも local で docker コンテナが動いているかのように振る舞うツール。
+Docker コンテナ管理ツールとしても仕様できるみたい。
+docker インストール まずは、 dokcer のインストール
+# Docker install wget -qO- https://get.docker.com/ | sh # version を確認しておく。 docker --version # 以下が表示される # Docker version 1.8.2, build 0a8c2e3 # ユーザーを docker グループに追加 sudo usermod -aG docker $USER docker-machine インストール 続いて、 docker-machine をインストールする。
+cd ~/Download wget https://github.com/docker/machine/releases/download/v0.4.1/docker-machine_linux-amd64 sudo mkdir -p /opt/bin sudo mv docker-machine_linux-amd64 /opt/bin/docker-machine sudo chmod +x /opt/bin/docker-machine # docker-machine version 確認 # /opt/bin にパスが通っている事！ docker-machine -v # 以下のようにバージョンが表示される # docker-machine version 0.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 wireshark 設定</title>
+      <link>https://tro3373.github.io/posts/2015/2015-09-12-ubuntu-14-04-wireshark-she-ding/</link>
+      <pubDate>Sat, 12 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-09-12-ubuntu-14-04-wireshark-she-ding/</guid>
+      <description> Ubuntu 14.04 で wireshark を導入すると、root 権限で起動するなりしないと、 通常はパケットキャプチャできない設定になっている。 ので、任意の一般ユーザをキャプチャできるよう、設定する。
+# wireshark インストール sudo add-apt-repository ppa:wireshark-dev/stable sudo apt-get install wireshark ## TODO 以下、、必要？？？ # wireshark グループ作成 sudo groupadd wireshark # wireshark グループ に自分を追加 sudo usermod -a -G wireshark [user_name] sudo chgrp wireshark /usr/bin/dumpcap sudo chmod 750 /usr/bin/dumpcap # dumpcapに対して以下のケーバビリティを許可 sudo setcap cap_net_raw,cap_net_admin=eip /usr/bin/dumpcap sudo getcap /usr/bin/dumpcap それでもダメな場合は、、、 export LIBOVERLAY_SCROLLBAR=0 wireshark </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 Upstart チート</title>
+      <link>https://tro3373.github.io/posts/2015/2015-09-10-ubuntu14-04-upstart-tito/</link>
+      <pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-09-10-ubuntu14-04-upstart-tito/</guid>
+      <description>/etc/init/ 配下に XXXXX.conf ファイルを作成するのみ
+基本コマンド # 設定を反映 sudo initctl reload-configuration # XXXXX JOB の状態確認 sudo initctl status XXXXX # XXXXX JOB を開始 sudo initctl start XXXXX # XXXXX JOB を停止 sudo initctl stop XXXXX # XXXXX イベントを発生 sudo initctl emmit XXXXX XXXXX.conf 書き方 Job 基準
+# Job が開始されたら 起動 start on started [開始するためのJOB名] # Job が停止されたら 停止 stop on stopped [開始するためのJOB名] イベント 基準
+# イベントが発生したら開始 start on [開始するためのイベント名] # イベントが発生したら停止 stop on [停止するためのイベント名] 参考 Upstart を使ってお手軽 daemon 化 いますぐ実践!</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 AtomエディタをPPAでインストールする</title>
+      <link>https://tro3373.github.io/posts/2015/2015-06-05-atomedeitawoppadeinsutorusuru/</link>
+      <pubDate>Fri, 05 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-06-05-atomedeitawoppadeinsutorusuru/</guid>
+      <description>Ubuntu で Github 製エディタ Atom の自動アップデートを有効にする sudo add-apt-repository ppa:webupd8team/atom sudo apt-get update sudo apt-get install atom </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 bashrc にCentOs6.5 Solarizedカラースキームを設定</title>
+      <link>https://tro3373.github.io/posts/2015/2015-01-21-ubuntu14-04-bashrc-nicentos6-5-solarizedkarasukimuwoshe-ding/</link>
+      <pubDate>Wed, 21 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-01-21-ubuntu14-04-bashrc-nicentos6-5-solarizedkarasukimuwoshe-ding/</guid>
+      <description>参考 CentOS環境にSolarizedカラースキームを適用する を参考に
+設定 以下を .bashrc へ追記
+$ vim ~/.bashrc LS_COLORS=&amp;#39;no=00;38;5;244:rs=0:di=00;38;5;33:ln=00;38;5;37:mh=00:pi=48;5;230;38;5;136;01:so=48;5;230;38;5;136;01:do=48;5;230;38;5;136;01:bd=48;5;230;38;5;244;01:cd=48;5;230;38;5;244;01:or=48;5;235;38;5;160:su=48;5;160;38;5;230:sg=48;5;136;38;5;230:ca=30;41:tw=48;5;64;38;5;230:ow=48;5;235;38;5;33:st=48;5;33;38;5;230:ex=00;38;5;64:*.tar=00;38;5;61:*.tgz=00;38;5;61:*.arj=00;38;5;61:*.taz=00;38;5;61:*.lzh=00;38;5;61:*.lzma=00;38;5;61:*.tlz=00;38;5;61:*.txz=00;38;5;61:*.zip=00;38;5;61:*.z=00;38;5;61:*.Z=00;38;5;61:*.dz=00;38;5;61:*.gz=00;38;5;61:*.lz=00;38;5;61:*.xz=00;38;5;61:*.bz2=00;38;5;61:*.bz=00;38;5;61:*.tbz=00;38;5;61:*.tbz2=00;38;5;61:*.tz=00;38;5;61:*.deb=00;38;5;61:*.rpm=00;38;5;61:*.jar=00;38;5;61:*.rar=00;38;5;61:*.ace=00;38;5;61:*.zoo=00;38;5;61:*.cpio=00;38;5;61:*.7z=00;38;5;61:*.rz=00;38;5;61:*.apk=00;38;5;61:*.gem=00;38;5;61:*.jpg=00;38;5;136:*.JPG=00;38;5;136:*.jpeg=00;38;5;136:*.gif=00;38;5;136:*.bmp=00;38;5;136:*.pbm=00;38;5;136:*.pgm=00;38;5;136:*.ppm=00;38;5;136:*.tga=00;38;5;136:*.xbm=00;38;5;136:*.xpm=00;38;5;136:*.tif=00;38;5;136:*.tiff=00;38;5;136:*.png=00;38;5;136:*.svg=00;38;5;136:*.svgz=00;38;5;136:*.mng=00;38;5;136:*.pcx=00;38;5;136:*.dl=00;38;5;136:*.xcf=00;38;5;136:*.xwd=00;38;5;136:*.yuv=00;38;5;136:*.cgm=00;38;5;136:*.emf=00;38;5;136:*.eps=00;38;5;136:*.CR2=00;38;5;136:*.ico=00;38;5;136:*.tex=00;38;5;245:*.rdf=00;38;5;245:*.owl=00;38;5;245:*.n3=00;38;5;245:*.ttl=00;38;5;245:*.nt=00;38;5;245:*.torrent=00;38;5;245:*.xml=00;38;5;245:*Makefile=00;38;5;245:*Rakefile=00;38;5;245:*build.xml=00;38;5;245:*rc=00;38;5;245:*1=00;38;5;245:*.nfo=00;38;5;245:*README=00;38;5;245:*README.txt=00;38;5;245:*readme.txt=00;38;5;245:*.md=00;38;5;245:*README.markdown=00;38;5;245:*.ini=00;38;5;245:*.yml=00;38;5;245:*.cfg=00;38;5;245:*.conf=00;38;5;245:*.c=00;38;5;245:*.cpp=00;38;5;245:*.cc=00;38;5;245:*.log=00;38;5;240:*.bak=00;38;5;240:*.aux=00;38;5;240:*.lof=00;38;5;240:*.lol=00;38;5;240:*.lot=00;38;5;240:*.out=00;38;5;240:*.toc=00;38;5;240:*.bbl=00;38;5;240:*.blg=00;38;5;240:*~=00;38;5;240:*#=00;38;5;240:*.part=00;38;5;240:*.incomplete=00;38;5;240:*.swp=00;38;5;240:*.tmp=00;38;5;240:*.temp=00;38;5;240:*.o=00;38;5;240:*.pyc=00;38;5;240:*.class=00;38;5;240:*.cache=00;38;5;240:*.aac=00;38;5;166:*.au=00;38;5;166:*.flac=00;38;5;166:*.mid=00;38;5;166:*.midi=00;38;5;166:*.mka=00;38;5;166:*.mp3=00;38;5;166:*.mpc=00;38;5;166:*.ogg=00;38;5;166:*.ra=00;38;5;166:*.wav=00;38;5;166:*.m4a=00;38;5;166:*.axa=00;38;5;166:*.oga=00;38;5;166:*.spx=00;38;5;166:*.xspf=00;38;5;166:*.mov=00;38;5;166:*.mpg=00;38;5;166:*.mpeg=00;38;5;166:*.m2v=00;38;5;166:*.mkv=00;38;5;166:*.ogm=00;38;5;166:*.mp4=00;38;5;166:*.m4v=00;38;5;166:*.mp4v=00;38;5;166:*.vob=00;38;5;166:*.qt=00;38;5;166:*.nuv=00;38;5;166:*.wmv=00;38;5;166:*.asf=00;38;5;166:*.rm=00;38;5;166:*.rmvb=00;38;5;166:*.flc=00;38;5;166:*.avi=00;38;5;166:*.fli=00;38;5;166:*.flv=00;38;5;166:*.gl=00;38;5;166:*.m2ts=00;38;5;166:*.divx=00;38;5;166:*.webm=00;38;5;166:*.axv=00;38;5;166:*.anx=00;38;5;166:*.ogv=00;38;5;166:*.ogx=00;38;5;166:&amp;#39; export LS_COLORS </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 terminalからログオフする</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-28-ubuntu-14-04-terminalkararoguohusuru/</link>
+      <pubDate>Fri, 28 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-11-28-ubuntu-14-04-terminalkararoguohusuru/</guid>
+      <description>Ubuntu 14.04 terminalからログオフする
+DISPLAY=:0 gnome-session-quit --logout --no-prompt </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 で、ruby on rails passenger をインストールして apache 連携する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</link>
+      <pubDate>Fri, 14 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</guid>
+      <description>passenger インストール cd ~/ rbenv exec gem install passenger rbenv rehash passenger-install-apache2-module実行 rbenv exec passenger-install-apache2-module passenger-install-apache2-module 詳細
+This installer will guide you through the entire installation process. It shouldn&#39;t take more than 3 minutes in total. Here&#39;s what you can expect from the installation process: 1. The Apache 2 module will be installed for you. 2. You&#39;ll learn how to configure Apache. 3. You&#39;ll learn how to deploy a Ruby on Rails application.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 visudo エディタをvimに設定する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-10-ubuntu14-04-visudo-edeitawovimnishe-ding-suru/</link>
+      <pubDate>Mon, 10 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-11-10-ubuntu14-04-visudo-edeitawovimnishe-ding-suru/</guid>
+      <description>Ubuntu14.04 visudo エディタをvimに設定する 以下コマンドでエディタを変更しておく
+sudo update-alternatives --config editor </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 postgresql install</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-postgresql-install/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-postgresql-install/</guid>
+      <description>postgresql install sudo apt-get install postgresql sudo apt-get install libpq-dev postgresql settings sudo su postgres -c psql postgres=# CREATE ROLE [user] SUPERUSER LOGIN; postgres=# \password [user] [userpassword] [userpassword] check or list database, tables, indexes, and so on. postgres=# create database [user]; postgres=# select * from pg_user; /* ユーザ一覧 */ postgres=# \d /* 表、インデックスの一覧 */ postgres=# \dt /* 表の一覧 */ postgres=# \d [表名] /* 表の項目一覧 */ postgres=# \l /* データベース一覧、文字コード表示 */ postgres=# \q /* 終了 */ psql -l # データベース 一覧 psql [データベース名] # psql へ切り替え </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 remote desktop with xrdp</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-remote-desktop-with-xrdp/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-remote-desktop-with-xrdp/</guid>
+      <description>install xrdp server sudo apt-get install xrdp sudo apt-get install xlde echo lxsession -s LXDE -e LXDE &amp;gt; ~/.xsession sudo service xrdp restart </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 ruby 用 vim 設定</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu14-04-ruby-yong-vim-she-ding/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu14-04-ruby-yong-vim-she-ding/</guid>
+      <description>ruby 開発環境 vim install sudo apt-get install vim vim-gtk vim-gui-common install vim-nox vim --version |grep ruby +diff +menu -ruby +writebackup sudo apt-get install vim-nox vim --version |grep ruby +diff +menu +ruby +writebackup settings mkdir -p ~/.vim/bundle cd ~/.vim/bundle/ git clone http://github.com/Shougo/neobundle.vim vim ~/.vimrc
+set number set nocompatible filetype plugin indent off if has(&#39;vim_starting&#39;) set runtimepath+=~/.vim/bundle/neobundle.vim call neobundle#rc(expand(&#39;~/.vim/bundle&#39;)) endif &amp;quot; 以下は必要に応じて追加 &amp;quot; NeoBundle &#39;Shougo/unite.vim&#39; &amp;quot; NeoBundle &#39;Shougo/neosnippet.vim&#39; NeoBundle &#39;git://github.com/Shougo/neobundle.vim.git&#39; NeoBundle &#39;git://github.com/Shougo/neocomplcache.git&#39; NeoBundle &#39;git://github.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 Change LF UTF-8 Under Specified Directory</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-12-ubuntu-14-04-change-lf-utf-8-under-specified-directory/</link>
+      <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-12-ubuntu-14-04-change-lf-utf-8-under-specified-directory/</guid>
+      <description>Install nkf sudo aptitude install nkf usege nkf -wLu --overwrite *.txt # -w: change to UTF8 # -Lu: change to LF # --overwrite: overwrite file! Exclude .git or and so on files, and specified some extension. find . \( -name &amp;quot;i18n&amp;quot; -o -name &amp;quot;.git&amp;quot; -o -name &amp;quot;jquery*.js&amp;quot; -o -name &amp;quot;jquery*.css&amp;quot; \) -prune -o -type f \( -name &amp;quot;*.txt&amp;quot; -o -name &amp;quot;*.js&amp;quot; -o -name &amp;quot;*.css&amp;quot; -o -name &amp;quot;*.html&amp;quot; -o -name &amp;quot;*.php&amp;quot; \) -print -exec nkf -wLu --overwrite {} \; </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 grive install</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-ubuntu-14-04-grive-install/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-ubuntu-14-04-grive-install/</guid>
+      <description>install sudo add-apt-repository ppa:nilarimogard/webupd8 sudo apt-get update sudo aptitude install grive mkdir -p ~/grive cd ~/grive grive -a grive -a コマンドでURL表示 アクセスし、承認するとキーが表示される terminalへ貼り付け！ 同期開始！ file sync cd ~/grive grive </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 Theme をnumixへ変更</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-08-ubuntu-14-04-theme-wonumixhebian-geng/</link>
+      <pubDate>Wed, 08 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-08-ubuntu-14-04-theme-wonumixhebian-geng/</guid>
+      <description>install sudo apt-add-repository ppa:numix/ppa sudo aptitude update sudo aptitude install numix-gtk-theme #sudo aptitude install numix-icon-theme-utouch sudo aptitude install numix-icon-theme sudo aptitude install numix-wallpaper-saucy # ↓この丸いアイコンがすごくよい。 sudo aptitude install numix-icon-theme-circle theme setting setting from tweak-tool</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 libwebsockets クライアントを試す</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</guid>
+      <description>libwebsockets build sudo aptitude install cmake cd ~/works git clone git://git.libwebsockets.org/libwebsockets cd libwebsockets/ mkdir build cd build cmake .. make -j8 # sudo make install サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする server rails 上に em-websocket を実装したcontrollerを用意する
+※ rails に関しては、省略 Ubuntu 14.04 libwebsockets クライアントを試す libwebsockets build sudo aptitude install cmake cd ~/works git clone git://git.libwebsockets.org/libwebsockets cd libwebsockets/ mkdir build cd build cmake .. make -j8 # sudo make install サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする server rails 上に em-websocket を実装したcontrollerを用意する</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 rails scoffoldでEntity作成、からDB migrateまで</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-rails-scoffolddeentityzuo-cheng-karadb-migratemade/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-rails-scoffolddeentityzuo-cheng-karadb-migratemade/</guid>
+      <description>以下のような形式で generate できる bundle exec rails generate scaffold [entity_name] [column_name]:[data_type][column_name]:[data_type] # 間違えたら！ bundle exec rails destroy scaffold &amp;quot;name&amp;quot; data type integer, string, timestamp などなどが使える Generateした各ファイルをそれぞれ条件を追加するように、下記のように修正 db/migrate/YYYYMMDDhhmmss_create_[entity_name].rb 以下のように、NotNullや桁指定、デフォルト指定ができる class CreateEvents &amp;lt; ActiveRecord::Migration def change create_table :[entity_name] do |t| t.string :column_name, :null =&amp;gt; false, :limit =&amp;gt; 1, :default =&amp;gt; 0 t.timestamps end end end 作成した rb ファイルで、DB再作成 # 通常DB作成 # bundle exec rake db:migrate # DB再作成（db/schema.rb より再実行） # bundle exec rake db:reset # DB再作成（db/migrate/**.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 ruby2.1.2 で ActiveRecord4.1.6 を使用し、postgresql4.1.6 へアクセス</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</guid>
+      <description>まずはdatabase 確認 sudo su postgres -c psql install activerecord,pg mkdir -p ~/works/99_sample/02_activerecord cd ~/works/99_sample/02_activerecord gem install activerecord gem install pg gem list DBユーザtest_nameを作成しておく sudo su postgres -c psql create role test_name superuser login; \password test_name Enter new password: test_name Enter it again: test_name create database test_name; config/database.yml mkdir -p config &amp;amp;&amp;amp; vim config/database.yml
+db: production: adapter: postgresql host: localhost username: test_name password: test_name database: test_name development: adapter: postgresql host: localhost username: test_name password: test_name database: test_name db/migrate配下に、３ファイルを配置(rails環境からコピー) mkdir -p db/migrate</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 で websocket, zeroMQ</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</guid>
+      <description>rails 、postgresql、zeroMQ、websocketを使って通信するサンプル環境を作成中
+create rails project cd 任意のディレクトリ rails new test_rails_postgres -d postgresql cd test_rails_postgres bundle install --path vendor/bundle bundle exec rake db:create db:migrate テスト起動確認 cd test_rails_postgres rails server http://[サーバアドレス]:3000へアクセス git 管理開始 cd test_rails_postgres git init vim .gitignore 以下を追加 doc/ *.swp *~ .project .DS_Store .idea .secret git add . git commit -m &amp;quot;initial commit.&amp;quot; テスト設定 bundle exec rails generate scaffold book title:string author:string outline:text bundle exec rake db:migrate bundle exec rails server db確認 -- database list \l -- user list select * from pg_user; -- table list \d routes の確認 http://localhost:3000/rails/info/routes rails へwebsocket実装 websocket-rails install cd test_rails_postgres vim Gemfile # 以下を追加 gem &#39;websocket-rails&#39; bundle install rails g websocket_rails:install # コントローラ作成 vim app/controllers/websocket_chat_controller.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 ランチャーにアプリ(meld)を登録する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-25-ubuntu-14-04-rantiyaniapurimeldwodeng-lu-suru/</link>
+      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-25-ubuntu-14-04-rantiyaniapurimeldwodeng-lu-suru/</guid>
+      <description>適当な場所に以下のファイルを作成する vim ~/bin/meld.desktop 以下内容にする [Desktop Entry] Type=Application Name=Meld GenericName=meld Icon=~/bin/meld-1.8.6/data/icons/hicolor/48x48/apps/meld.png Exec=~/bin/meld-1.8.6/bin/meld Terminal=false </description>
+    </item>
+    
+    <item>
+      <title>UX21A prime へ Win8.1 と Ubuntu14.04のデュアルブート</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-24-ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</link>
+      <pubDate>Wed, 24 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-24-ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</guid>
+      <description>参考にしたのは ここ ありがとうございます。これでようやく素敵うぼんとぅライフin電車！
+Windowsリカバリイメージをバックアップ windows 8 標準機能にてバックアップ
+usb ubuntu 14.04を作成 ubuntu 14.04(別PC)よりブータブルUSBの作成から ダウンロード したISOファイルを焼く
+ux21aをUSBから起動 起動時にesc連打し、USBを選択
+パーティション編集 Gpartedパーティション編集ツールにて、Win8システムパーティションより後ろを全て削除
+このへんの記憶が曖昧過ぎて申し訳ないですが、なんせDドライブの一つ左にあるリカバリ用のパーティションを含め削除しても、問題なかった！
+ubuntu インストール EFI 50Mb作成 /システムパーティション作成(ext4 約141G作成(swap4096Mb引いて作成)) 残りをswapに /システム(/dev/sda6かな？)にブートローダ設定 起動時にESC連打で切り替え可能！右クリックも効いてる！ というより、自然に動き過ぎて怖い。すべて問題なく動作しています。
+起動時に自動で、Ubuntuのブートローダが自動で windows8 認識しており、
+起動時に esc 連打しなくても勝手に選択画面に移動するし。。。
+ステキ！あーすーす、あ、ちが、えいすぅーすぅたまぁ！
+wifi bluetooth mouse pad 音量設定 etc&amp;hellip; </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 にrbenvを使用し、ruby2.1.2をインストールする</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-18-ubuntu-14-04-nirbenvwoshi-yong-si-ruby2-1-2woinsutorusuru/</link>
+      <pubDate>Thu, 18 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-18-ubuntu-14-04-nirbenvwoshi-yong-si-ruby2-1-2woinsutorusuru/</guid>
+      <description>install packages sudo add-apt-repository ppa:chris-lea/node.js sudo apt-get update sudo apt-get install build-essential git curl zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev sqlite3 libsqlite3-dev nodejs tk ruby-dev rbenv install git clone https://github.com/sstephenson/rbenv.git ~/.rbenv git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build echo &#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc echo &#39;eval &amp;quot;$(rbenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc . .bashrc gem install rbenv-rehash gem install bundler ruby install rbenv install -list rbenv install 2.1.2 rbenv versions rbenv global 2.1.2 rails gem install rails rbenv rehash rails -v </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 日本語ディレクトリ名を英語にする</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-11-ubuntu-14-04-ri-ben-yu-deirekutoriming-woying-yu-nisuru/</link>
+      <pubDate>Thu, 11 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-11-ubuntu-14-04-ri-ben-yu-deirekutoriming-woying-yu-nisuru/</guid>
+      <description>Ubuntu 14.04 日本語ディレクトリ名を英語にする terminal で以下を実行 env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update 以下を実行 ログアウト ログイン 古い名前のままにするかどうかを聞かれる これ以上表示させないにチェックを付けて終了 </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 Python でWebsocket実装</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu-14-04-python-dewebsocketshi-zhuang/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu-14-04-python-dewebsocketshi-zhuang/</guid>
+      <description>Ubuntu14.04 Python 2.7.6 でWebsocket実装 モジュールのインストール sudo apt-get install libevent-dev python-dev python-setuptools sudo easy_install gevent sudo easy_install gevent-websocket サーバスクリプト作成 vi chat.py
+#! /usr/bin/python # -*- coding: utf-8 -*- import os import random from geventwebsocket.handler import WebSocketHandler from gevent import pywsgi, sleep ws_list = set() def chat_handle(environ, start_response): global cnt ws = environ[&#39;wsgi.websocket&#39;] ws_list.add(ws)a print &#39;enter!&#39;, len(ws_list) while 1: msg = ws.receive() if msg is None: break remove = set() for s in ws_list: try: s.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 Node.js をインストール</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu14-04-node-js-woinsutoru/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu14-04-node-js-woinsutoru/</guid>
+      <description>Ubuntu14.04 Node.jsをインストール install packages. sudo apt-get install git curl build-essential libssl-dev install nvm. git clone https://github.com/creationix/nvm.git ~/.nvm . ~/.nvm/nvm.sh nvm install 0.10 ######################################################################## 100.0% Now using node v0.10.31 nvm version vi ~/.bashrc # 以下追加 . ~/.nvm/nvm.sh nvm use v0.10.31 # defaultバージョンを指定 nvm alias default v0.10.31 # Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン hellow world 作成 cd 任意のディレクトリ vim hellowworld.js ------------------------------------- var sys = require(&#39;sys&#39;); var http = require(&#39;http&#39;); var server = http.createServer( function (request, response) { response.</description>
+    </item>
+    
+  </channel>
+</rss>

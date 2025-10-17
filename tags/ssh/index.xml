@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ssh on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ssh/</link>
+    <description>Recent content in ssh on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 29 Sep 2023 14:10:43 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>IdentitiesOnly yes にして、 IdentityFile は個別で指定したほうがいい件</title>
+      <link>https://tro3373.github.io/posts/2023/2023-09-29-ssh-use-identities-only-option-commonly-and-specify-identityfile-each-connection-settings/</link>
+      <pubDate>Fri, 29 Sep 2023 14:10:43 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-09-29-ssh-use-identities-only-option-commonly-and-specify-identityfile-each-connection-settings/</guid>
+      <description>sshの設定はすべて ~/.ssh/config で済ませたい派で、共通化したい設定はすべて Host * でまとめておけばいい とばかり思ってたけど、問題に当たったのでメモ。
+つまり、IdentityFileの行は重複するけど、個別に設定すべし ~/.ssh/config Host * IdentitiesOnly yes Host github.com HostName github.com User git IdentityFile ~/.ssh/id_rsa Host sub.github.com HostName github.com User git IdentityFile ~/.ssh/id_rsa_sub SSHの接続先が多いがすべて同じ鍵で接続できていたので、以下の様に設定していた。
+~/.ssh/config Host * # ここに鍵設定 IdentityFile ~/.ssh/id_rsa IdentitiesOnly yes Host example HostName example.com User example そこで、GitHubのアカウトを複数扱う必要があり、鍵設定がいることになり、以下のように設定したとする
+~/.ssh/config Host * IdentityFile ~/.ssh/id_rsa IdentitiesOnly yes Host example HostName example.com User example Host github.com HostName github.com User git Host sub.github.com HostName github.com User git # このケースだけ違う鍵を使いたい IdentityFile ~/.</description>
+    </item>
+    
+    <item>
+      <title>Mac に SSH接続した際に日本語がアンダースコア2個になる問題は SendEnv LANG で解決した</title>
+      <link>https://tro3373.github.io/posts/2023/2023-06-03-fix_japanese_will_be_shown_double_underscore_issue_by_sendenv_lang/</link>
+      <pubDate>Sat, 03 Jun 2023 09:20:53 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-06-03-fix_japanese_will_be_shown_double_underscore_issue_by_sendenv_lang/</guid>
+      <description>SSH接続先の相手がMacであるかはあまり問題ではないかもしれないが、 Manjaro ArchLinux から Macbook に ssh 接続しようとして発生していた文字化け（日本語のみアンダースコア2つで表示される）が治った .ssh/config で SendEnv で 環境変数を接続先のリモートに引き継がせる事ができる
+以下のように共通で設定するように設定して解決した
+~/.ssh/config Host * SendEnv LANG LC_* 重要なのは LANG 設定でこの設定が一致している必要があるようで、LC_*だけでは治らなかったが、 ローカルで表示しても、アンダースコア2つ表示されている状態で調べても同じ値が設定されていた。。（謎）
+env |grep LANG= LANG=en_US.UTF-8 </description>
+    </item>
+    
+    <item>
+      <title>Debian wheezy に Ubuntu 14.04 クライアントからSSH接続する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-07-debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</link>
+      <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-07-debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</guid>
+      <description>[Client] Key generate create pub, private key at ~/.ssh cd ~/.ssh ssh-keygen -t rsa # created under files id_rsa id_rsa.pub upload public key to server. scp id_rsa.pub [server ip address]:~/ [Client] .ssh/config vim ~/.ssh/config
+Host [server name] HostName [server name or ipaddress] Port 22 User [login user name] IdentityFile ~/.ssh/id_rsa [server] regist pub key login the server. cd ~ cat rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys [server] sshd settings sudo vim /etc/ssh/sshd_config check the settings</description>
+    </item>
+    
+  </channel>
+</rss>

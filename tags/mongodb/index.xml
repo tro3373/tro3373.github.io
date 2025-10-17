@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>mongodb on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/mongodb/</link>
+    <description>Recent content in mongodb on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 17 Oct 2025 10:44:25 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Firestore MongoDB互換の要点まとめ</title>
+      <link>https://tro3373.github.io/posts/2025/2025-10-17-firestore-mongodb-compatibility-key-points/</link>
+      <pubDate>Fri, 17 Oct 2025 10:44:25 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-10-17-firestore-mongodb-compatibility-key-points/</guid>
+      <description>Firestore MongoDB互換の要点まとめ 概要 Googleが「Firestore with MongoDB compatibility」を 発表 MongoDB用ドライバやMQL（MongoDB Query Language）をそのまま使ってFirestoreを操作可能 Firestoreのスケーラブルな基盤の上にMongoDB互換レイヤーを構築 現時点ではEnterpriseエディションのPreview機能 仕組み MongoDBクエリをFirestore内部クエリに変換する互換APIレイヤーを提供 collection.find() などのMongoDBドライバ呼び出しをそのまま利用可能 MongoDB→Firestoreへのクエリ変換処理で、未対応や制限付きの演算子が存在 Firestoreのインデックス構造に基づいて最適化されるが、MongoDBとは挙動が異なる クエリ互換性 基本的なクエリ（比較、論理、範囲、配列など）は概ね対応 複雑なAggregation Pipeline、ジオクエリ、テキスト検索（$text）などは未対応または制限あり $regex など一部の正規表現検索は動作する可能性があるが完全な互換ではない $where、$lookupなどのサーバーサイドスクリプト・結合系クエリは非対応 like検索・部分一致 MongoDBでは $regex で部分一致検索が可能 Firestoreネイティブでは前方一致（prefix検索）のみ対応 MongoDB互換モードでも正規表現機能は一部制限あり 任意の位置一致や複雑な正規表現検索は非対応または非推奨 制限・注意点 現時点でPreview段階のためAPI変更の可能性あり MongoDBすべての演算子を網羅していない Firestore独自のクエリ制限（フィルター数上限など）は引き継がれる 同一クエリでもMongoDBより遅くなるケースあり（インデックス構造差による） リアルタイム更新やオフライン対応などFirestore特有の機能との完全互換は未実装 利用上の位置づけ MongoDBからFirestoreへの移行を容易にするための互換レイヤー 機能完全再現ではなく、移行コスト低減が主目的 高度な全文検索や結合が必要な場合はMongoDB本体を利用すべき Refs https://cloud.google.com/blog/products/databases/announcing-firestore-with-mongodb-compatibility https://cloud.google.com/firestore/mongodb-compatibility/docs/overview https://firebase.google.com/docs/firestore/enterprise/migrate-to-firestore-with-mongodb https://medium.com/@aswinalexandersam/firestore-with-mongodb-compatibility-current-state-limitations-and-opportunities-fbf03542d0c3 https://dev.to/franckpachot/firestore-with-mongodb-compatibility-testing-pagination-queries-jmf https://stackoverflow.com/questions/79631546/the-query-limitation-with-max-30-filter-parameters-still-exists-in-gcp-firestore </description>
+    </item>
+    
+  </channel>
+</rss>

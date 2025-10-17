@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>GitHub Actions on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/github-actions/</link>
+    <description>Recent content in GitHub Actions on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 15 Feb 2024 09:08:52 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/github-actions/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>terraform &#43; GitHub Actions &#43; ECR &#43; Lambda &#43; ApiGateway &#43; OpenAPI 調査したのでメモ</title>
+      <link>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</link>
+      <pubDate>Thu, 15 Feb 2024 09:08:52 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</guid>
+      <description>はじめに 色々調べたのでメモ..
+以下詳細 Terraform で Lambdaも管理できないか？ 最近やってるLambdaとAPI Gatewayの開発方法の話 tf, ecr, python, openapi TerraformでAPI Gateway + Lambdaの構成テンプレート #lambda - Qiita tf, NOT ecr, node, openapi TerraformでAmazon API Gatewayを構築する(基本編) #AWS - Qiita tf, NOT ecr, openapi LambdaをカスタムDockerランタイムで開発する方法 | フューチャー技術ブログ コンテナイメージを更新した際に気をつけるポイントですが、latestタグのコンテナイメージを更新しても、 すぐにLambda関数の挙動には反映されません。一晩寝かしても古いイメージが参照されていました。 全く同じimage-uriのまま更新コマンドを実行することで即時反映できます。
+TerraformでLambdaコンテナイメージを自動構築する #Docker - Qiita swagger ecr lambda apigateway codebuild aws_lambda_alias lambda version に対するエイリアス これに対するIgnore設定の記載など 【AWS Lambda】複数のLambda関数を１つのコンテナイメージにまとめる #AWS - Qiita entrypoint指定できる aws_lambda_function | Resources | hashicorp/aws | Terraform | Terraform Registry ここでいうhandler?</description>
+    </item>
+    
+  </channel>
+</rss>

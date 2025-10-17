@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>FCM on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/fcm/</link>
+    <description>Recent content in FCM on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 25 Apr 2024 11:11:47 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/fcm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cordova build 時に GoogleService-Info.plist, google-services.json を自動切替する</title>
+      <link>https://tro3373.github.io/posts/2024/2024-04-25-switch_environment_files_in_build_process_for_cordova/</link>
+      <pubDate>Thu, 25 Apr 2024 11:11:47 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-04-25-switch_environment_files_in_build_process_for_cordova/</guid>
+      <description>はじめに cordova プロジェクト(monaca)でFCMを使う際、開発環境と本番環境で GoogleService-Info.plist, google-services.json を自動で切り替えたい 正確には google-services.json は複数環境入れるが、今回は必要であった
+問題 以下ファイルを用意した、ビルド時に自動で切り替えたい 正確には _dev, _prd の無いファイルを作成したい
+google-services_dev.json google-services_prd.json GoogleService-Info_dev.plist GoogleService-Info_prd.plist 解決方法 cordova hook でビルド時に自動で切り替える
+以下スクリプトを作成したので記載. scripts/before_build に配置する
+#!/usr/bin/env -S bash -e script_dir=$(cd &amp;#34;$(dirname &amp;#34;${BASH_SOURCE:-$0}&amp;#34;)&amp;#34; &amp;amp;&amp;amp; pwd) &amp;amp;&amp;amp; readonly script_dir project_root=$(cd &amp;#34;${script_dir}/..&amp;#34; &amp;amp;&amp;amp; pwd) &amp;amp;&amp;amp; readonly project_root config_file=&amp;#34;${project_root}/config.xml&amp;#34; &amp;amp;&amp;amp; readonly config_file get_stage() { grep &amp;#39;name=&amp;#34;STAGE&amp;#34;&amp;#39; &amp;#34;$config_file&amp;#34; | sed -E &amp;#39;s/.*value=&amp;#34;([^&amp;#34;]*)&amp;#34;.*/\1/&amp;#39; } update_firebase_config() { local append=_prd if [[ $stage == &amp;#34;dev&amp;#34; ]]; then append=_dev fi echo &amp;#34;===&amp;gt; Updating firebase config files&amp;#34; 1&amp;gt;&amp;amp;2 cp -fv &amp;#34;$project_root&amp;#34;/GoogleService-Info${append}.</description>
+    </item>
+    
+    <item>
+      <title>cordova-plugin-firebasex Tips</title>
+      <link>https://tro3373.github.io/posts/2024/2024-04-23-cordova-plugin-firebasex/</link>
+      <pubDate>Tue, 23 Apr 2024 14:23:05 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-04-23-cordova-plugin-firebasex/</guid>
+      <description>はじめに 以下Firebasex Pluginの使い方Tips
+dpa99c/cordova-plugin-firebasex: Cordova plugin for Google Firebase 確認環境 monaca Cordova 12.0.0 android cordova-android 12.0.1 openjdk 11.0.20 2023-07-18 Gradle 7.6 ios cordova-ios 7.0.1 Pod 1.14.3 Xcode 15.0.1 dpa99c/cordova-plugin-firebasex.git 16.1.0-cli device android: Android 14 Pixel 5, Pixel 8 Pro ios iOS 15.4 iPhone 15 Pro まとめ getToken, onTokenRefresh は iOS/Android共通
+FCMでAPNs設定をして、iOSもFCM経由で送信する場合はこちら getAPNSToken, onApnsTokenReceived は iOSのみ
+APNsのみで送信する場合はこちら Android 13+ の場合は以下を config.xml に追加して、AndroidManifestに権限を追加する必要あり(とあったが、以下なしでも追加される模様)
+&amp;lt;platform name=&amp;#34;android&amp;#34;&amp;gt; &amp;lt;config-file target=&amp;#34;AndroidManifest.xml&amp;#34; parent=&amp;#34;/*&amp;#34;&amp;gt; &amp;lt;uses-permission android:name=&amp;#34;android.permission.POST_NOTIFICATIONS&amp;#34;/&amp;gt; &amp;lt;/config-file&amp;gt; &amp;lt;/platform&amp;gt; Android でインストール直後にアカウント設定などのデータを復元したくない場合は以下を追加 デバッグ中など毎回復元されると面倒</description>
+    </item>
+    
+  </channel>
+</rss>
