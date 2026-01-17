@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>es6 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/es6/</link>
+    <description>Recent content in es6 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 06 Dec 2023 05:59:56 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/es6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tagged Template Literals について怪しかったので調べた</title>
+      <link>https://tro3373.github.io/posts/2023/2023-12-06-about-tagged-template-literals/</link>
+      <pubDate>Wed, 06 Dec 2023 05:59:56 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-12-06-about-tagged-template-literals/</guid>
+      <description>はじめに 最近よく見るようになった
+export const StyleWrapper = styled.div` --fc-button-bg-color: #3b82f6; ` のような記法について、よく理解できてなかったので調べた
+疑問 ヒアドキュメントみたいな記法がわかってない まとめ 関数呼び出し 第一引数: 文字列配列 第二引数以降: ${...} で評価された結果が渡る 以下が全て const person = &amp;#34;Mike&amp;#34;; const age = 28; function myTag(strings, personExp, ageExp) { const str0 = strings[0]; // &amp;#34;That &amp;#34; const str1 = strings[1]; // &amp;#34; is a &amp;#34; const str2 = strings[2]; // &amp;#34;.&amp;#34; const ageStr = ageExp &amp;lt; 100 ? &amp;#34;youngster&amp;#34; : &amp;#34;centenarian&amp;#34;; // We can even return a string built using a template literal return `${str0}${personExp}${str1}${ageStr}${str2}`; } const output = myTag`That ${person} is a ${age}.</description>
+    </item>
+    
+  </channel>
+</rss>

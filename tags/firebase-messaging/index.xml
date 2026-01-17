@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Firebase Messaging on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/firebase-messaging/</link>
+    <description>Recent content in Firebase Messaging on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 23 Apr 2024 14:23:05 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/firebase-messaging/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cordova-plugin-firebasex Tips</title>
+      <link>https://tro3373.github.io/posts/2024/2024-04-23-cordova-plugin-firebasex/</link>
+      <pubDate>Tue, 23 Apr 2024 14:23:05 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-04-23-cordova-plugin-firebasex/</guid>
+      <description>はじめに 以下Firebasex Pluginの使い方Tips
+dpa99c/cordova-plugin-firebasex: Cordova plugin for Google Firebase 確認環境 monaca Cordova 12.0.0 android cordova-android 12.0.1 openjdk 11.0.20 2023-07-18 Gradle 7.6 ios cordova-ios 7.0.1 Pod 1.14.3 Xcode 15.0.1 dpa99c/cordova-plugin-firebasex.git 16.1.0-cli device android: Android 14 Pixel 5, Pixel 8 Pro ios iOS 15.4 iPhone 15 Pro まとめ getToken, onTokenRefresh は iOS/Android共通
+FCMでAPNs設定をして、iOSもFCM経由で送信する場合はこちら getAPNSToken, onApnsTokenReceived は iOSのみ
+APNsのみで送信する場合はこちら Android 13+ の場合は以下を config.xml に追加して、AndroidManifestに権限を追加する必要あり(とあったが、以下なしでも追加される模様)
+&amp;lt;platform name=&amp;#34;android&amp;#34;&amp;gt; &amp;lt;config-file target=&amp;#34;AndroidManifest.xml&amp;#34; parent=&amp;#34;/*&amp;#34;&amp;gt; &amp;lt;uses-permission android:name=&amp;#34;android.permission.POST_NOTIFICATIONS&amp;#34;/&amp;gt; &amp;lt;/config-file&amp;gt; &amp;lt;/platform&amp;gt; Android でインストール直後にアカウント設定などのデータを復元したくない場合は以下を追加 デバッグ中など毎回復元されると面倒</description>
+    </item>
+    
+  </channel>
+</rss>

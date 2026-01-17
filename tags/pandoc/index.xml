@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>pandoc on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/pandoc/</link>
+    <description>Recent content in pandoc on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 07 Jan 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/pandoc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pandoc でマークダウンから docx へ変換する</title>
+      <link>https://tro3373.github.io/posts/2015/2015-01-07-pandoc-demakudaunkara-docx-hebian-huan-suru/</link>
+      <pubDate>Wed, 07 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-01-07-pandoc-demakudaunkara-docx-hebian-huan-suru/</guid>
+      <description>Pandoc でマークダウンから docx へ変換する方法 pandoc &amp;quot;a.md&amp;quot; -t docx -o &amp;quot;a.docx&amp;quot; </description>
+    </item>
+    
+  </channel>
+</rss>

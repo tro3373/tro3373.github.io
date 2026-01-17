@@ -1,0 +1,2016 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tech on tac lifelog</title>
+    <link>https://tro3373.github.io/categories/tech/</link>
+    <description>Recent content in tech on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 17 Jan 2026 07:33:24 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/categories/tech/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RedoclyでOpenAPIをタグ分割する方法</title>
+      <link>https://tro3373.github.io/posts/2026/2026-01-17-splitting-openapi-swagger-yaml-by-tags-using-redocly/</link>
+      <pubDate>Sat, 17 Jan 2026 07:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2026/2026-01-17-splitting-openapi-swagger-yaml-by-tags-using-redocly/</guid>
+      <description>結論：RedoclyでOpenAPI Specをタグで分割できる Redocly CLIのfilter-in/filter-outデコレーターを使えば、1つのOpenAPI定義を複数のドキュメントに分割できる。
+公開API用と管理API用でSwagger UIを分けたい場合など、タグベースでAPI仕様を分離できる。
+背景：なぜ分割が必要か 単一のGo APIで複数のクライアント向けにエンドポイントを提供する場合、全エンドポイントを1つのSwagger UIに表示すると見づらい。
+例：
+公開API: ユーザー機能、コンテンツ表示 管理API: データ管理、レポート取得、設定変更 → それぞれ専用のSwagger UIを生成したい
+解決方法：Redocly CLI + filter デコレーター 1. swagでOpenAPI定義を生成 swag: @echo &amp;#34;==&amp;gt; Running swag init&amp;#34; &amp;gt;&amp;amp;2 @swag init -g cmd/your-api/main.go -o docs @npx -y @redocly/cli@latest bundle docs/swagger.yaml --config docs/redocly-public.yaml -o docs/swagger_public.yaml @npx -y @redocly/cli@latest bundle docs/swagger.yaml --config docs/redocly-admin.yaml -o docs/swagger_admin.yaml &amp;amp;&amp;amp; \ sed -i -e &amp;#39;s,API for Public,API for Admin,g&amp;#39; docs/swagger_admin.yaml 2. 公開API用設定：管理タグを除外 docs/redocly-public.yaml:</description>
+    </item>
+    
+    <item>
+      <title>Claude Skills マーケットプレイス完全ガイド</title>
+      <link>https://tro3373.github.io/posts/2025/2025-11-26-comprehensive-list-of-claude-skills-resources-and-marketplaces/</link>
+      <pubDate>Wed, 26 Nov 2025 06:18:08 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-11-26-comprehensive-list-of-claude-skills-resources-and-marketplaces/</guid>
+      <description>結論：13,000+ Skillsが7つのマーケットプレイスで公開中 Claude Skillsは複数のマーケットプレイスとリポジトリで公開されており、目的に応じて使い分けられる。
+公式・コミュニティ合わせて13,000以上のSkillsが利用可能。
+主要マーケットプレイス一覧 1. SkillsMP（最大級のコレクション） 13,000+ Skillsを検索・閲覧できる最大級のGitHubコレクション
+特徴: 星数2以上でフィルタ、品質指標（低品質排除）、カテゴリ検索 形式: マーケットプレイス形式で一括インストール 例: PDF生成、データ分析ワークフロー リンク: skillsmp.com 2. Anthropic Skills Repo（公式） Anthropic公式のSkill例リポジトリ。ドキュメント処理中心
+特徴: マーケットプレイス登録可能。人気Skillを/plugin installで追加 規模: 公式Skill数十種 例: document-skills（Excel/PPT/PDF、ブランドガイド適用） リンク: github.com/anthropics/skills 3. Awesome Claude Skills（コミュニティ） コミュニティキュレーションのリスト。リソース・ツールも含む
+特徴: GitHub星数ベースのランキング。カテゴリ（開発/デザイン/自動化）でソート 規模: 数百のSkill/Agent 例: prompt-engineering、テスト自動化 リンク: github.com/travisvn/awesome-claude-skills Composio版 4. Claude Code Marketplace（生産性向け） プラグイン/Agent中心のマーケットプレイス。生産性向上ツール多め
+特徴: 人気度ソート（リサーチベース）。85+ Agent、47 Skill 規模: 63プラグイン 例: kubernetes-architect、code-reviewer リンク: claudecodemarketplace.com GitHub版 5. Claude Skills Hub（ドメイン別） サードパーティのキュレートマーケットプレイス。ドメイン別整理
+特徴: フィーチャー/最新リストでランキング。GitHubリンクから詳細・インストール 規模: 数百の拡張 例: ドキュメント処理、コミュニケーションSkill、デザイン自動化 リンク: toolify.</description>
+    </item>
+    
+    <item>
+      <title>git logの「..」と「...」の違い</title>
+      <link>https://tro3373.github.io/posts/2025/2025-11-22-git-log-compare-main-develop-branches-with-dots-and-ellipsis/</link>
+      <pubDate>Sat, 22 Nov 2025 10:05:34 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-11-22-git-log-compare-main-develop-branches-with-dots-and-ellipsis/</guid>
+      <description>結論：「..」は片方、「&amp;hellip;」は両方の差分 git logの..（ドット2つ）と...（ドット3つ）は、ブランチ間のコミット比較方法が異なる。
+..（2ドット）: 一方のブランチにのみ存在するコミット ...（3ドット）: 両方のブランチで異なるコミット全て 使い分け ..（2ドット）- 未マージのコミットを確認 developにあってmainにないコミット（未マージ分のみ）
+git log origin/main..origin/develop 用途：
+PR前の差分確認 マージ漏れチェック リリース対象の確認 結果： developにしかないコミットのみ表示（mainには既にあるコミットは除外）
+...（3ドット）- 分岐後の全差分 mainとdevelopの差分（どちらか一方にしかないコミット全て）
+git log origin/main...origin/develop 用途：
+ブランチの分岐点以降の変更全体を確認 両ブランチの独立した開発内容を比較 結果： mainにのみあるコミット + developにのみあるコミット
+視覚的に確認 # グラフで分岐を表示 git log --oneline --graph origin/main...origin/develop --graphオプション:
+コミットの分岐・マージをビジュアル化 どちらのブランチに属するか一目で分かる 具体例 状況 main: A - B - C - D \ develop: E - F - G ..（2ドット）の結果 git log main..develop # 結果: E, F, G（developにのみ存在） git log develop.</description>
+    </item>
+    
+    <item>
+      <title>Next.jsレンダリングとアプリ構成の整理</title>
+      <link>https://tro3373.github.io/posts/2025/2025-11-19-next-rendering-and-application-architecture-overview/</link>
+      <pubDate>Wed, 19 Nov 2025 15:47:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-11-19-next-rendering-and-application-architecture-overview/</guid>
+      <description>結論：アプリ構造とレンダリング方式は別概念 Next.jsでは「ページ遷移の方法（SPA/MPA）」と「HTMLを生成するタイミング（SSG/SSR/CSR）」は独立した概念。
+両者を正しく理解することで、最適な構成を選択できる。
+アプリケーション構造（ページ遷移の方法） 構造 ルーティング ページ遷移 SPA クライアントサイド JavaScriptで画面切り替え（リロードなし） MPA サーバーサイド フルページリロード Next.jsはデフォルトでSPA（クライアントサイドルーティング）。
+レンダリング方式（いつ・どこでHTMLを生成するか） 1. SSG（Static Site Generation）- ビルド時に生成 Pure SSG（完全静的）:
+Static Export（output: &#39;export&#39;） サーバー不要（Netlify、GitHub Pagesにデプロイ可能） 完全静的ファイルのみ生成 // next.config.js module.exports = { output: &amp;#39;export&amp;#39;, } Standard SSG Node.jsサーバー使用 API Routes、画像最適化、middleware、rewrites、redirects などを併用 2. ISR（Incremental Static Regeneration） SSG + 更新機能
+export async function generateStaticParams() { return [{ id: &amp;#39;1&amp;#39; }, { id: &amp;#39;2&amp;#39; }] } export const revalidate = 60 // 60秒ごとに再生成 3.</description>
+    </item>
+    
+    <item>
+      <title>FirestoreのorderByには暗黙のフィルタがある</title>
+      <link>https://tro3373.github.io/posts/2025/2025-11-18-cloud-firestore-order-and-limit-data/</link>
+      <pubDate>Tue, 18 Nov 2025 13:50:49 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-11-18-cloud-firestore-order-and-limit-data/</guid>
+      <description>結論：orderByは指定フィールドの存在でもフィルタリングする FirestoreのorderBy()句は、指定したフィールドが存在しないドキュメントを自動的に除外する。
+並べ替えだけでなく、暗黙的にフィルタリングも行うため、予期しないデータ欠落が発生する可能性がある。
+問題：orderByで結果が減る // 「createdAt」フィールドでソート query := client.Collection(&amp;#34;users&amp;#34;).OrderBy(&amp;#34;createdAt&amp;#34;, firestore.Asc) このクエリでは、createdAtフィールドが存在しないドキュメントは結果に含まれない。
+例：
+✅ {id: 1, name: &amp;quot;Alice&amp;quot;, createdAt: &amp;quot;2025-01-01&amp;quot;} → 結果に含まれる ❌ {id: 2, name: &amp;quot;Bob&amp;quot;} → 結果から除外される（createdAtがない） 公式ドキュメントの記載 orderBy() 句は、指定したフィールドの有無によるフィルタも行います。指定したフィールドがないドキュメントは結果セットには含まれません。
+Cloud Firestore でデータを並べ替えたり制限する | Firebase 範囲比較との組み合わせ制約 範囲比較（&amp;lt;, &amp;lt;=, &amp;gt;, &amp;gt;=）のフィルタがある場合、最初のorderBy()は同じフィールドで行う必要がある。
+// ❌ NG: 範囲比較（age）と異なるフィールド（name）で最初にorderBy query := client.Collection(&amp;#34;users&amp;#34;). Where(&amp;#34;age&amp;#34;, &amp;#34;&amp;gt;&amp;#34;, 20). OrderBy(&amp;#34;name&amp;#34;, firestore.Asc) // エラー: 最初のorderByはageにする必要がある // ✅ OK: 範囲比較と同じフィールド（age）で最初にorderBy query := client.Collection(&amp;#34;users&amp;#34;). Where(&amp;#34;age&amp;#34;, &amp;#34;&amp;gt;&amp;#34;, 20). OrderBy(&amp;#34;age&amp;#34;, firestore.Asc). OrderBy(&amp;#34;name&amp;#34;, firestore.Asc) 対策：フィールド存在を意識する 1.</description>
+    </item>
+    
+    <item>
+      <title>Go言語omitemptyの罠：falseが保存できない</title>
+      <link>https://tro3373.github.io/posts/2025/2025-10-27-go-omitempty-tag-for-json-and-firestore/</link>
+      <pubDate>Mon, 27 Oct 2025 16:02:13 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-10-27-go-omitempty-tag-for-json-and-firestore/</guid>
+      <description>結論：omitemptyは便利だが罠がある omitemptyタグは空値を省略できて便利だが、falseや0が保存できなくなる罠がある。
+特にboolean型で**「false」と「未設定」を区別したい場合は要注意**だ。
+omitemptyとは 空値の場合にフィールドを省略するタグ。JSON/Firestoreへの保存時にデータサイズを削減できる。
+type User struct { Name string `json:&amp;#34;name&amp;#34;` Email string `json:&amp;#34;email,omitempty&amp;#34;` // 空なら省略 } ⚠️ 最大の罠：「空」とみなされる値 以下の値は「空」として扱われ、omitempty付きフィールドから消える:
+型 空とみなされる値 保存できない値の例 真偽値 false ❌ falseが保存不可 数値 0 ❌ 0が保存不可 文字列 &amp;quot;&amp;quot; ❌ 空文字列が保存不可 スライス/マップ nil または長さ0 ❌ 空配列が保存不可 ポインタ nil - 時刻 time.Timeのゼロ値 - 実例：boolean型の罠 問題のあるコード type Config struct { EnableFeature bool `firestore:&amp;#34;enableFeature,omitempty&amp;#34;` } config := Config{EnableFeature: false} // ❌ Firestoreに保存されない！ // &amp;#34;enableFeature&amp;#34;フィールド自体が消える これでは「false」と「未設定」が区別できない。
+解決策：ポインタ型を使う type Config struct { EnableFeature *bool `firestore:&amp;#34;enableFeature,omitempty&amp;#34;` } // パターン1: 未設定 config := Config{EnableFeature: nil} // → フィールド省略（未設定として扱える） // パターン2: 明示的にfalse falseValue := false config := Config{EnableFeature: &amp;amp;falseValue} // → ✅ falseとして保存される // パターン3: true trueValue := true config := Config{EnableFeature: &amp;amp;trueValue} // → ✅ trueとして保存される 動作比較 omitemptyあり type User struct { Name string `json:&amp;#34;name&amp;#34;` Age int `json:&amp;#34;age,omitempty&amp;#34;` Active bool `json:&amp;#34;active,omitempty&amp;#34;` } user := User{Name: &amp;#34;Alice&amp;#34;, Age: 0, Active: false} // JSON: {&amp;#34;name&amp;#34;:&amp;#34;Alice&amp;#34;} // ❌ Age=0 と Active=false は消える omitemptyなし user := User{Name: &amp;#34;Alice&amp;#34;, Age: 0, Active: false} // JSON: {&amp;#34;name&amp;#34;:&amp;#34;Alice&amp;#34;,&amp;#34;age&amp;#34;:0,&amp;#34;active&amp;#34;:false} // ✅ 0 と false もちゃんと保存される Firestore/JSONでの使い分け データ削減を優先する場合 Email string `json:&amp;#34;email,omitempty&amp;#34;` // 未入力のメールアドレスは保存しなくていい 値の区別が必要な場合 // boolean型: falseと未設定を区別したい IsAdmin *bool `firestore:&amp;#34;isAdmin,omitempty&amp;#34;` // 数値型: 0と未設定を区別したい Score *int `firestore:&amp;#34;score,omitempty&amp;#34;` まとめ omitemptyは空値を省略してデータサイズを削減できる false、0、空文字列は「空」扱いで消える（最大の罠） 値の区別が必要ならポインタ型を使う JSON/Firestoreどちらでも同じ仕組みで動作 Some illustrations on this site, including the Go Gopher, are by Renée French and licensed under CC BY 4.</description>
+    </item>
+    
+    <item>
+      <title>Firestore MongoDB互換の要点まとめ</title>
+      <link>https://tro3373.github.io/posts/2025/2025-10-17-firestore-mongodb-compatibility-key-points/</link>
+      <pubDate>Fri, 17 Oct 2025 10:44:25 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-10-17-firestore-mongodb-compatibility-key-points/</guid>
+      <description>Firestore MongoDB互換の要点まとめ 概要 Googleが「Firestore with MongoDB compatibility」を 発表 MongoDB用ドライバやMQL（MongoDB Query Language）をそのまま使ってFirestoreを操作可能 Firestoreのスケーラブルな基盤の上にMongoDB互換レイヤーを構築 現時点ではEnterpriseエディションのPreview機能 仕組み MongoDBクエリをFirestore内部クエリに変換する互換APIレイヤーを提供 collection.find() などのMongoDBドライバ呼び出しをそのまま利用可能 MongoDB→Firestoreへのクエリ変換処理で、未対応や制限付きの演算子が存在 Firestoreのインデックス構造に基づいて最適化されるが、MongoDBとは挙動が異なる クエリ互換性 基本的なクエリ（比較、論理、範囲、配列など）は概ね対応 複雑なAggregation Pipeline、ジオクエリ、テキスト検索（$text）などは未対応または制限あり $regex など一部の正規表現検索は動作する可能性があるが完全な互換ではない $where、$lookupなどのサーバーサイドスクリプト・結合系クエリは非対応 like検索・部分一致 MongoDBでは $regex で部分一致検索が可能 Firestoreネイティブでは前方一致（prefix検索）のみ対応 MongoDB互換モードでも正規表現機能は一部制限あり 任意の位置一致や複雑な正規表現検索は非対応または非推奨 制限・注意点 現時点でPreview段階のためAPI変更の可能性あり MongoDBすべての演算子を網羅していない Firestore独自のクエリ制限（フィルター数上限など）は引き継がれる 同一クエリでもMongoDBより遅くなるケースあり（インデックス構造差による） リアルタイム更新やオフライン対応などFirestore特有の機能との完全互換は未実装 利用上の位置づけ MongoDBからFirestoreへの移行を容易にするための互換レイヤー 機能完全再現ではなく、移行コスト低減が主目的 高度な全文検索や結合が必要な場合はMongoDB本体を利用すべき Refs https://cloud.google.com/blog/products/databases/announcing-firestore-with-mongodb-compatibility https://cloud.google.com/firestore/mongodb-compatibility/docs/overview https://firebase.google.com/docs/firestore/enterprise/migrate-to-firestore-with-mongodb https://medium.com/@aswinalexandersam/firestore-with-mongodb-compatibility-current-state-limitations-and-opportunities-fbf03542d0c3 https://dev.to/franckpachot/firestore-with-mongodb-compatibility-testing-pagination-queries-jmf https://stackoverflow.com/questions/79631546/the-query-limitation-with-max-30-filter-parameters-still-exists-in-gcp-firestore </description>
+    </item>
+    
+    <item>
+      <title>コンテナ内でのみ golangci-lint 実行時に &#39;error obtaining VCS status: exit status 128&#39; エラーが発生する問題</title>
+      <link>https://tro3373.github.io/posts/2025/2025-09-17-golangci-lint-error-in-docker-container-vcs-repository-not-found-use-buildvcs-false/</link>
+      <pubDate>Wed, 17 Sep 2025 06:54:28 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-09-17-golangci-lint-error-in-docker-container-vcs-repository-not-found-use-buildvcs-false/</guid>
+      <description>問題 golangci-lint をコンテナ内で実施すると以下エラーが発生した コンテナ内でのみ発生して、ホストで実行すると発生しなかった
+WARN [runner] Can&amp;#39;t process results by diff processor: can&amp;#39;t prepare diff by revgrep: no version control repository found cmd/main.go:1: : error obtaining VCS status: exit status 128 Use -buildvcs=false to disable VCS stamping. (typecheck) 原因 golangci-lint は git の情報を取得しようとするが、コンテナ内の 作業ディレクトリが git の安全なディレクトリとして登録されていないために発生する
+解決方法 以下 .gitconfig を作成して、compose.yaml で /root/.gitconfig:ro でマウントした
+[safe] directory = /work # コンテナ内の作業ディレクトリを指定 directory = /work/api # コンテナ内の作業ディレクトリを指定 </description>
+    </item>
+    
+    <item>
+      <title> GCP ErrorReporting でのエラー通知動作</title>
+      <link>https://tro3373.github.io/posts/2025/2025-09-01-gcp-errorreporting-error-notification-behavior/</link>
+      <pubDate>Mon, 01 Sep 2025 10:39:07 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-09-01-gcp-errorreporting-error-notification-behavior/</guid>
+      <description>疑問 GCP ErrorReporting でのエラー通知の挙動についてわかっていなかったので、メモ まとめ ErrorReporting に出力され、通知設定先（Email/Slack）に内容が飛ぶ 同じエラーはグループ化され、既存のエラーグループに属する場合は通知されない 原則として「新しいタイプのエラー」や「一度解決済みとマークされたエラーが再発したとき」にのみ通知 解決済みとすれば再度通知される エラーが原因で発生する通知は、1時間に最大5回まで送信可能 </description>
+    </item>
+    
+    <item>
+      <title>GOで 構造体に定義したメソッドと埋め込みされたメソッドが同じシグニチャで無限ループに遭遇した</title>
+      <link>https://tro3373.github.io/posts/2025/2025-08-27-go-struct-embedded-method-same-signature-infinite-loop/</link>
+      <pubDate>Wed, 27 Aug 2025 10:41:13 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-08-27-go-struct-embedded-method-same-signature-infinite-loop/</guid>
+      <description>GOで 構造体に定義したメソッドと埋め込みされたメソッドが同じシグニチャで無限ループに遭遇した 以下実装で発生していた type SampleService struct { repository.SampleRepositoryHandler } func (s *SampleService) TargetFunction(ctx context.Context, sampleID, exampleID string) error { err := s.TargetFunction(ctx, sampleID, exampleID) if err != nil { // ... } } それまで異なる名前だったので、メソッド名変更を実施したタイミングで発生した為、気づかなかった ポイント 構造体埋め込み（匿名フィールド）は、委譲（delegation）として機能する 埋め込んだ型のメソッドを、親構造体のメソッドとして呼び出せる s.TargetFunction は SampleService のメソッドと、埋め込んだ SampleRepositoryHandler のメソッド両方を持つ 名前が重複している場合は、親構造体のメソッドが優先される 解決策 埋め込みで呼べたとしても、明示的に記載すべき </description>
+    </item>
+    
+    <item>
+      <title>Cloud Function から IAM認証で CloudSQL(PostgreSQL) へ接続する</title>
+      <link>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</link>
+      <pubDate>Wed, 29 Jan 2025 15:43:25 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</guid>
+      <description>はじめに クラウド環境でのデータベース管理において、セキュリティは日々進化する脅威への対応が求められる重要課題です。特に、以下の課題が顕在化しています：
+従来の認証情報（パスワード）の漏洩リスク 認証情報のローテーション管理の煩雑さ アプリケーション展開時の認証情報受け渡しの安全性確保 これらの課題に対し、IAM認証を活用することで、より強固でかつ運用負荷の少ないセキュリティ体制を実現できます。IAM認証のメリットは以下の通りです：
+一時的な認証トークンの利用による漏洩リスクの低減 クラウドプロバイダーの統合認証基盤との連携による管理の一元化 きめ細かなアクセス制御とアクセスログの監査対応 本ガイドでは、Cloud FunctionsからCloudSQL(PostgreSQL)へIAM認証で接続する実践的な手順を解説します。この設定により、セキュアかつスケーラブルなデータベースアクセス環境を構築できます。
+Cloud Function から CloudSQL(PostgreSQL) へ IAM 認証で接続するために必要な手順 Cloud Function 用 Service Account に必要な権限を付与 PGUSER の作成（IAM認証用） データベースへの権限付与 Cloud Function の実装 Service Account での Cloud Function のデプロイ 具体的な設定手順 1. Cloud Function 用 Service Account に必要な権限を付与 以下の権限が必要:
+Cloud SQL インスタンス ユーザー Cloud SQL クライアント 今回はコンソールから設定したが、以下のコマンドで設定も可能:
+gcloud projects add-iam-policy-binding example-project \ --member=&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34; \ --role=&amp;#34;roles/cloudsql.instanceUser&amp;#34; gcloud projects add-iam-policy-binding example-project \ --member=&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34; \ --role=&amp;#34;roles/cloudsql.client&amp;#34; 2. PGUSER の作成 IAM認証用のユーザーを作成する。</description>
+    </item>
+    
+    <item>
+      <title>BigQueryテーブルへのパーティション追加</title>
+      <link>https://tro3373.github.io/posts/2025/2025-01-16-add-partitions-to-bigquery-table/</link>
+      <pubDate>Thu, 16 Jan 2025 11:19:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-01-16-add-partitions-to-bigquery-table/</guid>
+      <description>BigQueryテーブルへのパーティション追加 概要 既存の非パーティションテーブルを直接パーティションテーブルに変更することはできない 新しいパーティションテーブルを作成し、データをコピーする方法で実現可能 手順 新しいパーティションテーブルの作成とデータのコピー CREATE TABLE `project_id.dataset_id.new_partitioned_table` PARTITION BY DATE(timestamp_column) AS SELECT * FROM `project_id.dataset_id.original_table`; 元のテーブルの削除と新テーブルの名前変更 DROP TABLE `project_id.dataset_id.original_table`; ALTER TABLE `project_id.dataset_id.new_partitioned_table` RENAME TO `project_id.dataset_id.original_table`; 注意点 大量データの場合、時間とリソースを要する パーティションキーの列は適切なデータ型である必要がある テーブル設計に影響を与えるため、慎重な計画が必要 メリット クエリパフォーマンスの向上 コスト削減の可能性 その他 時系列パーティショニング以外に、整数範囲パーティショニングも利用可能 整数範囲パーティショニングを使用する場合は、CREATE TABLE文を適宜調整する </description>
+    </item>
+    
+    <item>
+      <title> CloudFlare Stream の Webhook 検証時に使うSecretは、WebHookの作成時にレスポンスに含まれている</title>
+      <link>https://tro3373.github.io/posts/2024/2024-12-20-regist-cloudflare-stream-webhook/</link>
+      <pubDate>Fri, 20 Dec 2024 19:17:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-12-20-regist-cloudflare-stream-webhook/</guid>
+      <description>CloudFlare Stream の Webhook 検証時に使うSecretは、WebHookの作成時にレスポンスに含まれている Configure webhooks · Cloudflare Notifications docs 以下が登録時のレスポンス例 { &amp;#34;result&amp;#34;: { &amp;#34;notification_url&amp;#34;: &amp;#34;https://cf-webhook-go-xxxxxxxxxxxx.us-central1.run.app/webhook&amp;#34;, &amp;#34;notificationUrl&amp;#34;: &amp;#34;https://cf-webhook-go-xxxxxxxxxxxx.us-central1.run.app/webhook&amp;#34;, &amp;#34;modified&amp;#34;: &amp;#34;2024-01-01T09:00:00.000000Z&amp;#34;, &amp;#34;secret&amp;#34;: &amp;#34;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&amp;#34; }, &amp;#34;success&amp;#34;: true, &amp;#34;errors&amp;#34;: [], &amp;#34;messages&amp;#34;: [] } </description>
+    </item>
+    
+    <item>
+      <title>Terraform backend を GCS backet に設定する script 書いた</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-20-make-script-that-make-gcp-bucket-for-terraform-tf-state/</link>
+      <pubDate>Wed, 20 Nov 2024 19:12:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-20-make-script-that-make-gcp-bucket-for-terraform-tf-state/</guid>
+      <description>terrarorm init で バケットがなければ作成する バケット名は ${project_id}-${app}-tfstate とする project_id, app は Makefile で指定 terraform コマンドをラップした Makefile app := sample project_id := project-a export init_tfstate_gs: @init_gs_tfstate_if_needed init: init_tfstate_gs @echo &amp;#34;==&amp;gt; Initializing terraform...&amp;#34; @make _tf cmd=init init_if_needed: @if [[ ! -e envs/$(stage)/.terraform ]]; then \ make init; \ fi login: @make _tf cmd=login init_upgrade: @make _tf cmd=init opt=&amp;#34;-upgrade=true&amp;#34; init_migrate_state: @make _tf cmd=init opt=&amp;#34;-migrate-state&amp;#34; plan: init_if_needed @make _tf cmd=plan apply: init_if_needed @make _tf cmd=apply apply-auto-approve: @make _tf cmd=apply opt=-auto-approve apply-refresh: @make _tf cmd=apply opt=-refresh-only destroy: @make _tf cmd=destroy refresh: @make _tf cmd=refresh show: @make _tf cmd=show output: @make _tf cmd=output opt=-json console: @make _tf cmd=console validate: @make _tf cmd=validate _check_env: @test -e envs/$(stage) || (echo &amp;#39;No such stage:envs/$(stage) exist.</description>
+    </item>
+    
+    <item>
+      <title>Terraform で google_api_gateway_api_config に api_config_id を設定すると再作成時に罠がある</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-15-should-not-set-api-config-id-in-google-api-gateway-api-config/</link>
+      <pubDate>Fri, 15 Nov 2024 19:05:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-15-should-not-set-api-config-id-in-google-api-gateway-api-config/</guid>
+      <description>まとめ Terraform で google_api_gateway_api_config に api_config_id は設定しない 以下詳細 以下のように api_config_id を設定すると、再作成時にエラーが発生する resource &amp;#34;google_api_gateway_api_config&amp;#34; &amp;#34;default&amp;#34; { project = var.project_id provider = google-beta api = google_api_gateway_api.default.api_id api_config_id = &amp;#34;${var.env}-${var.service}-api-config&amp;#34; openapi_documents { document { path = &amp;#34;openapi.yaml&amp;#34; contents = base64encode(templatefile(&amp;#34;${path.module}/openapi.yaml&amp;#34;, { title = &amp;#34;${var.env} ${var.service} API&amp;#34; description = &amp;#34;This is the API for ${var.env} ${var.service}&amp;#34; version = &amp;#34;1.0.0&amp;#34; managed_service = google_api_gateway_api.default.managed_service func_url = google_cloud_run_service.default.status[0].url })) } } lifecycle { create_before_destroy = true } } │ Error: Error creating ApiConfig: googleapi: Error 409: Resource &amp;#39;projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_name}&amp;#39; already exists │ Details: │ [ │ { │ &amp;#34;@type&amp;#34;: &amp;#34;type.</description>
+    </item>
+    
+    <item>
+      <title>GCP ApiGateway &#43; CloudRun で CORS を設定する</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-15-enable-cors-in-apigateway-on-gcp-with-cloud-run/</link>
+      <pubDate>Fri, 15 Nov 2024 17:30:01 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-15-enable-cors-in-apigateway-on-gcp-with-cloud-run/</guid>
+      <description>構成 GCP ApiGateway -&amp;gt; CloudRun ApiGateway で OpenAPI yaml を定義している 1. OpenAPI yaml で x-google-endpoints に allowCors: True を設定して、バックエンドでCORSリクエストを処理する x-google-endpoints: - name: ${managed_service} allowCors: True # バックエンドでCORSリクエストを処理する 2. CloudRun で OPTIONS メソッドを設定する // 以下のように cors ミドルウェアを挟む http.HandleFunc(&amp;#34;/example&amp;#34;, cors(user.Handler)) // 定義はこんな感じ func cors(next http.HandlerFunc) http.HandlerFunc { return func(w http.ResponseWriter, r *http.Request) { if r.Method == &amp;#34;OPTIONS&amp;#34; { slog.Info(&amp;#34;==&amp;gt; Reply OPTIONS Request&amp;#34;, &amp;#34;status&amp;#34;, http.StatusNoContent) w.Header().Set(&amp;#34;Access-Control-Allow-Origin&amp;#34;, &amp;#34;*&amp;#34;) w.Header().Set(&amp;#34;Access-Control-Allow-Methods&amp;#34;, &amp;#34;GET, POST, PUT, PATCH, DELETE, OPTIONS&amp;#34;) w.</description>
+    </item>
+    
+    <item>
+      <title>tflint Tips</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-08-tflint-tips/</link>
+      <pubDate>Fri, 08 Nov 2024 07:04:57 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-08-tflint-tips/</guid>
+      <description>はじめに tflint 利用時のメモ
+想定するディレクトリ構成 環境は dev, prd など 環境毎にディレクトリを切る 各環境の main.tf から使用したい module を使う module は 機能単位でディレクトリを切る cognitoとかで切ってるけど、サービスの有効無効など、もう少し大きな単位で切っても良いイメージ ├── envs │ ├── dev │ │ ├── main.tf │ │ ├── outputs.tf │ │ ├── swagger.yaml │ │ ├── terraform.tfvars │ │ └── variables.tf │ └── prd │ ├── main.tf │ └── ... └── module_aws ├── cognito │ ├── main.tf │ ├── outputs.tf │ └── variables.tf └── s3 ├── main.tf ├── outputs.</description>
+    </item>
+    
+    <item>
+      <title>FullCalendar &#43; shadcn Dialog で再レンダリングされるのを防ぐ</title>
+      <link>https://tro3373.github.io/posts/2024/2024-09-03-prevent-re-rendering-full-calendar-with-shadcn-dialog-in-next/</link>
+      <pubDate>Tue, 03 Sep 2024 20:25:45 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-09-03-prevent-re-rendering-full-calendar-with-shadcn-dialog-in-next/</guid>
+      <description>問題 FullCalendar と 同じページに shadcn Dialog を組み込み、 shadcn (Radix UI) Dialog の open ステートを useState で管理していると、 ダイアログの open/close 時に FullCalendar が再レンダリングされてしまう。
+GoogleCalendarのイベントや、独自イベントがある場合、再レンダリングされると、 イベントが消えてしまう。 解決方法 ref, forwardRefs, useImperativeHandle を使って、再レンダリングを防ぐ。 以下詳細 まずは Dialog側 import { Ref, useMemo, useCallback, useState, forwardRef, useImperativeHandle, } from &amp;#39;react&amp;#39;; import { Button } from &amp;#39;@/components/ui/button&amp;#39;; import { Dialog, DialogContent, } from &amp;#39;@/components/ui/dialog&amp;#39;; type SampleProps = { }; export interface SampleDialogRefInterface { open: () =&amp;gt; void; close: () =&amp;gt; void; } const SampleDialogButtonInner = (_: SampleProps, ref: Ref&amp;lt;SampleDialogRefInterface&amp;gt;) =&amp;gt; { const [isOpen, setIsOpen] = useState(false); useImperativeHandle(ref, () =&amp;gt; ({ open: () =&amp;gt; setIsOpen(true), close: () =&amp;gt; setIsOpen(false), })); return ( &amp;lt;Dialog open={isOpen} onOpenChange={setIsOpen}&amp;gt; {/* 外部からOpenしたいので、DialogTriggerは使わない */} {/* &amp;lt;DialogTrigger asChild&amp;gt; &amp;lt;Button&amp;gt;ボタン&amp;lt;/Button&amp;gt; &amp;lt;/DialogTrigger&amp;gt; */} &amp;lt;DialogContent className=&amp;#39;h-[90%] overflow-hidden&amp;#39;&amp;gt; {/* 省略 */} &amp;lt;/DialogContent&amp;gt; &amp;lt;/Dialog&amp;gt; ); // } }; const SampleDialogButton = forwardRef(SampleDialogButtonInner); export default SampleDialogButton; SampleProps 親側から渡す props SampleDialogRefInterface ダイアログとして公開したいメソッドを定義する _: SampleProps props は使わないので、_ で受け取る。propsがないとエラー ref: Ref&amp;lt;SampleDialogRefInterface&amp;gt; ref を受け取る const [isOpen, setIsOpen] = useState(false); ダイアログの open/close ステートを useState で管理 &amp;lt;Dialog open={isOpen} onOpenChange={setIsOpen}&amp;gt; isOpen, setIsOpen を Dialog の open, onOpenChange で紐付け useImperativeHandle ref として公開して、外部から呼ばれた場合の動作を定義 Dialogの開閉を外部から制御できるようにする const SampleDialogButton = forwardRef(SampleDialogButtonInner) forwardRef で ref を受け取るコンポーネントを作成 FullCalendar 側(親側) import { EventClickArg } from &amp;#39;@fullcalendar/core&amp;#39;; import FullCalendar from &amp;#39;@fullcalendar/react&amp;#39;; import { useRef, useCallback } from &amp;#39;react&amp;#39;; import SampleDialogButton, { SampleDialogRefInterface, } from &amp;#39;@/app/_components/SampleDialogButton&amp;#39;; export default function Calendar() { const sampleDialogRef = useRef&amp;lt;SampleDialogRefInterface&amp;gt;(null); const onDateClick = useCallback( (arg: DateClickArg) =&amp;gt; { const target = arg.</description>
+    </item>
+    
+    <item>
+      <title>TypeScriptで型宣言を優先する理由</title>
+      <link>https://tro3373.github.io/posts/2024/2024-07-26-why-prefer-type-declarations-over-type-assertions-in-typescript/</link>
+      <pubDate>Fri, 26 Jul 2024 06:57:37 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-07-26-why-prefer-type-declarations-over-type-assertions-in-typescript/</guid>
+      <description>はじめに TypeScriptで型の管理方法にはいくつかの選択肢があり、型アサーション、型宣言、型推論などがある。
+疑問 なぜ型アサーションよりも型宣言を優先すべきなのか。 型アサーションは便利に見えるが、実際にどのような問題を引き起こす可能性があるのか。 まとめ 型アサーションよりも型宣言を優先すべき型宣言よりも型推論できる状態にすべき 型宣言を使用することで、型安全性が向上し、コードの可読性が高まる。 IDEのサポートが強化され、リファクタリングが容易になる。 TypeScriptの型推論機能を活用することで、冗長なコードを減らせる。 以下詳細 型安全性の向上
+型宣言は変数やパラメータの型を明示的に定義するため、コンパイル時に型チェックが行われる。 型アサーションはコンパイラに対して「この型で間違いない」と主張するため、潜在的なエラーを見逃す可能性がある。 コードの可読性
+型宣言はコードの意図をより明確に示す。他の開発者がコードを読む際に、変数や関数の期待される型が一目で分かる。 IDEのサポート
+型宣言を使用すると、IDEの自動補完やリファクタリング機能がより効果的に機能する。 リファクタリングの容易さ
+型宣言を使用していると、後でコードを変更する際に型の不整合を早期に発見できる。 型アサーションを多用していると、これらの問題が見逃される可能性が高くなる。 型推論の活用
+TypeScriptの型推論は非常に強力。 型宣言を適切に使用することで、型推論をより効果的に活用でき、冗長なコードを減らせる。 簡単な例:
+// 型アサーション（避けるべき） const value = getSomeValue() as string; // 型宣言（推奨） const value: string = getSomeValue(); // さらに良い方法（型推論を活用） const value = getSomeValue(); // valueの型は自動的に推論される 型宣言を使用することで、コードの品質と保守性が向上し、長期的にはより堅牢なアプリケーションの開発につながる。
+ただし、どうしても型アサーションが必要な場合もあるので、完全に避けることはできない。適切な判断で使い分けることが重要。
+Refs TypeScriptの型入門 #TypeScript - Qiita 【TypeScript】できるだけ as を避ける理由 </description>
+    </item>
+    
+    <item>
+      <title>alembic で modelクラスを全てまるっとインポートする</title>
+      <link>https://tro3373.github.io/posts/2024/2024-07-04-import-all-models-from-directory-for-alembic/</link>
+      <pubDate>Thu, 04 Jul 2024 13:36:09 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-07-04-import-all-models-from-directory-for-alembic/</guid>
+      <description>はじめに alembic 自動生成する際に、指定ディレクトリ配下のクラスを全てまるっとインポートする方法 問題 疑問 自動生成したい対象のModelクラスをインポートしないと生成してくれない まとめ 結果 解決方法 以下を env.py 先頭に追記して、 app/models 配下の全てのクラスをインポートする
+# Import all models in app.models model_path = os.path.dirname(os.path.join(os.path.dirname(os.path.abspath(__file__)), &amp;#39;../app/models/&amp;#39;)) for py in [f[:-3] for f in os.listdir(model_path) if f.endswith(&amp;#39;.py&amp;#39;) and (f != &amp;#39;__init__.py&amp;#39; and f != &amp;#39;base_model.py&amp;#39;)]: mod = __import__(&amp;#39;.&amp;#39;.join([&amp;#39;app.modesl&amp;#39;, py])) classes = [getattr(mod, x) for x in dir(mod) if isinstance(getattr(mod, x), type)] for cls in classes: setattr(sys.modules[__name__], cls.__name__, cls) Refs python - Import all classes in directory?</description>
+    </item>
+    
+    <item>
+      <title>Alembic revision --autogenerate で変更がなくても空のrevisionファイルができるのを避ける</title>
+      <link>https://tro3373.github.io/posts/2024/2024-07-04-prevent-empty-revision-in-alembic-revision-autogenerate/</link>
+      <pubDate>Thu, 04 Jul 2024 11:41:33 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-07-04-prevent-empty-revision-in-alembic-revision-autogenerate/</guid>
+      <description>はじめに Alembic revision &amp;ndash;autogenerate で変更がなくても空のrevisionファイルができるのを避ける python 3.11, alembic 1.7.7, sqlalchemy 2.0.30, sqlmodel 0.0.18 問題 疑問 変更がなくても空のrevisionファイルが生成されてしまう
+まとめ 結果 解決方法 以下のような process_revision_directives を設定することで、差分がない場合は空のrevisionファイルを生成しない def run_migrations_online(): : def process_revision_directives(context, revision, directives): if config.cmd_opts.autogenerate: script = directives[0] if script.upgrade_ops.is_empty(): directives[:] = [] print(&amp;#39;No changes in schema detected.&amp;#39;) : with connectable.connect() as connection: context.configure( connection=connection, target_metadata=target_metadata, include_schemas=True, dialect_opts={&amp;#34;paramstyle&amp;#34;: &amp;#34;named&amp;#34;}, include_name=include_name, process_revision_directives=process_revision_directives, ) Refs python - How to prevent alembic revision &amp;ndash;autogenerate from making revision file if it has not detected any changes?</description>
+    </item>
+    
+    <item>
+      <title>Alembic revision --autogenerate で差分のマイグレーションファイルができない</title>
+      <link>https://tro3373.github.io/posts/2024/2024-07-04-alembic-revision-autogenerate-always-generate-new-table/</link>
+      <pubDate>Thu, 04 Jul 2024 11:33:14 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-07-04-alembic-revision-autogenerate-always-generate-new-table/</guid>
+      <description>はじめに Alembic revision &amp;ndash;autogenerate で差分のマイグレーションファイルができない python 3.11, alembic 1.7.7, sqlalchemy 2.0.30, sqlmodel 0.0.18 問題 毎回テーブル作成のマイグレーションファイルが生成されてしまう
+解決方法 以下のような include_name を設定することで、デフォルトスキーマに限定する
+connection は schema 指定でアクセスしている為、type_=schema で name=None で検出される # exclude system table def include_name(name, type_, parent_names): if type_ == &amp;#34;schema&amp;#34;: return name in [None] else: return True def run_migrations_online(): : with connectable.connect() as connection: context.configure( connection=connection, target_metadata=target_metadata, dialect_opts={&amp;#34;paramstyle&amp;#34;: &amp;#34;named&amp;#34;}, include_schemas=True, include_name=include_name, ) Refs python - Alembic revision &amp;ndash;autogenerate always detects a new table, instead of detecting new columns - Stack Overflow </description>
+    </item>
+    
+    <item>
+      <title>atmoz/sftp コンテナにログインするとハングする問題を解決する</title>
+      <link>https://tro3373.github.io/posts/2024/2024-06-24-sftp-hung-12-minutes/</link>
+      <pubDate>Mon, 24 Jun 2024 19:34:12 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-06-24-sftp-hung-12-minutes/</guid>
+      <description>問題 atmoz/sftp イメージを使用して、SFTPサーバを立ち上げた際に、
+ログインすると長い間ハングして、放置していたらログインできていた、という事象が発生した 開発者間で、同じ問題が発生していた 考察 色々ググった結果、下記記事にたどり着いた
+linux - Excessive SFTP CPU usage with chroot enabled when using the official Docker repository - Unix &amp;amp; Linux Stack Exchange Debugging a 12 minute hang after SFTP login どうも コンテナで使用する system の リソース制限の問題のようだったので、
+ulimits を設定することで解決した
+解決方法 ulimits を設定する
+ulimits: nproc: 65535 nofile: soft: 26677 hard: 46677 docker compose の sftp コンテナの全体はこんな感じ
+sftp: platform: linux/x86_64 container_name: $app-sftp image: atmoz/sftp init: true ulimits: nproc: 65535 nofile: soft: 26677 hard: 46677 volumes: - .</description>
+    </item>
+    
+    <item>
+      <title>VSCode Remote Container で Hung する問題を解決する</title>
+      <link>https://tro3373.github.io/posts/2024/2024-05-23-use-dev-container-in-orbstack-on-m1-mac/</link>
+      <pubDate>Thu, 23 May 2024 18:12:47 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-05-23-use-dev-container-in-orbstack-on-m1-mac/</guid>
+      <description>はじめに VSCode の リモートコンテナ や dev container を使って開発したいときに、遭遇したエラーの対処法を少し
+問題 疑問 リモートSSH機能で VSCode 開くと、terminal でHungする リモートコンテナにアタッチしたり、dev container を開くと、リモートを開いています から進まない どちらも、M1 Mac上で OrbStack 上で立ち上げた ArchLinux に接続しているときに発生した
+まとめ 結果 解決方法 VSCode から開く Terminal では Tmux は起動しない
+以下設定で、VSCode から起動されているかどうかを判定し、Tmux を起動するかどうかを切り替える
+is_vscode() { [[ -n $VSCODE_INJECTION ]]; } 拡張機能のシグニチャ検証を無効化、もしくは、ローカルから拡張機能をインストールする設定を有効にする
+dev container の場合は、拡張機能のシグニチャ検証を無効化
+{ // Configure tool-specific properties. &amp;#34;customizations&amp;#34;: { &amp;#34;vscode&amp;#34;: { &amp;#34;settings&amp;#34;: { // Workaround for x86_64 containers on aarch64(like M1 Mac) hosts // see: https://zenn.</description>
+    </item>
+    
+    <item>
+      <title>cordova build 時に GoogleService-Info.plist, google-services.json を自動切替する</title>
+      <link>https://tro3373.github.io/posts/2024/2024-04-25-switch_environment_files_in_build_process_for_cordova/</link>
+      <pubDate>Thu, 25 Apr 2024 11:11:47 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-04-25-switch_environment_files_in_build_process_for_cordova/</guid>
+      <description>はじめに cordova プロジェクト(monaca)でFCMを使う際、開発環境と本番環境で GoogleService-Info.plist, google-services.json を自動で切り替えたい 正確には google-services.json は複数環境入れるが、今回は必要であった
+問題 以下ファイルを用意した、ビルド時に自動で切り替えたい 正確には _dev, _prd の無いファイルを作成したい
+google-services_dev.json google-services_prd.json GoogleService-Info_dev.plist GoogleService-Info_prd.plist 解決方法 cordova hook でビルド時に自動で切り替える
+以下スクリプトを作成したので記載. scripts/before_build に配置する
+#!/usr/bin/env -S bash -e script_dir=$(cd &amp;#34;$(dirname &amp;#34;${BASH_SOURCE:-$0}&amp;#34;)&amp;#34; &amp;amp;&amp;amp; pwd) &amp;amp;&amp;amp; readonly script_dir project_root=$(cd &amp;#34;${script_dir}/..&amp;#34; &amp;amp;&amp;amp; pwd) &amp;amp;&amp;amp; readonly project_root config_file=&amp;#34;${project_root}/config.xml&amp;#34; &amp;amp;&amp;amp; readonly config_file get_stage() { grep &amp;#39;name=&amp;#34;STAGE&amp;#34;&amp;#39; &amp;#34;$config_file&amp;#34; | sed -E &amp;#39;s/.*value=&amp;#34;([^&amp;#34;]*)&amp;#34;.*/\1/&amp;#39; } update_firebase_config() { local append=_prd if [[ $stage == &amp;#34;dev&amp;#34; ]]; then append=_dev fi echo &amp;#34;===&amp;gt; Updating firebase config files&amp;#34; 1&amp;gt;&amp;amp;2 cp -fv &amp;#34;$project_root&amp;#34;/GoogleService-Info${append}.</description>
+    </item>
+    
+    <item>
+      <title>apk の AndroidManifest.xml を確認するコマンド作った</title>
+      <link>https://tro3373.github.io/posts/2024/2024-04-25-read_android_manifest_from_apk/</link>
+      <pubDate>Thu, 25 Apr 2024 10:46:11 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-04-25-read_android_manifest_from_apk/</guid>
+      <description>はじめに apk内の AndroidManifest.xml を確認するコマンドを作ったのでメモ
+要は AXMLPrinter2.jar があれば、java で AndroidManifest.xml を読める
+java -jar AXMLPrinter2.jar AndroidManifest.xml 以下を cat_android_manifest_from_apk などで保存して、chmod +x して使う
+#!/usr/bin/env -S bash -e script_dir=$(cd &amp;#34;$(dirname &amp;#34;${BASH_SOURCE:-$0}&amp;#34;)&amp;#34; &amp;amp;&amp;amp; pwd) &amp;amp;&amp;amp; readonly script_dir current_dir=$(pwd) &amp;amp;&amp;amp; readonly current_dir url=&amp;#34;https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/android4me/AXMLPrinter2.jar&amp;#34; jar=&amp;#34;$script_dir/AXMLPrinter2.jar&amp;#34; has() { command -v &amp;#34;${1}&amp;#34; &amp;gt;&amp;amp;/dev/null; } dl_if_needed() { [[ -e $jar ]] &amp;amp;&amp;amp; return curl -fSsL -o &amp;#34;$jar&amp;#34; &amp;#34;$url&amp;#34; } main() { if ! has java; then echo &amp;#34;==&amp;gt; No java found&amp;#34; &amp;gt;&amp;amp;2 exit 1 fi if [[ $# -eq 0 ]]; then echo &amp;#34;==&amp;gt; Specify apk&amp;#34; &amp;gt;&amp;amp;2 exit 1 fi local apk_name apk_name=$(basename &amp;#34;$1&amp;#34;) local tmpd=&amp;#34;$current_dir/tmp_$apk_name&amp;#34; if [[ !</description>
+    </item>
+    
+    <item>
+      <title>cordova-plugin-firebasex Tips</title>
+      <link>https://tro3373.github.io/posts/2024/2024-04-23-cordova-plugin-firebasex/</link>
+      <pubDate>Tue, 23 Apr 2024 14:23:05 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-04-23-cordova-plugin-firebasex/</guid>
+      <description>はじめに 以下Firebasex Pluginの使い方Tips
+dpa99c/cordova-plugin-firebasex: Cordova plugin for Google Firebase 確認環境 monaca Cordova 12.0.0 android cordova-android 12.0.1 openjdk 11.0.20 2023-07-18 Gradle 7.6 ios cordova-ios 7.0.1 Pod 1.14.3 Xcode 15.0.1 dpa99c/cordova-plugin-firebasex.git 16.1.0-cli device android: Android 14 Pixel 5, Pixel 8 Pro ios iOS 15.4 iPhone 15 Pro まとめ getToken, onTokenRefresh は iOS/Android共通
+FCMでAPNs設定をして、iOSもFCM経由で送信する場合はこちら getAPNSToken, onApnsTokenReceived は iOSのみ
+APNsのみで送信する場合はこちら Android 13+ の場合は以下を config.xml に追加して、AndroidManifestに権限を追加する必要あり(とあったが、以下なしでも追加される模様)
+&amp;lt;platform name=&amp;#34;android&amp;#34;&amp;gt; &amp;lt;config-file target=&amp;#34;AndroidManifest.xml&amp;#34; parent=&amp;#34;/*&amp;#34;&amp;gt; &amp;lt;uses-permission android:name=&amp;#34;android.permission.POST_NOTIFICATIONS&amp;#34;/&amp;gt; &amp;lt;/config-file&amp;gt; &amp;lt;/platform&amp;gt; Android でインストール直後にアカウント設定などのデータを復元したくない場合は以下を追加 デバッグ中など毎回復元されると面倒</description>
+    </item>
+    
+    <item>
+      <title>terraform &#43; GitHub Actions &#43; ECR &#43; Lambda &#43; ApiGateway &#43; OpenAPI 調査したのでメモ</title>
+      <link>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</link>
+      <pubDate>Thu, 15 Feb 2024 09:08:52 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</guid>
+      <description>はじめに 色々調べたのでメモ..
+以下詳細 Terraform で Lambdaも管理できないか？ 最近やってるLambdaとAPI Gatewayの開発方法の話 tf, ecr, python, openapi TerraformでAPI Gateway + Lambdaの構成テンプレート #lambda - Qiita tf, NOT ecr, node, openapi TerraformでAmazon API Gatewayを構築する(基本編) #AWS - Qiita tf, NOT ecr, openapi LambdaをカスタムDockerランタイムで開発する方法 | フューチャー技術ブログ コンテナイメージを更新した際に気をつけるポイントですが、latestタグのコンテナイメージを更新しても、 すぐにLambda関数の挙動には反映されません。一晩寝かしても古いイメージが参照されていました。 全く同じimage-uriのまま更新コマンドを実行することで即時反映できます。
+TerraformでLambdaコンテナイメージを自動構築する #Docker - Qiita swagger ecr lambda apigateway codebuild aws_lambda_alias lambda version に対するエイリアス これに対するIgnore設定の記載など 【AWS Lambda】複数のLambda関数を１つのコンテナイメージにまとめる #AWS - Qiita entrypoint指定できる aws_lambda_function | Resources | hashicorp/aws | Terraform | Terraform Registry ここでいうhandler?</description>
+    </item>
+    
+    <item>
+      <title>MySQL で 実行計画を取る</title>
+      <link>https://tro3373.github.io/posts/2024/2024-02-14-mysql-explain-json/</link>
+      <pubDate>Wed, 14 Feb 2024 13:34:22 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-02-14-mysql-explain-json/</guid>
+      <description>はじめに MySQLで実行計画を取りたい場合の書き方は EXPLAIN をつければいいが、 SQLのコスト表示がされないので、これを付けたい。 その場合の指定方法
+まとめ 結果 解決方法 先頭に以下をつけて、JSONフォーマットを指定する。 query_cost 付きでJSONの結果が表示できる
+EXPLAIN FORMAT=JSON select * from sample where id = 1; </description>
+    </item>
+    
+    <item>
+      <title>lua</title>
+      <link>https://tro3373.github.io/posts/2024/2024-01-03-lua/</link>
+      <pubDate>Wed, 03 Jan 2024 15:46:49 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-01-03-lua/</guid>
+      <description>Lua色々 Luaにクラスがない テーブルの添字に数字または文字列を指定可能 テーブルの値の型はなんでもよい 配列は0オリジンでない(1オリジン) Lua における . と : の違い 関数呼び出し時に自分を含むか含まないか
+local addTable = { na = 1, nb = 2, add = function(this) return this.na + this.nb end diff_na = function(this, n) return this.na - n end } addTabel.add(addTable) addTabel.diff_na(addTable, 1) addTabel:add() addTabel:diff_na(1) Refs 姉好き変態プログラマーの備忘録 Lua .(ドット)による関数呼び出しと:(コロン)による関数呼び出し </description>
+    </item>
+    
+    <item>
+      <title>YAMLでの複数行文字列指定と改行方法</title>
+      <link>https://tro3373.github.io/posts/2023/2023-12-12-how-do-i-break-a-string-in-yaml-over-muliple-lines/</link>
+      <pubDate>Tue, 12 Dec 2023 06:23:17 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-12-12-how-do-i-break-a-string-in-yaml-over-muliple-lines/</guid>
+      <description> YAMLでは複数行文字列を指定する際、特定の記法を用いる | を使用すると、改行がそのまま反映される &amp;gt; を使用すると、改行がスペースに変換される | との違いは行末の扱い方 |- のように最後に - をつけると最後の改行がなくなる |+ のように最後に + をつけると改行がそのまま反映される &amp;quot;, &#39; または、なにもつけない場合で、改行したくない場合は \ でエスケープする Refs syntax - How do I break a string in YAML over multiple lines? - Stack Overflow </description>
+    </item>
+    
+    <item>
+      <title>Tagged Template Literals について怪しかったので調べた</title>
+      <link>https://tro3373.github.io/posts/2023/2023-12-06-about-tagged-template-literals/</link>
+      <pubDate>Wed, 06 Dec 2023 05:59:56 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-12-06-about-tagged-template-literals/</guid>
+      <description>はじめに 最近よく見るようになった
+export const StyleWrapper = styled.div` --fc-button-bg-color: #3b82f6; ` のような記法について、よく理解できてなかったので調べた
+疑問 ヒアドキュメントみたいな記法がわかってない まとめ 関数呼び出し 第一引数: 文字列配列 第二引数以降: ${...} で評価された結果が渡る 以下が全て const person = &amp;#34;Mike&amp;#34;; const age = 28; function myTag(strings, personExp, ageExp) { const str0 = strings[0]; // &amp;#34;That &amp;#34; const str1 = strings[1]; // &amp;#34; is a &amp;#34; const str2 = strings[2]; // &amp;#34;.&amp;#34; const ageStr = ageExp &amp;lt; 100 ? &amp;#34;youngster&amp;#34; : &amp;#34;centenarian&amp;#34;; // We can even return a string built using a template literal return `${str0}${personExp}${str1}${ageStr}${str2}`; } const output = myTag`That ${person} is a ${age}.</description>
+    </item>
+    
+    <item>
+      <title>Node.js 21の新機能</title>
+      <link>https://tro3373.github.io/posts/2023/2023-12-03-whats-new-in-nodejs-21-summary-and-updates/</link>
+      <pubDate>Sun, 03 Dec 2023 07:17:09 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-12-03-whats-new-in-nodejs-21-summary-and-updates/</guid>
+      <description>Node.js 21の新機能要約 Node.js v21が安定版としてリリース fetchとWebStreams APIが安定化 組み込みWebSocketクライアントの追加 ESモジュールのサポート強化 パフォーマンスの向上と依存関係の更新 Stable Fetch API Status Fetch APIが安定版に昇格 Node.js v17.5.0で導入、v18.xからv20.xではフラグ不要だが実験的扱いが続く Web Streams API Is Stable WebStreams APIが安定化 Fetch APIの実装はAbortControllerインターフェースとWeb Streams APIに依存 Node.js v15.0.0とv16.5.0で追加され、v21で安定化 A Built-in WebSocket Client Node.jsに組み込みWebSocketクライアントが追加 WHATWGによって標準化されたWebSocket globalの導入 ES Modules Improvements 新しい--experimental-default-typeフラグでESモジュールとCommonJSのデフォルト挙動を変更可能 Test Runner Improvements Node.js v20で安定化したネイティブテストランナーのさらなる強化 グロブ表現による複数のテストファイルマッチングのサポート Module Customization Improvements モジュールカスタマイズの簡素化 globalPreloadフックをregister APIとinitializeフックに置き換え llhttp v9.1.2 Strict Mode Enforcement llhttp v9.1.2で厳格モードがデフォルト設定に コードの信頼性とセキュリティ向上のための変更 Performance Improvements to Key APIs 主要APIのパフォーマンス改善 Streams APIの最適化やレスポンスのuncorking改善など V8 Upgraded to v11.</description>
+    </item>
+    
+    <item>
+      <title>OpenSSH 9.0から認証は SSH セッションを使用するが、ファイル転送にはSFTPプロトコルが使用される</title>
+      <link>https://tro3373.github.io/posts/2023/2023-10-19-use-sftp-protocol-as-default-if-scp-command-in-openssh9.0/</link>
+      <pubDate>Thu, 19 Oct 2023 19:21:59 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-10-19-use-sftp-protocol-as-default-if-scp-command-in-openssh9.0/</guid>
+      <description>ManjaroからAndroid(UserLand)へ ssh できるのに、scp しようとすると以下エラーになった。
+scp: Connection closed 調べていると、以下にたどり着いた。
+SCP and SFTP - ArchWiki Note: Since OpenSSH 9.0 the scp utility uses the SFTP protocol by default. The -O option must be used to use the legacy SCP protocol.
+注: OpenSSH 9.0 以降、scp ユーティリティはデフォルトで SFTP プロトコルを使用します。レガシー SCP プロトコルを使用するには、-O オプションを使用する必要があります。
+Warning: The scp protocol is outdated, inflexible and not readily fixed. Its authors recommend the use of more modern protocols like sftp and rsync for file transfer instead.</description>
+    </item>
+    
+    <item>
+      <title>IdentitiesOnly yes にして、 IdentityFile は個別で指定したほうがいい件</title>
+      <link>https://tro3373.github.io/posts/2023/2023-09-29-ssh-use-identities-only-option-commonly-and-specify-identityfile-each-connection-settings/</link>
+      <pubDate>Fri, 29 Sep 2023 14:10:43 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-09-29-ssh-use-identities-only-option-commonly-and-specify-identityfile-each-connection-settings/</guid>
+      <description>sshの設定はすべて ~/.ssh/config で済ませたい派で、共通化したい設定はすべて Host * でまとめておけばいい とばかり思ってたけど、問題に当たったのでメモ。
+つまり、IdentityFileの行は重複するけど、個別に設定すべし ~/.ssh/config Host * IdentitiesOnly yes Host github.com HostName github.com User git IdentityFile ~/.ssh/id_rsa Host sub.github.com HostName github.com User git IdentityFile ~/.ssh/id_rsa_sub SSHの接続先が多いがすべて同じ鍵で接続できていたので、以下の様に設定していた。
+~/.ssh/config Host * # ここに鍵設定 IdentityFile ~/.ssh/id_rsa IdentitiesOnly yes Host example HostName example.com User example そこで、GitHubのアカウトを複数扱う必要があり、鍵設定がいることになり、以下のように設定したとする
+~/.ssh/config Host * IdentityFile ~/.ssh/id_rsa IdentitiesOnly yes Host example HostName example.com User example Host github.com HostName github.com User git Host sub.github.com HostName github.com User git # このケースだけ違う鍵を使いたい IdentityFile ~/.</description>
+    </item>
+    
+    <item>
+      <title>Go モジュールの編成</title>
+      <link>https://tro3373.github.io/posts/2023/2023-09-24-organizing-a-go-module/</link>
+      <pubDate>Sun, 24 Sep 2023 10:29:16 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-09-24-organizing-a-go-module/</guid>
+      <description>先日バズってた Go のプロジェクトディレクトリの正式見解というか本家の推奨記事.
+気になってたので、読んでみた
+以下翻訳結果
+ファイルやフォルダのレイアウトに関して、Go を初めて使う開発者によくある質問は「Go プロジェクトをどのように整理すればいいのか」というものです。このドキュメントの目的は、この質問に答えるためのガイドラインを提供することです。このドキュメントを最大限に活用するために、チュートリアルを読み、モジュールソースを管理することで、Goモジュールの基本に精通していることを確認してください。
+Go プロジェクトには、パッケージ、コマンドライン・プログラム、またはその 2 つの組み合わせがあります。このガイドはプロジェクトの種類別に構成されています。
+基本パッケージ 基本的なGoパッケージは、すべてのコードがプロジェクトのルートディレクトリにあります。プロジェクトは1つのモジュールで構成され、1つのパッケージで構成されます。パッケージ名はモジュール名の最後のパスコンポーネントと一致します。単一のGoファイルを必要とする非常に単純なパッケージの場合、プロジェクトの構造は次のようになります：
+project-root-directory/ go.mod modname.go modname_test.go [この文書中、ファイル名/パッケージ名は完全に任意です]。
+このディレクトリが github.com/someuser/modname のGitHubリポジトリにアップロードされていると仮定すると、 go.mod ファイルのモジュール行には、 module github.com/someuser/modname と書かれているはずです。
+modname.go のコードでパッケージを宣言します：
+package modname // ... パッケージのコードはここ ユーザーは、Goのコードでこのパッケージをインポートすることで、このパッケージに依存することができます：
+import &amp;#34;github.com/someuser/modname&amp;#34; Goパッケージは複数のファイルに分割することができます：
+project-root-directory/ go.mod modname.go modname_test.go auth.go auth_test.go hash.go hash_test.go ディレクトリ内のファイルはすべてmodnameパッケージを宣言している。
+基本コマンド 基本的な実行可能プログラム（またはコマンドラインツール）は、その複雑さとコードサイズに応じて構成されます。最も単純なプログラムは、 func main が定義された1つのGoファイルで構成されます。より大きなプログラムでは、コードが複数のファイルに分割され、すべて main パッケージを宣言します：
+project-root-directory/ go.mod auth.go auth_test.go client.go main.go ここで main.go ファイルには func main が含まれているが、これは単なる慣例である。main ファイルは、modname.go（modnameの適切な値に対して）とか、他の名前にすることもできる。
+このディレクトリが github.com/someuser/modname のGitHubリポジトリにアップロードされていると仮定すると、 go.</description>
+    </item>
+    
+    <item>
+      <title>slices.Contains について少し調べた</title>
+      <link>https://tro3373.github.io/posts/2023/2023-09-14-golang-about-slices-contains/</link>
+      <pubDate>Thu, 14 Sep 2023 09:00:17 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-09-14-golang-about-slices-contains/</guid>
+      <description>slices.Contains を使用しようとして、コンパイルエラーになったので、少し中身を追ってみた
+以下が、実際の実装部分 slices.go func Contains[S ~[]E, E comparable](s S, v E) bool { return Index(s, v) &amp;gt;= 0 } Genericsを使用していて、E は comparable で S はその E の Sliceかー。
+では、S ~[]E の ~ とはなんだろうか？
+以下 ChatGPT さんの回答
+S ~[]E の表記は、Goの新しいジェネリクス機能において、型Sが型Eのスライスであるという制約を示します。この制約は、ジェネリクス関数やジェネリクス型を定義する際に使用されます。
+~ 演算子は、&amp;ldquo;型の等価性&amp;quot;を示すために使用されます。具体的には、S が []E という具体的な型であるか、それに等価な型（例えば、型エイリアスなど）である必要があります。
+例えば、以下のような型があるとします：
+type MyInt int type MySlice []MyInt この場合、Contains[MySlice, MyInt] のように関数を呼び出すことができます。なぜなら、MySlice は []MyInt に等価であり、MyInt は int に等価だからです。
+この ~ 演算子と型制約は、Goのジェネリクスが提供する強力な型安全性を維持する一方で、柔軟性も提供します。それによって、コンパイル時に型の不一致や他の型関連のエラーを防ぐことができます。
+~ は それに等価な型という制約 comparable な 型の Slice のようなものは許す みたいな感じか</description>
+    </item>
+    
+    <item>
+      <title>SQLAlchemy で Flake8 error: E712 comparison to True should be &#39;if cond is True:&#39; or &#39;if cond:&#39; の lint エラーに対応する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-16-fix-python-sqlalchemy-flake8-e712-comarison-to-true-should-be/</link>
+      <pubDate>Wed, 16 Aug 2023 15:36:12 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-08-16-fix-python-sqlalchemy-flake8-e712-comarison-to-true-should-be/</guid>
+      <description>発生したのは、以下のような sqlalchemy での条件文が flake8 の lint エラーになったので、対応したかった。
+Flake8 error: E712 comparison to True should be &amp;#39;if cond is True:&amp;#39; or &amp;#39;if cond:&amp;#39; 実装していた処理は以下
+ExampleModel.sa.delete_flag == True これが lint エラーになるからって、以下にすると、解消するけど、うまく動かない（条件判定がおかしくなる）
+落とし穴!!!
+ExampleModel.sa.delete_flag is True # または ExampleModel.sa.delete_flag # 上記や、上記の否定など not ExampleModel.sa.delete_flag 結論としては、sqlalchemy.sql.expression.true, sqlalchemy.sql.expression.false あるからそれ使う
+# import from sqlalchemy import false, true # ussage ExampleModel.sa.delete_flag == true() いやいやいや&amp;hellip;
+Refs python - Flake8 error: E712 comparison to True should be &amp;lsquo;if cond is True:&amp;rsquo; or &amp;lsquo;if cond:&amp;rsquo; - Stack Overflow python - SQLAlchemy Core select where condition contains boolean expression is False - Stack Overflow Column Elements and Expressions — SQLAlchemy 2.</description>
+    </item>
+    
+    <item>
+      <title>GoReleaser を GitHub workflow で設定する最低限の方法</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-09-setup-minimum-github-workflow-go-releaser/</link>
+      <pubDate>Wed, 09 Aug 2023 10:53:44 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-08-09-setup-minimum-github-workflow-go-releaser/</guid>
+      <description>手っ取り早くリポジトリの WorkFlow つかって Go の リリースを実装する為の設定をメモしておく v0.0.1 みたいな形式のタグを打てばリリースされる こんな感じのヤツ 1. goreleaser init で .goreleaser.yaml を生成する デフォルトでこんな感じで生成される
+# This is an example .goreleaser.yml file with some sensible defaults. # Make sure to check the documentation at https://goreleaser.com before: hooks: # You may remove this if you don&amp;#39;t use go modules. - go mod tidy # # you may remove this if you don&amp;#39;t need go generate - go generate ./... builds: - env: - CGO_ENABLED=0 goos: - linux - windows - darwin archives: - format: tar.</description>
+    </item>
+    
+    <item>
+      <title>Docker mysql 5.7 イメージで初期化処理に失敗して、ログインできない</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-04-docker-mysql-5.7-initialize-error/</link>
+      <pubDate>Fri, 04 Aug 2023 18:15:10 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-08-04-docker-mysql-5.7-initialize-error/</guid>
+      <description>発生したエラー MySQL 5.7 のイメージ を使用して単純に起動しても下記エラーが発生して、初期化処理に失敗していた。
+厳密には初期化時に上記エラーが出て、初期化SQLまでたどり着かなかった。
+初期化処理に失敗すると、mysql userの設定や admin パスワードの設定がうまくできないようで、どうしようもない状態になるようで、、これをなんとかしたかった&amp;hellip;
+/usr/local/bin/docker-entrypoint.sh: line 137: 126 Killed &amp;#34;$@&amp;#34; --skip-networking --default-time-zone=SYSTEM --socket=&amp;#34;${SOCKET}&amp;#34; ログをみると怪しい部分は上記のみで、どうもプロセスがいきなり Kill されているように見える
+原因はリソースの使いすぎ 以下のようなコメントにたどり着いた
+1708115 – Running mysql container in moby-engine results in 100% memory usage Really high memory usage · Issue #579 · docker-library/mysql Thank you so much @evolbug! The bug you found put me on the right tracks. The issue is caused by the ulimit nofile. By default, on arch, the value is too low I guess.</description>
+    </item>
+    
+    <item>
+      <title>html a タグで target=&#34;_blank&#34; を使うときは、rel=&#34;noopener&#34; をつける</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-02-add-noopener-to-link-with-blank-target/</link>
+      <pubDate>Wed, 02 Aug 2023 06:36:21 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-08-02-add-noopener-to-link-with-blank-target/</guid>
+      <description> パフォーマンス改善 他のページがあなたのページと同じプロセスで実行されている可能性があります。 他のページがJavaScriptを大量に実行している場合、あなたのページのパフォーマンスが低下する可能性があります。
+セキュリティ対策 他のページは、window.opener プロパティを使用してウィンドウ オブジェクトにアクセスできます。 これにより、他のページがあなたのページを悪意のある URL にリダイレクトする可能性があります。
+リンク先が悪意のあるサイト、またはハッキングされている場合などに、window.openerを用いてリンク元が操作されてしまう可能性がある
+Refs Links to cross-origin destinations are unsafe - Chrome Developers https://developer.chrome.com/docs/lighthouse/best-practices/external-anchors-use-rel-noopener/?hl=ja リンクのへの rel=noopener 付与による Tabnabbing 対策 | blog.jxck.io https://blog.jxck.io/entries/2016-06-12/noopener.html rel=&amp;ldquo;noopener noreferrer&amp;quot;の意味とアフィリエイト広告への影響 - WEBST8のブログ https://webst8.com/blog/rel-noopener-noreferrer/ </description>
+    </item>
+    
+    <item>
+      <title>インスタ投稿をブログへ設置する為のInstagramビジネスアカウントIDと長期トークンを取得する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-07-15-add-insta-posts-to-blog/</link>
+      <pubDate>Sat, 15 Jul 2023 06:45:31 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-07-15-add-insta-posts-to-blog/</guid>
+      <description>InstagramグラフAPIを利用して無期限アクセストークンを発行し、InstagramのビジネスアカウントIDなどのJSONデータを取得する 手順は以下の通り
+Instagramアカウントをビジネスアカウントに変更する。 Facebookページ（無ければ作成）でInstagramアカウントをリンクする。 Facebook開発者ツールを使って新たにアプリを作成する。 Facebook開発者ツールでFacebookページの短期アクセストークンを取得する。 短期アクセストークンを使って長期アクセストークンを取得する。 長期アクセストークンを使って無期限アクセストークンを取得する。 無期限アクセストークンを使ってInstagramのビジネスアカウントIDなどのJSONデータを取得する。 注意点 アクセストークンを取得するには、Instagramビジネスアカウントが紐付いたFacebookページの管理者権限を持っていることが必要 無期限アクセストークンの取得には3段階の手順（短期アクセストークンの取得、短期アクセストークンを使った長期アクセストークンの取得、長期アクセストークンを使った無期限アクセストークンの取得）が必要 InstagramのビジネスアカウントIDは、「無期限アクセストークン」と「Instagramのアカウントが紐づいているFacebookページのID」が必要で、「グラフAPIエクスプローラ」で取得可能 1. Instagramアカウントをビジネスアカウントに変更する。 Instagramアプリを開き、プロフィールページ右上のメニューボタンをタップする 「Settings」を選択する 「Account」を選択する メニューの下の方にある「Switch Account Type」を選択する 「Switch to Business Account」を選択する 注意：アカウントタイプの変更はInstagramアプリからのみ可能（ 公式ヘルプ ） 2. Facebookページ（無ければ作成）でInstagramアカウントをリンクする。 Facebookページにアクセスし、「ページを管理メニュー」内の「設定」を選択する 「Instagram」を選択する 「アカウントをリンク」を選択し、Instagramアカウントを指定してリンクする 3. Facebook開発者ツールを使って新たにアプリを作成する。 「 マイアプリ 」にアクセスする 「アプリを作成」をクリックして新しいアプリを作成する アプリのタイプとして「ビジネス」を選択し、Instagram Graph API用のアプリを作成する 作成したアプリのAPIバージョンを確認する 作成したアプリのダッシュボードを開く 左メニューの「設定」を選択する 「詳細設定」を選択し、APIバージョンが確認できる 4. Facebook開発者ツールでFacebookページの短期アクセストークンを取得する。 短期アクセストークンを使って長期アクセストークンを取得する。
+https://developers.facebook.com から取得した短期アクセストークン, App ID, App Secretをフォームに入力し、ボタンを押下 短期アクセストークンを使って長期アクセストークンを取得する。 export api_ver=v17.0 export app_id=xxxxxxxxxxxxxxxxxxxx export app_secret=xxxxxxxxxxxxxxxx export fb_exchange_token=xxxxxxxxx echo &amp;#34;https://graph.facebook.com/${api_ver}/oauth/access_token?grant_type=fb_exchange_token&amp;amp;client_id=$app_id&amp;amp;client_secret=$app_secret&amp;amp;fb_exchange_token=$fb_exchange_token&amp;#34; # 表示されるURLへブラウザでアクセスする # 以下のような形式でトークンが取れる # {&amp;#34;access_token&amp;#34;:&amp;#34;xxx&amp;#34;,&amp;#34;token_type&amp;#34;:&amp;#34;bearer&amp;#34;,&amp;#34;expires_in&amp;#34;:5183874} 長期アクセストークンを使って無期限アクセストークンを取得する。</description>
+    </item>
+    
+    <item>
+      <title>Mac に SSH接続した際に日本語がアンダースコア2個になる問題は SendEnv LANG で解決した</title>
+      <link>https://tro3373.github.io/posts/2023/2023-06-03-fix_japanese_will_be_shown_double_underscore_issue_by_sendenv_lang/</link>
+      <pubDate>Sat, 03 Jun 2023 09:20:53 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-06-03-fix_japanese_will_be_shown_double_underscore_issue_by_sendenv_lang/</guid>
+      <description>SSH接続先の相手がMacであるかはあまり問題ではないかもしれないが、 Manjaro ArchLinux から Macbook に ssh 接続しようとして発生していた文字化け（日本語のみアンダースコア2つで表示される）が治った .ssh/config で SendEnv で 環境変数を接続先のリモートに引き継がせる事ができる
+以下のように共通で設定するように設定して解決した
+~/.ssh/config Host * SendEnv LANG LC_* 重要なのは LANG 設定でこの設定が一致している必要があるようで、LC_*だけでは治らなかったが、 ローカルで表示しても、アンダースコア2つ表示されている状態で調べても同じ値が設定されていた。。（謎）
+env |grep LANG= LANG=en_US.UTF-8 </description>
+    </item>
+    
+    <item>
+      <title>VIMの外部で変更されたファイルの自動読み込み設定が効いていない問題を解決した(ようやく手をつけた)</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-16-fix-vim-autoread-settings-not-work-in-tmux/</link>
+      <pubDate>Tue, 16 May 2023 09:32:00 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-05-16-fix-vim-autoread-settings-not-work-in-tmux/</guid>
+      <description>長らく放置していた以下の問題
+vimでファイルを開いている際に、裏で IntelliJ Idea や、 VSCode やらで編集しても自動再リロードがかからない 以下の設定をしていた。
+&amp;#34; 元のファイルの変更を Vim が検知し、かつバッファが変更されていなかった場合、バッファは自動的に再読み込み set autoread もう少し処理を足して checktime を自動発行すればよいことがわかったので、以下を追加したけど動作しなかった
+&amp;#34; 以下タイミングで、checktime を実行 &amp;#34; WinEnter: ウィンドウがアクティブになった時 &amp;#34; FocusGained: ウィンドウがアクティブになった時 &amp;#34; BufEnter: バッファがアクティブになった時 augroup auto-checktime autocmd! autocmd WinEnter,FocusGained,BufEnter * checktime augroup END 色々調べるうちに FocusGained イベントが発行されていない事を確認
+イベントが発行されない原因を調査中以下コメントを発見
+Feature: neovim/vim does not always trigger FocusLost/FocusGained when a client is detached/attached respectively · Issue #2856 · tmux/tmux Tmux のフォーカスイベント検知設定を有効にしてなかった。
+以下を tmux.conf についかして無事解決
+tmux.conf set-option -g focus-events on Refs vim-jp » Hack #234: Vim外にいるときはVimを透けさせる </description>
+    </item>
+    
+    <item>
+      <title>terraform ステートを強制スキップする</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-08-terraform-could-not-find-resource-error/</link>
+      <pubDate>Mon, 08 May 2023 13:23:15 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-05-08-terraform-could-not-find-resource-error/</guid>
+      <description>遭遇したエラー Error: reading Secrets Manager Secret (arn:aws:secretsmanager:ap-northeast-1:xxxxxxxxxxxx:secret:sample-secret-xxxxxx): couldn&amp;#39;t find resource 環境構築時、デプロイ中にいきなりTokenの有効期限切れエラーが発生した。
+terraformのステート管理はS3に保存している。 99designs/aws-vault を使ってローカルでシークレット管理していたら急に..
+ここの原因はわかってないけど、デプロイ中でしかもステート保存失敗のエラーが出たので、完全に状態がおかしくなった。
+rdb接続情報のSecret保存部分でエラー
+幸い新規構築中だったので、一度 destroy してから再度作成しようとしていた。
+このタイミングで上記エラーが発生しだした。
+コンソールから削除しても、refresh しても何してもだめなので、ステータスが壊れたのだと思う。
+まずは、削除する上でもリソースのスキップが必要
+下記内容で強制スキップし、リソースは手動削除するなどして、削除完了できた。
+terraform で持っている状態の一覧 $ terraform state list : (省略) module.db.aws_secretsmanager_secret.sample : (省略) 調べたステート名を指定して削除 $ terraform state rm module.db.aws_secretsmanager_secret.sample </description>
+    </item>
+    
+    <item>
+      <title>The bucket does not allow ACLs エラーに出くわしたので調べる</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-08-i-ran-into-the-bucket-does-not-allows-acls-error/</link>
+      <pubDate>Mon, 08 May 2023 10:38:57 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-05-08-i-ran-into-the-bucket-does-not-allows-acls-error/</guid>
+      <description>Bucket作成時のACLエラー Terraform で環境構築時に下記エラーが発生
+ACL周りのデフォルト動作が変更となったようなので、少しメモ
+Error: error creating S3 bucket ACL for sample-bucket: AccessControlListNotSupported: The bucket does not allow ACLs status code: 400, request id: xxxxxxxxxxxxxxxx, host id: xxxxxxxxxxxxxxxxxxxxxxxxxxx+xxxxxxxxxxxxxxxxx/xxxxxxx/xxxxxxxxxxxxxxxxxxxxxx with module.s3.aws_s3_bucket_acl.sample, on ../../module_aws/s3/main.tf line 13, in resource &amp;#34;aws_s3_bucket_acl&amp;#34; &amp;#34;sample&amp;#34;: 13: resource &amp;#34;aws_s3_bucket_acl&amp;#34; &amp;#34;sample&amp;#34; { S3作成時のデフォルトの設定の変更 2023年4月より新規S3バケットは、デフォルトでパブリック・アクセスブロック有効化、ACL無効化 ACLは利用しないことが推奨される s3オブジェクトのACL有効・無効設定は aws_s3_bucket_ownership_controls で設定する resource &amp;#34;aws_s3_bucket_ownership_controls&amp;#34; &amp;#34;sample&amp;#34; { bucket = aws_s3_bucket.sample.bucket rule { object_ownership = &amp;#34;BucketOwnerEnforced&amp;#34; } } object_ownership に設定できるのは以下 ObjectWriter: 所有者はアップローダ BucketOwnerPreferred: バケット所有アカウントを指定可能(bucket-owner-full-control) BucketOwnerEnforced: バケット所有アカウント強制 BucketOwnerEnforced ではACL併用できない S3 ポリシー適用時のエラー S3 policy: AccessDenied: Access Denied 一部ディレクトリのみ公開したい場合など、ACLを指定する場合は、ObjectWriter &amp;amp; ACL設定 &amp;amp; ポリシーにはアカウントを指定する</description>
+    </item>
+    
+    <item>
+      <title>Golangでディレクトリ内が空かどうかを判定する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-05-30-golang-implement-is-empty-directory/</link>
+      <pubDate>Fri, 21 Apr 2023 22:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-05-30-golang-implement-is-empty-directory/</guid>
+      <description>最終的にはこれ func IsEmpty(name string) (bool, error) { f, err := os.Open(name) if err != nil { return false, err } defer f.Close() _, err = f.Readdirnames(1) // Or f.Readdir(1) if err == io.EOF { return true, nil } return false, err // Either not empty or error, suits both cases } つまり システムにはディレクトリが空かどうかの情報は無いからディレクトリの子があるかどうかで判断するしか無い File.Readdirnames() が最速 以下日本語要約 ディレクトリが空であるか否かは、その名前、作成時間、またはそのサイズ（ファイルの場合）のようなファイルシステムレベルのプロパティとして保存されていません。
+つまり、os.FileInfoからこの情報を直接取得することはできません。最も簡単な方法は、ディレクトリの子（内容）をクエリすることです。
+ioutil.ReadDir()はあまり良い選択ではありません。なぜなら、これはまず指定されたディレクトリのすべての内容を読み取り、それらを名前でソートし、その後スライスを返すからです。最も速い方法はDave Cが言及したように、File.Readdir()または（好ましくは）File.Readdirnames()を使用してディレクトリの子をクエリすることです。
+File.Readdir()とFile.Readdirnames()の両方は、返される値の数を制限するために使用されるパラメータを取ります。1つの子をクエリするだけで十分です。Readdirnames()は名前のみを返すので、FileInfo構造体を取得（および構築）するためのさらなる呼び出しが必要ないため、速度が速くなります。
+ディレクトリが空の場合、io.EOFがエラーとして返され（空のスライスやnilのスライスではない）ため、返された名前のスライスは必要ありません。
+以下抜粋 Whether a directory is empty or not is not stored in the file-system level as properties like its name, creation time or its size (in case of files).</description>
+    </item>
+    
+    <item>
+      <title>node.js firebase-admin の multicast 時のレスポンスの配列と、指定したトークンの配列順序は一致する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-03-01-firebase-admin-multicast-response-is-same-order-with-specified-tokens/</link>
+      <pubDate>Wed, 01 Mar 2023 21:25:03 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-03-01-firebase-admin-multicast-response-is-same-order-with-specified-tokens/</guid>
+      <description>Firebase Cloud Messagingで firebase-admin - npm 使って Multicastすると、複数のデバイスに対して一度にプッシュ通知を送信することができるけど、 どのTokenが失敗したのかわからないのでは？と思い調べた
+So to confirm, the response array from sendMulticast is in the same order as the tokens that were passed in, allowing you to match up the indexes of any errors.
+https://stackoverflow.com/questions/70008515/firebase-cloud-messaging-multicast-error-messaging-registration-token-not-regist ここにある通り、 multicast 時のトークン配列と、 応答される BatchResponse の配列順序は一致する らしいので、どのトークンが失敗したのかはわかるみたい</description>
+    </item>
+    
+    <item>
+      <title>Chrome拡張で現在のタブ情報を取る方法(v3)</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-25-chrome_extention_get_current_tab_info/</link>
+      <pubDate>Sat, 25 Feb 2023 20:39:50 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-02-25-chrome_extention_get_current_tab_info/</guid>
+      <description>公式に記載のある通りだけど、 少し調べたので、メモをおいておく
+v3用 Promise const getCurrentTab = async () =&amp;gt; { const queryOptions = { active: true, lastFocusedWindow: true }; // `tab` will either be a `tabs.Tab` instance or `undefined`. const [tab] = await chrome.tabs.query(queryOptions); return tab; }; Refs chrome.tabs - Chrome Developers </description>
+    </item>
+    
+    <item>
+      <title>Serverless で ApiGw のロギングいれようとして、`CloudWatch Logs role ARN must be set in account settings to enable logging` となったのでメモ</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-13-cloud_watch_loggin_settings_to_api_gateway_was_role_error/</link>
+      <pubDate>Mon, 13 Feb 2023 12:01:33 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-02-13-cloud_watch_loggin_settings_to_api_gateway_was_role_error/</guid>
+      <description>問題 Serverless Framework で、以下のようにロギング設定を追加して、以下エラーになった
+provider: # 省略 logs: restApi: accessLogging: false # Optional configuration which enables or disables access logging. Defaults to true. executionLogging: true # Optional configuration which enables or disables execution logging. Defaults to true. level: ERROR # Optional configuration which specifies the log level to use for execution logging. May be set to either INFO or ERROR. fullExecutionData: false # Optional configuration which specifies whether or not to log full requests/responses for execution logging.</description>
+    </item>
+    
+    <item>
+      <title>firebase-admin で使用する秘密鍵を SecretManager に登録する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-13-register_secret_key_for_firebase_admin_to_secret_manager/</link>
+      <pubDate>Mon, 13 Feb 2023 10:13:37 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-02-13-register_secret_key_for_firebase_admin_to_secret_manager/</guid>
+      <description>FCM Push用秘密鍵を SecretManager に登録する FCM 秘密鍵を取得 FireBaseへログイン プロジェクトを選択 プロジェクトの設定 サービスアカウント FireBase Admin SDK &amp;gt; 新しい秘密鍵の生成 FCM 秘密鍵を SecretManager に登録 取得した秘密鍵を ./fcm.json で配置する 以下コマンドで登録 aws secretsmanager put-secret-value --secret-id ${SECRET_ID} --secret-string &amp;#34;$(cat&amp;lt;./fcm.json)&amp;#34; 使う SecretManager を扱い易いようにクラス化する &amp;#39;use strict&amp;#39;; const { SecretsManagerClient, GetSecretValueCommand } = require(&amp;#39;@aws-sdk/client-secrets-manager&amp;#39;); const clazz = class Sm { constructor() { this.client = new SecretsManagerClient({ region: process.env.REGION }); // REGION で環境変数へRegionを設定している前提 } async get(key) { const command = new GetSecretValueCommand({ SecretId: key }); const res = await this.</description>
+    </item>
+    
+    <item>
+      <title>x11 and wayland</title>
+      <link>https://tro3373.github.io/posts/2023/2023-01-19-x11_wayland/</link>
+      <pubDate>Thu, 19 Jan 2023 09:29:39 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-01-19-x11_wayland/</guid>
+      <description>docker wayland 転送 - Google 検索 WSLgとdocker composeで全部やる Waylandのソケットは、/mnt/wslg/runtime-dir/wayland-0にあります。
+&amp;hellip;
+x11 - How can I run a graphical application in a container under Wayland? - Unix &amp;amp; Linux Stack Exchange LinuxとWSLとDockerとXの仕組み ここで注目すべき(?)はRDPの存在で、これまでのWindowsのリモートデスクトップの枠組みを拡張して（？）、VAILやRAILといった仕組みでデスクトップではなくWindowレベルでの「リモートデスクトップ」を実現しているということです。 この他、Xパケットの転送のみでは実現できなかった「音情報」の転送も組み込んでいます。 Docker on WSL2 on Windows 10? Docker Desktopを企業活動で利用するのが有料になったことから、Docker Desktop を使わずに Windows で Docker する - プログラム の超個人的なメモという魔術が出回るようになりました。このアーキテクチャの場合、TCPでX11 Protocolを書き出しているので、Unix Domain Socketではなく、ポートフォワードで実現するのかなと思います（未確認） 理解しながら動かすGUIアプリ on Docker - Qiita wsl側からホスト側のアドレスは イーサネット アダプター vEthernet (WSL) を探す export DISPLAY=aaa.bbb.ccc.ddd:0 WSL2におけるVcXsrvの設定 - Qiita wsl側からDISPLAYを設定する際のホストの記述方法は mshome.</description>
+    </item>
+    
+    <item>
+      <title>アクセス制限ポリシーを当てたRoleへスイッチできるユーザをaws cli で作成する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-01-06-create_cf_sample_add_user_access_restricted/</link>
+      <pubDate>Fri, 06 Jan 2023 18:20:19 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-01-06-create_cf_sample_add_user_access_restricted/</guid>
+      <description>案件で作る機会があったので、さっと
+IAM.yml AWSTemplateFormatVersion: &amp;#34;2010-09-09&amp;#34; Description: &amp;#34;SampleApp - IAM&amp;#34; Parameters: ProjectName: Description: &amp;#34;Project name&amp;#34; Type: &amp;#34;String&amp;#34; Default: &amp;#34;SampleApp&amp;#34; Resources: IamSampleDeveloperRole: Type: AWS::IAM::Role Properties: RoleName: !Sub ${ProjectName}SampleDeveloper AssumeRolePolicyDocument: Version: 2012-10-17 Statement: - Effect: Allow Principal: AWS: !Sub arn:aws:iam::${AWS::AccountId}:root Action: sts:AssumeRole ManagedPolicyArns: - arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess IamSampleDeveloperPolicies: Type: AWS::IAM::Policy Properties: PolicyName: IamSampleDeveloperPolicy PolicyDocument: Version: 2012-10-17 Statement: - Effect: Allow Action: - dynamodb:List* - dynamodb:DescribeReservedCapacity* - dynamodb:DescribeLimits - dynamodb:DescribeTimeToLive Resource: &amp;#39;*&amp;#39; - Effect: Allow Action: - dynamodb:BatchGet* - dynamodb:DescribeStream - dynamodb:DescribeTable - dynamodb:Get* - dynamodb:Query - dynamodb:Scan - dynamodb:BatchWrite* - dynamodb:CreateTable - dynamodb:Delete* - dynamodb:Update* - dynamodb:PutItem Resource: - arn:aws:dynamodb:*:*:table/dev-* - Effect: Allow Action: - s3:ListAllMyBuckets Resource: - arn:aws:s3:::* - Effect: Allow Action: - s3:* Resource: - arn:aws:s3:::*dev* Roles: - Ref: IamSampleDeveloperRole IamSampleDevelopersGroup: Type: AWS::IAM::Group Properties: GroupName: !</description>
+    </item>
+    
+    <item>
+      <title>Android でリリース用KeyStoreだけでなく、デバッグ用も外だし（共通化）してコマンドからAPKを作る</title>
+      <link>https://tro3373.github.io/posts/2022/2022-12-22-make_sign_debug_apk_from_command_line/</link>
+      <pubDate>Thu, 22 Dec 2022 14:02:17 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-12-22-make_sign_debug_apk_from_command_line/</guid>
+      <description>build.gradle signingConfig/ 配下を外だしするので、build.gradleではIncludeするような指定を行う apply from: &#39;signingConfigs/config.gradle&#39;, to: android の部分 signingConfig signingConfigs.debug の部分を追加することで、 通常のAndroid署名キー（ %USERPROFILE%/.android/debug.keystore ）を参照しなくなる模様 apply from: &amp;#39;signingConfigs/config.gradle&amp;#39;, to: android buildTypes { debug { debuggable true applicationIdSuffix = &amp;#39;.debug&amp;#39; versionNameSuffix = &amp;#39;-debug&amp;#39; signingConfig signingConfigs.debug } release { minifyEnabled false proguardFiles getDefaultProguardFile(&amp;#39;proguard-android-optimize.txt&amp;#39;), &amp;#39;proguard-rules.pro&amp;#39; signingConfig signingConfigs.release } } signingConfig/config.gradle VCS管理外のシークレット情報として、以下 app/signingConfig/** signingConfigs/ ├── config.gradle ├── debug.jks └── release.jks debug.jks は Windowsの場合 %USERPROFILE%/.android/debug.keystore からコピーすると Windowsで使用していた署名キーを引き継げる. storePassword や keyAlias は Androidデフォルトの値
+signingConfigs { debug { storeFile file(&amp;#39;.</description>
+    </item>
+    
+    <item>
+      <title>Node.js dayjs フォーマット指定時に意図しない結果になる</title>
+      <link>https://tro3373.github.io/posts/2022/2022-12-20-nodejs_dayjs_instance_with_iso_format_not_work/</link>
+      <pubDate>Tue, 20 Dec 2022 19:14:14 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-12-20-nodejs_dayjs_instance_with_iso_format_not_work/</guid>
+      <description>customParseFormat 拡張した dayjs で TZ 環境変数 と指定するフォーマットで罠にハマる Z 指定したUTC日付はフォーマットで渡してパースしてもUTC扱いされると思ってた。 フォーマット指定では Z があろうが TZ 環境変数に依存する模様 いやいやいや。。。
+フォーマット指定時に意図しない結果になる TZ=UTC dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;, &amp;#39;YYYY-MM-DD[T]HH:mm:ss.SSS[Z]&amp;#39;).toDate() // =&amp;gt; 2022-12-17T11:43:29.277Z TZ=Asia/Tokyo TZ=Asia/Tokyoの場合は -9 時間されインスタンス化される!!!!!!(いやいやいや！！！)
+dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;, &amp;#39;YYYY-MM-DD[T]HH:mm:ss.SSS[Z]&amp;#39;).toDate() // =&amp;gt; 2022-12-17T02:43:29.277Z フォーマットを指定しなければ問題ない
+TZ=UTC dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;).toDate() // =&amp;gt; 2022-12-17T11:43:29.277Z TZ=Asia/Tokyo dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;).toDate() // =&amp;gt; 2022-12-17T11:43:29.277Z </description>
+    </item>
+    
+    <item>
+      <title>Google Photo API ではそのアプリでアップロードしたITEMしかアルバムに追加できない</title>
+      <link>https://tro3373.github.io/posts/2022/2022-12-15-google_photo_api_can_only_add_item_that_uploaded_by_the_application_to_album/</link>
+      <pubDate>Thu, 15 Dec 2022 08:56:33 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-12-15-google_photo_api_can_only_add_item_that_uploaded_by_the_application_to_album/</guid>
+      <description>もろもろの事情により頑張ってGooglePhotoAPI使ってスクリプト書いていた。 MediaItemの一覧、検索、アルバムの追加等々いけるいけると 勧めていた矢先、最後にMediaItemの一覧にある画像をアルバムに追加しよう としたところで、以下エラー
+{ &amp;#34;error&amp;#34;: { &amp;#34;code&amp;#34;: 400, &amp;#34;message&amp;#34;: &amp;#34;Request contains an invalid media item id.&amp;#34;, &amp;#34;status&amp;#34;: &amp;#34;INVALID_ARGUMENT&amp;#34; } } いくらやり直してもエラーになる&amp;hellip; 確認すると、以下を発見&amp;hellip;
+you can only add media items that have been uploaded by your application to albums that your application has created.
+そのアプリでアップロードした画像しかアルバム追加できまへんで
+rest - Google Photo returns &amp;ldquo;error 400: Request contains an invalid media item id. (INVALID_ARGUMENT)&amp;rdquo; when adding a media item into an existing album - Stack Overflow 画像ファイル名にアルバム名を入れるなどして、先にアップロードした画像たちを あとからアルバム名で検索して、追加すればいい と思っていた。。。</description>
+    </item>
+    
+    <item>
+      <title>Sass でのハイフン2個から始まる変数は必須</title>
+      <link>https://tro3373.github.io/posts/2022/2022-11-16-scss_variable_must_use_double_hyphen_prefix/</link>
+      <pubDate>Wed, 16 Nov 2022 09:44:05 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-11-16-scss_variable_must_use_double_hyphen_prefix/</guid>
+      <description>ハイフンハイフンから始まる変数名でないとエラーになる You must use &amp;ndash; in variables, otherwise, it will result in an error. Property names that are prefixed with &amp;ndash;, like &amp;ndash;example-name, represent custom properties that contain a value that can be used in other declarations using the var() function.
+Illegal Statement (Without the use of &amp;ndash;)
+Sass ではハイフンとアンダースコアは同一 Sassの変数名ではハイフン（-）とアンダースコア（_）が同一視される。
+Sass と SASS と SCSS Sass: css を拡張したメタ言語 SASS: Sassの記法 拡張子は .sass セミコロンや波括弧を使用しない コードが簡略化 書く際の負担が少ない SCSS: Sassの記法 拡張子は .scss 書き方がCSSに似ている CSSのようにネストを使用する SCSSのほうが一般的に普及 Sass のメリット CSS を拡張するメリット</description>
+    </item>
+    
+    <item>
+      <title>Android アプリ開発時にアンインストール=&gt;インストールでデータが残る問題</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-24-disable_account_remaining_cache_when_reinstall_android_debug_app/</link>
+      <pubDate>Mon, 24 Oct 2022 19:04:55 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-10-24-disable_account_remaining_cache_when_reinstall_android_debug_app/</guid>
+      <description>アプリで保存したデータが再インストールで復活する事や、 WebViewで実装した画面のローカルストレージ保存したデータ等が復活する事が気になっていたの調べた.
+特にWebViewでログイン画面実装して、アカウント情報などをWebViewキャッシュ保存とかしてると、 再インストールとかしたのに復活するので、開発時などは無効設定が好ましい.
+単純にAndroidのバックアップ機能が有効になっていた.
+AndroidManifest.xml android:allowBackup: バックアップ自体を実施するかどうか &amp;lt;application android:allowBackup=&amp;#34;false&amp;#34; ... /&amp;gt; android:fullBackupContent: バックアップする内容を指定 android:fullBackupContent &amp;lt;application android:allowBackup=&amp;#34;true&amp;#34; android:fullBackupContent=&amp;#34;@xml/backup_rules&amp;#34; ... /&amp;gt; @xml/backup_rules &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34;?&amp;gt; &amp;lt;full-backup-content&amp;gt; &amp;lt;include domain=&amp;#34;sharedpref&amp;#34; path=&amp;#34;.&amp;#34;/&amp;gt; &amp;lt;exclude domain=&amp;#34;sharedpref&amp;#34; path=&amp;#34;device.xml&amp;#34;/&amp;gt; &amp;lt;/full-backup-content&amp;gt; ユーザデータの自動バックアップ設定 Android 6.0（API レベル 23）以上をターゲットとするアプリで、自動的に自動バックアップが有効 アプリデータはGoogleDriveにバックアップされる Android9以降のデバイスでは、デバイスのPIN、パスワード、パターンを使用し、エンドツーエンドで暗号化 アプリ1つあたり25Mb,最新データのみ保存 バックアップデータに関しては追加料金なし Refs 自動バックアップでユーザーデータをバックアップする | Android デベロッパー | Android Developers </description>
+    </item>
+    
+    <item>
+      <title>Android で環境設定ファイルからBuildConfig環境変数を生成する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-18-android_generate_build_config_class_for_env_variable_from_env_properties_file/</link>
+      <pubDate>Tue, 18 Oct 2022 17:38:21 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-10-18-android_generate_build_config_class_for_env_variable_from_env_properties_file/</guid>
+      <description>環境設定ファイル(env.propertiese)に定義したをビルドタイプで設定値を読み分ける関数を定義して、 それぞれの環境ビルド時に buildConfigField で定義 という感じ
+def envPropertiesFile = rootProject.file(&amp;#34;env.properties&amp;#34;); def envProperties = new Properties() envProperties.load(new FileInputStream(envPropertiesFile)) ext.buildConfigFieldFromEnvProp = { env -&amp;gt; def keys = [&amp;#34;apiPrefix&amp;#34;, &amp;#34;cognitoPoolId&amp;#34;, &amp;#34;cognitoClientId&amp;#34;, &amp;#34;cognitoClientSecret&amp;#34;, &amp;#34;cognitoRegion&amp;#34;] for (key in keys) { defaultConfig.buildConfigField(&amp;#34;String&amp;#34;, key, &amp;#34;\&amp;#34;${envProperties[&amp;#34;$env.$key&amp;#34;]}\&amp;#34;&amp;#34;) } } buildTypes { debug { debuggable true applicationIdSuffix = &amp;#39;.debug&amp;#39; versionNameSuffix = &amp;#39;-debug&amp;#39; buildConfigFieldFromEnvProp(&amp;#34;dev&amp;#34;) } release { minifyEnabled false proguardFiles getDefaultProguardFile(&amp;#39;proguard-android-optimize.txt&amp;#39;), &amp;#39;proguard-rules.pro&amp;#39; signingConfig signingConfigs.release buildConfigFieldFromEnvProp(&amp;#34;prd&amp;#34;) } } dev.apiPrefix=https://xxxx dev.cognitoPoolId=xxx dev.cognitoClientId=xxx dev.cognitoClientSecret=xxx dev.cognitoRegion=xxx </description>
+    </item>
+    
+    <item>
+      <title>Android で 位置情報取得＆Bluetooth接続を定期実行するForegroundServiceを実装する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-07-implment_android_persistent_forground_service/</link>
+      <pubDate>Fri, 07 Oct 2022 18:41:13 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-10-07-implment_android_persistent_forground_service/</guid>
+      <description>Android で 位置情報取得を定期実行する方法をしらべたので、メモっておく
+Foreground 実装 フォアグラウンドサービスの最低限の実装について【Kotlin, Android Studio, バックグラウンドでのアプリ実行】 - アンラッキーシステムズのやり方、方法論。 Foreground Serviceの基本 - Qiita AndroidアプリでForeground Serviceを使って、画面スリープ状態でも位置情報を定期取得する | DevelopersIO Android Service の使い方 趣味のプログラム: Android Foreground Serviceのメモ フォアグラウンド サービスの起動に関する制限 | Android 12 | Android Developers Android - Foreground Service実行 長期間Serviceを起動したい時 | 技術情報 | アプリ関連ニュース | ギガスジャパン Auto-Start Foreground Service in Android | by CodingwithSaud | The Startup | Medium Androidアプリでバックグラウンド状態で位置情報が取得できるのか調査した - 酢ろぐ！ バックグラウンドで位置情報アクセスするアプリには特別な審査が必要
+審査に必要なものは、Google公式のバックグラウンド位置情報にアクセスするアプリの審査を円滑に進めるためのヒントにも書かれている通り以下のものを準備する必要がある。
+機密情報に関わる申請 を行う ・デモ動画が必要 アプリ内での位置情報使用の開示を行う (位置情報許諾ダイアログ) プライバシーポリシー にバックグラウンドで位置情報を取得する件について書く</description>
+    </item>
+    
+    <item>
+      <title>Hugo template 使用時 `{{-` `-}}` の `-` の意味はホワイトスペース削除</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-01-hugo-template-syntax-first-and-last-minus-mean/</link>
+      <pubDate>Sat, 01 Oct 2022 20:12:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-10-01-hugo-template-syntax-first-and-last-minus-mean/</guid>
+      <description>ホワイトスペースの削除の意味 次の例のようにテンプレート内で「{{」の代わりに「{{-」と指定することで、テンプレートのレンダリング時にその「{{-」の前にあるホワイトスペース（スペース、タブ、改行）を削除するよう指定できる。同様に「}}」の代わりに「-}}」を指定することで、「-}}」の後ろにあるホワイトスペースを削除できる。
+静的サイトジェネレータ「Hugo」と技術文書公開向けテーマ「Docsy」でOSSサイトを作る | さくらのナレッジ </description>
+    </item>
+    
+    <item>
+      <title>Java Spring PROPAGATION_REQUIRED の指定でネストしたトランザクションを制御する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-09-29-spring_transaction_propagation_requires_new/</link>
+      <pubDate>Thu, 29 Sep 2022 18:03:48 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-09-29-spring_transaction_propagation_requires_new/</guid>
+      <description>Spring で MyBatis(MySQL) つかって ネストした トランザクション制御しようとして以下エラーに遭遇した
+Caused by: org.springframework.transaction.UnexpectedRollbackException: Transaction rolled back because it has been marked as rollback-only トランザクションの伝播については、PROPAGATION_REQUIRED の理解が必要 とのことで調べた
+要は、明示的に Transaction を貼りたい場合にどういった振る舞いをすべきかを指定する必要があり、 選択肢は以下の2つある
+PROPAGATION_REQUIRED 存在しない場合は新たに作成、存在する場合は参加 内部スコープがロールバック専用マーカーを設定した場合、外部トランザクションはこれを予期していないため、 予期しないロールバックが発生するとUnexpectedRollbackExceptionがスローされる PROPAGATION_REQUIRES_NEW 常に独立したトランザクションを開始 独立してコミットまたはロールバック可能 以下詳細
+PROPAGATION_REQUIREDの理解 tx prop required PROPAGATION_REQUIREDは物理的なトランザクションを強制します。既存のトランザクションがまだ存在しない場合は現在のスコープでローカルに、または大きなスコープで定義された既存の&amp;rsquo;外部&amp;rsquo;トランザクションに参加します。これは同一スレッド内の一般的なコールスタックの配置（例えば、すべての基礎となるリソースがサービスレベルのトランザクションに参加しなければならない、いくつかのリポジトリメソッドに委任するサービスファサードなど）では良いデフォルトです。
+デフォルトでは、参加するトランザクションは外部スコープの特性に参加し、ローカルの分離レベル、タイムアウト値、または読み取り専用フラグ（あれば）を黙って無視します。異なる分離レベルで既存のトランザクションに参加する際に分離レベルの宣言を拒否する場合は、トランザクションマネージャーでvalidateExistingTransactionsフラグをtrueに切り替えることを検討してください。この非寛容モードは、読み取り専用の不一致（つまり、読み取り専用の外部スコープに参加しようとする内部の読み書き可能なトランザクション）も拒否します。 伝播設定がPROPAGATION_REQUIREDの場合、その設定が適用される各メソッドに対して論理的なトランザクションスコープが作成されます。各論理的なトランザクションスコープは、ロールバックのみのステータスを個々に決定でき、外部のトランザクションスコープは内部のトランザクションスコープから論理的に独立しています。標準的なPROPAGATION_REQUIREDの動作の場合、これらすべてのスコープは同一の物理的なトランザクションにマップされます。したがって、内部のトランザクションスコープで設定されたロールバックのみのマーカーは、外部のトランザクションが実際にコミットする可能性に影響を与えます。
+しかし、内部のトランザクショクションスコープがロールバック専用マーカーを設定した場合、外部のトランザクションは自身でロールバックを決定していないため、内部のトランザクションスコープによって黙ってトリガーされるロールバックは予期しないものです。その時点で対応するUnexpectedRollbackExceptionがスローされます。これはトランザクションの呼び出し元がコミットが実行されたと誤って推測することがないようにするための期待される挙動です。したがって、内部のトランザクション（外部の呼び出し元が認識していない）が黙ってトランザクションをロールバック専用とマークすると、外部の呼び出し元はまだコミットを呼び出します。外部の呼び出し元は、ロールバックが実行されたことを明確に示すために、UnexpectedRollbackExceptionを受け取る必要があります。
+PROPAGATION_REQUIRES_NEWの理解 tx prop requires new PROPAGATION_REQUIRES_NEWは、対象となるトランザクションスコープごとに常に独立した物理的なトランザクションを使用し、外部のスコープの既存のトランザクションには決して参加しない、という点でPROPAGATION_REQUIREDとは対照的です。このような配置では、基礎となるリソーストランザクションは異なり、したがって、独立してコミットまたはロールバックでき、外部のトランザクションは内部のトランザクションのロールバック状態に影響されず、内部のトランザクションのロックはその完了直後にすぐに解放されます。このような独立した内部トランザクションは、自身の分離レベル、タイムアウト、読み取り専用設定を宣言し、外部のトランザクションの特性を継承しないこともできます。
+以下翻訳元 Understanding PROPAGATION_REQUIRED tx prop required PROPAGATION_REQUIRED enforces a physical transaction, either locally for the current scope if no transaction exists yet or participating in an existing &amp;lsquo;outer&amp;rsquo; transaction defined for a larger scope.</description>
+    </item>
+    
+    <item>
+      <title>Android で kotlin-logging を使用してLogcatと同時にファイル出力も行う</title>
+      <link>https://tro3373.github.io/posts/2022/2022-09-13-enable-kotlin-logging/</link>
+      <pubDate>Tue, 13 Sep 2022 16:03:14 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-09-13-enable-kotlin-logging/</guid>
+      <description>とある案件でネイティブAndroidアプリを作成しているが、内部でエラーが発生したか、 どう動いたかなど、問い合わせがあった場合にログが無い困るケースがあった
+標準のログではLogcatで流れてしまい、また端末をPCへ接続できないと、やはりデバッグとしては辛い
+Android でログをファイル出力する方法を模索し、slf4j 使ってファイル保存することにした。 保存したログファイルは別途S3へアップロード ここでは、slf4j でログ出力するところを記載
+app/build.gradle implementation &amp;#39;org.slf4j:slf4j-api:1.7.25&amp;#39; implementation &amp;#39;com.github.tony19:logback-android:2.0.0&amp;#39; app/src/main/assets/logback.xml &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;configuration debug=&amp;#34;true&amp;#34;&amp;gt; &amp;lt;appender name=&amp;#34;logcat&amp;#34; class=&amp;#34;ch.qos.logback.classic.android.LogcatAppender&amp;#34;&amp;gt; &amp;lt;tagEncoder&amp;gt; &amp;lt;pattern&amp;gt;%d{yyyy-MM-dd HH:mm:ss.SSS} %class{0}.%method:%L&amp;lt;/pattern&amp;gt; &amp;lt;/tagEncoder&amp;gt; &amp;lt;encoder&amp;gt; &amp;lt;pattern&amp;gt;[%t] %-5level %msg%n&amp;lt;/pattern&amp;gt; &amp;lt;/encoder&amp;gt; &amp;lt;/appender&amp;gt; &amp;lt;property name=&amp;#34;LOG_DIR&amp;#34; value=&amp;#34;/data/data/${PACKAGE_NAME}/files/logs&amp;#34; /&amp;gt; &amp;lt;appender name=&amp;#34;file&amp;#34; class=&amp;#34;ch.qos.logback.core.rolling.RollingFileAppender&amp;#34;&amp;gt; &amp;lt;file&amp;gt;${LOG_DIR}/app.log&amp;lt;/file&amp;gt; &amp;lt;rollingPolicy class=&amp;#34;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&amp;#34;&amp;gt; &amp;lt;fileNamePattern&amp;gt;${LOG_DIR}/archives/app.%d{yyyy-MM-dd}.%i.log.gz&amp;lt;/fileNamePattern&amp;gt; &amp;lt;!-- each archived file, size max 10MB --&amp;gt; &amp;lt;maxFileSize&amp;gt;10MB&amp;lt;/maxFileSize&amp;gt; &amp;lt;!-- total size of all archive files, if total size &amp;gt; 5GB, it will delete old archived file --&amp;gt; &amp;lt;totalSizeCap&amp;gt;5GB&amp;lt;/totalSizeCap&amp;gt; &amp;lt;maxHistory&amp;gt;60&amp;lt;/maxHistory&amp;gt; &amp;lt;/rollingPolicy&amp;gt; &amp;lt;append&amp;gt;true&amp;lt;/append&amp;gt; &amp;lt;encoder&amp;gt; &amp;lt;!</description>
+    </item>
+    
+    <item>
+      <title>Go では 複雑でコストのかかる処理を構文で隠してはいけないという基本的なルールがあります。</title>
+      <link>https://tro3373.github.io/posts/2022/2022-07-15-go-there-is-a-general-rule-that-syntax-shold-not-hide-complex-costly-operations/</link>
+      <pubDate>Fri, 15 Jul 2022 19:37:28 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-07-15-go-there-is-a-general-rule-that-syntax-shold-not-hide-complex-costly-operations/</guid>
+      <description>Go では複雑でコストのかかる処理を隠すような機能は実装されない []string を []interface{} に自動変換する良い方法や提供されている機能は無い func foo([]interface{}) { /* do somthing */ } func main() { var a[]string = []string{&amp;#34;hello&amp;#34;, &amp;#34;world&amp;#34;} for(a) } 毎回以下のように実装する必要がある
+b = make([]interface{}, len(a), len(a)) for i := range a { b[i] = a[i] } 参考 go - Type converting slices of interfaces - Stack Overflow In Go, there is a general rule that syntax should not hide complex/costly operations.
+Converting a string to an interface{} is done in O(1) time.</description>
+    </item>
+    
+    <item>
+      <title>Golang 組み込み構造体へのキャスト方法(Goのポリモーフィズムの実現)</title>
+      <link>https://tro3373.github.io/posts/2022/2022-07-11-golang-how-to-cast-to-embedded-struct/</link>
+      <pubDate>Mon, 11 Jul 2022 09:26:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-07-11-golang-how-to-cast-to-embedded-struct/</guid>
+      <description>Golang 組み込み構造体へのキャスト方法(Goのポリモーフィズムの実現) Golangで組み込み構造体（親）へのキャストを行いたい場合は(ポリモーフィズムを得るためには)、インターフェイスの実装が必要 子から親への参照はある インターフェースの名前はGolangでは er が慣例 package main import &amp;#34;fmt&amp;#34; type Parent struct { Attr1 string } type Parenter interface { GetParent() Parent } type Child struct { Parent //embed Attr string } func (c Child) GetParent() Parent { return c.Parent } func setf(p Parenter) { fmt.Println(p) } func main() { var ch Child ch.Attr = &amp;#34;1&amp;#34; ch.Attr1 = &amp;#34;2&amp;#34; setf(ch) } // result {{2} 1} 参考 go - Golang interface cast to embedded struct - Stack Overflow あなたは、継承を使ったオブジェクト指向のデザインパターンを使おうとしています。これはGoでのやり方ではありません。また、Javaや同等のオブジェクト指向言語では、インターフェース名は&amp;rsquo;able&amp;rsquo;で終わります。Goでは、インターフェイス名は&amp;rsquo;er&amp;rsquo;で終わるのが慣例です。 You are trying to use an object oriented design pattern with inheritance.</description>
+    </item>
+    
+    <item>
+      <title>go generate assests box</title>
+      <link>https://tro3373.github.io/posts/2022/2022-06-22-go-generate-assests-box/</link>
+      <pubDate>Wed, 22 Jun 2022 04:53:06 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-06-22-go-generate-assests-box/</guid>
+      <description>go generate を使った assets ディレクトリの静的組み込みバイナリ処理 モノリポで管理しているSPAなクライアント側の成果物 (dist) を gin で静的配布 できないかと思った際に調べた内容。 結局使用していないが、バイナリ化する手順としては使えそうなのでメモしておく。
+ディレクトリは以下の様な形
+├── Makefile ├── assets -&amp;gt; ../../client/back/dist ├── box │ ├── blob.go │ └── box.go └─generator.go Makefile まずは関係ないけど、Makefileって@書けば &amp;amp;&amp;amp; バックスラッシュ連結とかいらんのかという発見 ./... 指定で全てを対象に指定 generate: @go generate ./... @echo &amp;#34;[OK] Files added to embed box!&amp;#34; generator.go 1行目はfmtをかけると自動付与された // +build ignore コメントにより通常ビルド対象から外れる設定 生成される go ファイルは blob.go で box 配下に出力される f, err := os.Create(blobFileName) や、 embedFolder string = &amp;quot;../assets/&amp;quot; から current directory は box 配下の模様 //go:build ignore // +build ignore package main import ( &amp;#34;bytes&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;go/format&amp;#34; &amp;#34;io/ioutil&amp;#34; &amp;#34;log&amp;#34; &amp;#34;os&amp;#34; &amp;#34;path/filepath&amp;#34; &amp;#34;strings&amp;#34; &amp;#34;text/template&amp;#34; ) const ( blobFileName string = &amp;#34;blob.</description>
+    </item>
+    
+    <item>
+      <title>docker compose の仕様変更による進化</title>
+      <link>https://tro3373.github.io/posts/2022/2022-05-19-read-context-of-docker-compose-evolution/</link>
+      <pubDate>Thu, 19 May 2022 05:28:44 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-05-19-read-context-of-docker-compose-evolution/</guid>
+      <description>docker compose の仕様変更による進化 docker-compose から docker compose へ移行しようかと思い調べ始めたので記録
+Context of Docker Compose evolution Composeの仕様変更により compose yaml ファイルと docker-compose の実装が明確に切り離された この変更により多くの機能追加ができるようになった composeコマンドのdocker cliへの追加 Docker コンテキストの切り替えにより、クラウドプラットフォームへ アプリケーションを up する Amazon ECS Microsoft ACI Compose v2 は仕様の一部としてメンテナンスされる compose-go バインディングに直接依存 これにより、コミュニティによる提案や、Docker cli/Engine による実験的な実装や機能のユーザへの提供を早めます Compose v2 は Go で書かれている為、docker コマンドライン機能の統合を改善し、Python依存なしに各種デバイス上でネイティブに走ることが可能となります。 詳細は以下から
+Overview of Docker Compose | Docker Documentation Context of Docker Compose evolution Introduction of the Compose specification makes a clean distinction between the Compose YAML file model and the docker-compose implementation.</description>
+    </item>
+    
+    <item>
+      <title>ipv6</title>
+      <link>https://tro3373.github.io/posts/2022/2022-01-04-ipv6/</link>
+      <pubDate>Tue, 04 Jan 2022 09:13:45 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-01-04-ipv6/</guid>
+      <description>楽天ひかり環境のネットワーク設定 最終的な構成は以下
+ONU - SwitchHub -- Router(PPPoE) | | |- 公開用サーバ | | | |(&amp;lt;= ルータ同士をローカルエリア接続) | | |- Router(IPoE) |- スマホ |- テレビ.. IPv6 で通常は高速通信 IPv4 PPPoE でポート公開やVPNなどの DS-Lite で利用できないものを使用する想定 以下各項目と溜まった知見 IPoE PPPoE ルーターの設定 設定といってもIPv4 ルーターのDHCPを無効にして、IPアドレスをIPv6ルーターに合わせるだけです。IPv6ルーター（AX1167GR2）はいじる必要はありません。
+IPv4 PPPoEとIPv6（v6プラス）を併用する | 小山電子 ONU SwitchingHub構成の方がシンプル PPPoEパススルー設定で数珠繋ぎとする方法も接続確認できたが、 ONU - ルータ間にSwitchingHubを挟むほうがシンプル PPPoEパススルー(ブリッジ) ネットワーク内部から外部へのPPPoE接続を中継(パススルー(ブリッジ))する機能。 家庭などでインターネット接続に用いられるブロードバンドルータなどが持つ機能の一つ 古いネットワーク(IPv4/PPPoE)接続方式に戻してからネットワークに接続する IPv4アドレスがない(IPv6で接続している)状態でも、IPv6非対応サービスなどに接続することが可能 IPv6パススルー(ブリッジ) IPv6ブリッジ機能が有効である状態のこと 配下に設置したPCやルータがIPv6ネットワークへ接続できる状態になっている事を言います。 PPTPパススルー(ブリッジ)(VPNパススルー) IPsec(IP Security)または、PPTP(Point to Point Tunneling Protocol)による VPN(Virtual Private Network)通信を通過させることができる機能 IPv4 over IPv6 サービス名として、 v6 プラス と表記する場合あり 通信のカプセル化 IPv6パケットの中にIPv4パケットを包含して通信 必要に応じてIPv6接続で通信でき、必要に応じてIPv4アドレスでの通信も可能 インターネット回線に接続するまでに中継ポイントを介さない為、高速 光回線(ipv4(PPPoE))では網終端装置を介する方式が主流 アクセス集中すると通信速度が遅くなる事が課題 接続方式は複数ある DS-Lite MAP-E IPv4 over IPv6技術としてMAP-EとDS-Liteを比較したとき、両者にほぼ違いはない IPv4 over IPv6では、IPアドレスのほか、ポートも複数のユーザーと共有 ポート開放は制限され、割り当てられたポートのみを開放可能 固定IPが使用できない 利用できる接続サービスが少ない VPS(仮想専用ネットワーク)などのPPTP SCTPを利用するサービスなど SCTP ストリーム コントロール トランスミッション プロトコル TCPやUDPと同様に、OSI参照モデルの中では第4層となるトランスポートレイヤに位置付けられるプロトコル 元々はIPネットワーク上で電話網のシグナリングプロトコルを実現するために設計されたが、 最終的には汎用性の高いトランスポートプロトコルとして、2000年に定義される インターネット接続の仕組み IPv4(PPPoE) 遅い IPv4方式のWEBサイトにのみアクセス可能 IPv6(PPPoE) 遅い IPv6方式のWEBサイトにのみアクセス可能 IPv6(IPoE) 速い IPv6方式のWEBサイトにのみアクセス可能 IPv6(IPoE)を利用するためには、インターネットを接続する企業側だけでなく、 プロバイダーなどの接続サービス側もIPv6に対応する必要あり 網終端装置はなぜアクセス集中で通信速度が遅くなるのか NGN網 Next Generation Network NTT東西の網 構造 PC - NGN - ISP - WWW</description>
+    </item>
+    
+    <item>
+      <title>aws vault invalid client token id error</title>
+      <link>https://tro3373.github.io/posts/2021/2021-12-02-aws-vault-invalid-client-token-id-error/</link>
+      <pubDate>Thu, 02 Dec 2021 22:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2021/2021-12-02-aws-vault-invalid-client-token-id-error/</guid>
+      <description>aws-vault で InvalidClientTokenId: The security token included in the request is invalid で怒られる │ Error: error reading IAM Role (rds-enhanced-monitoring-dev-db): InvalidClientTokenId: The security token included in the request is invalid │ status code: 403, request id: d09fe380-0c00-4485-9aeb-1e58740fdcb3 ここに答えがあった
+Error: The security token included in the request is invalid · Issue #260 · 99designs/aws-vault · GitHub I&amp;rsquo;ve encountered the same problem. It&amp;rsquo;s caused by the AWS API restrictions, that won&amp;rsquo;t allow you to touch IAM related APIs using the account with MFA enabled, unless you pass the MFA token within the request.</description>
+    </item>
+    
+    <item>
+      <title>別ファイルに書いた main パッケージの Function が undefined 判定される</title>
+      <link>https://tro3373.github.io/posts/2021/2021-11-26-go_function_in_another_file_undefined_in_go_run_main_go/</link>
+      <pubDate>Fri, 26 Nov 2021 17:18:00 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2021/2021-11-26-go_function_in_another_file_undefined_in_go_run_main_go/</guid>
+      <description>別ファイルに書いた main パッケージの Function が undefined 判定される ここに答えがあった
+go - &amp;ldquo;undefined&amp;rdquo; function declared in another file? - Stack Overflow Please read &amp;ldquo;How to Write Go Code&amp;rdquo;.
+Use go build or go install within the package directory, or supply an import path for the package. Do not use file arguments for build or install.
+While you can use file arguments for go run, you should build a package instead, usually with go run .</description>
+    </item>
+    
+    <item>
+      <title>ConoHa WING by GMO</title>
+      <link>https://tro3373.github.io/posts/2021/2021-06-13-conoha-wing-by-gmo/</link>
+      <pubDate>Sun, 13 Jun 2021 09:02:42 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2021/2021-06-13-conoha-wing-by-gmo/</guid>
+      <description>国内最速 レンタルサーバ 楽天ひかり </description>
+    </item>
+    
+    <item>
+      <title>trap コマンドは pipe と併用すると動作しない</title>
+      <link>https://tro3373.github.io/posts/2021/2021-04-09-trap-not-work-with-pipe/</link>
+      <pubDate>Fri, 09 Apr 2021 09:24:08 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2021/2021-04-09-trap-not-work-with-pipe/</guid>
+      <description>trap コマンドは pipe と併用すると動作しない 以下のBashスクリプトがあった場合に、パイプで出力全部ログ吐いちゃおう、 っておもったらうまくERRトラップが動かなくなったので、メモ
+動くコード #!/bin/bash trap &amp;#34;echo Non-zero exit code detected!&amp;#34; ERR function fail_please() { echo &amp;#34;Returning non-zero exit code!&amp;#34; return 1 } fail_please # 出力結果 Returning non-zero exit code! Non-zero exit code detected! 動かないコード #!/bin/bash trap &amp;#34;echo Non-zero exit code detected!&amp;#34; ERR function fail_please() { echo &amp;#34;Returning non-zero exit code!&amp;#34; return 1 } fail_please |&amp;amp; tee log_file.log # 出力結果 Returning non-zero exit code! Bash: Trap ERR does not work when pipe operator is used The ERR trap fires for &amp;ldquo;simple commands&amp;rdquo; a pipeline is not a simple command.</description>
+    </item>
+    
+    <item>
+      <title>ApiGatewayのログを ServerlessFramework で設定したい</title>
+      <link>https://tro3373.github.io/posts/2019/2019-11-11-enable-apigw-log-via-serverless-framework/</link>
+      <pubDate>Mon, 11 Nov 2019 05:45:40 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2019/2019-11-11-enable-apigw-log-via-serverless-framework/</guid>
+      <description>要件としては、ApiGateway &amp;lt;=&amp;gt; Lambda の統合設定条件配下にて、 Lambdaからの応答結果が6MBを超えた場合に以下のようなログが出力される
+Lambda execution failed with status 200 due to customer function error: body size is too long. Lambda request id: XXXX-XXXX... これに対して、ServerlessFramework でログ設定を行いたい
+参考 Serverless.yml Reference Enhancements for API Gateway REST API log setup Serverless complains about &amp;ldquo;Rest API id could not be resolved.&amp;rdquo; ApiGateway ステージ ログ／トレース の設定と動作 IAM Policy作成含め以下の設定だけで作成される
+provider: logs: restApi: accessLogging: false # Optional configuration which enables or disables access logging. Defaults to true.</description>
+    </item>
+    
+    <item>
+      <title>Congnitoの発行するトークンの意味と動作</title>
+      <link>https://tro3373.github.io/posts/2019/2019-11-05-cognito-token-refresh/</link>
+      <pubDate>Tue, 05 Nov 2019 22:49:56 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2019/2019-11-05-cognito-token-refresh/</guid>
+      <description>参考URL https://dev.classmethod.jp/cloud/aws/study-tokens-of-cognito-user-pools/ 理解 Cognito トークンには３つ種類がある IDトークン クライムを表すトークン (JWT) アクセストークン Cognitoユーザ属性を表示、更新等行う為のトークン (JWT) リフレッシュトークン IDトークン、アクセストークンを更新する為のもの CognitoクライアントID設定画面で有効期限を設定できる デフォルトは30日(1-3650日指定可能) ID/アクセストークンは1時間で無効になる リフレッシュトークンが有効な間はID/アクセストークンは自動更新される getSession で自動更新 </description>
+    </item>
+    
+    <item>
+      <title>Ninja 250R オイル交換</title>
+      <link>https://tro3373.github.io/posts/2017/2017-03-05-ninja250r-mentenance-oil-element/</link>
+      <pubDate>Sun, 05 Mar 2017 01:11:06 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2017/2017-03-05-ninja250r-mentenance-oil-element/</guid>
+      <description>久しく交換していなかったので、天気も良いしNinjaオイル交換.
+使用するもの 今回はエレメント交換も行うので、フィルター. オイル シリコングリス 他にも、ワッシャー、大小オーリングを使用します.
+古いオイルの排出 まずはドレインボルトを外して、ドバーっと古いオイルを出します. これは、外したボルト わかりにくいけど、外したところ ちゃんとお手製のオイル廃棄箱を受け皿にしています. エレメント交換 下の画像の右側の大きな円の部分を外します. これは外したフィルター. 下から除くとこんな穴が空いてます. ドレインボルトよりもこっちを外すほうが、難しいですね.
+円形の全方位からオイルが出てくるので、蓋やレンチや手がオイルで ヌレル こと間違い無し.
+綺麗に拭き取ります. 外したフィルターを分解して、これもオイルを拭き取ります. これは、外した円形の蓋の裏側.
+大きい方のオーリング(黒いゴム製の輪っか)が溝にはまってます.
+今回はこのリングも交換します. これは、フィルタから外したところ.
+画像の下の方に、小さい方のオーリングが同じように溝にはまっているので、 これも取り外して交換です. これが古いオーリング
+新しいオーリングや、軸の部分にはシリコングリスを塗ってから装着.
+オイルを 2L 弱入れて完成.
+良い休日でした.</description>
+    </item>
+    
+    <item>
+      <title>ag 使い方メモ</title>
+      <link>https://tro3373.github.io/posts/2017/2017-01-06-ag-memo/</link>
+      <pubDate>Fri, 06 Jan 2017 02:13:19 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2017/2017-01-06-ag-memo/</guid>
+      <description>The Silver Searcher AG よく使うオプション # ディレクトリ階層の深さ指定 --depth NUM Search up to NUM directories deep (Default: 25) # (マッチした)ファイル名のみを出力 -l --files-with-matches Only print filenames that contain matches (dont print the matching lines) # マッチしなかったファイル名を表示 -L --files-without-matches Only print filenames that dont contain matches # ファイル名にマッチしたものを出力 -g PATTERN Print filenames matching PATTERN # 行番号を非表示 --[no]numbers Print line numbers. Default is to omit line numbers when searching streams # 隠しファイルも検索 --hidden Search hidden files (obeys .</description>
+    </item>
+    
+    <item>
+      <title>Bookmarklet で煩わしいテストの手助けをする</title>
+      <link>https://tro3373.github.io/posts/2016/2016-10-30-bookmarklet-defan-wasiitesutonoshou-zhu-kewosuru/</link>
+      <pubDate>Sun, 30 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2016/2016-10-30-bookmarklet-defan-wasiitesutonoshou-zhu-kewosuru/</guid>
+      <description>Bookmarklet で煩わしいテストの手助けをする WEBでテストする際にたまに必要になるのが、100件クリックする、や入力項目全部に入力した状態で、 クリックするなど単純動作を繰り返す事。 単純作業である為、おそらく５回くらいクリックした時点で飽きてしまい、業務中に寝てしまう事になりそう。
+以下のような Bookmarklet を準備しておけば、ちょっとした際に、さらっと js 書いて、100回でも、1000回でも クリックできます。
+javascript:(function(f,urls,i,s){urls=[&amp;#34;//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js&amp;#34;/* ,&amp;#34;URL&amp;#34;,&amp;#34;URL&amp;#34;,... */];for(i=0;i&amp;lt;urls.length;i++){s=document.createElement(&amp;#34;script&amp;#34;);s.src=urls[i];if(i==urls.length-1)s.onload=function(){f(jQuery.noConflict(true))};document.body.appendChild(s)}})(function($){/* 内部コード */}) 対象のページにできるだけ影響の無いように、かつ、CDNで jQury を持ってきて、後はやりたいことちょろっと書くだけ。しかもjQuery以外のライブラリもロードできる！ 便利</description>
+    </item>
+    
+    <item>
+      <title>ldapsearch コマンドで AD 情報を検索する</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-18-ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</link>
+      <pubDate>Sun, 18 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-10-18-ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</guid>
+      <description>もう何がなんだかわからないので、とりあえずメモ。。
+LDAP ワード集 DIT = Directory Information Tree DN = 識別名（Distinguished Name） DC = ドメイン構成要素(domain component) O = 組織名(organization) OU = 組織単位(organizational unit) CN = 一般名称(common name) sample.local ドメインの場合の検索方法 # ユーザ Administrator を検索 ldapsearch -x -LLL -D &amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34; -W -b &amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34; # CN Users に属するユーザを検索 ldapsearch -x -LLL -D &amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34; -W -b &amp;#34;cn=Users,dc=sample,dc=local&amp;#34; 以下、 ldapsearch コマンドの OPTION 抜粋
+ldapsearch opens a connection to an LDAP server, binds, and performs a search using specified parameters.</description>
+    </item>
+    
+    <item>
+      <title>Docker Machine(Boot2Docker(Tiny Linux)) 上で docker/gitlab を動かしてみる</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/</link>
+      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/</guid>
+      <description>sameersbn/gitlab:8.0.4 オンプレミスな GitHub Clone GitLab
+かなり気持ち悪いロゴ&amp;hellip;(なぜこうなった) バージョンUPでこうなったらしい&amp;hellip; それはいいとして、 Docker image を利用して、公式に公開されている、docker/gitlab
+を docker-machine で作成した docker-host（virtual-box） 上で 動かしてみた。
+インストール ssh で docker-machine ホストOSへ接続した状態でおこなう
+docker-machine ssh dev docker pull sameersbn/gitlab:8.0.4 cd ~/works/ git clone https://github.com/sameersbn/docker-gitlab.git cd docker-gitlab # Dockerfile からビルドする場合 # docker build --tag=$USER/gitlab . docker-compose インストール docker コンテナを複数使用するアプリケーションの構成（起動順序や必要リソースなど）をまとめて管理できるのが、 docker-compose
+clone されたディレクトリに、 docker-compose.yml が存在するので、 docker-compose で起動できる。
+# docker-compose ダウンロード cd ~/Downloads wget https://github.com/docker/compose/releases/download/1.4.2/docker-compose-Linux-x86_64 sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose sudo chmod 755 /usr/local/bin/docker-compose # version 確認 docker-compose --version # 以下が表示される # docker-compose version: 1.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 上に Docker Machine を インストールする</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-10-ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</link>
+      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-10-10-ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</guid>
+      <description>Docker Machine を試す！
+docker-machine docker-machine は Docker ホストを管理するツールで、ホストとなる Docker コンテナ起動サーバが、VM や AWS、 Digital Ocean などの ホストへ接続し実行する事で、あたかも local で docker コンテナが動いているかのように振る舞うツール。
+Docker コンテナ管理ツールとしても仕様できるみたい。
+docker インストール まずは、 dokcer のインストール
+# Docker install wget -qO- https://get.docker.com/ | sh # version を確認しておく。 docker --version # 以下が表示される # Docker version 1.8.2, build 0a8c2e3 # ユーザーを docker グループに追加 sudo usermod -aG docker $USER docker-machine インストール 続いて、 docker-machine をインストールする。
+cd ~/Download wget https://github.com/docker/machine/releases/download/v0.4.1/docker-machine_linux-amd64 sudo mkdir -p /opt/bin sudo mv docker-machine_linux-amd64 /opt/bin/docker-machine sudo chmod +x /opt/bin/docker-machine # docker-machine version 確認 # /opt/bin にパスが通っている事！ docker-machine -v # 以下のようにバージョンが表示される # docker-machine version 0.</description>
+    </item>
+    
+    <item>
+      <title>Ghost ブログ Export ファイルを変換するスクリプトを書いた</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-08-ghost-burogu-export-huairuwobian-huan-surusukuriputowoshu-ita/</link>
+      <pubDate>Thu, 08 Oct 2015 19:24:54 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-10-08-ghost-burogu-export-huairuwobian-huan-surusukuriputowoshu-ita/</guid>
+      <description>ブログシステムを Ghost へ乗り換えてみたが、 Publish 日付とブログの日付が合わない、といった事象が発生していた。（ブログ再構築の際に順番をいしきしていなかった為、 publish 日付でソートされると、あまり宜しくない結果になった。） 仕方ない、、、と放置していたが、この度簡単なスクリプトを書いて対応した。 node のインストールに若干手こずったが、まぁ、Javascript、簡単！
+概要 Ghost 管理メニューより Export した Jsonファイルを用意する。 今回は、ブログタイトルに、記事日付があったので、それを利用した。 title より取り出した 日付で、 publish_at 項目を更新。 本来の日付でソートできた！！ vim convertMyGhostExport.js var srcPath = &amp;#34;/home/ghost/Desktop/your-domain.ghost.2015-10-07.json&amp;#34;; var dstPath = &amp;#34;/home/ghost/Desktop/your-domain.ghost.2015-10-07_dst.json&amp;#34;; var json = require(srcPath); json.db[0].data.posts.every(function(post,index,ar){ var dateStr = post.title.substr(0, 8); if (!dateStr.match(/\d{8}/)) { // title の頭８文字が数値出ない場合は対象外 return true; } if (post.status != &amp;#34;published&amp;#34;) { // 公開していない場合は対象外 return true; } var yyyy = dateStr.substr(0,4); var mm = dateStr.substr(4,2) - 1; var dd = dateStr.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 wireshark 設定</title>
+      <link>https://tro3373.github.io/posts/2015/2015-09-12-ubuntu-14-04-wireshark-she-ding/</link>
+      <pubDate>Sat, 12 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-09-12-ubuntu-14-04-wireshark-she-ding/</guid>
+      <description> Ubuntu 14.04 で wireshark を導入すると、root 権限で起動するなりしないと、 通常はパケットキャプチャできない設定になっている。 ので、任意の一般ユーザをキャプチャできるよう、設定する。
+# wireshark インストール sudo add-apt-repository ppa:wireshark-dev/stable sudo apt-get install wireshark ## TODO 以下、、必要？？？ # wireshark グループ作成 sudo groupadd wireshark # wireshark グループ に自分を追加 sudo usermod -a -G wireshark [user_name] sudo chgrp wireshark /usr/bin/dumpcap sudo chmod 750 /usr/bin/dumpcap # dumpcapに対して以下のケーバビリティを許可 sudo setcap cap_net_raw,cap_net_admin=eip /usr/bin/dumpcap sudo getcap /usr/bin/dumpcap それでもダメな場合は、、、 export LIBOVERLAY_SCROLLBAR=0 wireshark </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 Upstart チート</title>
+      <link>https://tro3373.github.io/posts/2015/2015-09-10-ubuntu14-04-upstart-tito/</link>
+      <pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-09-10-ubuntu14-04-upstart-tito/</guid>
+      <description>/etc/init/ 配下に XXXXX.conf ファイルを作成するのみ
+基本コマンド # 設定を反映 sudo initctl reload-configuration # XXXXX JOB の状態確認 sudo initctl status XXXXX # XXXXX JOB を開始 sudo initctl start XXXXX # XXXXX JOB を停止 sudo initctl stop XXXXX # XXXXX イベントを発生 sudo initctl emmit XXXXX XXXXX.conf 書き方 Job 基準
+# Job が開始されたら 起動 start on started [開始するためのJOB名] # Job が停止されたら 停止 stop on stopped [開始するためのJOB名] イベント 基準
+# イベントが発生したら開始 start on [開始するためのイベント名] # イベントが発生したら停止 stop on [停止するためのイベント名] 参考 Upstart を使ってお手軽 daemon 化 いますぐ実践!</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 上に Eclipse Java7 Tomcat6.0 Java EE開発環境を構築する</title>
+      <link>https://tro3373.github.io/posts/2015/2015-09-09-ubuntu-14-04-shang-ni-eclipse-java7-tomcat6-0-java-eekai-fa-huan-jing-wogou-zhu-suru/</link>
+      <pubDate>Wed, 09 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-09-09-ubuntu-14-04-shang-ni-eclipse-java7-tomcat6-0-java-eekai-fa-huan-jing-wogou-zhu-suru/</guid>
+      <description>Install Eclipse mars mkdir -p ~/Downloads/eclipse cd ~/Downloads/eclipse/ # Eclipse install wget http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/mars/R/eclipse-jee-mars-R-linux-gtk-x86_64.tar.gz cd /opt/ sudo tar xvfpz ~/Downloads/eclipse/eclipse-jee-mars-R-linux-gtk-x86_64.tar.gz Tomcat plugin install cd ~/Downloads/eclipse/ wget http://www.eclipsetotale.com/tomcatPlugin/tomcatPluginV331.zip unzip tomcatPluginV331.zip sudo mv ~/Downloads/eclipse/com.sysdeo.eclipse.tomcat_3.3.1.jar /opt/eclipse/plugins/ # Eclipse 再起動 Install Java 7 sudo add-apt-repository ppa:webupd8team/java sudo apt-get update # Java 7 install sudo apt-get install oracle-java7-installer # Java 6 も入れる場合 # sudo apt-get install oracle-java6-installer # インストール済みJavaを入れ替える場合 update-alternatives --config java # java7 を選択 # 確認 $ java -version java version &amp;#34;1.</description>
+    </item>
+    
+    <item>
+      <title>Gitコマンドあれこれ</title>
+      <link>https://tro3373.github.io/posts/2015/2015-07-18-git-komando/</link>
+      <pubDate>Sat, 18 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-07-18-git-komando/</guid>
+      <description>コミットユーザ名を設定する git config --global user.name [UserName] コミットユーザ名を設定する git config --global user.email [Email] コミット時等に使用するエディタを設定する # vim(Linux,mac) git config --global core.editor &amp;#34;vim -c &amp;#39;set fenc=utf-8&amp;#39;&amp;#34; # Sublime(Liux,mac) # subl コマンドが登録できていない場合は以下も実行(mac) # &amp;#34;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&amp;#34; &amp;#34;/usr/local/bin/subl&amp;#34; git config --global core.editor &amp;#34;subl -w&amp;#34; # Sublime(windows) git config --global core.editor &amp;#34;&amp;#39;C:/Program Files/Sublime Text 3/sublime_text.exe&amp;#39; -w&amp;#34; git の標準出力をカラーリングする git config --global color.ui auto git push 時の宛先省略時のデフォルト動作設定 simple: カレントブランチに追跡ブランチが設定されている、
+かつローカルとリモートのブランチ名が同じである場合に、追跡ブランチに対して push する。
+git config --global push.default simple 日本語ファイルの文字化け対応 git config --global core.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 AtomエディタをPPAでインストールする</title>
+      <link>https://tro3373.github.io/posts/2015/2015-06-05-atomedeitawoppadeinsutorusuru/</link>
+      <pubDate>Fri, 05 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-06-05-atomedeitawoppadeinsutorusuru/</guid>
+      <description>Ubuntu で Github 製エディタ Atom の自動アップデートを有効にする sudo add-apt-repository ppa:webupd8team/atom sudo apt-get update sudo apt-get install atom </description>
+    </item>
+    
+    <item>
+      <title>Windows 7 で vaygrant(CentOS 6.5)にRails4.1 &#43; Nginx &#43; Unicorn &#43; Postgres 9.3 を起動する</title>
+      <link>https://tro3373.github.io/posts/2015/2015-01-29-windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/</link>
+      <pubDate>Thu, 29 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-01-29-windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/</guid>
+      <description>Virtual Box インストール Download
+本家 Virtualbox より、 Virtual Box ダウンロード
+インストール
+Vagrant インストール Download
+本家 Vagrant より、 Vagrantダウンロード
+インストール
+再起動が必要
+仮想マシン（BOX（テンプレート））取得・追加 CnetOS 6.5 用 URL 取得
+Vagrantbox.es より、Virtual Box用、CentOS 6.5 x86_64 URLをコピーする
+Box add
+cd c:\HashiCorp\Vagrant\ mkdir myhost cd myhost c:\HashiCorp\Vagrant\myhost&amp;gt; vagrant box add centos65 https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box ==&amp;gt; box: Adding box &amp;#39;centos65&amp;#39; (v0) for provider: box: Downloading: https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box box: Progress: 100% (Rate: 3348k/s, Estimated time remaining: --:--:--) ==&amp;gt; box: Successfully added box &amp;#39;centos65&amp;#39; (v0) for &amp;#39;virtualbox&amp;#39;!</description>
+    </item>
+    
+    <item>
+      <title>Windows7 ネットワーク設定を標準で使用するといけないらしい</title>
+      <link>https://tro3373.github.io/posts/2015/2015-01-29-windows7-netutowakushe-ding-wobiao-zhun-deshi-yong-surutoikenairasii/</link>
+      <pubDate>Thu, 29 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-01-29-windows7-netutowakushe-ding-wobiao-zhun-deshi-yong-surutoikenairasii/</guid>
+      <description>参考 ［Windows 7編］ネットワーク設定を標準で使ってはいけない Windows 7でネットワークドライブ共有ファイルのアクセス速度問題。時間が経つと遅くなる。（解決） やってみる 現状の確認
+netsh int tcp show global TCP Chimney Offload の無効化
+netsh int tcp set global chimney=disabled Receive-Side Scaling（RSS）の無効化
+netsh int tcp set global rss=disabled Network Direct Memory Access（NetDMA）の無効化
+netsh int tcp set global netdma=disabled 受信側スケーリングの無効化
+コントロール パネル→ネットワークとインターネット→ネットワーク接続→ローカル エリア接続（右クリック）→プロパティ→構成→詳細設定 Receive Side Scaling（RSS）（受信側スケーリング）の無効化</description>
+    </item>
+    
+    <item>
+      <title>Javascript実行HTMLスケルトン</title>
+      <link>https://tro3373.github.io/posts/2015/2015-01-28-javascriptshi-xing-htmlsukeruton/</link>
+      <pubDate>Wed, 28 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-01-28-javascriptshi-xing-htmlsukeruton/</guid>
+      <description>Javascript実行HTMLスケルトン ちょっとした Javascript を実装してテストする際などに使用するHTMLのスケルトン
+&amp;lt;!DOCTYPE html&amp;gt; &amp;lt;html&amp;gt; &amp;lt;head&amp;gt; &amp;lt;title&amp;gt;Convert&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;quot;http://code.jquery.com/jquery-latest.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;script type=&amp;quot;text/javascript&amp;quot;&amp;gt; $(function(){ var html = getSrcHtml(); alert(html); }); function getSrcHtml() { return &amp;quot;&amp;quot;; } &amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; test &amp;lt;/html&amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 bashrc にCentOs6.5 Solarizedカラースキームを設定</title>
+      <link>https://tro3373.github.io/posts/2015/2015-01-21-ubuntu14-04-bashrc-nicentos6-5-solarizedkarasukimuwoshe-ding/</link>
+      <pubDate>Wed, 21 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-01-21-ubuntu14-04-bashrc-nicentos6-5-solarizedkarasukimuwoshe-ding/</guid>
+      <description>参考 CentOS環境にSolarizedカラースキームを適用する を参考に
+設定 以下を .bashrc へ追記
+$ vim ~/.bashrc LS_COLORS=&amp;#39;no=00;38;5;244:rs=0:di=00;38;5;33:ln=00;38;5;37:mh=00:pi=48;5;230;38;5;136;01:so=48;5;230;38;5;136;01:do=48;5;230;38;5;136;01:bd=48;5;230;38;5;244;01:cd=48;5;230;38;5;244;01:or=48;5;235;38;5;160:su=48;5;160;38;5;230:sg=48;5;136;38;5;230:ca=30;41:tw=48;5;64;38;5;230:ow=48;5;235;38;5;33:st=48;5;33;38;5;230:ex=00;38;5;64:*.tar=00;38;5;61:*.tgz=00;38;5;61:*.arj=00;38;5;61:*.taz=00;38;5;61:*.lzh=00;38;5;61:*.lzma=00;38;5;61:*.tlz=00;38;5;61:*.txz=00;38;5;61:*.zip=00;38;5;61:*.z=00;38;5;61:*.Z=00;38;5;61:*.dz=00;38;5;61:*.gz=00;38;5;61:*.lz=00;38;5;61:*.xz=00;38;5;61:*.bz2=00;38;5;61:*.bz=00;38;5;61:*.tbz=00;38;5;61:*.tbz2=00;38;5;61:*.tz=00;38;5;61:*.deb=00;38;5;61:*.rpm=00;38;5;61:*.jar=00;38;5;61:*.rar=00;38;5;61:*.ace=00;38;5;61:*.zoo=00;38;5;61:*.cpio=00;38;5;61:*.7z=00;38;5;61:*.rz=00;38;5;61:*.apk=00;38;5;61:*.gem=00;38;5;61:*.jpg=00;38;5;136:*.JPG=00;38;5;136:*.jpeg=00;38;5;136:*.gif=00;38;5;136:*.bmp=00;38;5;136:*.pbm=00;38;5;136:*.pgm=00;38;5;136:*.ppm=00;38;5;136:*.tga=00;38;5;136:*.xbm=00;38;5;136:*.xpm=00;38;5;136:*.tif=00;38;5;136:*.tiff=00;38;5;136:*.png=00;38;5;136:*.svg=00;38;5;136:*.svgz=00;38;5;136:*.mng=00;38;5;136:*.pcx=00;38;5;136:*.dl=00;38;5;136:*.xcf=00;38;5;136:*.xwd=00;38;5;136:*.yuv=00;38;5;136:*.cgm=00;38;5;136:*.emf=00;38;5;136:*.eps=00;38;5;136:*.CR2=00;38;5;136:*.ico=00;38;5;136:*.tex=00;38;5;245:*.rdf=00;38;5;245:*.owl=00;38;5;245:*.n3=00;38;5;245:*.ttl=00;38;5;245:*.nt=00;38;5;245:*.torrent=00;38;5;245:*.xml=00;38;5;245:*Makefile=00;38;5;245:*Rakefile=00;38;5;245:*build.xml=00;38;5;245:*rc=00;38;5;245:*1=00;38;5;245:*.nfo=00;38;5;245:*README=00;38;5;245:*README.txt=00;38;5;245:*readme.txt=00;38;5;245:*.md=00;38;5;245:*README.markdown=00;38;5;245:*.ini=00;38;5;245:*.yml=00;38;5;245:*.cfg=00;38;5;245:*.conf=00;38;5;245:*.c=00;38;5;245:*.cpp=00;38;5;245:*.cc=00;38;5;245:*.log=00;38;5;240:*.bak=00;38;5;240:*.aux=00;38;5;240:*.lof=00;38;5;240:*.lol=00;38;5;240:*.lot=00;38;5;240:*.out=00;38;5;240:*.toc=00;38;5;240:*.bbl=00;38;5;240:*.blg=00;38;5;240:*~=00;38;5;240:*#=00;38;5;240:*.part=00;38;5;240:*.incomplete=00;38;5;240:*.swp=00;38;5;240:*.tmp=00;38;5;240:*.temp=00;38;5;240:*.o=00;38;5;240:*.pyc=00;38;5;240:*.class=00;38;5;240:*.cache=00;38;5;240:*.aac=00;38;5;166:*.au=00;38;5;166:*.flac=00;38;5;166:*.mid=00;38;5;166:*.midi=00;38;5;166:*.mka=00;38;5;166:*.mp3=00;38;5;166:*.mpc=00;38;5;166:*.ogg=00;38;5;166:*.ra=00;38;5;166:*.wav=00;38;5;166:*.m4a=00;38;5;166:*.axa=00;38;5;166:*.oga=00;38;5;166:*.spx=00;38;5;166:*.xspf=00;38;5;166:*.mov=00;38;5;166:*.mpg=00;38;5;166:*.mpeg=00;38;5;166:*.m2v=00;38;5;166:*.mkv=00;38;5;166:*.ogm=00;38;5;166:*.mp4=00;38;5;166:*.m4v=00;38;5;166:*.mp4v=00;38;5;166:*.vob=00;38;5;166:*.qt=00;38;5;166:*.nuv=00;38;5;166:*.wmv=00;38;5;166:*.asf=00;38;5;166:*.rm=00;38;5;166:*.rmvb=00;38;5;166:*.flc=00;38;5;166:*.avi=00;38;5;166:*.fli=00;38;5;166:*.flv=00;38;5;166:*.gl=00;38;5;166:*.m2ts=00;38;5;166:*.divx=00;38;5;166:*.webm=00;38;5;166:*.axv=00;38;5;166:*.anx=00;38;5;166:*.ogv=00;38;5;166:*.ogx=00;38;5;166:&amp;#39; export LS_COLORS </description>
+    </item>
+    
+    <item>
+      <title>Nuc(D54250WYKH)に CoreOS をインストールし、Docker を触る</title>
+      <link>https://tro3373.github.io/posts/2015/2015-01-17-nucd54250wykhni-coreos-woinsutorusi-docker-wohong-ru/</link>
+      <pubDate>Sat, 17 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-01-17-nucd54250wykhni-coreos-woinsutorusi-docker-wohong-ru/</guid>
+      <description>Nuc(D54250WYKH)に CoreOS をインストールし、Docker を触る CoreOS インストール ISO イメージダウンロード CoreOS ISO イメージを ここ からダウンロード
+または、以下コマンドで取得
+$ curl -o core-os.iso http://alpha.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso?__hstc=112362075.27b09ada9633d5c4e4307490970e61ed.1421419603585.1421419603585.1421419603585.1&amp;amp;__hssc=112362075.1.1421419603585&amp;amp;__hsfp=4136096990 USB 起動ディスクの作成 Mac OS からUSB起動ディスク作成を行う場合は、以下コマンドで、ISO イメージを変換
+$ hdiutil convert -format UDRW -o out.img coreos_production_iso_image.iso Mac 上の認識デバイスIDを確認
+$ diskutil list USB アンマウント
+$ diskutil unmountDisk /dev/disk2 イメージ書き込み
+$ sudo dd if=out.img.dmg of=/dev/disk2 bs=1m USB 取り出し
+$ diskutil eject /dev/disk2 CoreOS を Nuc で起動 USB メモリから起動 insert usb disk. power on F10 連打! 起動した CoreOS の設定 パスワード変更</description>
+    </item>
+    
+    <item>
+      <title>Pandoc でマークダウンから docx へ変換する</title>
+      <link>https://tro3373.github.io/posts/2015/2015-01-07-pandoc-demakudaunkara-docx-hebian-huan-suru/</link>
+      <pubDate>Wed, 07 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-01-07-pandoc-demakudaunkara-docx-hebian-huan-suru/</guid>
+      <description>Pandoc でマークダウンから docx へ変換する方法 pandoc &amp;quot;a.md&amp;quot; -t docx -o &amp;quot;a.docx&amp;quot; </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 terminalからログオフする</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-28-ubuntu-14-04-terminalkararoguohusuru/</link>
+      <pubDate>Fri, 28 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-11-28-ubuntu-14-04-terminalkararoguohusuru/</guid>
+      <description>Ubuntu 14.04 terminalからログオフする
+DISPLAY=:0 gnome-session-quit --logout --no-prompt </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 で、ruby on rails passenger をインストールして apache 連携する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</link>
+      <pubDate>Fri, 14 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</guid>
+      <description>passenger インストール cd ~/ rbenv exec gem install passenger rbenv rehash passenger-install-apache2-module実行 rbenv exec passenger-install-apache2-module passenger-install-apache2-module 詳細
+This installer will guide you through the entire installation process. It shouldn&#39;t take more than 3 minutes in total. Here&#39;s what you can expect from the installation process: 1. The Apache 2 module will be installed for you. 2. You&#39;ll learn how to configure Apache. 3. You&#39;ll learn how to deploy a Ruby on Rails application.</description>
+    </item>
+    
+    <item>
+      <title>html ファイルから一括で markdown ファイルへ変換する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-11-html-huairukara-gua-de-markdown-huairuhebian-huan-suru/</link>
+      <pubDate>Tue, 11 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-11-11-html-huairukara-gua-de-markdown-huairuhebian-huan-suru/</guid>
+      <description>html から markdown へ変換する 使用したツールは、 html2text 前提条件 python インストール済み git インストール済み 変換する htmlファイルを用意する インストール git clone して実行するのみです。
+cd works git clone https://github.com/aaronsw/html2text.git cd html2text ./html2text.py hogehoge.html &amp;gt;&amp;gt; hogehoge.md </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 visudo エディタをvimに設定する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-10-ubuntu14-04-visudo-edeitawovimnishe-ding-suru/</link>
+      <pubDate>Mon, 10 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-11-10-ubuntu14-04-visudo-edeitawovimnishe-ding-suru/</guid>
+      <description>Ubuntu14.04 visudo エディタをvimに設定する 以下コマンドでエディタを変更しておく
+sudo update-alternatives --config editor </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 postgresql install</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-postgresql-install/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-postgresql-install/</guid>
+      <description>postgresql install sudo apt-get install postgresql sudo apt-get install libpq-dev postgresql settings sudo su postgres -c psql postgres=# CREATE ROLE [user] SUPERUSER LOGIN; postgres=# \password [user] [userpassword] [userpassword] check or list database, tables, indexes, and so on. postgres=# create database [user]; postgres=# select * from pg_user; /* ユーザ一覧 */ postgres=# \d /* 表、インデックスの一覧 */ postgres=# \dt /* 表の一覧 */ postgres=# \d [表名] /* 表の項目一覧 */ postgres=# \l /* データベース一覧、文字コード表示 */ postgres=# \q /* 終了 */ psql -l # データベース 一覧 psql [データベース名] # psql へ切り替え </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 remote desktop with xrdp</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-remote-desktop-with-xrdp/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-remote-desktop-with-xrdp/</guid>
+      <description>install xrdp server sudo apt-get install xrdp sudo apt-get install xlde echo lxsession -s LXDE -e LXDE &amp;gt; ~/.xsession sudo service xrdp restart </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 ruby 用 vim 設定</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu14-04-ruby-yong-vim-she-ding/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu14-04-ruby-yong-vim-she-ding/</guid>
+      <description>ruby 開発環境 vim install sudo apt-get install vim vim-gtk vim-gui-common install vim-nox vim --version |grep ruby +diff +menu -ruby +writebackup sudo apt-get install vim-nox vim --version |grep ruby +diff +menu +ruby +writebackup settings mkdir -p ~/.vim/bundle cd ~/.vim/bundle/ git clone http://github.com/Shougo/neobundle.vim vim ~/.vimrc
+set number set nocompatible filetype plugin indent off if has(&#39;vim_starting&#39;) set runtimepath+=~/.vim/bundle/neobundle.vim call neobundle#rc(expand(&#39;~/.vim/bundle&#39;)) endif &amp;quot; 以下は必要に応じて追加 &amp;quot; NeoBundle &#39;Shougo/unite.vim&#39; &amp;quot; NeoBundle &#39;Shougo/neosnippet.vim&#39; NeoBundle &#39;git://github.com/Shougo/neobundle.vim.git&#39; NeoBundle &#39;git://github.com/Shougo/neocomplcache.git&#39; NeoBundle &#39;git://github.</description>
+    </item>
+    
+    <item>
+      <title>wripeでバックアップしたtxtファイルの中身からファイル名を変更する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-19-wripedebatukuatupusitatxthuairunozhong-shen-karahuairuming-wobian-geng-suru/</link>
+      <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-19-wripedebatukuatupusitatxthuairunozhong-shen-karahuairuming-wobian-geng-suru/</guid>
+      <description>bash script でwripeバックアップファイルの変換処理を書いた
+主な内容 bash script Ubuntu 14.04で確認 UTF8,LF変換にnkf のインストールが必要 ファイル変換内容 １行目（wripeタイトル）から、ファイル名決定 ファイル名に使用できる文字列変換 wripeタイトルに日付が入っていた場合の処理をある程度考慮 １行目は削除 UTF8,LF変換 tag 空白４文字変換 起動引数 第一引数：バックアップファイルの保存先 疲れた&amp;hellip;.
+#!/bin/bash DIR_IN=$1 OUT_NAME=out DIR_OUT=$DIR_IN/$OUT_NAME which nkf 1&amp;gt;/dev/null 2&amp;gt;/dev/null RC=$? if [ $RC -ne 0 ]; then echo &amp;quot;nkf not installed!&amp;quot; return fi if [ &amp;quot;&amp;quot; == &amp;quot;$1&amp;quot; ]; then echo &amp;quot;arg1(input directory) is blank!&amp;quot; return fi if [ -d $DIR_IN ]; then # specified directory is exist. if [ -e $DIR_OUT ]; then # out dir is exist.</description>
+    </item>
+    
+    <item>
+      <title>Google Bloggerで highlight.js をつかう</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-18-google-bloggerde-highlight-js-wotukau/</link>
+      <pubDate>Sat, 18 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-18-google-bloggerde-highlight-js-wotukau/</guid>
+      <description>Edit HTML and add this under title tag in head tag. &amp;lt;!-- jokrlzy add --&amp;gt; &amp;lt;!-- &amp;lt;script src=&amp;quot;http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js&amp;quot; type=&amp;quot;text/javascript&amp;quot; &amp;gt;&amp;lt;/script&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/monokai_sublime.min.css&amp;quot;&amp;gt; --&amp;gt; &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css&amp;quot;/&amp;gt; &amp;lt;script src=&amp;quot;https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script&amp;gt;hljs.initHighlightingOnLoad();&amp;lt;/script&amp;gt; &amp;lt;!-- jokrlzy add --&amp;gt; add custom css body, textarea { font-size: 20px; font-family: &amp;quot;meiryo&amp;quot;,&amp;quot;メイリオ&amp;quot;,&amp;quot;ヒラギノ角ゴ Pro W3&amp;quot;, &amp;quot;ＭＳ Ｐゴシック&amp;quot;, sans-serif; } h1 {font-size: 60px;} h2 {font-size: 50px;} h3 {font-size: 40px;} h4 {font-size: 30px;} h5 {font-size: 20px;} pre {margin-left: 30px;} </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 Change LF UTF-8 Under Specified Directory</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-12-ubuntu-14-04-change-lf-utf-8-under-specified-directory/</link>
+      <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-12-ubuntu-14-04-change-lf-utf-8-under-specified-directory/</guid>
+      <description>Install nkf sudo aptitude install nkf usege nkf -wLu --overwrite *.txt # -w: change to UTF8 # -Lu: change to LF # --overwrite: overwrite file! Exclude .git or and so on files, and specified some extension. find . \( -name &amp;quot;i18n&amp;quot; -o -name &amp;quot;.git&amp;quot; -o -name &amp;quot;jquery*.js&amp;quot; -o -name &amp;quot;jquery*.css&amp;quot; \) -prune -o -type f \( -name &amp;quot;*.txt&amp;quot; -o -name &amp;quot;*.js&amp;quot; -o -name &amp;quot;*.css&amp;quot; -o -name &amp;quot;*.html&amp;quot; -o -name &amp;quot;*.php&amp;quot; \) -print -exec nkf -wLu --overwrite {} \; </description>
+    </item>
+    
+    <item>
+      <title>debian wheezy mysql 設定、データ移行</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-debian-wheezy-mysql-she-ding-detayi-xing/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-debian-wheezy-mysql-she-ding-detayi-xing/</guid>
+      <description>インストール sudo aptitude install mysql-server alive check mysqladmin ping -u root -p mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;); ユーザ確認 ログイン mysql -u root -p SQL実行 SELECT host,user,password FROM mysql.user; 文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: &#39;&#39; Using delimiter: ; Server version: 5.</description>
+    </item>
+    
+    <item>
+      <title>Linkstation(debian wheezy) へ mysql を設定、データ移行</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</guid>
+      <description>インストール sudo aptitude install mysql-server alive check mysqladmin ping -u root -p mysqlパスワード変更 mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;); ユーザ確認 ログイン mysql -u root -p SQL実行 SELECT host,user,password FROM mysql.user; 文字コード設定 charset UTF8 check mysql&amp;gt; status -------------- mysql Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2 Connection id: 39 Current database: Current user: root@localhost SSL: Not in use Current pager: stdout Using outfile: &#39;&#39; Using delimiter: ; Server version: 5.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 grive install</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-ubuntu-14-04-grive-install/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-ubuntu-14-04-grive-install/</guid>
+      <description>install sudo add-apt-repository ppa:nilarimogard/webupd8 sudo apt-get update sudo aptitude install grive mkdir -p ~/grive cd ~/grive grive -a grive -a コマンドでURL表示 アクセスし、承認するとキーが表示される terminalへ貼り付け！ 同期開始！ file sync cd ~/grive grive </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 Theme をnumixへ変更</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-08-ubuntu-14-04-theme-wonumixhebian-geng/</link>
+      <pubDate>Wed, 08 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-08-ubuntu-14-04-theme-wonumixhebian-geng/</guid>
+      <description>install sudo apt-add-repository ppa:numix/ppa sudo aptitude update sudo aptitude install numix-gtk-theme #sudo aptitude install numix-icon-theme-utouch sudo aptitude install numix-icon-theme sudo aptitude install numix-wallpaper-saucy # ↓この丸いアイコンがすごくよい。 sudo aptitude install numix-icon-theme-circle theme setting setting from tweak-tool</description>
+    </item>
+    
+    <item>
+      <title>Debian wheezy に Ubuntu 14.04 クライアントからSSH接続する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-07-debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</link>
+      <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-07-debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</guid>
+      <description>[Client] Key generate create pub, private key at ~/.ssh cd ~/.ssh ssh-keygen -t rsa # created under files id_rsa id_rsa.pub upload public key to server. scp id_rsa.pub [server ip address]:~/ [Client] .ssh/config vim ~/.ssh/config
+Host [server name] HostName [server name or ipaddress] Port 22 User [login user name] IdentityFile ~/.ssh/id_rsa [server] regist pub key login the server. cd ~ cat rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys [server] sshd settings sudo vim /etc/ssh/sshd_config check the settings</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 libwebsockets クライアントを試す</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</guid>
+      <description>libwebsockets build sudo aptitude install cmake cd ~/works git clone git://git.libwebsockets.org/libwebsockets cd libwebsockets/ mkdir build cd build cmake .. make -j8 # sudo make install サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする server rails 上に em-websocket を実装したcontrollerを用意する
+※ rails に関しては、省略 Ubuntu 14.04 libwebsockets クライアントを試す libwebsockets build sudo aptitude install cmake cd ~/works git clone git://git.libwebsockets.org/libwebsockets cd libwebsockets/ mkdir build cd build cmake .. make -j8 # sudo make install サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする server rails 上に em-websocket を実装したcontrollerを用意する</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 rails scoffoldでEntity作成、からDB migrateまで</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-rails-scoffolddeentityzuo-cheng-karadb-migratemade/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-rails-scoffolddeentityzuo-cheng-karadb-migratemade/</guid>
+      <description>以下のような形式で generate できる bundle exec rails generate scaffold [entity_name] [column_name]:[data_type][column_name]:[data_type] # 間違えたら！ bundle exec rails destroy scaffold &amp;quot;name&amp;quot; data type integer, string, timestamp などなどが使える Generateした各ファイルをそれぞれ条件を追加するように、下記のように修正 db/migrate/YYYYMMDDhhmmss_create_[entity_name].rb 以下のように、NotNullや桁指定、デフォルト指定ができる class CreateEvents &amp;lt; ActiveRecord::Migration def change create_table :[entity_name] do |t| t.string :column_name, :null =&amp;gt; false, :limit =&amp;gt; 1, :default =&amp;gt; 0 t.timestamps end end end 作成した rb ファイルで、DB再作成 # 通常DB作成 # bundle exec rake db:migrate # DB再作成（db/schema.rb より再実行） # bundle exec rake db:reset # DB再作成（db/migrate/**.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 ruby2.1.2 で ActiveRecord4.1.6 を使用し、postgresql4.1.6 へアクセス</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</guid>
+      <description>まずはdatabase 確認 sudo su postgres -c psql install activerecord,pg mkdir -p ~/works/99_sample/02_activerecord cd ~/works/99_sample/02_activerecord gem install activerecord gem install pg gem list DBユーザtest_nameを作成しておく sudo su postgres -c psql create role test_name superuser login; \password test_name Enter new password: test_name Enter it again: test_name create database test_name; config/database.yml mkdir -p config &amp;amp;&amp;amp; vim config/database.yml
+db: production: adapter: postgresql host: localhost username: test_name password: test_name database: test_name development: adapter: postgresql host: localhost username: test_name password: test_name database: test_name db/migrate配下に、３ファイルを配置(rails環境からコピー) mkdir -p db/migrate</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 で websocket, zeroMQ</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</guid>
+      <description>rails 、postgresql、zeroMQ、websocketを使って通信するサンプル環境を作成中
+create rails project cd 任意のディレクトリ rails new test_rails_postgres -d postgresql cd test_rails_postgres bundle install --path vendor/bundle bundle exec rake db:create db:migrate テスト起動確認 cd test_rails_postgres rails server http://[サーバアドレス]:3000へアクセス git 管理開始 cd test_rails_postgres git init vim .gitignore 以下を追加 doc/ *.swp *~ .project .DS_Store .idea .secret git add . git commit -m &amp;quot;initial commit.&amp;quot; テスト設定 bundle exec rails generate scaffold book title:string author:string outline:text bundle exec rake db:migrate bundle exec rails server db確認 -- database list \l -- user list select * from pg_user; -- table list \d routes の確認 http://localhost:3000/rails/info/routes rails へwebsocket実装 websocket-rails install cd test_rails_postgres vim Gemfile # 以下を追加 gem &#39;websocket-rails&#39; bundle install rails g websocket_rails:install # コントローラ作成 vim app/controllers/websocket_chat_controller.</description>
+    </item>
+    
+    <item>
+      <title>Mac いろは</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-26-mac-iroha/</link>
+      <pubDate>Fri, 26 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-26-mac-iroha/</guid>
+      <description> 新参者の私は、macを触る機会があったのでメモしています。
+再読み込み command + R shutdown control + 電源ボタン terminal 起動 control + space input &#39;terminal&#39; Enter chrome 起動 control + space input &#39;chrome&#39; Enter 全画面化、解除 command + control + F Finder 切り取り＆貼り付け command + c # copy command + option + v # paste </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 ランチャーにアプリ(meld)を登録する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-25-ubuntu-14-04-rantiyaniapurimeldwodeng-lu-suru/</link>
+      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-25-ubuntu-14-04-rantiyaniapurimeldwodeng-lu-suru/</guid>
+      <description>適当な場所に以下のファイルを作成する vim ~/bin/meld.desktop 以下内容にする [Desktop Entry] Type=Application Name=Meld GenericName=meld Icon=~/bin/meld-1.8.6/data/icons/hicolor/48x48/apps/meld.png Exec=~/bin/meld-1.8.6/bin/meld Terminal=false </description>
+    </item>
+    
+    <item>
+      <title>UX21A prime へ Win8.1 と Ubuntu14.04のデュアルブート</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-24-ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</link>
+      <pubDate>Wed, 24 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-24-ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</guid>
+      <description>参考にしたのは ここ ありがとうございます。これでようやく素敵うぼんとぅライフin電車！
+Windowsリカバリイメージをバックアップ windows 8 標準機能にてバックアップ
+usb ubuntu 14.04を作成 ubuntu 14.04(別PC)よりブータブルUSBの作成から ダウンロード したISOファイルを焼く
+ux21aをUSBから起動 起動時にesc連打し、USBを選択
+パーティション編集 Gpartedパーティション編集ツールにて、Win8システムパーティションより後ろを全て削除
+このへんの記憶が曖昧過ぎて申し訳ないですが、なんせDドライブの一つ左にあるリカバリ用のパーティションを含め削除しても、問題なかった！
+ubuntu インストール EFI 50Mb作成 /システムパーティション作成(ext4 約141G作成(swap4096Mb引いて作成)) 残りをswapに /システム(/dev/sda6かな？)にブートローダ設定 起動時にESC連打で切り替え可能！右クリックも効いてる！ というより、自然に動き過ぎて怖い。すべて問題なく動作しています。
+起動時に自動で、Ubuntuのブートローダが自動で windows8 認識しており、
+起動時に esc 連打しなくても勝手に選択画面に移動するし。。。
+ステキ！あーすーす、あ、ちが、えいすぅーすぅたまぁ！
+wifi bluetooth mouse pad 音量設定 etc&amp;hellip; </description>
+    </item>
+    
+    <item>
+      <title>Windows7 Putty で自動ログインバッチファイルを作成する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-19-windows7-putty-dezi-dong-roguinbatutihuairuwozuo-cheng-suru/</link>
+      <pubDate>Fri, 19 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-19-windows7-putty-dezi-dong-roguinbatutihuairuwozuo-cheng-suru/</guid>
+      <description>以下をショートカットプロパティへ設定する
+&amp;#34;C:\Program Files (x86)\PuTTY\putty.exe&amp;#34; -load 「セッション名」 -l 「ユーザ名」 -pw 「パスワード」 </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 にrbenvを使用し、ruby2.1.2をインストールする</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-18-ubuntu-14-04-nirbenvwoshi-yong-si-ruby2-1-2woinsutorusuru/</link>
+      <pubDate>Thu, 18 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-18-ubuntu-14-04-nirbenvwoshi-yong-si-ruby2-1-2woinsutorusuru/</guid>
+      <description>install packages sudo add-apt-repository ppa:chris-lea/node.js sudo apt-get update sudo apt-get install build-essential git curl zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev sqlite3 libsqlite3-dev nodejs tk ruby-dev rbenv install git clone https://github.com/sstephenson/rbenv.git ~/.rbenv git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build echo &#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc echo &#39;eval &amp;quot;$(rbenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc . .bashrc gem install rbenv-rehash gem install bundler ruby install rbenv install -list rbenv install 2.1.2 rbenv versions rbenv global 2.1.2 rails gem install rails rbenv rehash rails -v </description>
+    </item>
+    
+    <item>
+      <title>Linkstation(ls-xhle) へdebian wheezy を導入する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-13-linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</link>
+      <pubDate>Sat, 13 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-13-linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</guid>
+      <description>パーティション構成 /dev/sda1 /boot /dev/sda2 / /dev/sda3 swap /dev/sda4 /data ここを参考に update 2013.05.15: Now when Debian 7 wheezy is stable, i made a new image.
+I created a minimal debian wheezy bootstrap for our Linkstations. It comes with 3.9.2 kernels for both LS-CHLv2 and LS-XHL, which you can find here.
+Infos Changes to plain debootstrap This is a ready to use image, no need to tweak device specific stuff after install e.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 日本語ディレクトリ名を英語にする</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-11-ubuntu-14-04-ri-ben-yu-deirekutoriming-woying-yu-nisuru/</link>
+      <pubDate>Thu, 11 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-11-ubuntu-14-04-ri-ben-yu-deirekutoriming-woying-yu-nisuru/</guid>
+      <description>Ubuntu 14.04 日本語ディレクトリ名を英語にする terminal で以下を実行 env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update 以下を実行 ログアウト ログイン 古い名前のままにするかどうかを聞かれる これ以上表示させないにチェックを付けて終了 </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 Python でWebsocket実装</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu-14-04-python-dewebsocketshi-zhuang/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu-14-04-python-dewebsocketshi-zhuang/</guid>
+      <description>Ubuntu14.04 Python 2.7.6 でWebsocket実装 モジュールのインストール sudo apt-get install libevent-dev python-dev python-setuptools sudo easy_install gevent sudo easy_install gevent-websocket サーバスクリプト作成 vi chat.py
+#! /usr/bin/python # -*- coding: utf-8 -*- import os import random from geventwebsocket.handler import WebSocketHandler from gevent import pywsgi, sleep ws_list = set() def chat_handle(environ, start_response): global cnt ws = environ[&#39;wsgi.websocket&#39;] ws_list.add(ws)a print &#39;enter!&#39;, len(ws_list) while 1: msg = ws.receive() if msg is None: break remove = set() for s in ws_list: try: s.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu14.04 Node.js をインストール</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu14-04-node-js-woinsutoru/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu14-04-node-js-woinsutoru/</guid>
+      <description>Ubuntu14.04 Node.jsをインストール install packages. sudo apt-get install git curl build-essential libssl-dev install nvm. git clone https://github.com/creationix/nvm.git ~/.nvm . ~/.nvm/nvm.sh nvm install 0.10 ######################################################################## 100.0% Now using node v0.10.31 nvm version vi ~/.bashrc # 以下追加 . ~/.nvm/nvm.sh nvm use v0.10.31 # defaultバージョンを指定 nvm alias default v0.10.31 # Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン hellow world 作成 cd 任意のディレクトリ vim hellowworld.js ------------------------------------- var sys = require(&#39;sys&#39;); var http = require(&#39;http&#39;); var server = http.createServer( function (request, response) { response.</description>
+    </item>
+    
+    <item>
+      <title>android 4.4.2 keystore grep 結果メモ</title>
+      <link>https://tro3373.github.io/posts/2014/2014-05-29-android-4-4-2-keystore-grep-jie-guo-memo/</link>
+      <pubDate>Thu, 29 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-05-29-android-4-4-2-keystore-grep-jie-guo-memo/</guid>
+      <description>android 4.4.2 keystore grep 結果メモ 調査した際のログメモ
+$ cd env/android/android-4.4.2_r2/ $ ls Makefile art bootable cts developers device external hardware libnativehelper packages prebuilts system abi bionic build dalvik development docs frameworks libcore ndk pdk sdk tools $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java ^C $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java $ find ./packages/apps/ -name CredentialHelper.java ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java $ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java $ find ./packages/apps/CertInstaller/ -name *.java |xargs grep createSystemInstallIntent |grep createSystemInstallIntent ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java: mCredentials.createSystemInstallIntent(), ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java: Intent createSystemInstallIntent() { $ find ./frameworks/base/core -name CredentialStorage.</description>
+    </item>
+    
+    <item>
+      <title>dyndns.org の無料 DNS が切れたので、mydns へ変更</title>
+      <link>https://tro3373.github.io/posts/2014/2014-05-05-dyndns-org-nowu-liao-dns-gaqie-retanode-mydns-hebian-geng/</link>
+      <pubDate>Mon, 05 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-05-05-dyndns-org-nowu-liao-dns-gaqie-retanode-mydns-hebian-geng/</guid>
+      <description>mydnsにてドメイン登録（複数ドメイン→複数アカウントを作成） アカウントID・パスワードを書き留めておく
+apache2設定 cd /etc/apache2/sites-available ※もとサイト用の設定をコピーして再度作成しなおす サイト有効化
+sudo a2ensite [create_site_setting_file_name] dyndns自動更新 参考 手動通知での確認
+wget http://www.mydns.jp/login.html --http-user=[user_account_name] --http-passwd=[user_account_password] -O /dev/null wget -q -O - &#39;http://[user_account_name]:[user_account_password]@www.mydns.jp/login.html&#39; |grep &amp;quot;login_status&amp;quot; スクリプト作成
+vi /path/to/exec_file_setting_directory/ddns.sh
+ファイル内容は以下
+#!/bin/sh ##DDNS updata script. # #check wget if ! [ -x /usr/bin/wget ] then echo &amp;quot;Not found : wget&amp;quot;; exit 0 fi #updata DDNS #[site_url] echo [site_url] wget... wget -q -O - &#39;http://[user_account_name]:[user_account_password]@www.mydns.jp/login.html&#39; |grep &amp;quot;login_status&amp;quot; exit 0 権限付与
+chmod 744 ddns.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 12.04 でメディア自動マウントを無効化する</title>
+      <link>https://tro3373.github.io/posts/2013/2013-06-08-ubuntu-12-04-demedeiazi-dong-mauntowowu-xiao-hua-suru/</link>
+      <pubDate>Sat, 08 Jun 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2013/2013-06-08-ubuntu-12-04-demedeiazi-dong-mauntowowu-xiao-hua-suru/</guid>
+      <description>Ubuntu 12.04 でメディア自動マウントを無効化する Ubuntu 12.04のGNOMEのメディア自動マウントを無効化する
+自動マウントは便利といえば便利なのだが、ファイルシステム復旧のようなセンシティブな作業をしているときにやられると困る場合がある。
+その際に、無効化するには、以下のコマンドを実行する。
+$ gsettings get org.gnome.desktop.media-handling automount true ←有効の状態 $ gsettings set org.gnome.desktop.media-handling automount false $ gsettings get org.gnome.desktop.media-handling automount false ←無効になった </description>
+    </item>
+    
+    <item>
+      <title>Microsoft wiress mouse 3500 ubuntu patch settings</title>
+      <link>https://tro3373.github.io/posts/2013/2013-05-23-microsoft-wiress-mouse-3500-ubuntu-patch-settings/</link>
+      <pubDate>Thu, 23 May 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2013/2013-05-23-microsoft-wiress-mouse-3500-ubuntu-patch-settings/</guid>
+      <description>Microsoft wiress mouse 3500 ubuntu patch settings 参考 Ubuntu で Microsoft Wiress Mouse 3500 を使用した際、マウスホイールの動きが おかしいので、パッチを当てる、という話。</description>
+    </item>
+    
+    <item>
+      <title>Ninja250R オイル交換</title>
+      <link>https://tro3373.github.io/posts/2013/2013-04-04-ninja250r-oirujiao-huan/</link>
+      <pubDate>Thu, 04 Apr 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2013/2013-04-04-ninja250r-oirujiao-huan/</guid>
+      <description>Ninja250R オイル交換 参考URL Ninja250R オイル・エレメント交換　用意するもの。 Ｎｉｎｊａ250Ｒ オイル交換・エレメント交換 オイル CASTROL [ カストロール ] Activ 4T [ アクティブ 4T ] 10W-40 [ 部分合成油 ] 4L 16933 [HTRC3] 3,943円 シリコングリス ワコーズ シリコーングリース SG-T 100g チューブ WAKO&amp;rsquo;S 万能シリコーングリース V250 3,530円（内送料840円） オーリング大・小 kawasaki オンライン見積フォーム 部品番号 671B2590 389円 部品番号 670B2016 179円 送料 800円 シーリングワッシャー キタコ KITACO アルミドレン ／ シーリングワッシャー 寸法A ： Φ12 × B ： Φ20 × C ： 1．5mm 749円（内送料600円） オイルフィルター KIJIMA（キジマ）　オイルフィルター 1,037円（内送料580円） KIJIMA[キジマ]：オイルフィルター エレメント NINJA 250R K8F-KBF（08-12） 【105-504】 オイルジョッキ フルプラ　オイルジョッキ　ＮＯ．３５０　５Ｌ 1,605円（内送料500円） </description>
+    </item>
+    
+    <item>
+      <title>MNP大作戦</title>
+      <link>https://tro3373.github.io/posts/2012/2012-11-22-mnpda-zuo-zhan/</link>
+      <pubDate>Thu, 22 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-11-22-mnpda-zuo-zhan/</guid>
+      <description>MNPで携帯ゲットログ 完全に自分用ログなのでお気になさらずに。
+b-mobile(20121122〜20121201: MNP弾) 初期手数料 3,150 基本使用料 1,293 違約金 5,250 MNP手数料 2,100 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 11,793 SC-02E MNP新規契約 端末代 5,780(77,280-40,000(K&#39;sMNP割引)-31,500(家族セット割+K&#39;s割引)) 初期手数料 3,150 iコンシェル 105 Videoストア 525 コンテンツ(Newsdas) 315 コンテンツ(ソラダス) 105 携帯補償お届け 399 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 10,379 月々
+1年間基本使用料無料 780-780 パケホライト 4,935(3G縛り) (参考)パケホフラット 5,985(7G縛り) (参考)パケホダブル 2,100〜6,510(7G縛り) spモード 315 ユニバーサルサービス料 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 5,253(1年目) 6,033(2年目) 月々サポート -3,675(88,200(3675×24)) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 1,578(1年目) 2,358(2年目) SH-11C 端末代 0 初期手数料 3,150 i-mode 315 iチャネル 157 iコンシェル 105 ケータイデータお預かり 105 ケータイ補償 294 ユニバーサルサービス料 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 4,129 月々</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(debian lenny) mysqlディレクトリ変更</title>
+      <link>https://tro3373.github.io/posts/2012/2012-10-20-%E7%8E%84%E7%AE%B1hg-debian-lenny-mysqldeirekutoribian-geng/</link>
+      <pubDate>Sat, 20 Oct 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-10-20-%E7%8E%84%E7%AE%B1hg-debian-lenny-mysqldeirekutoribian-geng/</guid>
+      <description> 参考 mysql停止 sudo /etc/init.d/mysql stop データ移行 mkdir -p /path/to/mysql_directory chown mysql:mysql /path/to/mysql_directory cd /path/to/mysql_directory mkdir mysqldata mysqldump chown mysql:mysql mysqldata chown mysql:mysql mysqldump sudo cp -fprv /var/lib/mysql/ ./mysqldata/ ディレクトリ指定設定 sudo vi /etc/mysql/conf.d/my_datadir.cnf 修正内容は以下
+[mysqld] datadir = /path/to/mysql_directory/mysqldata/mysql 正しく設定変更され起動できるか確認する為、元のデータは別場所へ移動 mkdir /data/tmp sudo mv /var/lib/mysql /data/tmp mysql 再起動 sudo /etc/init.d/mysql restart 不要となったデータを削除 sudo rm /data/tmp </description>
+    </item>
+    
+    <item>
+      <title>Ubuntuで壁紙を自動で変更する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-09-20-ubuntudebi-zhi-wozi-dong-debian-geng-suru/</link>
+      <pubDate>Thu, 20 Sep 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-09-20-ubuntudebi-zhi-wozi-dong-debian-geng-suru/</guid>
+      <description>Ubuntuで壁紙を自動で変更する 参考 tool/installを変更 #timeout=$1 #enabled=$2 #depth=$3 #shift;shift;shift #base=$@ base=$1 timeout=$2 enabled=$3 depth=$4 kickerを新規作成 vim ~/bin/kick-wp-show.sh
+#! /bin/bash cd ~/bin/gnome-3-wp-gnome-3-wp nohup ./wp-show &amp;amp; wait 1 exit </description>
+    </item>
+    
+    <item>
+      <title>tf201 root化</title>
+      <link>https://tro3373.github.io/posts/2012/2012-08-16-tf201-roothua/</link>
+      <pubDate>Thu, 16 Aug 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-08-16-tf201-roothua/</guid>
+      <description>tags: [&amp;ldquo;tf201&amp;rdquo;,&amp;ldquo;android&amp;rdquo;] title: 20120816 tf201 root化
+tf201 root化 参考１ 参考２ bootloader unlock download apk here Unlock Device App install apk &amp;amp; done flash recovery clockworkmod fastboot mode
+Boot your tablet into fastboot by holding down the power and volume-down buttons.
+The tablet will power off and reboot.
+Wait until you see several lines of white text in the upper-left corner of the screen,
+then let go of the power and volume buttons.</description>
+    </item>
+    
+    <item>
+      <title>玄箱lenny リストアテストを行う</title>
+      <link>https://tro3373.github.io/posts/2012/2012-07-28-%E7%8E%84%E7%AE%B1hg-debian-lenny-risutoatesutowoxing-u/</link>
+      <pubDate>Sat, 28 Jul 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-07-28-%E7%8E%84%E7%AE%B1hg-debian-lenny-risutoatesutowoxing-u/</guid>
+      <description>玄箱lenny,リストアテスト 新しく買ってきたWD20 EARX(9Kなり)でリカバリテストを行う
+MBRフォーマットへ切り替え Ubuntu 11.10へUSB接続し、ディスクユーティリティから 対象HDDのフォーマットをマスターブートレコードへ切り替える（もともとなってる？）
+次に、 AFT,4096問題 通常パーティション切りで書き込みテストを行う
+sudo fdisk /dev/sdh Disk /dev/sdh: 2000.4 GB, 2000398934016 bytes ヘッド 255, セクタ 63, シリンダ 243201, 合計 3907029168 セクタ Units = セクタ数 of 1 * 512 = 512 バイト セクタサイズ (論理 / 物理): 512 バイト / 512 バイト I/O サイズ (最小 / 推奨): 512 バイト / 512 バイト ディスク識別子: 0x0006c4b4 cd /media/test dd if=/dev/zero of=./hage bs=128k count=32768 32768+0 レコード入力 32768+0 レコード出力 4294967296 バイト (4.</description>
+    </item>
+    
+    <item>
+      <title>ubuntu11.10でGoogle日本語入力</title>
+      <link>https://tro3373.github.io/posts/2012/2012-07-13-ubuntu11-11degoogleri-ben-yu-ru-li/</link>
+      <pubDate>Fri, 13 Jul 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-07-13-ubuntu11-11degoogleri-ben-yu-ru-li/</guid>
+      <description>ubuntu11.10でGoogle日本語入力 参考 sudo apt-get install ibus-mozc mozc-server mozc-utils-gui </description>
+    </item>
+    
+    <item>
+      <title>Windows でコマンドプロンプトのフォントを変更する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-28-windows-dekomandopuronputonohuontowobian-geng-suru/</link>
+      <pubDate>Thu, 28 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-06-28-windows-dekomandopuronputonohuontowobian-geng-suru/</guid>
+      <description>ファイル名を指定して実行より、regeditを実行
+以下の順にたどる
+HKEY_LOCAL_MACHINE - SOFTWARE - Microsoft - Windows NT - CurrentVersion - console - TrueTypeFont
+932.を追加し、値にMigu 1Mなど、使用したいフォント名を入力する
+コマンドプロンプトから、フォントを変更する</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG（debian lenny）へ SVN を導入する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-21-%E7%8E%84%E7%AE%B1hg-debian-lennyhe-svn-wodao-ru-suru/</link>
+      <pubDate>Thu, 21 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-06-21-%E7%8E%84%E7%AE%B1hg-debian-lennyhe-svn-wodao-ru-suru/</guid>
+      <description>玄箱HG（debian lenny）へ SVN を導入する 参考 http://wlog.flatlib.jp/item/1289 http://brokendish.org/debian/609/ subversionインストール sudo apt-get install subversion sudo apt-get install libapache2-svn libapache2-mod-encoding subversionの設定 svnロケーション設定 cd /etc/apache2 sudo vi mods-available/dav_svn.conf 以下を追加
+&amp;lt;Location /svn&amp;gt; DAV svn SVNParentPath /path/to/svn_server_directory SVNListParentPath on #require ssl SSLRequireSSL AuthType Basic # auto commit on SVNAutoversioning on AuthName &amp;quot;Subversion Repository&amp;quot; AuthUserFile /etc/apache2/dav_svn.passwd # require authentication other than require method for read repository. Require valid-user &amp;lt;/Location&amp;gt; svnルートディレクトリの作成 mkdir -p /path/to/svn_server_directory svnディレクトリ（プロジェクト単位？）の作成 sudo svnadmin create --fs-type=fsfs /path/to/svn_server_directory/repo sudo chown -R www-data:www-data /path/to/svn_server_directory sudo chmod -R gu+w /path/to/svn_server_directory svnアクセスユーザの作成 htpasswd -c /etc/apache2/dav_svn.</description>
+    </item>
+    
+    <item>
+      <title>android Toastを上げるサンプル</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-20-android-toastwoshang-gerusanpuru/</link>
+      <pubDate>Wed, 20 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-06-20-android-toastwoshang-gerusanpuru/</guid>
+      <description>android Toastを上げるサンプル Toast.makeText( this, &amp;quot;Build.DEVICE=&amp;quot; + Build.DEVICE + &amp;quot;:&amp;quot; + &amp;quot;Build.VERSION.SDK_INT=&amp;quot; + Build.VERSION.SDK_INT, android.widget.Toast.LENGTH_LONG).show(); Intent intent = new Intent(); intent.setClassName(&amp;quot;com.google.android.gsf&amp;quot;, &amp;quot;com.google.android.gsf.gtalkservice.diagnostics.GTalkDiagnostics&amp;quot;); startActivity(intent); </description>
+    </item>
+    
+    <item>
+      <title>Galaxy Nexus タップ時の音を変更する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-09-galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</link>
+      <pubDate>Sat, 09 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-06-09-galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</guid>
+      <description>Galaxy Nexus タップ時の音を変更する タップ時に鳴らす音を用意する（NexusSより抜いた）
+名前を以下に変更する
+Effect_Tick.ogg
+/systemを書き込み権限付きでremountする（要ルート）
+mount -o rw,remount /system
+adbでpushする
+adb push ./Effect_Tick.ogg /system/media/audio/ui</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu11.10にてNAS(玄箱HG)を自動マウントする</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-30-ubuntu11-10nitenas%E7%8E%84%E7%AE%B1hg-wozi-dong-mauntosuru/</link>
+      <pubDate>Wed, 30 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-05-30-ubuntu11-10nitenas%E7%8E%84%E7%AE%B1hg-wozi-dong-mauntosuru/</guid>
+      <description>Ubuntu11.10にてNAS(玄箱HG)を自動マウントする 参考 fastab 編集 以下を追加※パスワードを/root配下に置くなどして、隠蔽化する
+//サーバ名/マウントディレクトリ /ローカルマウントディレクトリ cifs iocharset=utf8,uid=ローカル.uid,gid=ローカル.gid,credentials=/root/secret.txt 0 0 /root へNAS接続パスワードを配置
+sudo vi /root/secret.txt ファイル内容は以下
+username=NAS接続ユーザ名 password=NAS接続ユーザパスワード マウント・接続テスト
+sudo mount -a </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(lenny) Apache2 ssl化</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-29-%E7%8E%84%E7%AE%B1hg-debian-lenny-apache2-sslhua/</link>
+      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-05-29-%E7%8E%84%E7%AE%B1hg-debian-lenny-apache2-sslhua/</guid>
+      <description>玄箱HG(lenny) Apache2 ssl化 前提条件 opensslはインストール済み apache2で既にサイトが稼働済み su 実行済み opensslの設定 cd /etc/ssl ls -l 合計 28 drwxr-xr-x 2 root root 12288 2011-11-16 00:11 certs -rw-r--r-- 1 root root 9374 2010-12-06 00:23 openssl.cnf drwx--x--- 2 root ssl-cert 4096 2011-03-19 20:58 private cp -p openssl.cnf openssl.cnf.org vi openssl.cnf 編集内容は以下
+diff ./openssl.cnf.org openssl.cnf 172c172 &amp;lt; # nsCertType	= server --- &amp;gt; nsCertType	= server 241c241 &amp;lt; # nsCertType = sslCA, emailCA --- &amp;gt; nsCertType = sslCA, emailCA 証明書の作成 場所はどこでもよいと思われる。</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(lenny)へwebdavを導入する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-29-%E7%8E%84%E7%AE%B1hg-debian-lennyhewebdavwodao-ru-suru/</link>
+      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-05-29-%E7%8E%84%E7%AE%B1hg-debian-lennyhewebdavwodao-ru-suru/</guid>
+      <description>玄箱HG(lenny)へwebdavを導入する 参考 Apache 2.2 WebDAV 設定 Apache関連 前提事項 apache2,sslは導入済み su 実行済み webdavディレクトリを作成する cd 任意のディレクトリ mkdir webdav chown www-data:www-data webdav chmod 700 webdav 確認
+ls -l drwx------ 2 www-data www-data 4096 2012-05-29 22:22 webdav webdavアクセスユーザを作成 sudo htpasswd -c /etc/apache2/dav.passwd [username] 確認
+cat /etc/apache2/dav.passwd ちなみにユーザの確認は cat /etc/passwd apache の設定に Webdav へのアクセスを設定する sudo vi /etc/apache2/sites-available/[target_site_settings_file] 以下を追加
+Alias /webdav &amp;quot;作成したディレクトリ&amp;quot; &amp;lt;Location /webdav&amp;gt; DAV On Options indexes FollowSymlinks Order allow,deny allow from all AuthType Basic AuthName &amp;quot;Authentification Required&amp;quot; AuthUserFile /etc/apache2/dav.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(lenny) Apache2 再起動時にでる警告を消す</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-28-%E7%8E%84%E7%AE%B1hg-debian-lenny-apache2-zai-qi-dong-shi-niderujing-gao-woxiao-su/</link>
+      <pubDate>Mon, 28 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-05-28-%E7%8E%84%E7%AE%B1hg-debian-lenny-apache2-zai-qi-dong-shi-niderujing-gao-woxiao-su/</guid>
+      <description>玄箱HG(lenny) Apache2 再起動時に警告がでる apache2 再起動やら設定リロードなどで下記エラーが出る場合の対処
+エラー内容 以下のようなログがでる
+Could not reliably determine the server&#39;s fully qualified domain name, using 192.168.24.2 for ServerName ... waiting apache2: Could not reliably determine the server&#39;s fully qualified domain name, using 192.168.24.2 for ServerName ...done. 対処 cd /etc/apache2 vi apache2.conf ### Section 1: Global Environment # # The directives in this section affect the overall operation of Apache, # such as the number of concurrent requests it can handle or where it # can find its configuration files.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu11.10 chromeでyoutubeを見ると、どれを見ても青いバグを解消する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-20-ubuntu11-10-chromedeyoutubewojian-ruto-dorewojian-temoqing-ibaguwojie-xiao-suru/</link>
+      <pubDate>Sun, 20 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-05-20-ubuntu11-10-chromedeyoutubewojian-ruto-dorewojian-temoqing-ibaguwojie-xiao-suru/</guid>
+      <description>Ubuntu11.10 chromeでyoutubeを見ると、どれを見ても青いバグを解消する という現状が起きた時の対処があった
+http://ameblo.jp/newcomer-t/entry-11244836873.html 解決方法？ sudo mkdir /etc/adobe echo -e &amp;quot;EnableLinuxHWVideoDecode=1\nOverrideGPUValidation=true&amp;quot; | sudo tee /etc/adobe/mms.cfg &amp;gt; /dev/null </description>
+    </item>
+    
+    <item>
+      <title>mysql で sql ファイルを流し実行する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-04-mysql-de-sql-huairuwoliu-sishi-xing-suru/</link>
+      <pubDate>Fri, 04 May 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-05-04-mysql-de-sql-huairuwoliu-sishi-xing-suru/</guid>
+      <description>mysql で sql ファイルを流し実行する sql の記載されたファイルの中身を mysql で実行する
+mysql -u [username] -h [hostname] -p # パスワード入力 use [database_name] SET AUTOCOMMIT=0; # auto commit 無効化 START TRANSACTION; # 明示的にトランザクション開始 source /path/to/sqlファイル; commit; 参考 </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu geditショートカットキーを変更する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-03-31-ubuntu-geditsiyotokatutokiwobian-geng-suru/</link>
+      <pubDate>Sat, 31 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-03-31-ubuntu-geditsiyotokatutokiwobian-geng-suru/</guid>
+      <description>Ubuntu geditショートカットキーを変更する 設定ファイル 設定ファイルの先頭のコメント外し設定する
+vim ~/.config/gedit/accels </description>
+    </item>
+    
+    <item>
+      <title>android メモリリーク調査</title>
+      <link>https://tro3373.github.io/posts/2011/2011-12-01-android-memoririkudiao-cha/</link>
+      <pubDate>Thu, 01 Dec 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-12-01-android-memoririkudiao-cha/</guid>
+      <description>android メモリリーク調査 Eclise 新規ソフトウェアーより、以下を追加
+BIRT http://download.eclipse.org/birt/update-site/3.7 BIRT 3.7 Engine OSGi Runtime SDK 0.0.0 mat http://download.eclipse.org/mat/1.1.1/update-site/ DDMS、Deviceより。Heapを選択。↓矢印のついているheapアイコンでhprofファイルが作成される できたhprofファイルは現状バグっているらしいので、hprofツールで再度加工しなおす。 /env/gb234/android/out/host/linux-x86/bin/hprof-conv system_process.hprof ./TMP/temp.hprof eclipseファイルを開くから、できたhprofを選択すると、展開され、hprof取得タイミングでのメモリ情報が表示される。</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu で SVN差分のある変更ファイルをexportする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-11-23-ubuntu-de-svnchai-fen-noarubian-geng-huairuwoexportsuru/</link>
+      <pubDate>Wed, 23 Nov 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-11-23-ubuntu-de-svnchai-fen-noarubian-geng-huairuwoexportsuru/</guid>
+      <description>Ubuntu で SVN差分のある変更ファイルをexportする やりたいことは以下 SVNコマンドで変更したファイル一覧をExportしたい 変更したファイルについては、変更前のソースもExportしたい 上記２つよりDiffツールを使ってファイル差分を見たい SVNの差分ファイル一覧は svn diff | awk &#39;/^Index/ {print $NF}&#39; で取得できる 以下、作成したプログラム
+#!/bin/bash ################################################################################ # SETTINGS. ROOTDIR=/env/android- OUTDIR=~/デスクトップ FIXDIR=fix ORGDIR=original ################################################################################ shellFileName=`basename $0` fncEchoLog() { dateStr=`date &#39;+%Y%m%d:%H:%M:%S&#39;` outMsg=&amp;quot;[$shellFileName] $dateStr $*&amp;quot; echo &amp;quot;$outMsg&amp;quot; } copyParents() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; cp -p --parents $targetFile $OUTDIR } svnRevert() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; svn revert $targetFile } compareable() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; cp -p --parents $targetFile $OUTDIR/$FIXDIR svn revert $targetFile cp -p --parents $targetFile $OUTDIR/$ORGDIR cp -pf $OUTDIR/$FIXDIR/$targetFile $ROOTDIR/$targetFile } copyRevert() { targetFile=$1 fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot; cp -p --parents $targetFile $OUTDIR svn revert $targetFile } ################################################################################ fncEchoLog &amp;quot;--------------------------------------------------------------------&amp;quot; fncEchoLog &amp;quot;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; MISSIOIN START&amp;quot; fncEchoLog &amp;quot;--------------------------------------------------------------------&amp;quot; fncEchoLog &amp;quot;TARGET DIR [$ROOTDIR]&amp;quot; fncEchoLog &amp;quot;OUTPUT DIR [$OUTDIR]&amp;quot; cd $ROOTDIR fncEchoLog &amp;quot;now checking fixed files.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った</title>
+      <link>https://tro3373.github.io/posts/2011/2011-11-18-%E7%8E%84%E7%AE%B1hg-debian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</link>
+      <pubDate>Fri, 18 Nov 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-11-18-%E7%8E%84%E7%AE%B1hg-debian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</guid>
+      <description>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った 大まかな仕様は以下
+通常電源OFF状態の、同一ネットワーク内にあるLinkstationを 定時刻に wakeonlan にて起動 起動した Linkstation をネットワーク経由にてマウント サーバデータを全てrsyncしてバックアップ 処理の開始、終了時、特定のメールアドレスへメール送信する 必要パッケージのインストール sudo apt-get update sudp apt-get upgrade sudo apt-get install wakeonlan sudo apt-get install rsync # mysql はインストール済みとする # python はインストール済みとする メール送信処理 特定アドレスにGメール送信する処理 Gmail 送信処理本体 GmailApi.py と、それを使用する sendMail.pyで構成
+まずは、Gmail送信処理から
+新規作成 vim GmailApi.py
+#!/usr/bin/python # -*- coding: utf-8 -*- import smtplib from email.MIMEText import MIMEText from email.Header import Header from email.Utils import formatdate class sendGmail: def __init__(self, encoding, subject, body, from_addr, to_addr, login_addr, passwd): self.</description>
+    </item>
+    
+    <item>
+      <title>chromium os install -&gt; Failed!</title>
+      <link>https://tro3373.github.io/posts/2011/2011-10-26-chromium-os-install-failed/</link>
+      <pubDate>Wed, 26 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-10-26-chromium-os-install-failed/</guid>
+      <description>Install chromium os&amp;hellip; failed&amp;hellip; download usb chromium os.
+http://chromeos.hexxeh.net/vanilla.php ChromeOS-Vanilla-1217.0.2011_10_25_1632-r9de021da.tar.gz partition 調査
+cat /proc/partitions write to usb
+/dev/sdg1 sudo umount /media/2799-4470 sudo dd if=/home/[username]/work/20111026.chromium.os.install/dl/ChromeOS-Vanilla-1217.0.2011_10_24_1637-r9de021da.img of=/dev/sdg bs=1k → error...quit! http://www.mimimemo.net/2011/01/chromium-os-zero/ install tool USB-ImageWriter start up from usb to old pc.
+install to hdd used usb start up img. http://yanotaka2.wordpress.com/2011/07/08/%E7%B5%90%E5%B1%80%E3%80%81chromeos%E3%82%92hdd%E3%81%AB%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%97%E3%81%A6%E3%81%97%E3%81%BE%E3%81%A3%E3%81%9F%E3%80%82/ </description>
+    </item>
+    
+    <item>
+      <title>mysql 操作色々</title>
+      <link>https://tro3373.github.io/posts/2011/2011-10-22-mysql-cao-zuo-se/</link>
+      <pubDate>Sat, 22 Oct 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-10-22-mysql-cao-zuo-se/</guid>
+      <description>mysql 設定＆操作色々 mysql-server local以外からもアクセス出きるように設定する 参考
+MySQLユーザの追加 my.cnf編集 Debian/lenny MySQLに外部マシンから接続(リモート接続) $ sudo vi /etc/mysql/my.cnf #bind-address = 127.0.0.1 bind-address = [server_name] 再起動 $ /etc/init.d/mysql restart リモートマシンからも接続可能なユーザを作成 # 現状確認 $ mysql -u root -p mysql&amp;gt; select User,Host from mysql.user; mysql&amp;gt; grant all on *.* to [user_name]@&amp;quot;[client_hostname]&amp;quot;identified by &amp;quot;[user_password]&amp;quot;; リモートマシン（Ubuntu）にクライアントをインストール $ apt-get install mysql-client リモートから接続 $ mysql -u [user_name] -h [host_name] -p データベース作成 接続 $ mysql -u [user_name] -h [host_name] -p データベース確認 mysql&amp;gt; show databases; データベース作成 mysql&amp;gt; create database [database_name] default character set utf8; mysql&amp;gt; show create database [database_name]; 使用するデータベースの選択 mysql&amp;gt; use [database_name]; テーブル確認 mysql&amp;gt; show tables; テーブル削除 mysql&amp;gt; drop table [database_name].</description>
+    </item>
+    
+    <item>
+      <title>Unix コマンド色々</title>
+      <link>https://tro3373.github.io/posts/2011/2011-08-12-ubuntu-komandose/</link>
+      <pubDate>Fri, 12 Aug 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-08-12-ubuntu-komandose/</guid>
+      <description>Unix コマンド色々 # 検索した結果から削除 find ./ -name &amp;#34;.repo&amp;#34; -exec rm -r {} \; # ファイル差分 diff -y -W 200 ./tmp1/init.rc ./tmp2/init.rc # ディレクトリ差分 diff -rNq --exclude=&amp;#34;.svn&amp;#34; ./tmp1 ./tmp2 # ディレクトリ階層を含めてコピー cp -p --parents test/hogehoge.txt /var/tmp # ダミーファイル作成 dd if=/dev/zero of=220M.dat count=220 bs=1048576 ## svn コマンド # チェックアウト svn co [url] # 差分一覧 svn diff | awk &amp;#39;/^Index/ {print $NF}&amp;#39; # 差分一覧(簡易) svn status </description>
+    </item>
+    
+    <item>
+      <title>oracle9i から oracle10g Express Edition へ移行する</title>
+      <link>https://tro3373.github.io/posts/2011/2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/</link>
+      <pubDate>Sat, 06 Aug 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/</guid>
+      <description>Oracle 10g XE install OracleXEUniv.exe → web login用に使用する「system」ユーザのパスワードを設定する → TODO netstat -ano でリスニングポートがワンサカ
+Oracel web login http://127.0.0.1:8081/apexへアクセス
+user : system pass : インストール時に設定したパスワード 作成されるデフォルトオブジェクト
+表領域 ファイル名 サイズ(MB) 最大サイズ(MB) 自動拡張可 SYSAUX C:\ORACLEXE\ORADATA\XE\SYSAUX.DBF 430 32,768 YES SYSTEM C:\ORACLEXE\ORADATA\XE\SYSTEM.DBF 340 600 YES UNDO C:\ORACLEXE\ORADATA\XE\UNDO.DBF 90 500 YES USERS C:\ORACLEXE\ORADATA\XE\USERS.DBF 100 5,120 YES 作成されるユーザ
+HR SYSTEM？ ほか？ 環境変数設定
+ORACLE_BASE C:\oracle\ ORACLE_HOME C:\oraclexe\app\oracle\product\10.2.0\server ORACLE_SID [sample name] Path %ORACLE_HOME%\bin 新規インスタンス(SID)作成(文字コード変換 XEデフォルトAL32UTF8→現行9i用JA16SJIS) 参考： Oracle Database 10g XE(Windows版)の文字コードを変換する方法 文字コードを一時的にSJISに設定する。Oracleからの標準出力を見るため。</description>
+    </item>
+    
+    <item>
+      <title>Nexus S ビルド〜ロム焼き まで</title>
+      <link>https://tro3373.github.io/posts/2011/2011-07-30-nexus-s-birudo-romushao-ki-made/</link>
+      <pubDate>Sat, 30 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-07-30-nexus-s-birudo-romushao-ki-made/</guid>
+      <description>Nexus S ビルド〜ロム焼き まで Nexus S 目指せ文鎮化！ぐらいの勢いで、ソースビルドからロム焼き
+前提条件 環境PC Ubuntu 10.10 端末 Samsung製 Nexus S gingerbread 2.3.4 GRJ22 ベースバンドバージョン I9023XXKD1 カーネルバージョン 2.6.35.7-ge382d80 android-build@apa28 #1 ソース android 2.3.4ソースをrepoより取得している。 ライブラリ等については、通常ビルドできる状態とする。 Ubuntu 10.10 に Nexus S を認識させる。 lsusb で Google inc. を探す
+sudo gedit /etc/udev/rules.d/51-android.rulesでデバイス情報を登録してやる
+# 以下を追加 SUBSYSTEM==&amp;quot;usb&amp;quot;, SYSFS{idVendor}==&amp;quot;18d1&amp;quot;, MODE=&amp;quot;0666&amp;quot; リカバリイメージのダウンロード Clockwork Recovery image置き場 ビルド用のソースを取得 ソース取得したいディレクトリへ移動
+cd ソース取得したいディレクトリ repo 初期化
+repo init -u git://android.git.kernel.org/platform/manifest.git 取得対象のブランチ一覧を表示する（ 参考 ）
+cd ./.repo/manifest git branch -r 対象ブランチの決定</description>
+    </item>
+    
+    <item>
+      <title>androidフレームワーク開発Tips</title>
+      <link>https://tro3373.github.io/posts/2011/2011-07-01-androidhuremuwakukai-fa-tips/</link>
+      <pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-07-01-androidhuremuwakukai-fa-tips/</guid>
+      <description>Android Life Cycle Activity Fragment ビルド # For Nexus S cd /path/to/the/sourcedirectory/ source build/envsetup.sh lunch 4 time make -j9 update-api time make -j9 # For vega source build/envsetup.sh time brunch vega -j9 # For Xoom export USE_CCACHE=1 TMP_CCACHE_DIR=/env/build.cache/wingray.tmp export CCACHE_DIR=$TMP_CCACHE_DIR/.ccache prebuilt/linux-x86/ccache/ccache -M 20G source build/envsetup.sh lunch 5 time make -j9 Flash image # crespo(Nexus S) ENVPATH=/env/nexus/kmpf-android-2.3.4 DEVICE_NAME=crespo fastboot flash boot $ENVPATH/out/target/product/${DEVICE_NAME}/boot.img fastboot flash recovery $ENVPATH/out/target/product/${DEVICE_NAME}/recovery.img fastboot flash userdata $ENVPATH/out/target/product/${DEVICE_NAME}/userdata.img fastboot flash system $ENVPATH/out/target/product/${DEVICE_NAME}/system.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntuのgrubを用いてWindowsとデュアルブートする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-06-08-ubuntunogrubwoyong-itewindowstodeyuarubutosuru/</link>
+      <pubDate>Wed, 08 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-06-08-ubuntunogrubwoyong-itewindowstodeyuarubutosuru/</guid>
+      <description>Ubuntuのgrubを用いてWindowsとデュアルブートする grubをもちいて、Ubuntu側の設定でWindowsとデュアルブート 参考はこちら
+「 GRUB2 」 「 Grub2 でのUUID 変更方法を教えてください。 」 構造(流れ) /etc/default/grubを編集 sudo update-grub /boot/grub/grub.cfgへ反映される 手動で追加 1.手動で追加する場合は、/etc/grub.d/40_customに、grub.cfgに書かれているようにOS設定を登録
+2.sudo update-grub で完了のはず
+編集する
+$ sudo gedit /etc/grub.d/40_custom 以下を追加 menuentry &amp;quot;Windows XP Service Pack 3 (on /dev/sdb1)&amp;quot; { insmod part_msdos insmod ntfs set root=&#39;(hd1,1)&#39; chainloader +1 } ※(hd1,1)・・・HDDの2番目、2番目のパーティションの意味(どちらも0オリジン)。
+反映
+$ sudo update-grub Generating grub.cfg ... Found linux image: /boot/vmlinuz-2.6.35-28-generic Found initrd image: /boot/initrd.img-2.6.35-28-generic Found linux image: /boot/vmlinuz-2.6.35-22-generic Found initrd image: /boot/initrd.img-2.6.35-22-generic Found memtest86+ image: /boot/memtest86+.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-06-07-%E7%8E%84%E7%AE%B1hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</link>
+      <pubDate>Tue, 07 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-06-07-%E7%8E%84%E7%AE%B1hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</guid>
+      <description>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする IntelliParkを無効にする WD製2TibHDDである、WD20EARS-2TB-SATA300において、HDDアクセスが無かった場合の省電力モードを強制的に無効にする方法です。 省電力モードなるものは一般的にHDDの寿命を縮めるなどの理由より。
+こちらを参考に「 ハードウェア linux WD WD20EARSの正しい扱い方 」 シェルの作成 以下のようなシェルを作成し適当なディレクトリへ配置します
+$ vi disable-intellipark.sh #!/bin/sh while true;do date &amp;gt; /tmp/disable-intellipark sleep 5 done 以下のようなシェルを作成し/etc/init.d 配下に配置します
+$ vi kick.disable-intellipark.sh echo ================================ echo [start] disable-intellipark echo ================================ . /上記シェルスクリプトを配置したディレクトリ/disable-intellipark.sh &amp;amp; echo ================================ echo [end] disable-intellipark echo ================================ 起動設定 init.dへ配備します
+$ cd /etc/init.d $ sudo update-rc.d kick.disable-intellipark.sh defaults $ sudo reboot 停止設定 init.dから排除します
+$ cd /etc/init.d $ sudo update-rc.</description>
+    </item>
+    
+    <item>
+      <title>UbuntuとWindowsXPデュアルブート環境にて、Windowsの時刻が大幅に（９時間程ずれる）場合の設定</title>
+      <link>https://tro3373.github.io/posts/2011/2011-06-04-ubuntutowindowsxpdeyuarubutohuan-jing-nite-windowsnoshi-ke-gada-fu-ni9shi-jian-cheng-zureruchang-he-noshe-ding/</link>
+      <pubDate>Sat, 04 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-06-04-ubuntutowindowsxpdeyuarubutohuan-jing-nite-windowsnoshi-ke-gada-fu-ni9shi-jian-cheng-zureruchang-he-noshe-ding/</guid>
+      <description>UbuntuとWindowsをデュアルブート環境にしてさぁ、とおもったらWindowsの時刻が大幅にずれている。。 そんなことになったら、これ。
+参考 /etc/default/rcSを書き換える
+$ sudo gedit /etc/default/rcS 以下のように書き換える UTC=yes =&amp;gt; no 以上！</description>
+    </item>
+    
+    <item>
+      <title>WindowsのブートローダーでUbuntuとデュアルブートする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-31-windowsnobutorodadeubuntutodeyuarubutosuru/</link>
+      <pubDate>Tue, 31 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-05-31-windowsnobutorodadeubuntutodeyuarubutosuru/</guid>
+      <description>WindowsのブートローダーでUbuntuとデュアルブートする grub4dosをもちいて、WindowsブートローダでUbuntuとデュアルブート 参考はこちら
+「 Ubuntu Windows デュアルブート 」 「 Windows XPとUbuntu 10.10をMBMを使ってデュアルブートしました！ 」 「 WindowsのブートローダーでLinuxとデュアルブートする方法 - Ubuntu 10.04 LTS, Grub 2の場合 」 「 WindowsのブートローダーでLinuxとデュアルブートする方法 - Ubuntu 11.04, Grub2の場合 」 ・grub4dosダウンロード こちら からダウンロード
+・grub4dosを解凍しc:¥直下に配置
+以下２ファイル grldr.mbr grldr ・c:¥menu.list作成
+内容は以下 # ３番目のデバイスの１番目のパーティション指定UUIDなども使用できるそう。 title Ubuntu /dev/sdc1 root (hd2,0) kernel /boot/grub/core.img ※(hd2,0)・・・HDDの3番目、1番目のパーティションの意味(どちらも0オリジン)。</description>
+    </item>
+    
+    <item>
+      <title>Windowsをまるごとバックアップする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-31-windowswomarugotobatukuatupusuru/</link>
+      <pubDate>Tue, 31 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-05-31-windowswomarugotobatukuatupusuru/</guid>
+      <description>Partition Imageをつかってシステムをバックアップする 参考はこちら「 システムバックアップ(PartitionImage) 」</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (13) ロケール設定</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-27-%E7%8E%84%E7%AE%B1hg-debian-lenny-13-rokerushe-ding/</link>
+      <pubDate>Fri, 27 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-05-27-%E7%8E%84%E7%AE%B1hg-debian-lenny-13-rokerushe-ding/</guid>
+      <description>玄箱HG debian lenny (13) ロケール設定 ロケール設定 .bashrc 設定 追加＆編集 文字コード設定 export LANG=ja_JP.UTF-8 ls オプション追加 export LS_OPTIONS=&#39;--color=auto --show-control-chars&#39; # eval `dircolors` alias ls=&#39;ls $LS_OPTIONS&#39; alias ll=&#39;ls $LS_OPTIONS -la&#39; alias l=&#39;ls $LS_OPTIONS -lA&#39; .bashrc を反映させる
+source .bashrc locales インストール $ sudo apt-get install locales Reading package lists... Done Building dependency tree Reading state information... Done The following packages were automatically installed and are no longer required: python2.6-minimal python2.6 python-minimal libkrb53 libfuse2 python libfusefs-ruby1.</description>
+    </item>
+    
+    <item>
+      <title>Linux vs Windows コマンドラインからシャットダウンする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-25-linux-vs-windows-komandorainkarasiyatutodaunsuru/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-05-25-linux-vs-windows-komandorainkarasiyatutodaunsuru/</guid>
+      <description>Linux vs Windows コマンドラインからシャットダウンする Linux shutdown -h now または、 shutdown -h 00 Windows shutdown -s -t 00 </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (11)システムまるごとバックアップ</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-25-%E7%8E%84%E7%AE%B1hg-debian-lenny-11-sisutemumarugotobatukuatupu/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-05-25-%E7%8E%84%E7%AE%B1hg-debian-lenny-11-sisutemumarugotobatukuatupu/</guid>
+      <description>玄箱HG debian lenny (11)システムまるごとバックアップ debian lenny化した玄箱HGをまるごとバックアップする方法。
+現在WD製2TibHDD(WD20EARS-2TB-SATA300)で構築しいる鯖ですが、構成は以下のようになっています。
+パーティション サイズ 用途 /dev/hda1 2G ブート用 /dev/hda2 512M スワップ領域 /dev/hda3 3G lenny 用 /dev/hda4 残り(およそ1994G) データ用 こちらを参考に構築しましたので。 「玄箱に Debian 5.0 (lenny) をインストールする」 このうち、/dev/hda1と/dev/hda3のみをtarボールバックアップする方法です。
+バックアップ debina lenny起動している玄箱HGをまずは、EMモード化する telnetにてログイン
+telnet myserverIpAddress スーパユーザへ切り替え
+sudo su - パスワード入力 以下を実行
+※debian2.4化の場合
+$ echo -n &amp;ldquo;NGNG&amp;rdquo; &amp;gt; /dev/fl3
+※debian2.6化パッチのカーネル（私の環境はこちらでした）
+$ echo -n &amp;ldquo;NGNG&amp;rdquo; &amp;gt; /dev/mtdblock2
+らしいです。
+echo -n &amp;quot;NGNG&amp;quot; &amp;gt; /dev/mtdblock2 再起動
+reboot 再度telnetでログインします。
+以下のようなプロンプトがでればEM化成功です。 KURO-BOX-EM login: 玄箱の仕様通りにログインします。 KURO-BOX-EM login: root Password: kuroadmin HDDのパーティションをマウント # /bin/mount -t ext3 /dev/hda1 /mnt # /bin/mount -t ext3 /dev/hda3 /mnt2 バックアップ # cd / /hda1をバックアップ # tar cvpf /mnt2/kurobox.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (12)システムまるごとリストア(2TibHDDへの移行)</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-25-%E7%8E%84%E7%AE%B1hg-debian-lenny-12-sisutemumarugotorisutoa2tibhddhenoyi-xing/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-05-25-%E7%8E%84%E7%AE%B1hg-debian-lenny-12-sisutemumarugotorisutoa2tibhddhenoyi-xing/</guid>
+      <description>玄箱HG debian lenny (12)システムまるごとリストア(2TibHDDへの移行) debian lenny化した玄箱HGをまるごとリストアする方法です。 WD製2TibHDD(WD20EARS-2TB-SATA300)へ移行する際のログになります。 2Tib越えのHDDを導入する際の注意点が色々ありますが、なんとか完成しました。 AFT(Advanced Format Technology)対応にかなり苦戦；；； 以下参考サイトです
+「(HDD)WD WD20EARSのベンチマークとAFTの問題」 「[ハードウェア][linux]WD WD20EARSの正しい扱い方」 「初期の玄箱＋KURO-SATAでHDD２Tでセットアップができません。」 「WD20EARS買った。」 「4096 バイトセクタの HDD と Linux」 「玄箱を2TBに増強する。。。。（その１？）」 「玄箱無印のHDDを2TBにしたときのメモ」 「玄箱のバックアップ＆リストア」 「LinuxでAFT仕様のHDDを使用する」 玄箱HGへ2TibHDD導入時の注意点
+SATAHDDなら[ KURO-SATA ]は必須 AFT対応として、セクタ開始位置に注意してフォーマットする。 フォーマットには、GPTではなく、MBR スピンアップタイムアウトによる起動時のエラーには、２度押し対応 （これはいるんだったかな？？）ジャンパピンを6-5ショート（転送モード1.5Gらしい） [本家サイト] （これはいるんだったかな？？）でかすぎる容量のフォーマット時にスワップ領域が足りない為エラーとなるので、データ領域は後からフォーマット ぐらいなのかなぁ。。（記憶があいまいで。。）
+リストア(新しく買ったWD製2TibHDD(WD20EARS-2TB-SATA300)に再現させる) 前準備 （これはいるんだったかな？？）HDDはジャンパピン6-5ショート UbuntuライブCDなどから母艦PCにてUSB接続し、MBRフォーマットへ切り替える 玄箱HGへ2TibHDDを組み込み電源ONしてから2度押しを何度か繰り返すなどしてEMモードへ入れ、
+telnetログインします。 パーティション＆フォーマット パーティション境界を 8 セクタ単位とする。
+(細かい設定を以下で設定しなくても、「fdisk -H 224 -S 56 /dev/hda」なる解決策があるようですが、
+ここでは直接セクタ数を指定しています。)
+パーティションをひとつずつ作成。
+$ /sbin/mfdisk -c /dev/hda Command (m for help): m Command action a toggle a bootable flag b edit bsd disklabel c toggle the dos compatibility flag d delete a partition l list known partition types m print this menu n add a new partition o create a new empty DOS partition table p print the partition table q quit without saving changes s create a new empty Sun disklabel t change a partition&#39;s system id u change display/entry units v verify the partition table w write table to disk and exit Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 1 First cylinder (1-19929, default 1):64 Last cylinder or +size or +sizeM or +sizeK (1-19929, default 19929): +4096001 Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 2 First cylinder (256-19929, default 256):4096072 Last cylinder or +size or +sizeM or +sizeK (256-19929, default 19929): +1048577 Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 3 First cylinder (289-19929, default 289):5144656 Last cylinder or +size or +sizeM or +sizeK (289-19929, default 19929): +6144001 (※実際のログが残ってないので怪しいです。。。) # /dev/hda2をswap領域とする Command (m for help): t Partition number (1-4): 2 Hex code (type L to list codes): L 0 Empty 1b Hidden Win95 FA 64 Novell Netware bb Boot Wizard hid 1 FAT12 1c Hidden Win95 FA 65 Novell Netware c1 DRDOS/sec (FAT- 2 XENIX root 1e Hidden Win95 FA 70 DiskSecure Mult c4 DRDOS/sec (FAT- 3 XENIX usr 24 NEC DOS 75 PC/IX c6 DRDOS/sec (FAT- 4 FAT16 &amp;lt;32M 39 Plan 9 80 Old Minix c7 Syrinx 5 Extended 3c PartitionMagic 81 Minix / old Lin da Non-FS data 6 FAT16 40 Venix 80286 82 Linux swap db CP/M / CTOS / .</description>
+    </item>
+    
+    <item>
+      <title>UML 作成参考サイト</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-20-uml-zuo-cheng-can-kao-saito/</link>
+      <pubDate>Fri, 20 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-05-20-uml-zuo-cheng-can-kao-saito/</guid>
+      <description>UML 作成参考サイト 参考になるサイトがあったのでメモ
+UML 作成参考サイト UML クラス図解説 </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (1)lenny化</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-01-lennyhua/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-01-lennyhua/</guid>
+      <description>玄箱HG debian lenny (1)lenny化 玄人志向.玄箱HG(KURO-BOX/HG)購入しdebian lennyをインストールした時のメモ。
+debian化 ファームウェアアップデート ファイアウォール切断、IPアドレスを玄箱と合わせ(母艦PCのIP⇒192.168.198.XXに変更？だったかな？)、 玄箱手順どおりに最新ファームウェアを導入する。
+本家サイト イメージファイルのダウンロード 下記サイトからダウンロードします。
+玄箱に Debian 5.0 (lenny) をインストールする 以下７ファイル。
+debian-lenny-installer-kuroBOX-20090317.tgz debian-lenny-kuroBOX-20090317.tgz kuro-bootsel2-debian.tgz kuro-bootsel2.20080419.tar.gz loader.o kernelimage-2.6.25.1-kuroHG.tgz modules-2.6.25.1-kuroHG.tgz ダウンロードしたファイルを玄箱HGへFTP接続などしてファイルを転送
+/mnt/share/配下に配備する
+インストール $ mkdir /tmp/lenny $ mv /mnt/share/* /tmp/lenny $ cd /tmp/lenny $ tar xvzf debian-lenny-installer-kuroBOX-20090317.tgz $ sh ./debian-lenny-installer-kuroHG.sh 再起動
+$ reboot 接続テスト 玄箱セットアップディスクなどで玄箱HGを検索しIPアドレスを探る
+IPは「192.168.0.100」となっている為、母艦側を玄箱HGに合わせる(192.168.0.XX)
+みつかればtelnetでログインしてみる。</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (10)ddclientインストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-10-ddclientinsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-10-ddclientinsutoru/</guid>
+      <description>玄箱HG debian lenny (10)ddclientインストール ipアドレスが変更となった場合の更新処理を自動化する。
+ddclientの他にipcheckがあるようですが、ここでは、ddclientで設定します。
+ddclientを導入 インストール 参考 sudo apt-get install ddclient 設定 インストール時にいろいろ聞かれ /etc/ddclient.conf というサンプルのファイルが出来上がるが dyndnsのサイトが conf ファイルを自動生成してくれるのでそっちを使った方が楽らしい。
+以下が出来上がったファイル
+## ddclient configuration file daemon=600 # check every 600 seconds syslog=yes # log update msgs to syslog mail-failure=メールアドレス # Mail failed updates to user pid=/var/run/ddclient.pid # record PID in file. ## Detect IP with our CheckIP server use=web, web=checkip.dyndns.com/, web-skip=&#39;IP Address&#39; ## DynDNS username and password here login=DynDNSユーザ名 password=DynDNSパスワード ## Default options protocol=dyndns2 server=members.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (2)ユーザ設定</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-02-yuzashe-ding/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-02-yuzashe-ding/</guid>
+      <description>玄箱HG debian lenny (2)ユーザ設定 ユーザ設定 root,tmp-kunパスワード変更 $ su $ passwd パスワード入力 $ psswd tmp-kun パスワード入力 新規ユーザ作成 $ useradd -g users -m 作成するユーザ名 $ passwd 作成したユーザ名 パスワード入力 tmp-kunのグループIDをusersに変更 $ usermod -g users tmp-kun tmp-kunのファイルグループID変更 $ chgrp -R users /home/tmp-kun グループ tmp-kun を削除 $ delgroup tmp-kun tmp-kun削除 $ deluser tmp-kun パスワード、シャドウパスワード編集 $ vipw $ vipw -s </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (3)ネットワーク設定</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-03-netutowakushe-ding/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-03-netutowakushe-ding/</guid>
+      <description>玄箱HG debian lenny (3)ネットワーク設定 ネットワーク設定 IP変更 $ vi /etc/network/interfaces address 192.168.0.2 network 192.168.0.0 broadcast 192.168.0.255 gateway 192.168.0.1 hostname変更 $ vi /etc/hostname hogehost hosts変更 $ vi /etc/hosts 追加 127.0.0.1 localhost.localadmin localhost 192.168.0.2 hogehost 192.168.0.21 hogebokan などなど DNS設定 $ vi /etc/resolv.conf nameserver=192.168.0.1 再起動</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (4)sudo インストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-04-sudo-insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-04-sudo-insutoru/</guid>
+      <description>玄箱HG debian lenny (4)sudo インストール sudo インストール こちら を参考に
+パッケージ検索 $ apt-cache search sudo | grep ^sudo sudo - Provide limited super user privileges to specific users sudo-ldap - Provide limited super user privileges to specific users sudoku - console based sudoku sudoインストール $ apt-get install sudo ⇒パッケージを署名しているGPG鍵が原因でワーニング（ 参照 ）
+The following packages cannot be authenticated ・GPG鍵更新？
+$ apt-get install debian-archive-keyring Reading package lists... Done Building dependency tree Reading state information.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (5) apt設定他もろもろ</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-05-aptshe-ding-ta-moromoro/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-05-aptshe-ding-ta-moromoro/</guid>
+      <description>玄箱HG debian lenny (5)apt設定&amp;ndash;他もろもろ apt設定（近くのミラーサイトの探し方と APT の設定方法） $ cd /etc/apt $ apt-get install wget $ wget http://www.debian.or.jp/apt/sources.list.http.ring.airnet.ne.jp ⇒index.htmlができる？ $ cp -p sources.list.http.ring.airnet.ne.jp sources.list ⇒「cp -p」パーミッションやタイムスタンプを保持したままコピー ⇒エラー：cp: cannot stat `sources.list.http.ring.airnet.ne.jp&#39;: No such file or directory ⇒アドレスが古い。squeeze化か！？やり直し([参考]( http://www.debian.or.jp/using/mirror.html#neares tmirror))
+・apt-spyパッケージインストール
+$ sudo aptitude install apt-spy ・ apt-spy を実行。ここでは日本国内の安定版 (stable) を取得する前提でサーバを探す？
+$ sudo apt-spy -s jp -d stable ・/etc/apt/sources.list の中身を確認してみます。
+・apt-spy が書き込む前のファイルが バックアップされているので、結果が思わしくない場合はここから復帰
+/etc/apt/sources.list.bak ・データベースの変更を反映
+$ aptitude update mount設定 玄箱付属のセットアップディスクでファーマットした為、パーティションは/dev/hda3までしか存在しない。
+まぁいいか。特にすることなし。
+内蔵時計の設定 $ date 031917512011 </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (6)sambaインストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-06-sambainsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-06-sambainsutoru/</guid>
+      <description>玄箱HG debian lenny (6)sambaインストール sambaをインストール 参考にしたのはこちら
+参考1 参考2 インストール $ sudo apt-get update $ sudo apt-get install samba ⇒全てデフォルト。WORKGROUP。 設定 設定ファイル編集
+$ sudo vi /etc/samba/smb.conf 以下のような設定 参考はこちら 「samba3: 日本語コード指定方法」 # [global]セクション # 文字コード設定として以下を追加 dos charset = CP932 unix charset = UTF-8 display charset = UTF-8 # Sambaが通信を許可するホスト、ネットワークIPアドレス、ネットワークインターフェースなどを指定 interfaces = eth0 127.0.0.1 192.168.24.0/24 # Sambaに関係するネーム・サービスへの接続 bind interfaces only = yes # Sambaへの接続を許可するホストやネットワークを指定 hosts allow = 192.168.24. # ユーザ認証を有効化 security = user # 以下共有したいディレクリの設定 [hogehoge] path=/hogehoge read only = no writable = yes force create mode = 0644 force directory mode = 0755 force user = ユーザ名 force group = users guest ok = no valid users = ユーザ名 smbaユーザ追加</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (7)apache2インストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-07-apache2insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-07-apache2insutoru/</guid>
+      <description>玄箱HG debian lenny (7)apache2インストール apache2を導入 インストール $ sudo apt-get install apache2 apache2.con設定 $ sudo vi /etc/apache2/apache2.conf #DefaultType text/plain 変更⇒ DefaultType application/octet-stream バーチャルホスト設定ファイル作成 参考1 $ cd /etc/apache2/sites-available $ sudo cp default hogehoge $ sudo vi hogehoge ・サイト有効設定
+$ sudo a2ensite 有効にするサイトを選択「hogehoge」 ・サイト無効設定
+$ sudo a2dissite 無効にするサイトを選択「default」 ・apache 再起動
+$ sudo /etc/init.d/apache2 reload </description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (8)mysqlインストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-08-mysqlinsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-08-mysqlinsutoru/</guid>
+      <description>玄箱HG debian lenny (8)mysqlインストール mysqlを導入 インストール ・インストール
+$ sudo apt-get install mysql-server ・mysql動作確認
+$ mysqladmin ping -u root -p 正常動作時 Enter password: mysqld is alive パスワード変更 $ mysql -u root -p rootパスワード入力 SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;); ユーザ確認 ログイン $ mysql -u root -p SQL実行 mysql&amp;gt; SELECT host,user,password FROM mysql.user; 文字コード設定 参考1 参考2 現状確認
+sql&amp;gt; status Server characterset: latin1 Db characterset: latin1 Client characterset: latin1 Conn. characterset: latin1 /etc/mysql/conf.d/以下に「character_set.cnf」というファイルを新規作成し、編集。
+$ sudo vi character_set.</description>
+    </item>
+    
+    <item>
+      <title>玄箱HG debian lenny (9)php5インストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-09-php5insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-09-php5insutoru/</guid>
+      <description>玄箱HG debian lenny (9)php5インストール php5を導入 インストール sudo apt-get install php5 libapache2-mod-php5 php5-mysql php-pear php5-gd 設定 cd /etc/php5/apache2/ ・バックアップ
+cp php.ini php.orignal ・php.ini設定
+sudo vi php.ini 以下のように設定 default_charset = UTF-8 expose_php = Off #HTTPヘッダーの PHP に関する情報を隠蔽 display_errors = Off #エラーをブラウザに非表示 error_log = /var/log/php.logエラーログを出力するファイルを指定 mbstring.language = Japanese mbstring.internal_encoding = UTF-8 mbstring.http_input = auto mbstring.http_output = UTF-8 mbstring.encoding_translation = On mbstring.detect_order = auto mbstring.substitute_character = none mbstring.func_overload = 0 ・apache再起動
+/etc/init.d/apache2 restart </description>
+    </item>
+    
+    <item>
+      <title>Android GingerBread ビルド色々</title>
+      <link>https://tro3373.github.io/posts/2011/2011-01-01-android-gingerbread-se/</link>
+      <pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-01-01-android-gingerbread-se/</guid>
+      <description>SDKビルドしたoutディレクトリから、emulatorを立ち上げる cd /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools ./android list # ⇒ 以下が正しく無いとして、起動できず # ・sdklib.jar # ・sdkmanager.jar # ・sdkuilib.jar # ⇒ Eclipseより取得したファイルより、上書き # 以下のように正しく表示される # Available Android targets: # id: 1 or &amp;#34;android-9&amp;#34; # Name: Android 2.3.1 # Type: Platform # API level: 9 # Revision: 1 # Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854 # Available Android Virtual Devices: # The following Android Virtual Devices could not be loaded: # Name: jb # Path: /home/hogeuser/.</description>
+    </item>
+    
+    <item>
+      <title>Xivision(vega) ロム焼き</title>
+      <link>https://tro3373.github.io/posts/2010/2010-08-10-xivisionvega-romushao-ki/</link>
+      <pubDate>Tue, 10 Aug 2010 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2010/2010-08-10-xivisionvega-romushao-ki/</guid>
+      <description> # Xivision(vega) ロム焼き TOOLS_DIR=~/work/30.tools OUT_DIR=/env/vega/vega/out/target/product/vega nvflash --bl $TOOLS_DIR/bootloader.bin --go nvflash -r --download 8 $OUT_DIR/system.img --download 7 $OUT_DIR/boot.img --download 11 $OUT_DIR/userdata.img --download 6 $OUT_DIR/recovery.img </description>
+    </item>
+    
+  </channel>
+</rss>

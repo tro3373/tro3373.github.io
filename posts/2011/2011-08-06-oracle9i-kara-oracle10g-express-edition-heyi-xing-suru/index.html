@@ -1,0 +1,294 @@
+<!doctype html><html lang=ja dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>oracle9i から oracle10g Express Edition へ移行する | tac lifelog</title><meta name=keywords content="oracle9i,oracle10g"><meta name=description content="Oracle 10g XE install OracleXEUniv.exe → web login用に使用する「system」ユーザのパスワードを設定する → TODO netstat -ano でリスニングポートがワンサカ
+Oracel web login http://127.0.0.1:8081/apexへアクセス
+user : system pass : インストール時に設定したパスワード 作成されるデフォルトオブジェクト
+表領域 ファイル名 サイズ(MB) 最大サイズ(MB) 自動拡張可 SYSAUX C:\ORACLEXE\ORADATA\XE\SYSAUX.DBF 430 32,768 YES SYSTEM C:\ORACLEXE\ORADATA\XE\SYSTEM.DBF 340 600 YES UNDO C:\ORACLEXE\ORADATA\XE\UNDO.DBF 90 500 YES USERS C:\ORACLEXE\ORADATA\XE\USERS.DBF 100 5,120 YES 作成されるユーザ
+HR SYSTEM？ ほか？ 環境変数設定
+ORACLE_BASE C:\oracle\ ORACLE_HOME C:\oraclexe\app\oracle\product\10.2.0\server ORACLE_SID [sample name] Path %ORACLE_HOME%\bin 新規インスタンス(SID)作成(文字コード変換 XEデフォルトAL32UTF8→現行9i用JA16SJIS) 参考： Oracle Database 10g XE(Windows版)の文字コードを変換する方法 文字コードを一時的にSJISに設定する。Oracleからの標準出力を見るため。"><meta name=author content><link rel=canonical href=https://tro3373.github.io/posts/2011/2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/><meta name=google-site-verification content="gFn4gbm1K_1qzq7At2Sr1-7AuHC45a6pCmvAdUNeUGY"><link crossorigin=anonymous href=/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css integrity="sha256-DE/TclFxNm8zUVWs3m+zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as=style><link rel=stylesheet href=/scss/style.min.7b5d7016468d598a3e753e3d0ecf004679e628a19804af57943ee84be5b7770a.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/base16/apprentice.min.css><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/vim.min.js></script>
+<script type=text/javascript src=/js/terraform.js></script>
+<script type=text/javascript>hljs.registerLanguage("terraform",window.hljsDefineTerraform),hljs.highlightAll()</script><link rel=icon href=https://tro3373.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://tro3373.github.io/favicon-32x32.png><link rel=icon type=image/png sizes=32x32 href=https://tro3373.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://tro3373.github.io/favicon-32x32.png><link rel=mask-icon href=https://tro3373.github.io/favicon-32x32.png><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6962926171897574" crossorigin=anonymous></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-20M4SHCC18"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-20M4SHCC18",{anonymize_ip:!1})}</script><meta property="og:title" content="oracle9i から oracle10g Express Edition へ移行する"><meta property="og:description" content="Oracle 10g XE install OracleXEUniv.exe → web login用に使用する「system」ユーザのパスワードを設定する → TODO netstat -ano でリスニングポートがワンサカ
+Oracel web login http://127.0.0.1:8081/apexへアクセス
+user : system pass : インストール時に設定したパスワード 作成されるデフォルトオブジェクト
+表領域 ファイル名 サイズ(MB) 最大サイズ(MB) 自動拡張可 SYSAUX C:\ORACLEXE\ORADATA\XE\SYSAUX.DBF 430 32,768 YES SYSTEM C:\ORACLEXE\ORADATA\XE\SYSTEM.DBF 340 600 YES UNDO C:\ORACLEXE\ORADATA\XE\UNDO.DBF 90 500 YES USERS C:\ORACLEXE\ORADATA\XE\USERS.DBF 100 5,120 YES 作成されるユーザ
+HR SYSTEM？ ほか？ 環境変数設定
+ORACLE_BASE C:\oracle\ ORACLE_HOME C:\oraclexe\app\oracle\product\10.2.0\server ORACLE_SID [sample name] Path %ORACLE_HOME%\bin 新規インスタンス(SID)作成(文字コード変換 XEデフォルトAL32UTF8→現行9i用JA16SJIS) 参考： Oracle Database 10g XE(Windows版)の文字コードを変換する方法 文字コードを一時的にSJISに設定する。Oracleからの標準出力を見るため。"><meta property="og:type" content="article"><meta property="og:url" content="https://tro3373.github.io/posts/2011/2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/"><meta property="og:image" content="https://tro3373.github.io/favicon.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2011-08-06T00:00:00+00:00"><meta property="article:modified_time" content="2011-08-06T00:00:00+00:00"><meta property="og:site_name" content="tac lifelog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://tro3373.github.io/favicon.png"><meta name=twitter:title content="oracle9i から oracle10g Express Edition へ移行する"><meta name=twitter:description content="Oracle 10g XE install OracleXEUniv.exe → web login用に使用する「system」ユーザのパスワードを設定する → TODO netstat -ano でリスニングポートがワンサカ
+Oracel web login http://127.0.0.1:8081/apexへアクセス
+user : system pass : インストール時に設定したパスワード 作成されるデフォルトオブジェクト
+表領域 ファイル名 サイズ(MB) 最大サイズ(MB) 自動拡張可 SYSAUX C:\ORACLEXE\ORADATA\XE\SYSAUX.DBF 430 32,768 YES SYSTEM C:\ORACLEXE\ORADATA\XE\SYSTEM.DBF 340 600 YES UNDO C:\ORACLEXE\ORADATA\XE\UNDO.DBF 90 500 YES USERS C:\ORACLEXE\ORADATA\XE\USERS.DBF 100 5,120 YES 作成されるユーザ
+HR SYSTEM？ ほか？ 環境変数設定
+ORACLE_BASE C:\oracle\ ORACLE_HOME C:\oraclexe\app\oracle\product\10.2.0\server ORACLE_SID [sample name] Path %ORACLE_HOME%\bin 新規インスタンス(SID)作成(文字コード変換 XEデフォルトAL32UTF8→現行9i用JA16SJIS) 参考： Oracle Database 10g XE(Windows版)の文字コードを変換する方法 文字コードを一時的にSJISに設定する。Oracleからの標準出力を見るため。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://tro3373.github.io/posts/"},{"@type":"ListItem","position":2,"name":"oracle9i から oracle10g Express Edition へ移行する","item":"https://tro3373.github.io/posts/2011/2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"oracle9i から oracle10g Express Edition へ移行する","name":"oracle9i から oracle10g Express Edition へ移行する","description":"Oracle 10g XE install OracleXEUniv.exe → web login用に使用する「system」ユーザのパスワードを設定する → TODO netstat -ano でリスニングポートがワンサカ\nOracel web login http://127.0.0.1:8081/apexへアクセス\nuser : system pass : インストール時に設定したパスワード 作成されるデフォルトオブジェクト\n表領域 ファイル名 サイズ(MB) 最大サイズ(MB) 自動拡張可 SYSAUX C:\\ORACLEXE\\ORADATA\\XE\\SYSAUX.DBF 430 32,768 YES SYSTEM C:\\ORACLEXE\\ORADATA\\XE\\SYSTEM.DBF 340 600 YES UNDO C:\\ORACLEXE\\ORADATA\\XE\\UNDO.DBF 90 500 YES USERS C:\\ORACLEXE\\ORADATA\\XE\\USERS.DBF 100 5,120 YES 作成されるユーザ\nHR SYSTEM？ ほか？ 環境変数設定\nORACLE_BASE C:\\oracle\\ ORACLE_HOME C:\\oraclexe\\app\\oracle\\product\\10.2.0\\server ORACLE_SID [sample name] Path %ORACLE_HOME%\\bin 新規インスタンス(SID)作成(文字コード変換 XEデフォルトAL32UTF8→現行9i用JA16SJIS) 参考： Oracle Database 10g XE(Windows版)の文字コードを変換する方法 文字コードを一時的にSJISに設定する。Oracleからの標準出力を見るため。","keywords":["oracle9i","oracle10g"],"articleBody":"Oracle 10g XE install OracleXEUniv.exe → web login用に使用する「system」ユーザのパスワードを設定する → TODO netstat -ano でリスニングポートがワンサカ\nOracel web login http://127.0.0.1:8081/apexへアクセス\nuser : system pass : インストール時に設定したパスワード 作成されるデフォルトオブジェクト\n表領域 ファイル名 サイズ(MB) 最大サイズ(MB) 自動拡張可 SYSAUX C:\\ORACLEXE\\ORADATA\\XE\\SYSAUX.DBF 430 32,768 YES SYSTEM C:\\ORACLEXE\\ORADATA\\XE\\SYSTEM.DBF 340 600 YES UNDO C:\\ORACLEXE\\ORADATA\\XE\\UNDO.DBF 90 500 YES USERS C:\\ORACLEXE\\ORADATA\\XE\\USERS.DBF 100 5,120 YES 作成されるユーザ\nHR SYSTEM？ ほか？ 環境変数設定\nORACLE_BASE C:\\oracle\\ ORACLE_HOME C:\\oraclexe\\app\\oracle\\product\\10.2.0\\server ORACLE_SID [sample name] Path %ORACLE_HOME%\\bin 新規インスタンス(SID)作成(文字コード変換 XEデフォルトAL32UTF8→現行9i用JA16SJIS) 参考： Oracle Database 10g XE(Windows版)の文字コードを変換する方法 文字コードを一時的にSJISに設定する。Oracleからの標準出力を見るため。\nset NLS_LANG=JAPANESE_JAPAN.JA16SJISTILDE Oracleを停止\noradim -SHUTDOWN -SID XE -SHUTTYPE SRVC,INST -SHUTMODE ABORT → OracleServiceXEのサービスのみ停止される（OracleXETNSListenerは起動のまま) 新規Oracleインスタンスの作成\n(SID,databasename,username,passwordをすべて[sample name]で記載してます)\nコマンドプロンプトを起動し、下記をコマンドを実行する。 mkdir C:\\oraclexe\\app\\oracle\\admin\\[sample name]\\adump mkdir C:\\oraclexe\\app\\oracle\\admin\\[sample name]\\bdump mkdir C:\\oraclexe\\app\\oracle\\admin\\[sample name]\\cdump mkdir C:\\oraclexe\\app\\oracle\\admin\\[sample name]\\dpdump mkdir C:\\oraclexe\\app\\oracle\\admin\\[sample name]\\pfile mkdir C:\\oraclexe\\app\\oracle\\admin\\[sample name]\\udump mkdir C:\\oraclexe\\oradata\\[sample name] 初期化パラメータファイル新規作成 C:\\oraclexe\\app\\oracle\\product\\10.2.0\\server\\database\\init[sample name].ora 内容は以下 java_pool_size=0 large_pool_size=4194304 shared_pool_size=62914560 streams_pool_size=0 audit_file_dest=‘C:\\oraclexe\\app\\oracle\\admin[sample name]\\adump’ background_dump_dest=‘C:\\oraclexe\\app\\oracle\\admin[sample name]\\bdump’ compatible=‘10.2.0.1.0’ control_files=‘C:\\oraclexe\\oradata[sample name]\\control.dbf’ core_dump_dest=‘C:\\oraclexe\\app\\oracle\\admin[sample name]\\cdump’ db_name=’[sample name]' dispatchers=’(PROTOCOL=TCP) (SERVICE=XEXDB)' job_queue_processes=2 open_cursors=300 os_authent_prefix=’' pga_aggregate_target=40M remote_login_passwordfile=‘EXCLUSIVE’ sessions=20 sga_target=140M shared_servers=1 undo_management=‘AUTO’ undo_tablespace=‘UNDO’ user_dump_dest=‘C:\\oraclexe\\app\\oracle\\admin[sample name]\\udump’\nWindowsのサービスを作成\nset ORACLE_SID=[sample name] →環境設定に設定しているが、再起動していないと必要か？ oradim -NEW -SID [sample name] -INTPWD nandi -PFILE C:\\oraclexe\\app\\oracle\\product\\10.2.0\\server\\database\\init[sample name].ora -startmode auto → 作成されるサービスは二つか？ OracleService[sample name] OracleJobScheduler[sample name]\n※[-INTPWD INTERNALアカウントのパスワード] → DBインスタンス作成時に作られるユーザ ユーザ名 デフォルトパスワード 説明 internal oracle 初期インスタンス用のユーザ（Oracle9ではなくなっている） system manager Oracleの管理者用のDBAアカウント scott tiger Oracleのサンプル表のサンプルユーザ → nandiってなんだ？ ORACLE インスタンスを起動\nsqlplus / as sysdba SQL\u003e startup nomount → ORA-01081: ???????Oracle???????? - ??????????????? → ORA-01081: すでに稼働中のOracleは起動できません - まずシャットダウンしてください 文字化けしている。さらにサービス作成で起動している？ → サービスORACLE[sample name]を停止してみる SQL\u003e startup nomount → ORA-03113: 通信チャネルでend-of-fileが検出されました → 再度[sample name]サービスを立ち上げてみる SQL\u003e startup nomount → ORA-24324: サービス・ハンドルが初期化されていません。 ORA-01041: 内部エラーが発生しました。hostdefエクステンションが存在しません。\n→ 一度サービスを削除しなおす サービスの削除 oradim -DELETE -SID [sample name] →作成された[sample name]のサービス二つが削除される 再度作成 oradim -NEW -SID [sample name] -INTPWD nandi -PFILE C:\\oraclexe\\app\\oracle\\product\\10.2.0\\server\\database\\init[sample name].ora -startmode auto\n→ OPW-00005: 同一名のファイルがあります。 - 削除または名前を変更してください。 インスタンスが作成されました。 再度 \u003e sqlplus / as sysdba SQL\u003e startup nomount → ORA-01081: ???????Oracle???????? - ??????????????? → 起動しているのならOKか？→無視して続ける\nデータベース作成 SQL\u003e以下をそのまま貼り付け create database [sample name] logfile group 1 (‘C:\\oraclexe\\oradata[sample name]\\redo1.dbf’) size 32M, group 2 (‘C:\\oraclexe\\oradata[sample name]\\redo2.dbf’) size 32M, group 3 (‘C:\\oraclexe\\oradata[sample name]\\redo3.dbf’) size 32M character set JA16EUCTILDE national character set utf8 datafile ‘C:\\oraclexe\\oradata[sample name]\\system.dbf’ size 240M autoextend on next 16M maxsize unlimited extent management local sysaux datafile ‘C:\\oraclexe\\oradata[sample name]\\sysaux.dbf’ size 48M autoextend on next 8M maxsize unlimited undo tablespace undo datafile ‘C:\\oraclexe\\oradata[sample name]\\undo.dbf’ size 48M autoextend on default temporary tablespace temp tempfile ‘C:\\oraclexe\\oradata[sample name]\\temp.dbf’ size 8M autoextend on;\n→ データベースが作成されました。 スクリプトの実行 @C:\\oraclexe\\app\\oracle\\product\\10.2.0\\server\\RDBMS\\ADMIN\\catalog.sql (1分くらいかかる。) @C:\\oraclexe\\app\\oracle\\product\\10.2.0\\server\\RDBMS\\ADMIN\\catproc.sql (5分くらいかかる。) connect system/manager @C:\\oraclexe\\app\\oracle\\product\\10.2.0\\server\\sqlplus\\admin\\pupbld.sql quit\nWindowsの環境変数にORACLE_SIDを登録する。 変数：ORACLE_SID 値：[sample name] →すでに作成済み\nOracleService[sample name]サービスを右クリック→自動起動設定する\n→ XEのサービスは手動起動に設定\nOracle Textのインストール sqlplus sys/manager as sysdba\n@?\\ctx\\admin\\catctx manager SYSAUX TEMP NOLOCK\nconnect CTXSYS/manager @?\\ctx\\admin\\defaults\\drdefja.sql quit\n確認 sqlplusコマンドを実行しログインできるかどうか確認する。初期ユーザはsystem、パスワードはmanagerである。\nsqlplus system/manager SQL\u003e\nインスタンスの切り替え方法 XEを停止して[sample name]を起動 oradim -SHUTDOWN -SID XE -SHUTTYPE SRVC,INST -SHUTMODE ABORT oradim -STARTUP -SID [sample name] [sample name]を停止してXEを起動 oradim -SHUTDOWN -SID [sample name] -SHUTTYPE SRVC,INST -SHUTMODE ABORT oradim -STARTUP -SID XE\nlistener.ora、tnsnames.oraの設定変更\n※GLOBAL_DBNAME は tnsnames.ora の SERVICE_NAME と、SID_NAME は接続するインスタンス名と一致しないといけない。 http://d.hatena.ne.jp/yohei-a/20090601/1243837379 http://otndnld.oracle.co.jp/document/products/oracle11g/111/doc_dvd/network.111/E05726-02/listener.htm http://itref.fc2web.com/oracle/net.html listener.oraは以下で作成(originalは.oraファイルと同一フォルダにあります)\nLISTENER = (DESCRIPTION_LIST = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = [db hostname].[sample_name.local])(PORT = 1521)) (ADDRESS = (PROTOCOL = IPC)(KEY = [sample name])) ) ) SID_LIST_LISTENER = (SID_LIST = (SID_DESC = (GLOBAL_DBNAME = [sample name].[sample_name.local]) (ORACLE_HOME = C:\\oraclexe\\app\\oracle\\product\\10.2.0\\server) (SID_NAME = [sample name]) ) ) DEFAULT_SERVICE_LISTENER = [sample name].[sample_name.local] tnsnames.oraは以下で作成\n[sample name].[sample_name.local] = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = [db hostname].[sample_name.local])(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = [sample name]) ) ) XE = (DESCRIPTION = (ADDRESS = (PROTOCOL = TCP)(HOST = [db hostname].[sample_name.local])(PORT = 1521)) (CONNECT_DATA = (SERVER = DEDICATED) (SERVICE_NAME = XE) ) ) →[samplename]サービス、リスナー再起動 15.表領域作成\nsqlplus sys/manager as sysdba CREATE TABLESPACE USERS DATAFILE 'C:\\oraclexe\\oradata\\[sample name]\\USERS01.DBF' SIZE 30M AUTOEXTEND ON NEXT 1M MAXSIZE UNLIMITED; 削除は sqlplus / as sysdba drop tablespace users including contents; rm C:\\oraclexe\\oradata\\[sample name]\\USERS01.DBF 確認は sqlplus / as sysdba select * from dba_tablespaces; select * from dba_data_files; 16.ユーザ[sample name]作成\nCREATE USER [sample name] IDENTIFIED BY [sample name] DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp; 権限付与 GRANT CONNECT, RESOURCE, DROP ANY TABLE, ANALYZE ANY, ALTER SESSION, CREATE DATABASE LINK, CREATE SYNONYM, CREATE VIEW ,Create Sequence ,Execute Any PROCEDURE ,Create TABLE ,Create Any INDEX TO [sample name]; →接続できるかテスト sqlplus [sample name]/[sample name]@[sample name] →× sqlplus [sample name]/[sample name]@[sample name].[sample_name.local] →○かなりおそいが。 sqlplus [sample name]/[sample name]@[sample name] →○ sqlplus [sample name]/[sample name]@[db hostname].[sample_name.local] →○かなりおそいが。 OracleXETNSListenerを停止してもつながる？ 17.ユーザ[sample_name_dev]作成\nCREATE USER [sample_name_dev] IDENTIFIED BY [sample_name_dev] DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp; 権限付与 GRANT CONNECT, RESOURCE, DROP ANY TABLE, ANALYZE ANY, ALTER SESSION, CREATE DATABASE LINK, CREATE SYNONYM, CREATE VIEW ,Create Sequence ,Execute Any PROCEDURE ,Create TABLE ,Create Any INDEX TO [sample_name_dev]; export,import\n[old hostname]にて exp file=c:\\[samplename].db.20110806.dmp userid=[sample name]/[sample name]@[sample name] owner=[sample name],[sample_name_dev] [db hostname]にて imp file=D:\\[samplename].db.20110806.dmp userid=system/manager fromuser=[sample_name_dev] touser=[sample_name_dev] imp file=D:\\[samplename].db.20110806.dmp userid=system/manager fromuser=[sample name] touser=[sample name] →imp時に以下エラーが出た場合は、何がimpされたかわからないので、再度user作成し直し IMP-00058: Oracleエラー20が発生しました。 ORA-00020: 最大プロセス数(%s)を超えましたユーザー名 →原因不明なので、ユーザ削除し、再度作成するとうまくいきました。 ユーザ削除 sqlplus system/manager as sysdba or sqlplus / as sysdba drop user [sample name] cascade; drop user [sample_name_dev] cascade;\n/****************************************************************************************/ ◎本番移行時手順◎\n①ユーザ削除（[sample name],[sample_name_dev]）@[db hostname] sqlplus system/manager as sysdba or sqlplus / as sysdba drop user [sample name] cascade; drop user [sample_name_dev] cascade;\n②ユーザ作成と権限付与 – [sample name]ユーザ CREATE USER [sample name] IDENTIFIED BY [sample name] DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP;\nGRANT CONNECT, RESOURCE, DROP ANY TABLE, ANALYZE ANY, ALTER SESSION, CREATE DATABASE LINK, CREATE SYNONYM, CREATE VIEW ,CREATE SEQUENCE ,EXECUTE ANY PROCEDURE ,CREATE TABLE ,CREATE ANY INDEX TO [sample name]; -- [samplename]_DEVLPユーザ CREATE USER [sample_name_dev] IDENTIFIED BY [sample_name_dev] DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP; GRANT CONNECT, RESOURCE, DROP ANY TABLE, ANALYZE ANY, ALTER SESSION, CREATE DATABASE LINK, CREATE SYNONYM, CREATE VIEW ,CREATE SEQUENCE ,EXECUTE ANY PROCEDURE ,CREATE TABLE ,CREATE ANY INDEX TO [sample_name_dev]; ③運用ストップ ④データEXPORT@[old hostname] – ファイルは適切な場所へお願いします exp file=c:[sample name].db.dmp userid=[sample name]/[sample name]@[sample name] owner=[sample name],[sample_name_dev] ⑤データIMPORT@[db hostname] – ファイルは適切な場所へお願いします imp file=c:[sample name].db.dmp userid=system/manager fromuser=[sample_name_dev] touser=[sample_name_dev] imp file=c:[sample name].db.dmp userid=system/manager fromuser=[sample name] touser=[sample name]\n→imp時に以下エラーが出た場合は、何がimpされたかわからないので、再度user作成し直し IMP-00058: Oracleエラー20が発生しました。 ORA-00020: 最大プロセス数(%s)を超えましたユーザー名 ⑥WEB、APサーバ立ち上げで運用開始 /****************************************************************************************/\n////////////////////以下memo\nlsnrctl start lsnrctl stop lsnrctl status\nsqlplus sys/manager as sysdba set trimout on set heading off set pagesize 0\nset linesize 500 set colsep ’\t' set trimout on set heading off set pagesize 0\n","wordCount":"931","inLanguage":"ja","datePublished":"2011-08-06T00:00:00Z","dateModified":"2011-08-06T00:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://tro3373.github.io/posts/2011/2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru/"},"publisher":{"@type":"Organization","name":"tac lifelog","logo":{"@type":"ImageObject","url":"https://tro3373.github.io/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://tro3373.github.io/ accesskey=h title="Home (Alt + H)"><img src=https://tro3373.github.io/favicon.png alt aria-label=logo height=35>Home</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://tro3373.github.io/posts/ title=posts><span>posts</span></a></li><li><a href=https://tro3373.github.io/categories/ title=categories><span>categories</span></a></li><li><a href=https://tro3373.github.io/tags/ title=tags><span>tags</span></a></li><li><a href=https://tro3373.github.io/archives/ title=archives><span>archives</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://tro3373.github.io/>ホーム</a>&nbsp;»&nbsp;<a href=https://tro3373.github.io/posts/>Posts</a></div><h1 class=post-title>oracle9i から oracle10g Express Edition へ移行する</h1><div class=post-meta><span title='2011-08-06 00:00:00 +0000 UTC'><i class='fa-solid fa-pen'></i> 2011-08-06</span>&nbsp;·&nbsp;<span title='2011-08-06 00:00:00 +0000 UTC'><i class='fa-solid fa-rotate-right'></i> 2011-08-06</span>&nbsp;·&nbsp;5 分&nbsp;·&nbsp;931 文字</div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>目次</span></summary><div class=inner><nav id=TableOfContents><ul><li><a href=#oracle-10g-xe-install>Oracle 10g XE install</a></li><li><a href=#oracel-web-login>Oracel web login</a></li><li><a href=#新規インスタンスsid作成文字コード変換-xeデフォルトal32utf8現行9i用ja16sjis>新規インスタンス(SID)作成(文字コード変換 XEデフォルトAL32UTF8→現行9i用JA16SJIS)</a></li></ul></nav></div></details></div><div class=post-content><h2 id=oracle-10g-xe-install>Oracle 10g XE install<a hidden class=anchor aria-hidden=true href=#oracle-10g-xe-install>#</a></h2><pre><code>OracleXEUniv.exe
+</code></pre><p>→ web login用に使用する「system」ユーザのパスワードを設定する
+→ TODO netstat -ano でリスニングポートがワンサカ</p><h2 id=oracel-web-login>Oracel web login<a hidden class=anchor aria-hidden=true href=#oracel-web-login>#</a></h2><p><code>http://127.0.0.1:8081/apex</code>へアクセス</p><pre><code>user : system
+pass : インストール時に設定したパスワード
+</code></pre><ul><li><p>作成されるデフォルトオブジェクト</p><pre><code>  表領域  ファイル名                          サイズ(MB)  最大サイズ(MB)  自動拡張可
+  SYSAUX  C:\ORACLEXE\ORADATA\XE\SYSAUX.DBF   430         32,768          YES
+  SYSTEM  C:\ORACLEXE\ORADATA\XE\SYSTEM.DBF   340         600             YES
+  UNDO    C:\ORACLEXE\ORADATA\XE\UNDO.DBF     90          500             YES
+  USERS   C:\ORACLEXE\ORADATA\XE\USERS.DBF    100         5,120           YES
+</code></pre></li><li><p>作成されるユーザ</p><pre><code>  HR
+  SYSTEM？
+  ほか？
+</code></pre></li><li><p>環境変数設定</p><pre><code>   ORACLE_BASE     C:\oracle\
+   ORACLE_HOME     C:\oraclexe\app\oracle\product\10.2.0\server
+   ORACLE_SID      [sample name]
+   Path            %ORACLE_HOME%\bin
+</code></pre></li></ul><h2 id=新規インスタンスsid作成文字コード変換-xeデフォルトal32utf8現行9i用ja16sjis>新規インスタンス(SID)作成(文字コード変換 XEデフォルトAL32UTF8→現行9i用JA16SJIS)<a hidden class=anchor aria-hidden=true href=#新規インスタンスsid作成文字コード変換-xeデフォルトal32utf8現行9i用ja16sjis>#</a></h2><blockquote><p>参考：<a class=link href=http://d.hatena.ne.jp/HirosigeT/20110502/1304310329 target=_blank rel=noopener>
+Oracle Database 10g XE(Windows版)の文字コードを変換する方法</a></p></blockquote><ol><li><p>文字コードを一時的にSJISに設定する。Oracleからの標準出力を見るため。</p><pre><code>set NLS_LANG=JAPANESE_JAPAN.JA16SJISTILDE
+</code></pre></li><li><p>Oracleを停止</p><pre><code>oradim -SHUTDOWN -SID XE -SHUTTYPE SRVC,INST -SHUTMODE ABORT
+→  OracleServiceXEのサービスのみ停止される（OracleXETNSListenerは起動のまま)
+</code></pre></li><li><p>新規Oracleインスタンスの作成<br>(SID,databasename,username,passwordをすべて<code>[sample name]</code>で記載してます)</p><pre><code>コマンドプロンプトを起動し、下記をコマンドを実行する。
+
+mkdir C:\oraclexe\app\oracle\admin\[sample name]\adump
+mkdir C:\oraclexe\app\oracle\admin\[sample name]\bdump
+mkdir C:\oraclexe\app\oracle\admin\[sample name]\cdump
+mkdir C:\oraclexe\app\oracle\admin\[sample name]\dpdump
+mkdir C:\oraclexe\app\oracle\admin\[sample name]\pfile
+mkdir C:\oraclexe\app\oracle\admin\[sample name]\udump
+mkdir C:\oraclexe\oradata\[sample name]
+</code></pre></li><li><p>初期化パラメータファイル新規作成
+C:\oraclexe\app\oracle\product\10.2.0\server\database\init[sample name].ora
+内容は以下
+java_pool_size=0
+large_pool_size=4194304
+shared_pool_size=62914560
+streams_pool_size=0
+audit_file_dest=&lsquo;C:\oraclexe\app\oracle\admin[sample name]\adump&rsquo;
+background_dump_dest=&lsquo;C:\oraclexe\app\oracle\admin[sample name]\bdump&rsquo;
+compatible=&lsquo;10.2.0.1.0&rsquo;
+control_files=&lsquo;C:\oraclexe\oradata[sample name]\control.dbf&rsquo;
+core_dump_dest=&lsquo;C:\oraclexe\app\oracle\admin[sample name]\cdump&rsquo;
+db_name=&rsquo;[sample name]'
+dispatchers=&rsquo;(PROTOCOL=TCP) (SERVICE=XEXDB)'
+job_queue_processes=2
+open_cursors=300
+os_authent_prefix=&rsquo;'
+pga_aggregate_target=40M
+remote_login_passwordfile=&lsquo;EXCLUSIVE&rsquo;
+sessions=20
+sga_target=140M
+shared_servers=1
+undo_management=&lsquo;AUTO&rsquo;
+undo_tablespace=&lsquo;UNDO&rsquo;
+user_dump_dest=&lsquo;C:\oraclexe\app\oracle\admin[sample name]\udump&rsquo;</p></li><li><p>Windowsのサービスを作成</p><blockquote><p>set ORACLE_SID=[sample name]
+→環境設定に設定しているが、再起動していないと必要か？
+oradim -NEW -SID [sample name] -INTPWD nandi -PFILE C:\oraclexe\app\oracle\product\10.2.0\server\database\init[sample name].ora -startmode auto
+→ 作成されるサービスは二つか？
+OracleService[sample name]
+OracleJobScheduler[sample name]</p></blockquote><pre><code>※[-INTPWD INTERNALアカウントのパスワード]
+    →  DBインスタンス作成時に作られるユーザ
+            ユーザ名    デフォルトパスワード    説明
+            internal    oracle                  初期インスタンス用のユーザ（Oracle9ではなくなっている）
+            system      manager                 Oracleの管理者用のDBAアカウント
+            scott       tiger                   Oracleのサンプル表のサンプルユーザ
+    →  nandiってなんだ？
+</code></pre></li><li><p>ORACLE インスタンスを起動</p><blockquote><p>sqlplus / as sysdba
+SQL> startup nomount
+→ ORA-01081: ???????Oracle???????? - ???????????????
+→ ORA-01081: すでに稼働中のOracleは起動できません - まずシャットダウンしてください
+文字化けしている。さらにサービス作成で起動している？
+→ サービスORACLE[sample name]を停止してみる
+SQL> startup nomount
+→ ORA-03113: 通信チャネルでend-of-fileが検出されました
+→ 再度[sample name]サービスを立ち上げてみる
+SQL> startup nomount
+→ ORA-24324: サービス・ハンドルが初期化されていません。
+ORA-01041: 内部エラーが発生しました。hostdefエクステンションが存在しません。</p></blockquote><pre><code>→  一度サービスを削除しなおす
+</code></pre><p>サービスの削除
+oradim -DELETE -SID [sample name]
+→作成された[sample name]のサービス二つが削除される
+再度作成
+oradim -NEW -SID [sample name] -INTPWD nandi -PFILE C:\oraclexe\app\oracle\product\10.2.0\server\database\init[sample name].ora -startmode auto</p><pre><code>→  OPW-00005: 同一名のファイルがあります。 - 削除または名前を変更してください。
+    インスタンスが作成されました。
+</code></pre><p>再度
+> sqlplus / as sysdba
+SQL> startup nomount
+→ ORA-01081: ???????Oracle???????? - ???????????????
+→ 起動しているのならOKか？→無視して続ける</p></li><li><p>データベース作成
+SQL>以下をそのまま貼り付け
+create database [sample name]
+logfile group 1 (&lsquo;C:\oraclexe\oradata[sample name]\redo1.dbf&rsquo;) size 32M,
+group 2 (&lsquo;C:\oraclexe\oradata[sample name]\redo2.dbf&rsquo;) size 32M,
+group 3 (&lsquo;C:\oraclexe\oradata[sample name]\redo3.dbf&rsquo;) size 32M
+character set JA16EUCTILDE
+national character set utf8
+datafile &lsquo;C:\oraclexe\oradata[sample name]\system.dbf&rsquo;
+size 240M
+autoextend on
+next 16M maxsize unlimited
+extent management local
+sysaux datafile &lsquo;C:\oraclexe\oradata[sample name]\sysaux.dbf&rsquo;
+size 48M
+autoextend on
+next 8M
+maxsize unlimited
+undo tablespace undo
+datafile &lsquo;C:\oraclexe\oradata[sample name]\undo.dbf&rsquo;
+size 48M
+autoextend on
+default temporary tablespace temp
+tempfile &lsquo;C:\oraclexe\oradata[sample name]\temp.dbf&rsquo;
+size 8M
+autoextend on;</p><pre><code>    →  データベースが作成されました。
+</code></pre></li><li><p>スクリプトの実行
+@C:\oraclexe\app\oracle\product\10.2.0\server\RDBMS\ADMIN\catalog.sql (1分くらいかかる。)
+@C:\oraclexe\app\oracle\product\10.2.0\server\RDBMS\ADMIN\catproc.sql (5分くらいかかる。)
+connect system/manager
+@C:\oraclexe\app\oracle\product\10.2.0\server\sqlplus\admin\pupbld.sql
+quit</p></li><li><p>Windowsの環境変数にORACLE_SIDを登録する。
+変数：ORACLE_SID
+値：[sample name]
+→すでに作成済み</p></li><li><p>OracleService[sample name]サービスを右クリック→自動起動設定する</p><p>→ XEのサービスは手動起動に設定</p></li><li><p>Oracle Textのインストール
+sqlplus sys/manager as sysdba</p><p>@?\ctx\admin\catctx manager SYSAUX TEMP NOLOCK</p><p>connect CTXSYS/manager
+@?\ctx\admin\defaults\drdefja.sql
+quit</p></li><li><p>確認
+sqlplusコマンドを実行しログインできるかどうか確認する。初期ユーザはsystem、パスワードはmanagerである。</p><p>sqlplus system/manager
+SQL></p></li><li><p>インスタンスの切り替え方法
+XEを停止して[sample name]を起動
+oradim -SHUTDOWN -SID XE -SHUTTYPE SRVC,INST -SHUTMODE ABORT
+oradim -STARTUP -SID [sample name]
+[sample name]を停止してXEを起動
+oradim -SHUTDOWN -SID [sample name] -SHUTTYPE SRVC,INST -SHUTMODE ABORT
+oradim -STARTUP -SID XE</p></li><li><p>listener.ora、tnsnames.oraの設定変更</p><p>※GLOBAL_DBNAME は tnsnames.ora の SERVICE_NAME と、SID_NAME は接続するインスタンス名と一致しないといけない。
+<a class=link href=http://d.hatena.ne.jp/yohei-a/20090601/1243837379 target=_blank rel=noopener>http://d.hatena.ne.jp/yohei-a/20090601/1243837379</a>
+<a class=link href=http://otndnld.oracle.co.jp/document/products/oracle11g/111/doc_dvd/network.111/E05726-02/listener.htm target=_blank rel=noopener>http://otndnld.oracle.co.jp/document/products/oracle11g/111/doc_dvd/network.111/E05726-02/listener.htm</a>
+<a class=link href=http://itref.fc2web.com/oracle/net.html target=_blank rel=noopener>http://itref.fc2web.com/oracle/net.html</a></p><p>listener.oraは以下で作成(originalは.oraファイルと同一フォルダにあります)</p><pre><code>LISTENER =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = [db hostname].[sample_name.local])(PORT = 1521))
+      (ADDRESS = (PROTOCOL = IPC)(KEY = [sample name]))
+    )
+  )
+
+SID_LIST_LISTENER =
+  (SID_LIST =
+    (SID_DESC =
+      (GLOBAL_DBNAME = [sample name].[sample_name.local])
+      (ORACLE_HOME = C:\oraclexe\app\oracle\product\10.2.0\server)
+      (SID_NAME = [sample name])
+    )
+  )
+
+DEFAULT_SERVICE_LISTENER = [sample name].[sample_name.local]
+</code></pre><p>tnsnames.oraは以下で作成</p><pre><code>[sample name].[sample_name.local] =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = [db hostname].[sample_name.local])(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = [sample name])
+    )
+  )
+XE =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = [db hostname].[sample_name.local])(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = XE)
+    )
+  )
+
+→[samplename]サービス、リスナー再起動
+</code></pre></li></ol><p>15.表領域作成</p><pre><code>sqlplus sys/manager as sysdba
+
+CREATE TABLESPACE USERS
+DATAFILE 'C:\oraclexe\oradata\[sample name]\USERS01.DBF'
+SIZE 30M
+AUTOEXTEND ON NEXT 1M MAXSIZE UNLIMITED;
+
+削除は
+    sqlplus / as sysdba
+    drop tablespace users including contents;
+    rm C:\oraclexe\oradata\[sample name]\USERS01.DBF
+確認は
+    sqlplus / as sysdba
+    select * from dba_tablespaces;
+    select * from dba_data_files;
+</code></pre><p>16.ユーザ[sample name]作成</p><pre><code>CREATE USER [sample name] IDENTIFIED BY [sample name]
+DEFAULT TABLESPACE users
+TEMPORARY TABLESPACE temp;
+
+権限付与
+GRANT
+CONNECT, RESOURCE, DROP ANY TABLE, ANALYZE ANY, ALTER SESSION, CREATE DATABASE LINK,
+CREATE SYNONYM, CREATE VIEW ,Create Sequence ,Execute Any PROCEDURE ,Create TABLE ,Create Any INDEX
+TO [sample name];
+
+→接続できるかテスト
+    sqlplus [sample name]/[sample name]@[sample name]
+        →×
+    sqlplus [sample name]/[sample name]@[sample name].[sample_name.local]
+        →○かなりおそいが。
+    sqlplus [sample name]/[sample name]@[sample name]
+        →○
+    sqlplus [sample name]/[sample name]@[db hostname].[sample_name.local]
+        →○かなりおそいが。
+    OracleXETNSListenerを停止してもつながる？
+</code></pre><p>17.ユーザ[sample_name_dev]作成</p><pre><code>CREATE USER [sample_name_dev] IDENTIFIED BY [sample_name_dev]
+DEFAULT TABLESPACE users
+TEMPORARY TABLESPACE temp;
+
+権限付与
+GRANT
+CONNECT, RESOURCE, DROP ANY TABLE, ANALYZE ANY, ALTER SESSION, CREATE DATABASE LINK,
+CREATE SYNONYM, CREATE VIEW ,Create Sequence ,Execute Any PROCEDURE ,Create TABLE ,Create Any INDEX
+TO [sample_name_dev];
+</code></pre><ol start=18><li><p>export,import</p><pre><code>[old hostname]にて
+    exp file=c:\[samplename].db.20110806.dmp userid=[sample name]/[sample name]@[sample name] owner=[sample name],[sample_name_dev]
+[db hostname]にて
+    imp file=D:\[samplename].db.20110806.dmp userid=system/manager fromuser=[sample_name_dev] touser=[sample_name_dev]
+    imp file=D:\[samplename].db.20110806.dmp userid=system/manager fromuser=[sample name] touser=[sample name]
+</code></pre><p>→imp時に以下エラーが出た場合は、何がimpされたかわからないので、再度user作成し直し
+IMP-00058: Oracleエラー20が発生しました。
+ORA-00020: 最大プロセス数(%s)を超えましたユーザー名
+→原因不明なので、ユーザ削除し、再度作成するとうまくいきました。
+ユーザ削除
+sqlplus system/manager as sysdba
+or sqlplus / as sysdba
+drop user [sample name] cascade;
+drop user [sample_name_dev] cascade;</p></li></ol><p>/****************************************************************************************/
+◎本番移行時手順◎</p><p>①ユーザ削除（[sample name],[sample_name_dev]）@[db hostname]
+sqlplus system/manager as sysdba
+or sqlplus / as sysdba
+drop user [sample name] cascade;
+drop user [sample_name_dev] cascade;</p><p>②ユーザ作成と権限付与
+&ndash; [sample name]ユーザ
+CREATE USER [sample name] IDENTIFIED BY [sample name]
+DEFAULT TABLESPACE USERS
+TEMPORARY TABLESPACE TEMP;</p><pre><code>GRANT CONNECT, RESOURCE, DROP ANY TABLE, ANALYZE ANY, ALTER SESSION, CREATE DATABASE LINK,
+CREATE SYNONYM, CREATE VIEW ,CREATE SEQUENCE ,EXECUTE ANY PROCEDURE ,CREATE TABLE ,CREATE ANY INDEX
+TO [sample name];
+
+-- [samplename]_DEVLPユーザ
+CREATE USER [sample_name_dev] IDENTIFIED BY [sample_name_dev]
+DEFAULT TABLESPACE USERS
+TEMPORARY TABLESPACE TEMP;
+
+GRANT CONNECT, RESOURCE, DROP ANY TABLE, ANALYZE ANY, ALTER SESSION, CREATE DATABASE LINK,
+CREATE SYNONYM, CREATE VIEW ,CREATE SEQUENCE ,EXECUTE ANY PROCEDURE ,CREATE TABLE ,CREATE ANY INDEX
+TO [sample_name_dev];
+</code></pre><p>③運用ストップ
+④データEXPORT@[old hostname]
+&ndash; ファイルは適切な場所へお願いします
+exp file=c:[sample name].db.dmp userid=[sample name]/[sample name]@[sample name] owner=[sample name],[sample_name_dev]
+⑤データIMPORT@[db hostname]
+&ndash; ファイルは適切な場所へお願いします
+imp file=c:[sample name].db.dmp userid=system/manager fromuser=[sample_name_dev] touser=[sample_name_dev]
+imp file=c:[sample name].db.dmp userid=system/manager fromuser=[sample name] touser=[sample name]</p><pre><code>  →imp時に以下エラーが出た場合は、何がimpされたかわからないので、再度user作成し直し
+    IMP-00058: Oracleエラー20が発生しました。
+    ORA-00020: 最大プロセス数(%s)を超えましたユーザー名
+</code></pre><p>⑥WEB、APサーバ立ち上げで運用開始
+/****************************************************************************************/</p><p>////////////////////以下memo</p><p>lsnrctl start
+lsnrctl stop
+lsnrctl status</p><p>sqlplus sys/manager as sysdba
+set trimout on
+set heading off
+set pagesize 0</p><p>set linesize 500
+set colsep &rsquo; '
+set trimout on
+set heading off
+set pagesize 0</p></div><footer class=post-footer><ul class=post-tags><li><a href=https://tro3373.github.io/tags/oracle9i/>oracle9i</a></li><li><a href=https://tro3373.github.io/tags/oracle10g/>oracle10g</a></li></ul><nav class=paginav><a class=prev href=https://tro3373.github.io/posts/2011/2011-08-12-ubuntu-komandose/><span class=title>« 前へ</span><br><span>Unix コマンド色々</span></a>
+<a class=next href=https://tro3373.github.io/posts/2011/2011-07-30-nexus-s-birudo-romushao-ki-made/><span class=title>次へ »</span><br><span>Nexus S ビルド〜ロム焼き まで</span></a></nav><div class=share-buttons><a target=_blank rel="noopener noreferrer" aria-label="share oracle9i から oracle10g Express Edition へ移行する on twitter" href="https://twitter.com/intent/tweet/?text=oracle9i%20%e3%81%8b%e3%82%89%20oracle10g%20Express%20Edition%20%e3%81%b8%e7%a7%bb%e8%a1%8c%e3%81%99%e3%82%8b&amp;url=https%3a%2f%2ftro3373.github.io%2fposts%2f2011%2f2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru%2f&amp;hashtags=oracle9i%2coracle10g"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share oracle9i から oracle10g Express Edition へ移行する on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ftro3373.github.io%2fposts%2f2011%2f2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru%2f&amp;title=oracle9i%20%e3%81%8b%e3%82%89%20oracle10g%20Express%20Edition%20%e3%81%b8%e7%a7%bb%e8%a1%8c%e3%81%99%e3%82%8b&amp;summary=oracle9i%20%e3%81%8b%e3%82%89%20oracle10g%20Express%20Edition%20%e3%81%b8%e7%a7%bb%e8%a1%8c%e3%81%99%e3%82%8b&amp;source=https%3a%2f%2ftro3373.github.io%2fposts%2f2011%2f2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share oracle9i から oracle10g Express Edition へ移行する on reddit" href="https://reddit.com/submit?url=https%3a%2f%2ftro3373.github.io%2fposts%2f2011%2f2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru%2f&title=oracle9i%20%e3%81%8b%e3%82%89%20oracle10g%20Express%20Edition%20%e3%81%b8%e7%a7%bb%e8%a1%8c%e3%81%99%e3%82%8b"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share oracle9i から oracle10g Express Edition へ移行する on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2ftro3373.github.io%2fposts%2f2011%2f2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share oracle9i から oracle10g Express Edition へ移行する on whatsapp" href="https://api.whatsapp.com/send?text=oracle9i%20%e3%81%8b%e3%82%89%20oracle10g%20Express%20Edition%20%e3%81%b8%e7%a7%bb%e8%a1%8c%e3%81%99%e3%82%8b%20-%20https%3a%2f%2ftro3373.github.io%2fposts%2f2011%2f2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share oracle9i から oracle10g Express Edition へ移行する on telegram" href="https://telegram.me/share/url?text=oracle9i%20%e3%81%8b%e3%82%89%20oracle10g%20Express%20Edition%20%e3%81%b8%e7%a7%bb%e8%a1%8c%e3%81%99%e3%82%8b&amp;url=https%3a%2f%2ftro3373.github.io%2fposts%2f2011%2f2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru%2f"><svg viewBox="2 2 28 28" height="30" width="30" fill="currentcolor"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share oracle9i から oracle10g Express Edition へ移行する on ycombinator" href="https://news.ycombinator.com/submitlink?t=oracle9i%20%e3%81%8b%e3%82%89%20oracle10g%20Express%20Edition%20%e3%81%b8%e7%a7%bb%e8%a1%8c%e3%81%99%e3%82%8b&u=https%3a%2f%2ftro3373.github.io%2fposts%2f2011%2f2011-08-06-oracle9i-kara-oracle10g-express-edition-heyi-xing-suru%2f"><svg width="30" height="30" viewBox="0 0 512 512" fill="currentcolor" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"><path d="M449.446.0C483.971.0 512 28.03 512 62.554V449.446C512 483.97 483.97 512 449.446 512H62.554C28.03 512 0 483.97.0 449.446V62.554C0 28.03 28.029.0 62.554.0H449.446zM183.8767 87.9921h-62.034L230.6673 292.4508V424.0079h50.6655V292.4508L390.1575 87.9921H328.1233L256 238.2489z"/></svg></a></div></footer><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//jokrlzy.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></article></main><footer class=footer><span>&copy; 2026 <a href=https://tro3373.github.io/>tac lifelog</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="コピー";function s(){t.innerHTML="コピーされました!",setTimeout(()=>{t.innerHTML="コピー"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

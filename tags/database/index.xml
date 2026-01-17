@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>database on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/database/</link>
+    <description>Recent content in database on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 18 Nov 2025 13:50:49 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FirestoreのorderByには暗黙のフィルタがある</title>
+      <link>https://tro3373.github.io/posts/2025/2025-11-18-cloud-firestore-order-and-limit-data/</link>
+      <pubDate>Tue, 18 Nov 2025 13:50:49 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-11-18-cloud-firestore-order-and-limit-data/</guid>
+      <description>結論：orderByは指定フィールドの存在でもフィルタリングする FirestoreのorderBy()句は、指定したフィールドが存在しないドキュメントを自動的に除外する。
+並べ替えだけでなく、暗黙的にフィルタリングも行うため、予期しないデータ欠落が発生する可能性がある。
+問題：orderByで結果が減る // 「createdAt」フィールドでソート query := client.Collection(&amp;#34;users&amp;#34;).OrderBy(&amp;#34;createdAt&amp;#34;, firestore.Asc) このクエリでは、createdAtフィールドが存在しないドキュメントは結果に含まれない。
+例：
+✅ {id: 1, name: &amp;quot;Alice&amp;quot;, createdAt: &amp;quot;2025-01-01&amp;quot;} → 結果に含まれる ❌ {id: 2, name: &amp;quot;Bob&amp;quot;} → 結果から除外される（createdAtがない） 公式ドキュメントの記載 orderBy() 句は、指定したフィールドの有無によるフィルタも行います。指定したフィールドがないドキュメントは結果セットには含まれません。
+Cloud Firestore でデータを並べ替えたり制限する | Firebase 範囲比較との組み合わせ制約 範囲比較（&amp;lt;, &amp;lt;=, &amp;gt;, &amp;gt;=）のフィルタがある場合、最初のorderBy()は同じフィールドで行う必要がある。
+// ❌ NG: 範囲比較（age）と異なるフィールド（name）で最初にorderBy query := client.Collection(&amp;#34;users&amp;#34;). Where(&amp;#34;age&amp;#34;, &amp;#34;&amp;gt;&amp;#34;, 20). OrderBy(&amp;#34;name&amp;#34;, firestore.Asc) // エラー: 最初のorderByはageにする必要がある // ✅ OK: 範囲比較と同じフィールド（age）で最初にorderBy query := client.Collection(&amp;#34;users&amp;#34;). Where(&amp;#34;age&amp;#34;, &amp;#34;&amp;gt;&amp;#34;, 20). OrderBy(&amp;#34;age&amp;#34;, firestore.Asc). OrderBy(&amp;#34;name&amp;#34;, firestore.Asc) 対策：フィールド存在を意識する 1.</description>
+    </item>
+    
+  </channel>
+</rss>

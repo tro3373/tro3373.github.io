@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>契約 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/%E5%A5%91%E7%B4%84/</link>
+    <description>Recent content in 契約 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 20 Mar 2023 17:45:09 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/%E5%A5%91%E7%B4%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>スキャナ取込みした印影もExcelで作成した印鑑も法的効力は同じ</title>
+      <link>https://tro3373.github.io/posts/2023/2023-03-20-degital-hanko/</link>
+      <pubDate>Mon, 20 Mar 2023 17:45:09 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-03-20-degital-hanko/</guid>
+      <description> 電子印鑑・デジタルのハンコとは？ExcelやWordで無料作成する方法もご紹介！ | 電子契約サービス「マネーフォワード クラウド契約」 電子印鑑とは電子文書に捺印可能なデジタル印鑑のこと スキャナ取込みした印影もExcelで作成した印鑑も法的効力は同じ そもそも印鑑は習慣 電子印鑑と通常の印鑑はほとんどの書類において、同様に使用可能 なりすましなどのセキュリティを気にする場合は、電子署名を実施すべき 電子署名は先方との同意のもとに署名する必要あり </description>
+    </item>
+    
+  </channel>
+</rss>

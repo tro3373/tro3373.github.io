@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>firebase-admin on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/firebase-admin/</link>
+    <description>Recent content in firebase-admin on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 01 Mar 2023 21:25:03 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/firebase-admin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>node.js firebase-admin の multicast 時のレスポンスの配列と、指定したトークンの配列順序は一致する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-03-01-firebase-admin-multicast-response-is-same-order-with-specified-tokens/</link>
+      <pubDate>Wed, 01 Mar 2023 21:25:03 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-03-01-firebase-admin-multicast-response-is-same-order-with-specified-tokens/</guid>
+      <description>Firebase Cloud Messagingで firebase-admin - npm 使って Multicastすると、複数のデバイスに対して一度にプッシュ通知を送信することができるけど、 どのTokenが失敗したのかわからないのでは？と思い調べた
+So to confirm, the response array from sendMulticast is in the same order as the tokens that were passed in, allowing you to match up the indexes of any errors.
+https://stackoverflow.com/questions/70008515/firebase-cloud-messaging-multicast-error-messaging-registration-token-not-regist ここにある通り、 multicast 時のトークン配列と、 応答される BatchResponse の配列順序は一致する らしいので、どのトークンが失敗したのかはわかるみたい</description>
+    </item>
+    
+    <item>
+      <title>firebase-admin で使用する秘密鍵を SecretManager に登録する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-13-register_secret_key_for_firebase_admin_to_secret_manager/</link>
+      <pubDate>Mon, 13 Feb 2023 10:13:37 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-02-13-register_secret_key_for_firebase_admin_to_secret_manager/</guid>
+      <description>FCM Push用秘密鍵を SecretManager に登録する FCM 秘密鍵を取得 FireBaseへログイン プロジェクトを選択 プロジェクトの設定 サービスアカウント FireBase Admin SDK &amp;gt; 新しい秘密鍵の生成 FCM 秘密鍵を SecretManager に登録 取得した秘密鍵を ./fcm.json で配置する 以下コマンドで登録 aws secretsmanager put-secret-value --secret-id ${SECRET_ID} --secret-string &amp;#34;$(cat&amp;lt;./fcm.json)&amp;#34; 使う SecretManager を扱い易いようにクラス化する &amp;#39;use strict&amp;#39;; const { SecretsManagerClient, GetSecretValueCommand } = require(&amp;#39;@aws-sdk/client-secrets-manager&amp;#39;); const clazz = class Sm { constructor() { this.client = new SecretsManagerClient({ region: process.env.REGION }); // REGION で環境変数へRegionを設定している前提 } async get(key) { const command = new GetSecretValueCommand({ SecretId: key }); const res = await this.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Categories on tac lifelog</title>
+    <link>https://tro3373.github.io/categories/</link>
+    <description>Recent content in Categories on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 17 Jan 2026 07:33:24 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tech</title>
+      <link>https://tro3373.github.io/categories/tech/</link>
+      <pubDate>Sat, 17 Jan 2026 07:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/categories/tech/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>freelance</title>
+      <link>https://tro3373.github.io/categories/freelance/</link>
+      <pubDate>Mon, 20 Mar 2023 17:45:09 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/categories/freelance/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

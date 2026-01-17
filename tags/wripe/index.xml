@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>wripe on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/wripe/</link>
+    <description>Recent content in wripe on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 19 Oct 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/wripe/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>wripeでバックアップしたtxtファイルの中身からファイル名を変更する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-19-wripedebatukuatupusitatxthuairunozhong-shen-karahuairuming-wobian-geng-suru/</link>
+      <pubDate>Sun, 19 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-19-wripedebatukuatupusitatxthuairunozhong-shen-karahuairuming-wobian-geng-suru/</guid>
+      <description>bash script でwripeバックアップファイルの変換処理を書いた
+主な内容 bash script Ubuntu 14.04で確認 UTF8,LF変換にnkf のインストールが必要 ファイル変換内容 １行目（wripeタイトル）から、ファイル名決定 ファイル名に使用できる文字列変換 wripeタイトルに日付が入っていた場合の処理をある程度考慮 １行目は削除 UTF8,LF変換 tag 空白４文字変換 起動引数 第一引数：バックアップファイルの保存先 疲れた&amp;hellip;.
+#!/bin/bash DIR_IN=$1 OUT_NAME=out DIR_OUT=$DIR_IN/$OUT_NAME which nkf 1&amp;gt;/dev/null 2&amp;gt;/dev/null RC=$? if [ $RC -ne 0 ]; then echo &amp;quot;nkf not installed!&amp;quot; return fi if [ &amp;quot;&amp;quot; == &amp;quot;$1&amp;quot; ]; then echo &amp;quot;arg1(input directory) is blank!&amp;quot; return fi if [ -d $DIR_IN ]; then # specified directory is exist. if [ -e $DIR_OUT ]; then # out dir is exist.</description>
+    </item>
+    
+  </channel>
+</rss>

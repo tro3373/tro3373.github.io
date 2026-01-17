@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>rbenv on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/rbenv/</link>
+    <description>Recent content in rbenv on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 18 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/rbenv/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu 14.04 にrbenvを使用し、ruby2.1.2をインストールする</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-18-ubuntu-14-04-nirbenvwoshi-yong-si-ruby2-1-2woinsutorusuru/</link>
+      <pubDate>Thu, 18 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-18-ubuntu-14-04-nirbenvwoshi-yong-si-ruby2-1-2woinsutorusuru/</guid>
+      <description>install packages sudo add-apt-repository ppa:chris-lea/node.js sudo apt-get update sudo apt-get install build-essential git curl zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev sqlite3 libsqlite3-dev nodejs tk ruby-dev rbenv install git clone https://github.com/sstephenson/rbenv.git ~/.rbenv git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build echo &#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc echo &#39;eval &amp;quot;$(rbenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc . .bashrc gem install rbenv-rehash gem install bundler ruby install rbenv install -list rbenv install 2.1.2 rbenv versions rbenv global 2.1.2 rails gem install rails rbenv rehash rails -v </description>
+    </item>
+    
+  </channel>
+</rss>

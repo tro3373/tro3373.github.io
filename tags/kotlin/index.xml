@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>kotlin on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/kotlin/</link>
+    <description>Recent content in kotlin on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 07 Oct 2022 18:41:13 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/kotlin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Android で 位置情報取得＆Bluetooth接続を定期実行するForegroundServiceを実装する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-07-implment_android_persistent_forground_service/</link>
+      <pubDate>Fri, 07 Oct 2022 18:41:13 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-10-07-implment_android_persistent_forground_service/</guid>
+      <description>Android で 位置情報取得を定期実行する方法をしらべたので、メモっておく
+Foreground 実装 フォアグラウンドサービスの最低限の実装について【Kotlin, Android Studio, バックグラウンドでのアプリ実行】 - アンラッキーシステムズのやり方、方法論。 Foreground Serviceの基本 - Qiita AndroidアプリでForeground Serviceを使って、画面スリープ状態でも位置情報を定期取得する | DevelopersIO Android Service の使い方 趣味のプログラム: Android Foreground Serviceのメモ フォアグラウンド サービスの起動に関する制限 | Android 12 | Android Developers Android - Foreground Service実行 長期間Serviceを起動したい時 | 技術情報 | アプリ関連ニュース | ギガスジャパン Auto-Start Foreground Service in Android | by CodingwithSaud | The Startup | Medium Androidアプリでバックグラウンド状態で位置情報が取得できるのか調査した - 酢ろぐ！ バックグラウンドで位置情報アクセスするアプリには特別な審査が必要
+審査に必要なものは、Google公式のバックグラウンド位置情報にアクセスするアプリの審査を円滑に進めるためのヒントにも書かれている通り以下のものを準備する必要がある。
+機密情報に関わる申請 を行う ・デモ動画が必要 アプリ内での位置情報使用の開示を行う (位置情報許諾ダイアログ) プライバシーポリシー にバックグラウンドで位置情報を取得する件について書く</description>
+    </item>
+    
+    <item>
+      <title>Android で kotlin-logging を使用してLogcatと同時にファイル出力も行う</title>
+      <link>https://tro3373.github.io/posts/2022/2022-09-13-enable-kotlin-logging/</link>
+      <pubDate>Tue, 13 Sep 2022 16:03:14 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-09-13-enable-kotlin-logging/</guid>
+      <description>とある案件でネイティブAndroidアプリを作成しているが、内部でエラーが発生したか、 どう動いたかなど、問い合わせがあった場合にログが無い困るケースがあった
+標準のログではLogcatで流れてしまい、また端末をPCへ接続できないと、やはりデバッグとしては辛い
+Android でログをファイル出力する方法を模索し、slf4j 使ってファイル保存することにした。 保存したログファイルは別途S3へアップロード ここでは、slf4j でログ出力するところを記載
+app/build.gradle implementation &amp;#39;org.slf4j:slf4j-api:1.7.25&amp;#39; implementation &amp;#39;com.github.tony19:logback-android:2.0.0&amp;#39; app/src/main/assets/logback.xml &amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;configuration debug=&amp;#34;true&amp;#34;&amp;gt; &amp;lt;appender name=&amp;#34;logcat&amp;#34; class=&amp;#34;ch.qos.logback.classic.android.LogcatAppender&amp;#34;&amp;gt; &amp;lt;tagEncoder&amp;gt; &amp;lt;pattern&amp;gt;%d{yyyy-MM-dd HH:mm:ss.SSS} %class{0}.%method:%L&amp;lt;/pattern&amp;gt; &amp;lt;/tagEncoder&amp;gt; &amp;lt;encoder&amp;gt; &amp;lt;pattern&amp;gt;[%t] %-5level %msg%n&amp;lt;/pattern&amp;gt; &amp;lt;/encoder&amp;gt; &amp;lt;/appender&amp;gt; &amp;lt;property name=&amp;#34;LOG_DIR&amp;#34; value=&amp;#34;/data/data/${PACKAGE_NAME}/files/logs&amp;#34; /&amp;gt; &amp;lt;appender name=&amp;#34;file&amp;#34; class=&amp;#34;ch.qos.logback.core.rolling.RollingFileAppender&amp;#34;&amp;gt; &amp;lt;file&amp;gt;${LOG_DIR}/app.log&amp;lt;/file&amp;gt; &amp;lt;rollingPolicy class=&amp;#34;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&amp;#34;&amp;gt; &amp;lt;fileNamePattern&amp;gt;${LOG_DIR}/archives/app.%d{yyyy-MM-dd}.%i.log.gz&amp;lt;/fileNamePattern&amp;gt; &amp;lt;!-- each archived file, size max 10MB --&amp;gt; &amp;lt;maxFileSize&amp;gt;10MB&amp;lt;/maxFileSize&amp;gt; &amp;lt;!-- total size of all archive files, if total size &amp;gt; 5GB, it will delete old archived file --&amp;gt; &amp;lt;totalSizeCap&amp;gt;5GB&amp;lt;/totalSizeCap&amp;gt; &amp;lt;maxHistory&amp;gt;60&amp;lt;/maxHistory&amp;gt; &amp;lt;/rollingPolicy&amp;gt; &amp;lt;append&amp;gt;true&amp;lt;/append&amp;gt; &amp;lt;encoder&amp;gt; &amp;lt;!</description>
+    </item>
+    
+  </channel>
+</rss>

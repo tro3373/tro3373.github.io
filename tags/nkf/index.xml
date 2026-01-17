@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>nkf on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/nkf/</link>
+    <description>Recent content in nkf on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 12 Oct 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/nkf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu 14.04 Change LF UTF-8 Under Specified Directory</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-12-ubuntu-14-04-change-lf-utf-8-under-specified-directory/</link>
+      <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-12-ubuntu-14-04-change-lf-utf-8-under-specified-directory/</guid>
+      <description>Install nkf sudo aptitude install nkf usege nkf -wLu --overwrite *.txt # -w: change to UTF8 # -Lu: change to LF # --overwrite: overwrite file! Exclude .git or and so on files, and specified some extension. find . \( -name &amp;quot;i18n&amp;quot; -o -name &amp;quot;.git&amp;quot; -o -name &amp;quot;jquery*.js&amp;quot; -o -name &amp;quot;jquery*.css&amp;quot; \) -prune -o -type f \( -name &amp;quot;*.txt&amp;quot; -o -name &amp;quot;*.js&amp;quot; -o -name &amp;quot;*.css&amp;quot; -o -name &amp;quot;*.html&amp;quot; -o -name &amp;quot;*.php&amp;quot; \) -print -exec nkf -wLu --overwrite {} \; </description>
+    </item>
+    
+  </channel>
+</rss>

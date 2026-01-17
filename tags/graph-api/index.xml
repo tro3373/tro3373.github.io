@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>graph-api on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/graph-api/</link>
+    <description>Recent content in graph-api on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 15 Jul 2023 06:45:31 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/graph-api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>インスタ投稿をブログへ設置する為のInstagramビジネスアカウントIDと長期トークンを取得する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-07-15-add-insta-posts-to-blog/</link>
+      <pubDate>Sat, 15 Jul 2023 06:45:31 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-07-15-add-insta-posts-to-blog/</guid>
+      <description>InstagramグラフAPIを利用して無期限アクセストークンを発行し、InstagramのビジネスアカウントIDなどのJSONデータを取得する 手順は以下の通り
+Instagramアカウントをビジネスアカウントに変更する。 Facebookページ（無ければ作成）でInstagramアカウントをリンクする。 Facebook開発者ツールを使って新たにアプリを作成する。 Facebook開発者ツールでFacebookページの短期アクセストークンを取得する。 短期アクセストークンを使って長期アクセストークンを取得する。 長期アクセストークンを使って無期限アクセストークンを取得する。 無期限アクセストークンを使ってInstagramのビジネスアカウントIDなどのJSONデータを取得する。 注意点 アクセストークンを取得するには、Instagramビジネスアカウントが紐付いたFacebookページの管理者権限を持っていることが必要 無期限アクセストークンの取得には3段階の手順（短期アクセストークンの取得、短期アクセストークンを使った長期アクセストークンの取得、長期アクセストークンを使った無期限アクセストークンの取得）が必要 InstagramのビジネスアカウントIDは、「無期限アクセストークン」と「Instagramのアカウントが紐づいているFacebookページのID」が必要で、「グラフAPIエクスプローラ」で取得可能 1. Instagramアカウントをビジネスアカウントに変更する。 Instagramアプリを開き、プロフィールページ右上のメニューボタンをタップする 「Settings」を選択する 「Account」を選択する メニューの下の方にある「Switch Account Type」を選択する 「Switch to Business Account」を選択する 注意：アカウントタイプの変更はInstagramアプリからのみ可能（ 公式ヘルプ ） 2. Facebookページ（無ければ作成）でInstagramアカウントをリンクする。 Facebookページにアクセスし、「ページを管理メニュー」内の「設定」を選択する 「Instagram」を選択する 「アカウントをリンク」を選択し、Instagramアカウントを指定してリンクする 3. Facebook開発者ツールを使って新たにアプリを作成する。 「 マイアプリ 」にアクセスする 「アプリを作成」をクリックして新しいアプリを作成する アプリのタイプとして「ビジネス」を選択し、Instagram Graph API用のアプリを作成する 作成したアプリのAPIバージョンを確認する 作成したアプリのダッシュボードを開く 左メニューの「設定」を選択する 「詳細設定」を選択し、APIバージョンが確認できる 4. Facebook開発者ツールでFacebookページの短期アクセストークンを取得する。 短期アクセストークンを使って長期アクセストークンを取得する。
+https://developers.facebook.com から取得した短期アクセストークン, App ID, App Secretをフォームに入力し、ボタンを押下 短期アクセストークンを使って長期アクセストークンを取得する。 export api_ver=v17.0 export app_id=xxxxxxxxxxxxxxxxxxxx export app_secret=xxxxxxxxxxxxxxxx export fb_exchange_token=xxxxxxxxx echo &amp;#34;https://graph.facebook.com/${api_ver}/oauth/access_token?grant_type=fb_exchange_token&amp;amp;client_id=$app_id&amp;amp;client_secret=$app_secret&amp;amp;fb_exchange_token=$fb_exchange_token&amp;#34; # 表示されるURLへブラウザでアクセスする # 以下のような形式でトークンが取れる # {&amp;#34;access_token&amp;#34;:&amp;#34;xxx&amp;#34;,&amp;#34;token_type&amp;#34;:&amp;#34;bearer&amp;#34;,&amp;#34;expires_in&amp;#34;:5183874} 長期アクセストークンを使って無期限アクセストークンを取得する。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>AXMLPrinter2 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/axmlprinter2/</link>
+    <description>Recent content in AXMLPrinter2 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 25 Apr 2024 10:46:11 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/axmlprinter2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>apk の AndroidManifest.xml を確認するコマンド作った</title>
+      <link>https://tro3373.github.io/posts/2024/2024-04-25-read_android_manifest_from_apk/</link>
+      <pubDate>Thu, 25 Apr 2024 10:46:11 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-04-25-read_android_manifest_from_apk/</guid>
+      <description>はじめに apk内の AndroidManifest.xml を確認するコマンドを作ったのでメモ
+要は AXMLPrinter2.jar があれば、java で AndroidManifest.xml を読める
+java -jar AXMLPrinter2.jar AndroidManifest.xml 以下を cat_android_manifest_from_apk などで保存して、chmod +x して使う
+#!/usr/bin/env -S bash -e script_dir=$(cd &amp;#34;$(dirname &amp;#34;${BASH_SOURCE:-$0}&amp;#34;)&amp;#34; &amp;amp;&amp;amp; pwd) &amp;amp;&amp;amp; readonly script_dir current_dir=$(pwd) &amp;amp;&amp;amp; readonly current_dir url=&amp;#34;https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/android4me/AXMLPrinter2.jar&amp;#34; jar=&amp;#34;$script_dir/AXMLPrinter2.jar&amp;#34; has() { command -v &amp;#34;${1}&amp;#34; &amp;gt;&amp;amp;/dev/null; } dl_if_needed() { [[ -e $jar ]] &amp;amp;&amp;amp; return curl -fSsL -o &amp;#34;$jar&amp;#34; &amp;#34;$url&amp;#34; } main() { if ! has java; then echo &amp;#34;==&amp;gt; No java found&amp;#34; &amp;gt;&amp;amp;2 exit 1 fi if [[ $# -eq 0 ]]; then echo &amp;#34;==&amp;gt; Specify apk&amp;#34; &amp;gt;&amp;amp;2 exit 1 fi local apk_name apk_name=$(basename &amp;#34;$1&amp;#34;) local tmpd=&amp;#34;$current_dir/tmp_$apk_name&amp;#34; if [[ !</description>
+    </item>
+    
+  </channel>
+</rss>

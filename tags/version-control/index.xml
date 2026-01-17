@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>version-control on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/version-control/</link>
+    <description>Recent content in version-control on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 22 Nov 2025 10:05:34 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/version-control/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git logの「..」と「...」の違い</title>
+      <link>https://tro3373.github.io/posts/2025/2025-11-22-git-log-compare-main-develop-branches-with-dots-and-ellipsis/</link>
+      <pubDate>Sat, 22 Nov 2025 10:05:34 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-11-22-git-log-compare-main-develop-branches-with-dots-and-ellipsis/</guid>
+      <description>結論：「..」は片方、「&amp;hellip;」は両方の差分 git logの..（ドット2つ）と...（ドット3つ）は、ブランチ間のコミット比較方法が異なる。
+..（2ドット）: 一方のブランチにのみ存在するコミット ...（3ドット）: 両方のブランチで異なるコミット全て 使い分け ..（2ドット）- 未マージのコミットを確認 developにあってmainにないコミット（未マージ分のみ）
+git log origin/main..origin/develop 用途：
+PR前の差分確認 マージ漏れチェック リリース対象の確認 結果： developにしかないコミットのみ表示（mainには既にあるコミットは除外）
+...（3ドット）- 分岐後の全差分 mainとdevelopの差分（どちらか一方にしかないコミット全て）
+git log origin/main...origin/develop 用途：
+ブランチの分岐点以降の変更全体を確認 両ブランチの独立した開発内容を比較 結果： mainにのみあるコミット + developにのみあるコミット
+視覚的に確認 # グラフで分岐を表示 git log --oneline --graph origin/main...origin/develop --graphオプション:
+コミットの分岐・マージをビジュアル化 どちらのブランチに属するか一目で分かる 具体例 状況 main: A - B - C - D \ develop: E - F - G ..（2ドット）の結果 git log main..develop # 結果: E, F, G（developにのみ存在） git log develop.</description>
+    </item>
+    
+  </channel>
+</rss>
