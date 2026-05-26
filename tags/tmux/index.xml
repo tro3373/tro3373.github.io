@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tmux on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/tmux/</link>
+    <description>Recent content in tmux on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 16 May 2023 09:32:00 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/tmux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VIMの外部で変更されたファイルの自動読み込み設定が効いていない問題を解決した(ようやく手をつけた)</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-16-fix-vim-autoread-settings-not-work-in-tmux/</link>
+      <pubDate>Tue, 16 May 2023 09:32:00 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-05-16-fix-vim-autoread-settings-not-work-in-tmux/</guid>
+      <description>長らく放置していた以下の問題
+vimでファイルを開いている際に、裏で IntelliJ Idea や、 VSCode やらで編集しても自動再リロードがかからない 以下の設定をしていた。
+&amp;#34; 元のファイルの変更を Vim が検知し、かつバッファが変更されていなかった場合、バッファは自動的に再読み込み set autoread もう少し処理を足して checktime を自動発行すればよいことがわかったので、以下を追加したけど動作しなかった
+&amp;#34; 以下タイミングで、checktime を実行 &amp;#34; WinEnter: ウィンドウがアクティブになった時 &amp;#34; FocusGained: ウィンドウがアクティブになった時 &amp;#34; BufEnter: バッファがアクティブになった時 augroup auto-checktime autocmd! autocmd WinEnter,FocusGained,BufEnter * checktime augroup END 色々調べるうちに FocusGained イベントが発行されていない事を確認
+イベントが発行されない原因を調査中以下コメントを発見
+Feature: neovim/vim does not always trigger FocusLost/FocusGained when a client is detached/attached respectively · Issue #2856 · tmux/tmux Tmux のフォーカスイベント検知設定を有効にしてなかった。
+以下を tmux.conf についかして無事解決
+tmux.conf set-option -g focus-events on Refs vim-jp » Hack #234: Vim外にいるときはVimを透けさせる </description>
+    </item>
+    
+  </channel>
+</rss>

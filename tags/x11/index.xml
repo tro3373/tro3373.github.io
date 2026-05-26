@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>x11 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/x11/</link>
+    <description>Recent content in x11 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 19 Jan 2023 09:29:39 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/x11/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>x11 and wayland</title>
+      <link>https://tro3373.github.io/posts/2023/2023-01-19-x11_wayland/</link>
+      <pubDate>Thu, 19 Jan 2023 09:29:39 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-01-19-x11_wayland/</guid>
+      <description>docker wayland 転送 - Google 検索 WSLgとdocker composeで全部やる Waylandのソケットは、/mnt/wslg/runtime-dir/wayland-0にあります。
+&amp;hellip;
+x11 - How can I run a graphical application in a container under Wayland? - Unix &amp;amp; Linux Stack Exchange LinuxとWSLとDockerとXの仕組み ここで注目すべき(?)はRDPの存在で、これまでのWindowsのリモートデスクトップの枠組みを拡張して（？）、VAILやRAILといった仕組みでデスクトップではなくWindowレベルでの「リモートデスクトップ」を実現しているということです。 この他、Xパケットの転送のみでは実現できなかった「音情報」の転送も組み込んでいます。 Docker on WSL2 on Windows 10? Docker Desktopを企業活動で利用するのが有料になったことから、Docker Desktop を使わずに Windows で Docker する - プログラム の超個人的なメモという魔術が出回るようになりました。このアーキテクチャの場合、TCPでX11 Protocolを書き出しているので、Unix Domain Socketではなく、ポートフォワードで実現するのかなと思います（未確認） 理解しながら動かすGUIアプリ on Docker - Qiita wsl側からホスト側のアドレスは イーサネット アダプター vEthernet (WSL) を探す export DISPLAY=aaa.bbb.ccc.ddd:0 WSL2におけるVcXsrvの設定 - Qiita wsl側からDISPLAYを設定する際のホストの記述方法は mshome.</description>
+    </item>
+    
+  </channel>
+</rss>

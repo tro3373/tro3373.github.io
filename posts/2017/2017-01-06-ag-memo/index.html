@@ -1,0 +1,368 @@
+<!doctype html><html lang=ja dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>ag 使い方メモ | tac lifelog</title><meta name=keywords content="ag"><meta name=description content="The Silver Searcher AG よく使うオプション # ディレクトリ階層の深さ指定 --depth NUM Search up to NUM directories deep (Default: 25) # (マッチした)ファイル名のみを出力 -l --files-with-matches Only print filenames that contain matches (dont print the matching lines) # マッチしなかったファイル名を表示 -L --files-without-matches Only print filenames that dont contain matches # ファイル名にマッチしたものを出力 -g PATTERN Print filenames matching PATTERN # 行番号を非表示 --[no]numbers Print line numbers. Default is to omit line numbers when searching streams # 隠しファイルも検索 --hidden Search hidden files (obeys ."><meta name=author content><link rel=canonical href=https://tro3373.github.io/posts/2017/2017-01-06-ag-memo/><meta name=google-site-verification content="gFn4gbm1K_1qzq7At2Sr1-7AuHC45a6pCmvAdUNeUGY"><link crossorigin=anonymous href=/assets/css/stylesheet.0c4fd3725171366f335155acde6fb3c7b7042cd2fd075bebf5023d9b28a701b2.css integrity="sha256-DE/TclFxNm8zUVWs3m+zx7cELNL9B1vr9QI9myinAbI=" rel="preload stylesheet" as=style><link rel=stylesheet href=/scss/style.min.7b5d7016468d598a3e753e3d0ecf004679e628a19804af57943ee84be5b7770a.css><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/base16/apprentice.min.css><script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/vim.min.js></script>
+<script type=text/javascript src=/js/terraform.js></script>
+<script type=text/javascript>hljs.registerLanguage("terraform",window.hljsDefineTerraform),hljs.highlightAll()</script><link rel=icon href=https://tro3373.github.io/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://tro3373.github.io/favicon-32x32.png><link rel=icon type=image/png sizes=32x32 href=https://tro3373.github.io/favicon-32x32.png><link rel=apple-touch-icon href=https://tro3373.github.io/favicon-32x32.png><link rel=mask-icon href=https://tro3373.github.io/favicon-32x32.png><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6962926171897574" crossorigin=anonymous></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-20M4SHCC18"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-20M4SHCC18",{anonymize_ip:!1})}</script><meta property="og:title" content="ag 使い方メモ"><meta property="og:description" content="The Silver Searcher AG よく使うオプション # ディレクトリ階層の深さ指定 --depth NUM Search up to NUM directories deep (Default: 25) # (マッチした)ファイル名のみを出力 -l --files-with-matches Only print filenames that contain matches (dont print the matching lines) # マッチしなかったファイル名を表示 -L --files-without-matches Only print filenames that dont contain matches # ファイル名にマッチしたものを出力 -g PATTERN Print filenames matching PATTERN # 行番号を非表示 --[no]numbers Print line numbers. Default is to omit line numbers when searching streams # 隠しファイルも検索 --hidden Search hidden files (obeys ."><meta property="og:type" content="article"><meta property="og:url" content="https://tro3373.github.io/posts/2017/2017-01-06-ag-memo/"><meta property="og:image" content="https://tro3373.github.io/favicon.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2017-01-06T02:13:19+09:00"><meta property="article:modified_time" content="2017-01-06T02:13:19+09:00"><meta property="og:site_name" content="tac lifelog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://tro3373.github.io/favicon.png"><meta name=twitter:title content="ag 使い方メモ"><meta name=twitter:description content="The Silver Searcher AG よく使うオプション # ディレクトリ階層の深さ指定 --depth NUM Search up to NUM directories deep (Default: 25) # (マッチした)ファイル名のみを出力 -l --files-with-matches Only print filenames that contain matches (dont print the matching lines) # マッチしなかったファイル名を表示 -L --files-without-matches Only print filenames that dont contain matches # ファイル名にマッチしたものを出力 -g PATTERN Print filenames matching PATTERN # 行番号を非表示 --[no]numbers Print line numbers. Default is to omit line numbers when searching streams # 隠しファイルも検索 --hidden Search hidden files (obeys ."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Posts","item":"https://tro3373.github.io/posts/"},{"@type":"ListItem","position":2,"name":"ag 使い方メモ","item":"https://tro3373.github.io/posts/2017/2017-01-06-ag-memo/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ag 使い方メモ","name":"ag 使い方メモ","description":"The Silver Searcher AG よく使うオプション # ディレクトリ階層の深さ指定 --depth NUM Search up to NUM directories deep (Default: 25) # (マッチした)ファイル名のみを出力 -l --files-with-matches Only print filenames that contain matches (dont print the matching lines) # マッチしなかったファイル名を表示 -L --files-without-matches Only print filenames that dont contain matches # ファイル名にマッチしたものを出力 -g PATTERN Print filenames matching PATTERN # 行番号を非表示 --[no]numbers Print line numbers. Default is to omit line numbers when searching streams # 隠しファイルも検索 --hidden Search hidden files (obeys .","keywords":["ag"],"articleBody":"The Silver Searcher AG よく使うオプション # ディレクトリ階層の深さ指定 --depth NUM Search up to NUM directories deep (Default: 25) # (マッチした)ファイル名のみを出力 -l --files-with-matches Only print filenames that contain matches (dont print the matching lines) # マッチしなかったファイル名を表示 -L --files-without-matches Only print filenames that dont contain matches # ファイル名にマッチしたものを出力 -g PATTERN Print filenames matching PATTERN # 行番号を非表示 --[no]numbers Print line numbers. Default is to omit line numbers when searching streams # 隠しファイルも検索 --hidden Search hidden files (obeys .*ignore files) # 全ファイルを検索(隠しファイル、無視指定ファイル含め検索) -u --unrestricted Search all files (ignore .agignore, .gitignore, etc.; searches binary and hidden files as well) # 大文字小文字区別 -s --case-sensitive Match case sensitively # 大文字を含んでいれば、大文字小文字区別 -S --smart-case Match case insensitively unless PATTERN contains uppercase characters (Enabled by default) # ファイル名を正規表現指定で制限検索(ex. ag -G '\\.(c|h)' pattern) -G --file-search-regex PATTERN Limit search to filenames matching PATTERN Install For Windows The Silver Searcher windows port ag.zip Install For msys2 pacman -S mingw-w64-x86_64-ag help Usage: ag [FILE-TYPE] [OPTIONS] PATTERN [PATH] Recursively search for PATTERN in PATH. Like grep or ack, but faster. Example: ag -i foo /bar/ Output Options: --ackmate Print results in AckMate-parseable format -A --after [LINES] Print lines after match (Default: 2) -B --before [LINES] Print lines before match (Default: 2) --[no]break Print newlines between matches in different files (Enabled by default) -c --count Only print the number of matches in each file. (This often differs from the number of matching lines) --[no]color Print color codes in results (Enabled by default) --color-line-number Color codes for line numbers (Default: 1;33) --color-match Color codes for result match numbers (Default: 30;43) --color-path Color codes for path names (Default: 1;32) --column Print column numbers in results --[no]filename Print file names (Enabled unless searching a single file) -H --[no]heading Print file names before each file's matches (Enabled by default) -C --context [LINES] Print lines before and after matches (Default: 2) --[no]group Same as --[no]break --[no]heading -g PATTERN Print filenames matching PATTERN -l --files-with-matches Only print filenames that contain matches (don't print the matching lines) -L --files-without-matches Only print filenames that don't contain matches --[no]numbers Print line numbers. Default is to omit line numbers when searching streams -o --only-matching Prints only the matching part of the lines --print-long-lines Print matches on very long lines (Default: \u003e2k characters) --passthrough When searching a stream, print all lines even if they don't match --silent Suppress all log messages, including errors --stats Print stats (files scanned, time taken, etc.) --vimgrep Print results like vim's :vimgrep /pattern/g would (it reports every match on the line) -0 --null --print0 Separate filenames with null (for 'xargs -0') Search Options: -a --all-types Search all files (doesn't include hidden files or patterns from ignore files) -D --debug Ridiculous debugging (probably not useful) --depth NUM Search up to NUM directories deep (Default: 25) -f --follow Follow symlinks -F --fixed-strings Alias for --literal for compatibility with grep -G --file-search-regex PATTERN Limit search to filenames matching PATTERN --hidden Search hidden files (obeys .*ignore files) -i --ignore-case Match case insensitively --ignore PATTERN Ignore files/directories matching PATTERN (literal file/directory names also allowed) --ignore-dir NAME Alias for --ignore for compatibility with ack. -m --max-count NUM Skip the rest of a file after NUM matches (Default: 10,000) --one-device Don't follow links to other devices. -p --path-to-agignore STRING Use .agignore file at STRING -Q --literal Don't parse PATTERN as a regular expression -s --case-sensitive Match case sensitively -S --smart-case Match case insensitively unless PATTERN contains uppercase characters (Enabled by default) --search-binary Search binary files for matches -t --all-text Search all text files (doesn't include hidden files) -u --unrestricted Search all files (ignore .agignore, .gitignore, etc.; searches binary and hidden files as well) -U --skip-vcs-ignores Ignore VCS ignore files (.gitignore, .hgignore, .svnignore; still obey .agignore) -v --invert-match -w --word-regexp Only match whole words -z --search-zip Search contents of compressed (e.g., gzip) files File Types: The search can be restricted to certain types of files. Example: ag --html needle - Searches for 'needle' in files with suffix .htm, .html, .shtml or .xhtml. For a list of supported file types run: ag --list-file-types -l, --files-with-matches list file type ag --list-file-types\nThe following file types are supported: --actionscript .as .mxml --ada .ada .adb .ads --asm .asm .s --batch .bat .cmd --cc .c .h .xs --cfmx .cfc .cfm .cfml --clojure .clj .cljs .cljc .cljx --coffee .coffee .cjsx --cpp .cpp .cc .C .cxx .m .hpp .hh .h .H .hxx --csharp .cs --css .css --delphi .pas .int .dfm .nfm .dof .dpk .dproj .groupproj .bdsgroup .bdsproj --ebuild .ebuild .eclass --elisp .el --elixir .ex .exs --erlang .erl .hrl --fortran .f .f77 .f90 .f95 .f03 .for .ftn .fpp --fsharp .fs .fsi .fsx --gettext .po .pot .mo --go .go --groovy .groovy .gtmpl .gpp .grunit --haml .haml --haskell .hs .lhs --hh .h --html .htm .html .shtml .xhtml --ini .ini --jade .jade --java .java .properties --js .js .jsx --json .json --jsp .jsp .jspx .jhtm .jhtml --less .less --liquid .liquid --lisp .lisp .lsp --lua .lua --m4 .m4 --make .Makefiles .mk .mak --mako .mako --markdown .markdown .mdown .mdwn .mkdn .mkd .md --mason .mas .mhtml .mpl .mtxt --matlab .m --mathematica .m .wl --mercury .m .moo --nim .nim --objc .m .h --objcpp .mm .h --ocaml .ml .mli .mll .mly --octave .m --parrot .pir .pasm .pmc .ops .pod .pg .tg --perl .pl .pm .pm6 .pod .t --php .php .phpt .php3 .php4 .php5 .phtml --pike .pike .pmod --plone .pt .cpt .metadata .cpy .py --puppet .pp --python .py --racket .rkt .ss .scm --rake .Rakefiles --rs .rs --r .R .Rmd .Rnw .Rtex .Rrst --ruby .rb .rhtml .rjs .rxml .erb .rake .spec --rust .rs --salt .sls --sass .sass .scss --scala .scala --scheme .scm .ss --shell .sh .bash .csh .tcsh .ksh .zsh --smalltalk .st --sml .sml .fun .mlb .sig --sql .sql .ctl --stylus .styl --swift .swift --tcl .tcl .itcl .itk --tex .tex .cls .sty --tt .tt .tt2 .ttml --vala .vala .vapi --vb .bas .cls .frm .ctl .vb .resx --velocity .vm --verilog .v .vh .sv --vhdl .vhd .vhdl --vim .vim --wsdl .wsdl --wadl .wadl --xml .xml .dtd .xsl .xslt .ent --yaml .yaml .yml ","wordCount":"980","inLanguage":"ja","datePublished":"2017-01-06T02:13:19+09:00","dateModified":"2017-01-06T02:13:19+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://tro3373.github.io/posts/2017/2017-01-06-ag-memo/"},"publisher":{"@type":"Organization","name":"tac lifelog","logo":{"@type":"ImageObject","url":"https://tro3373.github.io/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://tro3373.github.io/ accesskey=h title="Home (Alt + H)"><img src=https://tro3373.github.io/favicon.png alt aria-label=logo height=35>Home</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://tro3373.github.io/posts/ title=posts><span>posts</span></a></li><li><a href=https://tro3373.github.io/categories/ title=categories><span>categories</span></a></li><li><a href=https://tro3373.github.io/tags/ title=tags><span>tags</span></a></li><li><a href=https://tro3373.github.io/archives/ title=archives><span>archives</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://tro3373.github.io/>ホーム</a>&nbsp;»&nbsp;<a href=https://tro3373.github.io/posts/>Posts</a></div><h1 class=post-title>ag 使い方メモ</h1><div class=post-meta><span title='2017-01-06 02:13:19 +0900 JST'><i class='fa-solid fa-pen'></i> 2017-01-06</span>&nbsp;·&nbsp;<span title='2017-01-06 02:13:19 +0900 JST'><i class='fa-solid fa-rotate-right'></i> 2017-01-06</span>&nbsp;·&nbsp;5 分&nbsp;·&nbsp;980 文字</div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>目次</span></summary><div class=inner><nav id=TableOfContents><ul><li><a href=#よく使うオプション>よく使うオプション</a></li><li><a href=#install-for-windows>Install For Windows</a><ul><li><a href=#install-for-msys2>Install For msys2</a></li></ul></li><li><a href=#help>help</a></li><li><a href=#list-file-type>list file type</a></li></ul></nav></div></details></div><div class=post-content><h1 id=the-silver-searcher-ag>The Silver Searcher AG<a hidden class=anchor aria-hidden=true href=#the-silver-searcher-ag>#</a></h1><h2 id=よく使うオプション>よく使うオプション<a hidden class=anchor aria-hidden=true href=#よく使うオプション>#</a></h2><div><div class=codeblock--content><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># ディレクトリ階層の深さ指定</span>
+</span></span><span class=line><span class=cl>     --depth NUM          Search up to NUM directories deep <span class=o>(</span>Default: 25<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=c1># (マッチした)ファイル名のみを出力</span>
+</span></span><span class=line><span class=cl>  -l --files-with-matches Only print filenames that contain matches
+</span></span><span class=line><span class=cl>                          <span class=o>(</span>dont print the matching lines<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=c1># マッチしなかったファイル名を表示</span>
+</span></span><span class=line><span class=cl>  -L --files-without-matches
+</span></span><span class=line><span class=cl>                          Only print filenames that dont contain matches
+</span></span><span class=line><span class=cl><span class=c1># ファイル名にマッチしたものを出力</span>
+</span></span><span class=line><span class=cl>  -g PATTERN              Print filenames matching PATTERN
+</span></span><span class=line><span class=cl><span class=c1># 行番号を非表示</span>
+</span></span><span class=line><span class=cl>     --<span class=o>[</span>no<span class=o>]</span>numbers        Print line numbers. Default is to omit line numbers
+</span></span><span class=line><span class=cl>                          when searching streams
+</span></span><span class=line><span class=cl><span class=c1># 隠しファイルも検索</span>
+</span></span><span class=line><span class=cl>     --hidden             Search hidden files <span class=o>(</span>obeys .*ignore files<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 全ファイルを検索(隠しファイル、無視指定ファイル含め検索)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  -u --unrestricted       Search all files <span class=o>(</span>ignore .agignore, .gitignore, etc.<span class=p>;</span>
+</span></span><span class=line><span class=cl>                          searches binary and hidden files as well<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=c1># 大文字小文字区別</span>
+</span></span><span class=line><span class=cl>  -s --case-sensitive     Match <span class=k>case</span> sensitively
+</span></span><span class=line><span class=cl><span class=c1># 大文字を含んでいれば、大文字小文字区別</span>
+</span></span><span class=line><span class=cl>  -S --smart-case         Match <span class=k>case</span> insensitively unless PATTERN contains
+</span></span><span class=line><span class=cl>                          uppercase characters <span class=o>(</span>Enabled by default<span class=o>)</span>
+</span></span><span class=line><span class=cl><span class=c1># ファイル名を正規表現指定で制限検索(ex. ag -G &#39;\.(c|h)&#39; pattern)</span>
+</span></span><span class=line><span class=cl>  -G --file-search-regex  PATTERN Limit search to filenames matching PATTERN</span></span></code></pre></div></div></div><h2 id=install-for-windows>Install For Windows<a hidden class=anchor aria-hidden=true href=#install-for-windows>#</a></h2><ul><li><a class=link href=http://blog.kowalczyk.info/software/the-silver-searcher-for-windows.html target=_blank rel=noopener>The Silver Searcher windows port</a></li><li><a class=link href=https://kjkpub.s3.amazonaws.com/software/the_silver_searcher/rel/0.29.1-1641/ag.zip target=_blank rel=noopener>ag.zip</a></li></ul><h3 id=install-for-msys2>Install For msys2<a hidden class=anchor aria-hidden=true href=#install-for-msys2>#</a></h3><div><div class=codeblock--content><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>pacman -S mingw-w64-x86_64-ag</span></span></code></pre></div></div></div><h2 id=help>help<a hidden class=anchor aria-hidden=true href=#help>#</a></h2><div><div class=codeblock--content><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>Usage: ag <span class=o>[</span>FILE-TYPE<span class=o>]</span> <span class=o>[</span>OPTIONS<span class=o>]</span> PATTERN <span class=o>[</span>PATH<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  Recursively search <span class=k>for</span> PATTERN in PATH.
+</span></span><span class=line><span class=cl>  Like grep or ack, but faster.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Example:
+</span></span><span class=line><span class=cl>  ag -i foo /bar/
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>Output Options:
+</span></span><span class=line><span class=cl>     --ackmate            Print results in AckMate-parseable format
+</span></span><span class=line><span class=cl>  -A --after <span class=o>[</span>LINES<span class=o>]</span>      Print lines after match <span class=o>(</span>Default: 2<span class=o>)</span>
+</span></span><span class=line><span class=cl>  -B --before <span class=o>[</span>LINES<span class=o>]</span>     Print lines before match <span class=o>(</span>Default: 2<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --<span class=o>[</span>no<span class=o>]</span><span class=nb>break</span>          Print newlines between matches in different files
+</span></span><span class=line><span class=cl>                          <span class=o>(</span>Enabled by default<span class=o>)</span>
+</span></span><span class=line><span class=cl>  -c --count              Only print the number of matches in each file.
+</span></span><span class=line><span class=cl>                          <span class=o>(</span>This often differs from the number of matching lines<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --<span class=o>[</span>no<span class=o>]</span>color          Print color codes in results <span class=o>(</span>Enabled by default<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --color-line-number  Color codes <span class=k>for</span> line numbers <span class=o>(</span>Default: 1<span class=p>;</span>33<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --color-match        Color codes <span class=k>for</span> result match numbers <span class=o>(</span>Default: 30<span class=p>;</span>43<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --color-path         Color codes <span class=k>for</span> path names <span class=o>(</span>Default: 1<span class=p>;</span>32<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --column             Print column numbers in results
+</span></span><span class=line><span class=cl>     --<span class=o>[</span>no<span class=o>]</span>filename       Print file names <span class=o>(</span>Enabled unless searching a single file<span class=o>)</span>
+</span></span><span class=line><span class=cl>  -H --<span class=o>[</span>no<span class=o>]</span>heading        Print file names before each file<span class=s1>&#39;s matches
+</span></span></span><span class=line><span class=cl><span class=s1>                          (Enabled by default)
+</span></span></span><span class=line><span class=cl><span class=s1>  -C --context [LINES]    Print lines before and after matches (Default: 2)
+</span></span></span><span class=line><span class=cl><span class=s1>     --[no]group          Same as --[no]break --[no]heading
+</span></span></span><span class=line><span class=cl><span class=s1>  -g PATTERN              Print filenames matching PATTERN
+</span></span></span><span class=line><span class=cl><span class=s1>  -l --files-with-matches Only print filenames that contain matches
+</span></span></span><span class=line><span class=cl><span class=s1>                          (don&#39;</span>t print the matching lines<span class=o>)</span>
+</span></span><span class=line><span class=cl>  -L --files-without-matches
+</span></span><span class=line><span class=cl>                          Only print filenames that don<span class=s1>&#39;t contain matches
+</span></span></span><span class=line><span class=cl><span class=s1>     --[no]numbers        Print line numbers. Default is to omit line numbers
+</span></span></span><span class=line><span class=cl><span class=s1>                          when searching streams
+</span></span></span><span class=line><span class=cl><span class=s1>  -o --only-matching      Prints only the matching part of the lines
+</span></span></span><span class=line><span class=cl><span class=s1>     --print-long-lines   Print matches on very long lines (Default: &gt;2k characters)
+</span></span></span><span class=line><span class=cl><span class=s1>     --passthrough        When searching a stream, print all lines even if they
+</span></span></span><span class=line><span class=cl><span class=s1>                          don&#39;</span>t match
+</span></span><span class=line><span class=cl>     --silent             Suppress all log messages, including errors
+</span></span><span class=line><span class=cl>     --stats              Print stats <span class=o>(</span>files scanned, <span class=nb>time</span> taken, etc.<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --vimgrep            Print results like vim<span class=s1>&#39;s :vimgrep /pattern/g would
+</span></span></span><span class=line><span class=cl><span class=s1>                          (it reports every match on the line)
+</span></span></span><span class=line><span class=cl><span class=s1>  -0 --null --print0      Separate filenames with null (for &#39;</span>xargs -0<span class=s1>&#39;)
+</span></span></span><span class=line><span class=cl><span class=s1>
+</span></span></span><span class=line><span class=cl><span class=s1>Search Options:
+</span></span></span><span class=line><span class=cl><span class=s1>  -a --all-types          Search all files (doesn&#39;</span>t include hidden files
+</span></span><span class=line><span class=cl>                          or patterns from ignore files<span class=o>)</span>
+</span></span><span class=line><span class=cl>  -D --debug              Ridiculous debugging <span class=o>(</span>probably not useful<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --depth NUM          Search up to NUM directories deep <span class=o>(</span>Default: 25<span class=o>)</span>
+</span></span><span class=line><span class=cl>  -f --follow             Follow symlinks
+</span></span><span class=line><span class=cl>  -F --fixed-strings      Alias <span class=k>for</span> --literal <span class=k>for</span> compatibility with grep
+</span></span><span class=line><span class=cl>  -G --file-search-regex  PATTERN Limit search to filenames matching PATTERN
+</span></span><span class=line><span class=cl>     --hidden             Search hidden files <span class=o>(</span>obeys .*ignore files<span class=o>)</span>
+</span></span><span class=line><span class=cl>  -i --ignore-case        Match <span class=k>case</span> insensitively
+</span></span><span class=line><span class=cl>     --ignore PATTERN     Ignore files/directories matching PATTERN
+</span></span><span class=line><span class=cl>                          <span class=o>(</span>literal file/directory names also allowed<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --ignore-dir NAME    Alias <span class=k>for</span> --ignore <span class=k>for</span> compatibility with ack.
+</span></span><span class=line><span class=cl>  -m --max-count NUM      Skip the rest of a file after NUM matches <span class=o>(</span>Default: 10,000<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --one-device         Don<span class=s1>&#39;t follow links to other devices.
+</span></span></span><span class=line><span class=cl><span class=s1>  -p --path-to-agignore STRING
+</span></span></span><span class=line><span class=cl><span class=s1>                          Use .agignore file at STRING
+</span></span></span><span class=line><span class=cl><span class=s1>  -Q --literal            Don&#39;</span>t parse PATTERN as a regular expression
+</span></span><span class=line><span class=cl>  -s --case-sensitive     Match <span class=k>case</span> sensitively
+</span></span><span class=line><span class=cl>  -S --smart-case         Match <span class=k>case</span> insensitively unless PATTERN contains
+</span></span><span class=line><span class=cl>                          uppercase characters <span class=o>(</span>Enabled by default<span class=o>)</span>
+</span></span><span class=line><span class=cl>     --search-binary      Search binary files <span class=k>for</span> matches
+</span></span><span class=line><span class=cl>  -t --all-text           Search all text files <span class=o>(</span>doesn<span class=s1>&#39;t include hidden files)
+</span></span></span><span class=line><span class=cl><span class=s1>  -u --unrestricted       Search all files (ignore .agignore, .gitignore, etc.;
+</span></span></span><span class=line><span class=cl><span class=s1>                          searches binary and hidden files as well)
+</span></span></span><span class=line><span class=cl><span class=s1>  -U --skip-vcs-ignores   Ignore VCS ignore files
+</span></span></span><span class=line><span class=cl><span class=s1>                          (.gitignore, .hgignore, .svnignore; still obey .agignore)
+</span></span></span><span class=line><span class=cl><span class=s1>  -v --invert-match
+</span></span></span><span class=line><span class=cl><span class=s1>  -w --word-regexp        Only match whole words
+</span></span></span><span class=line><span class=cl><span class=s1>  -z --search-zip         Search contents of compressed (e.g., gzip) files
+</span></span></span><span class=line><span class=cl><span class=s1>
+</span></span></span><span class=line><span class=cl><span class=s1>File Types:
+</span></span></span><span class=line><span class=cl><span class=s1>The search can be restricted to certain types of files. Example:
+</span></span></span><span class=line><span class=cl><span class=s1>  ag --html needle
+</span></span></span><span class=line><span class=cl><span class=s1>  - Searches for &#39;</span>needle<span class=err>&#39;</span> in files with suffix .htm, .html, .shtml or .xhtml.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>For a list of supported file types run:
+</span></span><span class=line><span class=cl>  ag --list-file-types
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>-l, --files-with-matches</span></span></code></pre></div></div></div><h2 id=list-file-type>list file type<a hidden class=anchor aria-hidden=true href=#list-file-type>#</a></h2><p><code>ag --list-file-types</code></p><div><div class=codeblock--content><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>The following file types are supported:
+</span></span><span class=line><span class=cl>  --actionscript
+</span></span><span class=line><span class=cl>      .as  .mxml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --ada
+</span></span><span class=line><span class=cl>      .ada  .adb  .ads
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --asm
+</span></span><span class=line><span class=cl>      .asm  .s
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --batch
+</span></span><span class=line><span class=cl>      .bat  .cmd
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --cc
+</span></span><span class=line><span class=cl>      .c  .h  .xs
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --cfmx
+</span></span><span class=line><span class=cl>      .cfc  .cfm  .cfml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --clojure
+</span></span><span class=line><span class=cl>      .clj  .cljs  .cljc  .cljx
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --coffee
+</span></span><span class=line><span class=cl>      .coffee  .cjsx
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --cpp
+</span></span><span class=line><span class=cl>      .cpp  .cc  .C  .cxx  .m  .hpp  .hh  .h  .H  .hxx
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --csharp
+</span></span><span class=line><span class=cl>      .cs
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --css
+</span></span><span class=line><span class=cl>      .css
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --delphi
+</span></span><span class=line><span class=cl>      .pas  .int  .dfm  .nfm  .dof  .dpk  .dproj  .groupproj  .bdsgroup  .bdsproj
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --ebuild
+</span></span><span class=line><span class=cl>      .ebuild  .eclass
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --elisp
+</span></span><span class=line><span class=cl>      .el
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --elixir
+</span></span><span class=line><span class=cl>      .ex  .exs
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --erlang
+</span></span><span class=line><span class=cl>      .erl  .hrl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --fortran
+</span></span><span class=line><span class=cl>      .f  .f77  .f90  .f95  .f03  .for  .ftn  .fpp
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --fsharp
+</span></span><span class=line><span class=cl>      .fs  .fsi  .fsx
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --gettext
+</span></span><span class=line><span class=cl>      .po  .pot  .mo
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --go
+</span></span><span class=line><span class=cl>      .go
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --groovy
+</span></span><span class=line><span class=cl>      .groovy  .gtmpl  .gpp  .grunit
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --haml
+</span></span><span class=line><span class=cl>      .haml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --haskell
+</span></span><span class=line><span class=cl>      .hs  .lhs
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --hh
+</span></span><span class=line><span class=cl>      .h
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --html
+</span></span><span class=line><span class=cl>      .htm  .html  .shtml  .xhtml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --ini
+</span></span><span class=line><span class=cl>      .ini
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --jade
+</span></span><span class=line><span class=cl>      .jade
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --java
+</span></span><span class=line><span class=cl>      .java  .properties
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --js
+</span></span><span class=line><span class=cl>      .js  .jsx
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --json
+</span></span><span class=line><span class=cl>      .json
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --jsp
+</span></span><span class=line><span class=cl>      .jsp  .jspx  .jhtm  .jhtml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --less
+</span></span><span class=line><span class=cl>      .less
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --liquid
+</span></span><span class=line><span class=cl>      .liquid
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --lisp
+</span></span><span class=line><span class=cl>      .lisp  .lsp
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --lua
+</span></span><span class=line><span class=cl>      .lua
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --m4
+</span></span><span class=line><span class=cl>      .m4
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --make
+</span></span><span class=line><span class=cl>      .Makefiles  .mk  .mak
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --mako
+</span></span><span class=line><span class=cl>      .mako
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --markdown
+</span></span><span class=line><span class=cl>      .markdown  .mdown  .mdwn  .mkdn  .mkd  .md
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --mason
+</span></span><span class=line><span class=cl>      .mas  .mhtml  .mpl  .mtxt
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --matlab
+</span></span><span class=line><span class=cl>      .m
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --mathematica
+</span></span><span class=line><span class=cl>      .m  .wl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --mercury
+</span></span><span class=line><span class=cl>      .m  .moo
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --nim
+</span></span><span class=line><span class=cl>      .nim
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --objc
+</span></span><span class=line><span class=cl>      .m  .h
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --objcpp
+</span></span><span class=line><span class=cl>      .mm  .h
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --ocaml
+</span></span><span class=line><span class=cl>      .ml  .mli  .mll  .mly
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --octave
+</span></span><span class=line><span class=cl>      .m
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --parrot
+</span></span><span class=line><span class=cl>      .pir  .pasm  .pmc  .ops  .pod  .pg  .tg
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --perl
+</span></span><span class=line><span class=cl>      .pl  .pm  .pm6  .pod  .t
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --php
+</span></span><span class=line><span class=cl>      .php  .phpt  .php3  .php4  .php5  .phtml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --pike
+</span></span><span class=line><span class=cl>      .pike  .pmod
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --plone
+</span></span><span class=line><span class=cl>      .pt  .cpt  .metadata  .cpy  .py
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --puppet
+</span></span><span class=line><span class=cl>      .pp
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --python
+</span></span><span class=line><span class=cl>      .py
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --racket
+</span></span><span class=line><span class=cl>      .rkt  .ss  .scm
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --rake
+</span></span><span class=line><span class=cl>      .Rakefiles
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --rs
+</span></span><span class=line><span class=cl>      .rs
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --r
+</span></span><span class=line><span class=cl>      .R  .Rmd  .Rnw  .Rtex  .Rrst
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --ruby
+</span></span><span class=line><span class=cl>      .rb  .rhtml  .rjs  .rxml  .erb  .rake  .spec
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --rust
+</span></span><span class=line><span class=cl>      .rs
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --salt
+</span></span><span class=line><span class=cl>      .sls
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --sass
+</span></span><span class=line><span class=cl>      .sass  .scss
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --scala
+</span></span><span class=line><span class=cl>      .scala
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --scheme
+</span></span><span class=line><span class=cl>      .scm  .ss
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --shell
+</span></span><span class=line><span class=cl>      .sh  .bash  .csh  .tcsh  .ksh  .zsh
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --smalltalk
+</span></span><span class=line><span class=cl>      .st
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --sml
+</span></span><span class=line><span class=cl>      .sml  .fun  .mlb  .sig
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --sql
+</span></span><span class=line><span class=cl>      .sql  .ctl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --stylus
+</span></span><span class=line><span class=cl>      .styl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --swift
+</span></span><span class=line><span class=cl>      .swift
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --tcl
+</span></span><span class=line><span class=cl>      .tcl  .itcl  .itk
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --tex
+</span></span><span class=line><span class=cl>      .tex  .cls  .sty
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --tt
+</span></span><span class=line><span class=cl>      .tt  .tt2  .ttml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --vala
+</span></span><span class=line><span class=cl>      .vala  .vapi
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --vb
+</span></span><span class=line><span class=cl>      .bas  .cls  .frm  .ctl  .vb  .resx
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --velocity
+</span></span><span class=line><span class=cl>      .vm
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --verilog
+</span></span><span class=line><span class=cl>      .v  .vh  .sv
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --vhdl
+</span></span><span class=line><span class=cl>      .vhd  .vhdl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --vim
+</span></span><span class=line><span class=cl>      .vim
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --wsdl
+</span></span><span class=line><span class=cl>      .wsdl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --wadl
+</span></span><span class=line><span class=cl>      .wadl
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --xml
+</span></span><span class=line><span class=cl>      .xml  .dtd  .xsl  .xslt  .ent
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  --yaml
+</span></span><span class=line><span class=cl>      .yaml  .yml</span></span></code></pre></div></div></div></div><footer class=post-footer><ul class=post-tags><li><a href=https://tro3373.github.io/tags/ag/>ag</a></li></ul><nav class=paginav><a class=prev href=https://tro3373.github.io/posts/2017/2017-03-05-ninja250r-mentenance-oil-element/><span class=title>« 前へ</span><br><span>Ninja 250R オイル交換</span></a>
+<a class=next href=https://tro3373.github.io/posts/2016/2016-10-30-bookmarklet-defan-wasiitesutonoshou-zhu-kewosuru/><span class=title>次へ »</span><br><span>Bookmarklet で煩わしいテストの手助けをする</span></a></nav><div class=share-buttons><a target=_blank rel="noopener noreferrer" aria-label="share ag 使い方メモ on twitter" href="https://twitter.com/intent/tweet/?text=ag%20%e4%bd%bf%e3%81%84%e6%96%b9%e3%83%a1%e3%83%a2&amp;url=https%3a%2f%2ftro3373.github.io%2fposts%2f2017%2f2017-01-06-ag-memo%2f&amp;hashtags=ag"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM195.519 424.544c135.939.0 210.268-112.643 210.268-210.268.0-3.218.0-6.437-.153-9.502 14.406-10.421 26.973-23.448 36.935-38.314-13.18 5.824-27.433 9.809-42.452 11.648 15.326-9.196 26.973-23.602 32.49-40.92-14.252 8.429-30.038 14.56-46.896 17.931-13.487-14.406-32.644-23.295-53.946-23.295-40.767.0-73.87 33.104-73.87 73.87.0 5.824.613 11.494 1.992 16.858-61.456-3.065-115.862-32.49-152.337-77.241-6.284 10.881-9.962 23.601-9.962 37.088.0 25.594 13.027 48.276 32.95 61.456-12.107-.307-23.448-3.678-33.41-9.196v.92c0 35.862 25.441 65.594 59.311 72.49-6.13 1.686-12.72 2.606-19.464 2.606-4.751.0-9.348-.46-13.946-1.38 9.349 29.426 36.628 50.728 68.965 51.341-25.287 19.771-57.164 31.571-91.8 31.571-5.977.0-11.801-.306-17.625-1.073 32.337 21.15 71.264 33.41 112.95 33.41z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ag 使い方メモ on linkedin" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2ftro3373.github.io%2fposts%2f2017%2f2017-01-06-ag-memo%2f&amp;title=ag%20%e4%bd%bf%e3%81%84%e6%96%b9%e3%83%a1%e3%83%a2&amp;summary=ag%20%e4%bd%bf%e3%81%84%e6%96%b9%e3%83%a1%e3%83%a2&amp;source=https%3a%2f%2ftro3373.github.io%2fposts%2f2017%2f2017-01-06-ag-memo%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM160.461 423.278V197.561h-75.04v225.717h75.04zm270.539.0V293.839c0-69.333-37.018-101.586-86.381-101.586-39.804.0-57.634 21.891-67.617 37.266v-31.958h-75.021c.995 21.181.0 225.717.0 225.717h75.02V297.222c0-6.748.486-13.492 2.474-18.315 5.414-13.475 17.767-27.434 38.494-27.434 27.135.0 38.007 20.707 38.007 51.037v120.768H431zM123.448 88.722C97.774 88.722 81 105.601 81 127.724c0 21.658 16.264 39.002 41.455 39.002h.484c26.165.0 42.452-17.344 42.452-39.002-.485-22.092-16.241-38.954-41.943-39.002z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ag 使い方メモ on reddit" href="https://reddit.com/submit?url=https%3a%2f%2ftro3373.github.io%2fposts%2f2017%2f2017-01-06-ag-memo%2f&title=ag%20%e4%bd%bf%e3%81%84%e6%96%b9%e3%83%a1%e3%83%a2"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zM446 265.638c0-22.964-18.616-41.58-41.58-41.58-11.211.0-21.361 4.457-28.841 11.666-28.424-20.508-67.586-33.757-111.204-35.278l18.941-89.121 61.884 13.157c.756 15.734 13.642 28.29 29.56 28.29 16.407.0 29.706-13.299 29.706-29.701.0-16.403-13.299-29.702-29.706-29.702-11.666.0-21.657 6.792-26.515 16.578l-69.105-14.69c-1.922-.418-3.939-.042-5.585 1.036-1.658 1.073-2.811 2.761-3.224 4.686l-21.152 99.438c-44.258 1.228-84.046 14.494-112.837 35.232-7.468-7.164-17.589-11.591-28.757-11.591-22.965.0-41.585 18.616-41.585 41.58.0 16.896 10.095 31.41 24.568 37.918-.639 4.135-.99 8.328-.99 12.576.0 63.977 74.469 115.836 166.33 115.836s166.334-51.859 166.334-115.836c0-4.218-.347-8.387-.977-12.493 14.564-6.47 24.735-21.034 24.735-38.001zM326.526 373.831c-20.27 20.241-59.115 21.816-70.534 21.816-11.428.0-50.277-1.575-70.522-21.82-3.007-3.008-3.007-7.882.0-10.889 3.003-2.999 7.882-3.003 10.885.0 12.777 12.781 40.11 17.317 59.637 17.317 19.522.0 46.86-4.536 59.657-17.321 3.016-2.999 7.886-2.995 10.885.008 3.008 3.011 3.003 7.882-.008 10.889zm-5.23-48.781c-16.373.0-29.701-13.324-29.701-29.698.0-16.381 13.328-29.714 29.701-29.714 16.378.0 29.706 13.333 29.706 29.714.0 16.374-13.328 29.698-29.706 29.698zM160.91 295.348c0-16.381 13.328-29.71 29.714-29.71 16.369.0 29.689 13.329 29.689 29.71.0 16.373-13.32 29.693-29.689 29.693-16.386.0-29.714-13.32-29.714-29.693z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ag 使い方メモ on facebook" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2ftro3373.github.io%2fposts%2f2017%2f2017-01-06-ag-memo%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H342.978V319.085h66.6l12.672-82.621h-79.272v-53.617c0-22.603 11.073-44.636 46.58-44.636H425.6v-70.34s-32.71-5.582-63.982-5.582c-65.288.0-107.96 39.569-107.96 111.204v62.971h-72.573v82.621h72.573V512h-191.104c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ag 使い方メモ on whatsapp" href="https://api.whatsapp.com/send?text=ag%20%e4%bd%bf%e3%81%84%e6%96%b9%e3%83%a1%e3%83%a2%20-%20https%3a%2f%2ftro3373.github.io%2fposts%2f2017%2f2017-01-06-ag-memo%2f"><svg viewBox="0 0 512 512" height="30" width="30" fill="currentcolor"><path d="M449.446.0C483.971.0 512 28.03 512 62.554v386.892C512 483.97 483.97 512 449.446 512H62.554c-34.524.0-62.554-28.03-62.554-62.554V62.554c0-34.524 28.029-62.554 62.554-62.554h386.892zm-58.673 127.703c-33.842-33.881-78.847-52.548-126.798-52.568-98.799.0-179.21 80.405-179.249 179.234-.013 31.593 8.241 62.428 23.927 89.612l-25.429 92.884 95.021-24.925c26.181 14.28 55.659 21.807 85.658 21.816h.074c98.789.0 179.206-80.413 179.247-179.243.018-47.895-18.61-92.93-52.451-126.81zM263.976 403.485h-.06c-26.734-.01-52.954-7.193-75.828-20.767l-5.441-3.229-56.386 14.792 15.05-54.977-3.542-5.637c-14.913-23.72-22.791-51.136-22.779-79.287.033-82.142 66.867-148.971 149.046-148.971 39.793.014 77.199 15.531 105.329 43.692 28.128 28.16 43.609 65.592 43.594 105.4-.034 82.149-66.866 148.983-148.983 148.984zm81.721-111.581c-4.479-2.242-26.499-13.075-30.604-14.571-4.105-1.495-7.091-2.241-10.077 2.241-2.986 4.483-11.569 14.572-14.182 17.562-2.612 2.988-5.225 3.364-9.703 1.12-4.479-2.241-18.91-6.97-36.017-22.23C231.8 264.15 222.81 249.484 220.198 245s-.279-6.908 1.963-9.14c2.016-2.007 4.48-5.232 6.719-7.847 2.24-2.615 2.986-4.484 4.479-7.472 1.493-2.99.747-5.604-.374-7.846-1.119-2.241-10.077-24.288-13.809-33.256-3.635-8.733-7.327-7.55-10.077-7.688-2.609-.13-5.598-.158-8.583-.158-2.986.0-7.839 1.121-11.944 5.604-4.105 4.484-15.675 15.32-15.675 37.364.0 22.046 16.048 43.342 18.287 46.332 2.24 2.99 31.582 48.227 76.511 67.627 10.685 4.615 19.028 7.371 25.533 9.434 10.728 3.41 20.492 2.929 28.209 1.775 8.605-1.285 26.499-10.833 30.231-21.295 3.732-10.464 3.732-19.431 2.612-21.298-1.119-1.869-4.105-2.99-8.583-5.232z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ag 使い方メモ on telegram" href="https://telegram.me/share/url?text=ag%20%e4%bd%bf%e3%81%84%e6%96%b9%e3%83%a1%e3%83%a2&amp;url=https%3a%2f%2ftro3373.github.io%2fposts%2f2017%2f2017-01-06-ag-memo%2f"><svg viewBox="2 2 28 28" height="30" width="30" fill="currentcolor"><path d="M26.49 29.86H5.5a3.37 3.37.0 01-2.47-1 3.35 3.35.0 01-1-2.47V5.48A3.36 3.36.0 013 3 3.37 3.37.0 015.5 2h21A3.38 3.38.0 0129 3a3.36 3.36.0 011 2.46V26.37a3.35 3.35.0 01-1 2.47 3.38 3.38.0 01-2.51 1.02zm-5.38-6.71a.79.79.0 00.85-.66L24.73 9.24a.55.55.0 00-.18-.46.62.62.0 00-.41-.17q-.08.0-16.53 6.11a.59.59.0 00-.41.59.57.57.0 00.43.52l4 1.24 1.61 4.83a.62.62.0 00.63.43.56.56.0 00.4-.17L16.54 20l4.09 3A.9.9.0 0021.11 23.15zM13.8 20.71l-1.21-4q8.72-5.55 8.78-5.55c.15.0.23.0.23.16a.18.18.0 010 .06s-2.51 2.3-7.52 6.8z"/></svg></a><a target=_blank rel="noopener noreferrer" aria-label="share ag 使い方メモ on ycombinator" href="https://news.ycombinator.com/submitlink?t=ag%20%e4%bd%bf%e3%81%84%e6%96%b9%e3%83%a1%e3%83%a2&u=https%3a%2f%2ftro3373.github.io%2fposts%2f2017%2f2017-01-06-ag-memo%2f"><svg width="30" height="30" viewBox="0 0 512 512" fill="currentcolor" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"><path d="M449.446.0C483.971.0 512 28.03 512 62.554V449.446C512 483.97 483.97 512 449.446 512H62.554C28.03 512 0 483.97.0 449.446V62.554C0 28.03 28.029.0 62.554.0H449.446zM183.8767 87.9921h-62.034L230.6673 292.4508V424.0079h50.6655V292.4508L390.1575 87.9921H328.1233L256 238.2489z"/></svg></a></div></footer><div id=disqus_thread></div><script type=application/javascript>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//jokrlzy.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></article></main><footer class=footer><span>&copy; 2026 <a href=https://tro3373.github.io/>tac lifelog</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="コピー";function s(){t.innerHTML="コピーされました!",setTimeout(()=>{t.innerHTML="コピー"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script></body></html>

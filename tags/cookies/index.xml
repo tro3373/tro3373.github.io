@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cookies on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/cookies/</link>
+    <description>Recent content in cookies on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 27 Jan 2026 07:33:24 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/cookies/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Firebase Hosting &#43; Cloud Run で認証が動かない？Cookie名を `__session` にすべき理由</title>
+      <link>https://tro3373.github.io/posts/2026/2026-01-27-firebase-hosting-session-cookie/</link>
+      <pubDate>Tue, 27 Jan 2026 07:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2026/2026-01-27-firebase-hosting-session-cookie/</guid>
+      <description>Firebase Hosting + Cloud Run で認証が動かない？Cookie名を __session にすべき理由 TL;DR Firebase Hosting 経由で Cloud Run にアクセスする場合、セッション Cookie の名前は 必ず __session にする必要がある。それ以外の名前（session, auth, token など）は Firebase Hosting (CDN) によってストリップ（削除）され、バックエンドに届かない。
+問題の症状 Next.js アプリを Firebase Hosting + Cloud Run で運用している際、以下のような不可解な現象に遭遇した：
+✅ Cloud Run の URL（https://&amp;lt;service&amp;gt;-&amp;lt;hash&amp;gt;.run.app）では正常にログインできる ❌ Firebase Hosting の URL（https://&amp;lt;project&amp;gt;.web.app）ではログインできない Set-Cookie ヘッダーは正しく返されている ブラウザの Application タブでは Cookie が設定されている しかし Middleware では Cookie が undefined になる 根本原因：Firebase Hosting の Cookie 制限 Firebase Hosting は CDN として動作する Firebase Hosting は静的コンテンツ配信のために CDN（コンテンツ配信ネットワーク）として動作する。CDN はキャッシュ効率を最大化するため、デフォルトで全ての Cookie をストリップ（削除）する。</description>
+    </item>
+    
+  </channel>
+</rss>
