@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>vscode on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/vscode/</link>
+    <description>Recent content in vscode on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 23 May 2024 18:12:47 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/vscode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VSCode Remote Container で Hung する問題を解決する</title>
+      <link>https://tro3373.github.io/posts/2024/2024-05-23-use-dev-container-in-orbstack-on-m1-mac/</link>
+      <pubDate>Thu, 23 May 2024 18:12:47 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-05-23-use-dev-container-in-orbstack-on-m1-mac/</guid>
+      <description>はじめに VSCode の リモートコンテナ や dev container を使って開発したいときに、遭遇したエラーの対処法を少し
+問題 疑問 リモートSSH機能で VSCode 開くと、terminal でHungする リモートコンテナにアタッチしたり、dev container を開くと、リモートを開いています から進まない どちらも、M1 Mac上で OrbStack 上で立ち上げた ArchLinux に接続しているときに発生した
+まとめ 結果 解決方法 VSCode から開く Terminal では Tmux は起動しない
+以下設定で、VSCode から起動されているかどうかを判定し、Tmux を起動するかどうかを切り替える
+is_vscode() { [[ -n $VSCODE_INJECTION ]]; } 拡張機能のシグニチャ検証を無効化、もしくは、ローカルから拡張機能をインストールする設定を有効にする
+dev container の場合は、拡張機能のシグニチャ検証を無効化
+{ // Configure tool-specific properties. &amp;#34;customizations&amp;#34;: { &amp;#34;vscode&amp;#34;: { &amp;#34;settings&amp;#34;: { // Workaround for x86_64 containers on aarch64(like M1 Mac) hosts // see: https://zenn.</description>
+    </item>
+    
+  </channel>
+</rss>

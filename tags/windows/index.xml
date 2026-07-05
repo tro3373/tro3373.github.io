@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>windows on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/windows/</link>
+    <description>Recent content in windows on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 28 Jun 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows でコマンドプロンプトのフォントを変更する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-28-windows-dekomandopuronputonohuontowobian-geng-suru/</link>
+      <pubDate>Thu, 28 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-06-28-windows-dekomandopuronputonohuontowobian-geng-suru/</guid>
+      <description>ファイル名を指定して実行より、regeditを実行
+以下の順にたどる
+HKEY_LOCAL_MACHINE - SOFTWARE - Microsoft - Windows NT - CurrentVersion - console - TrueTypeFont
+932.を追加し、値にMigu 1Mなど、使用したいフォント名を入力する
+コマンドプロンプトから、フォントを変更する</description>
+    </item>
+    
+    <item>
+      <title>Ubuntuのgrubを用いてWindowsとデュアルブートする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-06-08-ubuntunogrubwoyong-itewindowstodeyuarubutosuru/</link>
+      <pubDate>Wed, 08 Jun 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-06-08-ubuntunogrubwoyong-itewindowstodeyuarubutosuru/</guid>
+      <description>Ubuntuのgrubを用いてWindowsとデュアルブートする grubをもちいて、Ubuntu側の設定でWindowsとデュアルブート 参考はこちら
+「 GRUB2 」 「 Grub2 でのUUID 変更方法を教えてください。 」 構造(流れ) /etc/default/grubを編集 sudo update-grub /boot/grub/grub.cfgへ反映される 手動で追加 1.手動で追加する場合は、/etc/grub.d/40_customに、grub.cfgに書かれているようにOS設定を登録
+2.sudo update-grub で完了のはず
+編集する
+$ sudo gedit /etc/grub.d/40_custom 以下を追加 menuentry &amp;quot;Windows XP Service Pack 3 (on /dev/sdb1)&amp;quot; { insmod part_msdos insmod ntfs set root=&#39;(hd1,1)&#39; chainloader +1 } ※(hd1,1)・・・HDDの2番目、2番目のパーティションの意味(どちらも0オリジン)。
+反映
+$ sudo update-grub Generating grub.cfg ... Found linux image: /boot/vmlinuz-2.6.35-28-generic Found initrd image: /boot/initrd.img-2.6.35-28-generic Found linux image: /boot/vmlinuz-2.6.35-22-generic Found initrd image: /boot/initrd.img-2.6.35-22-generic Found memtest86+ image: /boot/memtest86+.</description>
+    </item>
+    
+    <item>
+      <title>WindowsのブートローダーでUbuntuとデュアルブートする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-31-windowsnobutorodadeubuntutodeyuarubutosuru/</link>
+      <pubDate>Tue, 31 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-05-31-windowsnobutorodadeubuntutodeyuarubutosuru/</guid>
+      <description>WindowsのブートローダーでUbuntuとデュアルブートする grub4dosをもちいて、WindowsブートローダでUbuntuとデュアルブート 参考はこちら
+「 Ubuntu Windows デュアルブート 」 「 Windows XPとUbuntu 10.10をMBMを使ってデュアルブートしました！ 」 「 WindowsのブートローダーでLinuxとデュアルブートする方法 - Ubuntu 10.04 LTS, Grub 2の場合 」 「 WindowsのブートローダーでLinuxとデュアルブートする方法 - Ubuntu 11.04, Grub2の場合 」 ・grub4dosダウンロード こちら からダウンロード
+・grub4dosを解凍しc:¥直下に配置
+以下２ファイル grldr.mbr grldr ・c:¥menu.list作成
+内容は以下 # ３番目のデバイスの１番目のパーティション指定UUIDなども使用できるそう。 title Ubuntu /dev/sdc1 root (hd2,0) kernel /boot/grub/core.img ※(hd2,0)・・・HDDの3番目、1番目のパーティションの意味(どちらも0オリジン)。</description>
+    </item>
+    
+    <item>
+      <title>Windowsをまるごとバックアップする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-31-windowswomarugotobatukuatupusuru/</link>
+      <pubDate>Tue, 31 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-05-31-windowswomarugotobatukuatupusuru/</guid>
+      <description>Partition Imageをつかってシステムをバックアップする 参考はこちら「 システムバックアップ(PartitionImage) 」</description>
+    </item>
+    
+    <item>
+      <title>Linux vs Windows コマンドラインからシャットダウンする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-25-linux-vs-windows-komandorainkarasiyatutodaunsuru/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2011/2011-05-25-linux-vs-windows-komandorainkarasiyatutodaunsuru/</guid>
+      <description>Linux vs Windows コマンドラインからシャットダウンする Linux shutdown -h now または、 shutdown -h 00 Windows shutdown -s -t 00 </description>
+    </item>
+    
+  </channel>
+</rss>

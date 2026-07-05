@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>nodejs on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/nodejs/</link>
+    <description>Recent content in nodejs on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 03 Dec 2023 07:17:09 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/nodejs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Node.js 21の新機能</title>
+      <link>https://tro3373.github.io/posts/2023/2023-12-03-whats-new-in-nodejs-21-summary-and-updates/</link>
+      <pubDate>Sun, 03 Dec 2023 07:17:09 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-12-03-whats-new-in-nodejs-21-summary-and-updates/</guid>
+      <description>Node.js 21の新機能要約 Node.js v21が安定版としてリリース fetchとWebStreams APIが安定化 組み込みWebSocketクライアントの追加 ESモジュールのサポート強化 パフォーマンスの向上と依存関係の更新 Stable Fetch API Status Fetch APIが安定版に昇格 Node.js v17.5.0で導入、v18.xからv20.xではフラグ不要だが実験的扱いが続く Web Streams API Is Stable WebStreams APIが安定化 Fetch APIの実装はAbortControllerインターフェースとWeb Streams APIに依存 Node.js v15.0.0とv16.5.0で追加され、v21で安定化 A Built-in WebSocket Client Node.jsに組み込みWebSocketクライアントが追加 WHATWGによって標準化されたWebSocket globalの導入 ES Modules Improvements 新しい--experimental-default-typeフラグでESモジュールとCommonJSのデフォルト挙動を変更可能 Test Runner Improvements Node.js v20で安定化したネイティブテストランナーのさらなる強化 グロブ表現による複数のテストファイルマッチングのサポート Module Customization Improvements モジュールカスタマイズの簡素化 globalPreloadフックをregister APIとinitializeフックに置き換え llhttp v9.1.2 Strict Mode Enforcement llhttp v9.1.2で厳格モードがデフォルト設定に コードの信頼性とセキュリティ向上のための変更 Performance Improvements to Key APIs 主要APIのパフォーマンス改善 Streams APIの最適化やレスポンスのuncorking改善など V8 Upgraded to v11.</description>
+    </item>
+    
+    <item>
+      <title>node.js firebase-admin の multicast 時のレスポンスの配列と、指定したトークンの配列順序は一致する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-03-01-firebase-admin-multicast-response-is-same-order-with-specified-tokens/</link>
+      <pubDate>Wed, 01 Mar 2023 21:25:03 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-03-01-firebase-admin-multicast-response-is-same-order-with-specified-tokens/</guid>
+      <description>Firebase Cloud Messagingで firebase-admin - npm 使って Multicastすると、複数のデバイスに対して一度にプッシュ通知を送信することができるけど、 どのTokenが失敗したのかわからないのでは？と思い調べた
+So to confirm, the response array from sendMulticast is in the same order as the tokens that were passed in, allowing you to match up the indexes of any errors.
+https://stackoverflow.com/questions/70008515/firebase-cloud-messaging-multicast-error-messaging-registration-token-not-regist ここにある通り、 multicast 時のトークン配列と、 応答される BatchResponse の配列順序は一致する らしいので、どのトークンが失敗したのかはわかるみたい</description>
+    </item>
+    
+    <item>
+      <title>firebase-admin で使用する秘密鍵を SecretManager に登録する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-13-register_secret_key_for_firebase_admin_to_secret_manager/</link>
+      <pubDate>Mon, 13 Feb 2023 10:13:37 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-02-13-register_secret_key_for_firebase_admin_to_secret_manager/</guid>
+      <description>FCM Push用秘密鍵を SecretManager に登録する FCM 秘密鍵を取得 FireBaseへログイン プロジェクトを選択 プロジェクトの設定 サービスアカウント FireBase Admin SDK &amp;gt; 新しい秘密鍵の生成 FCM 秘密鍵を SecretManager に登録 取得した秘密鍵を ./fcm.json で配置する 以下コマンドで登録 aws secretsmanager put-secret-value --secret-id ${SECRET_ID} --secret-string &amp;#34;$(cat&amp;lt;./fcm.json)&amp;#34; 使う SecretManager を扱い易いようにクラス化する &amp;#39;use strict&amp;#39;; const { SecretsManagerClient, GetSecretValueCommand } = require(&amp;#39;@aws-sdk/client-secrets-manager&amp;#39;); const clazz = class Sm { constructor() { this.client = new SecretsManagerClient({ region: process.env.REGION }); // REGION で環境変数へRegionを設定している前提 } async get(key) { const command = new GetSecretValueCommand({ SecretId: key }); const res = await this.</description>
+    </item>
+    
+    <item>
+      <title>Node.js dayjs フォーマット指定時に意図しない結果になる</title>
+      <link>https://tro3373.github.io/posts/2022/2022-12-20-nodejs_dayjs_instance_with_iso_format_not_work/</link>
+      <pubDate>Tue, 20 Dec 2022 19:14:14 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-12-20-nodejs_dayjs_instance_with_iso_format_not_work/</guid>
+      <description>customParseFormat 拡張した dayjs で TZ 環境変数 と指定するフォーマットで罠にハマる Z 指定したUTC日付はフォーマットで渡してパースしてもUTC扱いされると思ってた。 フォーマット指定では Z があろうが TZ 環境変数に依存する模様 いやいやいや。。。
+フォーマット指定時に意図しない結果になる TZ=UTC dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;, &amp;#39;YYYY-MM-DD[T]HH:mm:ss.SSS[Z]&amp;#39;).toDate() // =&amp;gt; 2022-12-17T11:43:29.277Z TZ=Asia/Tokyo TZ=Asia/Tokyoの場合は -9 時間されインスタンス化される!!!!!!(いやいやいや！！！)
+dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;, &amp;#39;YYYY-MM-DD[T]HH:mm:ss.SSS[Z]&amp;#39;).toDate() // =&amp;gt; 2022-12-17T02:43:29.277Z フォーマットを指定しなければ問題ない
+TZ=UTC dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;).toDate() // =&amp;gt; 2022-12-17T11:43:29.277Z TZ=Asia/Tokyo dayjs(&amp;#39;2022-12-17T11:43:29.277Z&amp;#39;).toDate() // =&amp;gt; 2022-12-17T11:43:29.277Z </description>
+    </item>
+    
+    <item>
+      <title>Ghost ブログ Export ファイルを変換するスクリプトを書いた</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-08-ghost-burogu-export-huairuwobian-huan-surusukuriputowoshu-ita/</link>
+      <pubDate>Thu, 08 Oct 2015 19:24:54 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2015/2015-10-08-ghost-burogu-export-huairuwobian-huan-surusukuriputowoshu-ita/</guid>
+      <description>ブログシステムを Ghost へ乗り換えてみたが、 Publish 日付とブログの日付が合わない、といった事象が発生していた。（ブログ再構築の際に順番をいしきしていなかった為、 publish 日付でソートされると、あまり宜しくない結果になった。） 仕方ない、、、と放置していたが、この度簡単なスクリプトを書いて対応した。 node のインストールに若干手こずったが、まぁ、Javascript、簡単！
+概要 Ghost 管理メニューより Export した Jsonファイルを用意する。 今回は、ブログタイトルに、記事日付があったので、それを利用した。 title より取り出した 日付で、 publish_at 項目を更新。 本来の日付でソートできた！！ vim convertMyGhostExport.js var srcPath = &amp;#34;/home/ghost/Desktop/your-domain.ghost.2015-10-07.json&amp;#34;; var dstPath = &amp;#34;/home/ghost/Desktop/your-domain.ghost.2015-10-07_dst.json&amp;#34;; var json = require(srcPath); json.db[0].data.posts.every(function(post,index,ar){ var dateStr = post.title.substr(0, 8); if (!dateStr.match(/\d{8}/)) { // title の頭８文字が数値出ない場合は対象外 return true; } if (post.status != &amp;#34;published&amp;#34;) { // 公開していない場合は対象外 return true; } var yyyy = dateStr.substr(0,4); var mm = dateStr.substr(4,2) - 1; var dd = dateStr.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>GitHub Actions on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/github-actions/</link>
+    <description>Recent content in GitHub Actions on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 01 Aug 2024 11:55:44 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/github-actions/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GitHub Actions で maven release コマンドを発行する with tailscale で</title>
+      <link>https://tro3373.github.io/posts/2024/2024-08-01-execute-maven-release-in-github-actions-with-tailscale/</link>
+      <pubDate>Thu, 01 Aug 2024 11:55:44 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-08-01-execute-maven-release-in-github-actions-with-tailscale/</guid>
+      <description>はじめに VPN配下でしかアクセスできない Maven リポジトリに Tailscale を利用してアクセスして、
+Github Actions で maven release コマンドを発行する方法が必要になったので、構築した。
+以下詳細 事前準備 各種 Secret 値を用意する
+Tailscale で TS_OAUTH_CLIENT_ID, TS_OAUTH_SECRET を発行
+GitHub Actions で以下プラグインを使用する為
+tailscale/github-action: A GitHub Action to connect your workflow to your Tailscale network. GitHub Actions 内から Maven Release コマンドで Git リポジトリにコミットする必要があるので、コミットユーザ用に 秘密鍵設定を行う
+以下コマンドで秘密鍵を作成しておく
+ssh-keygen -t rsa -b 4096 -f id_rsa -C &amp;#34;github-actions&amp;#34; Github Actions で 使用する Secrets の登録
+GitHub - Settings - Secrets and variables - Actions - Repository secrets に 以下キーで登録</description>
+    </item>
+    
+    <item>
+      <title>terraform &#43; GitHub Actions &#43; ECR &#43; Lambda &#43; ApiGateway &#43; OpenAPI 調査したのでメモ</title>
+      <link>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</link>
+      <pubDate>Thu, 15 Feb 2024 09:08:52 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</guid>
+      <description>はじめに 色々調べたのでメモ..
+以下詳細 Terraform で Lambdaも管理できないか？ 最近やってるLambdaとAPI Gatewayの開発方法の話 tf, ecr, python, openapi TerraformでAPI Gateway + Lambdaの構成テンプレート #lambda - Qiita tf, NOT ecr, node, openapi TerraformでAmazon API Gatewayを構築する(基本編) #AWS - Qiita tf, NOT ecr, openapi LambdaをカスタムDockerランタイムで開発する方法 | フューチャー技術ブログ コンテナイメージを更新した際に気をつけるポイントですが、latestタグのコンテナイメージを更新しても、 すぐにLambda関数の挙動には反映されません。一晩寝かしても古いイメージが参照されていました。 全く同じimage-uriのまま更新コマンドを実行することで即時反映できます。
+TerraformでLambdaコンテナイメージを自動構築する #Docker - Qiita swagger ecr lambda apigateway codebuild aws_lambda_alias lambda version に対するエイリアス これに対するIgnore設定の記載など 【AWS Lambda】複数のLambda関数を１つのコンテナイメージにまとめる #AWS - Qiita entrypoint指定できる aws_lambda_function | Resources | hashicorp/aws | Terraform | Terraform Registry ここでいうhandler?</description>
+    </item>
+    
+  </channel>
+</rss>

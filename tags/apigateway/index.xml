@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ApiGateway on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/apigateway/</link>
+    <description>Recent content in ApiGateway on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 15 Nov 2024 19:05:32 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/apigateway/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform で google_api_gateway_api_config に api_config_id を設定すると再作成時に罠がある</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-15-should-not-set-api-config-id-in-google-api-gateway-api-config/</link>
+      <pubDate>Fri, 15 Nov 2024 19:05:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-15-should-not-set-api-config-id-in-google-api-gateway-api-config/</guid>
+      <description>まとめ Terraform で google_api_gateway_api_config に api_config_id は設定しない 以下詳細 以下のように api_config_id を設定すると、再作成時にエラーが発生する resource &amp;#34;google_api_gateway_api_config&amp;#34; &amp;#34;default&amp;#34; { project = var.project_id provider = google-beta api = google_api_gateway_api.default.api_id api_config_id = &amp;#34;${var.env}-${var.service}-api-config&amp;#34; openapi_documents { document { path = &amp;#34;openapi.yaml&amp;#34; contents = base64encode(templatefile(&amp;#34;${path.module}/openapi.yaml&amp;#34;, { title = &amp;#34;${var.env} ${var.service} API&amp;#34; description = &amp;#34;This is the API for ${var.env} ${var.service}&amp;#34; version = &amp;#34;1.0.0&amp;#34; managed_service = google_api_gateway_api.default.managed_service func_url = google_cloud_run_service.default.status[0].url })) } } lifecycle { create_before_destroy = true } } │ Error: Error creating ApiConfig: googleapi: Error 409: Resource &amp;#39;projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_name}&amp;#39; already exists │ Details: │ [ │ { │ &amp;#34;@type&amp;#34;: &amp;#34;type.</description>
+    </item>
+    
+    <item>
+      <title>GCP ApiGateway &#43; CloudRun で CORS を設定する</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-15-enable-cors-in-apigateway-on-gcp-with-cloud-run/</link>
+      <pubDate>Fri, 15 Nov 2024 17:30:01 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-15-enable-cors-in-apigateway-on-gcp-with-cloud-run/</guid>
+      <description>構成 GCP ApiGateway -&amp;gt; CloudRun ApiGateway で OpenAPI yaml を定義している 1. OpenAPI yaml で x-google-endpoints に allowCors: True を設定して、バックエンドでCORSリクエストを処理する x-google-endpoints: - name: ${managed_service} allowCors: True # バックエンドでCORSリクエストを処理する 2. CloudRun で OPTIONS メソッドを設定する // 以下のように cors ミドルウェアを挟む http.HandleFunc(&amp;#34;/example&amp;#34;, cors(user.Handler)) // 定義はこんな感じ func cors(next http.HandlerFunc) http.HandlerFunc { return func(w http.ResponseWriter, r *http.Request) { if r.Method == &amp;#34;OPTIONS&amp;#34; { slog.Info(&amp;#34;==&amp;gt; Reply OPTIONS Request&amp;#34;, &amp;#34;status&amp;#34;, http.StatusNoContent) w.Header().Set(&amp;#34;Access-Control-Allow-Origin&amp;#34;, &amp;#34;*&amp;#34;) w.Header().Set(&amp;#34;Access-Control-Allow-Methods&amp;#34;, &amp;#34;GET, POST, PUT, PATCH, DELETE, OPTIONS&amp;#34;) w.</description>
+    </item>
+    
+    <item>
+      <title>terraform &#43; GitHub Actions &#43; ECR &#43; Lambda &#43; ApiGateway &#43; OpenAPI 調査したのでメモ</title>
+      <link>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</link>
+      <pubDate>Thu, 15 Feb 2024 09:08:52 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</guid>
+      <description>はじめに 色々調べたのでメモ..
+以下詳細 Terraform で Lambdaも管理できないか？ 最近やってるLambdaとAPI Gatewayの開発方法の話 tf, ecr, python, openapi TerraformでAPI Gateway + Lambdaの構成テンプレート #lambda - Qiita tf, NOT ecr, node, openapi TerraformでAmazon API Gatewayを構築する(基本編) #AWS - Qiita tf, NOT ecr, openapi LambdaをカスタムDockerランタイムで開発する方法 | フューチャー技術ブログ コンテナイメージを更新した際に気をつけるポイントですが、latestタグのコンテナイメージを更新しても、 すぐにLambda関数の挙動には反映されません。一晩寝かしても古いイメージが参照されていました。 全く同じimage-uriのまま更新コマンドを実行することで即時反映できます。
+TerraformでLambdaコンテナイメージを自動構築する #Docker - Qiita swagger ecr lambda apigateway codebuild aws_lambda_alias lambda version に対するエイリアス これに対するIgnore設定の記載など 【AWS Lambda】複数のLambda関数を１つのコンテナイメージにまとめる #AWS - Qiita entrypoint指定できる aws_lambda_function | Resources | hashicorp/aws | Terraform | Terraform Registry ここでいうhandler?</description>
+    </item>
+    
+    <item>
+      <title>Serverless で ApiGw のロギングいれようとして、`CloudWatch Logs role ARN must be set in account settings to enable logging` となったのでメモ</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-13-cloud_watch_loggin_settings_to_api_gateway_was_role_error/</link>
+      <pubDate>Mon, 13 Feb 2023 12:01:33 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-02-13-cloud_watch_loggin_settings_to_api_gateway_was_role_error/</guid>
+      <description>問題 Serverless Framework で、以下のようにロギング設定を追加して、以下エラーになった
+provider: # 省略 logs: restApi: accessLogging: false # Optional configuration which enables or disables access logging. Defaults to true. executionLogging: true # Optional configuration which enables or disables execution logging. Defaults to true. level: ERROR # Optional configuration which specifies the log level to use for execution logging. May be set to either INFO or ERROR. fullExecutionData: false # Optional configuration which specifies whether or not to log full requests/responses for execution logging.</description>
+    </item>
+    
+    <item>
+      <title>ApiGatewayのログを ServerlessFramework で設定したい</title>
+      <link>https://tro3373.github.io/posts/2019/2019-11-11-enable-apigw-log-via-serverless-framework/</link>
+      <pubDate>Mon, 11 Nov 2019 05:45:40 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2019/2019-11-11-enable-apigw-log-via-serverless-framework/</guid>
+      <description>要件としては、ApiGateway &amp;lt;=&amp;gt; Lambda の統合設定条件配下にて、 Lambdaからの応答結果が6MBを超えた場合に以下のようなログが出力される
+Lambda execution failed with status 200 due to customer function error: body size is too long. Lambda request id: XXXX-XXXX... これに対して、ServerlessFramework でログ設定を行いたい
+参考 Serverless.yml Reference Enhancements for API Gateway REST API log setup Serverless complains about &amp;ldquo;Rest API id could not be resolved.&amp;rdquo; ApiGateway ステージ ログ／トレース の設定と動作 IAM Policy作成含め以下の設定だけで作成される
+provider: logs: restApi: accessLogging: false # Optional configuration which enables or disables access logging. Defaults to true.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>golang on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/golang/</link>
+    <description>Recent content in golang on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 17 Jan 2026 07:33:24 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RedoclyでOpenAPIをタグ分割する方法</title>
+      <link>https://tro3373.github.io/posts/2026/2026-01-17-splitting-openapi-swagger-yaml-by-tags-using-redocly/</link>
+      <pubDate>Sat, 17 Jan 2026 07:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2026/2026-01-17-splitting-openapi-swagger-yaml-by-tags-using-redocly/</guid>
+      <description>結論：RedoclyでOpenAPI Specをタグで分割できる Redocly CLIのfilter-in/filter-outデコレーターを使えば、1つのOpenAPI定義を複数のドキュメントに分割できる。
+公開API用と管理API用でSwagger UIを分けたい場合など、タグベースでAPI仕様を分離できる。
+背景：なぜ分割が必要か 単一のGo APIで複数のクライアント向けにエンドポイントを提供する場合、全エンドポイントを1つのSwagger UIに表示すると見づらい。
+例：
+公開API: ユーザー機能、コンテンツ表示 管理API: データ管理、レポート取得、設定変更 → それぞれ専用のSwagger UIを生成したい
+解決方法：Redocly CLI + filter デコレーター 1. swagでOpenAPI定義を生成 swag: @echo &amp;#34;==&amp;gt; Running swag init&amp;#34; &amp;gt;&amp;amp;2 @swag init -g cmd/your-api/main.go -o docs @npx -y @redocly/cli@latest bundle docs/swagger.yaml --config docs/redocly-public.yaml -o docs/swagger_public.yaml @npx -y @redocly/cli@latest bundle docs/swagger.yaml --config docs/redocly-admin.yaml -o docs/swagger_admin.yaml &amp;amp;&amp;amp; \ sed -i -e &amp;#39;s,API for Public,API for Admin,g&amp;#39; docs/swagger_admin.yaml 2. 公開API用設定：管理タグを除外 docs/redocly-public.yaml:</description>
+    </item>
+    
+    <item>
+      <title>Go言語omitemptyの罠：falseが保存できない</title>
+      <link>https://tro3373.github.io/posts/2025/2025-10-27-go-omitempty-tag-for-json-and-firestore/</link>
+      <pubDate>Mon, 27 Oct 2025 16:02:13 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-10-27-go-omitempty-tag-for-json-and-firestore/</guid>
+      <description>結論：omitemptyは便利だが罠がある omitemptyタグは空値を省略できて便利だが、falseや0が保存できなくなる罠がある。
+特にboolean型で**「false」と「未設定」を区別したい場合は要注意**だ。
+omitemptyとは 空値の場合にフィールドを省略するタグ。JSON/Firestoreへの保存時にデータサイズを削減できる。
+type User struct { Name string `json:&amp;#34;name&amp;#34;` Email string `json:&amp;#34;email,omitempty&amp;#34;` // 空なら省略 } ⚠️ 最大の罠：「空」とみなされる値 以下の値は「空」として扱われ、omitempty付きフィールドから消える:
+型 空とみなされる値 保存できない値の例 真偽値 false ❌ falseが保存不可 数値 0 ❌ 0が保存不可 文字列 &amp;quot;&amp;quot; ❌ 空文字列が保存不可 スライス/マップ nil または長さ0 ❌ 空配列が保存不可 ポインタ nil - 時刻 time.Timeのゼロ値 - 実例：boolean型の罠 問題のあるコード type Config struct { EnableFeature bool `firestore:&amp;#34;enableFeature,omitempty&amp;#34;` } config := Config{EnableFeature: false} // ❌ Firestoreに保存されない！ // &amp;#34;enableFeature&amp;#34;フィールド自体が消える これでは「false」と「未設定」が区別できない。
+解決策：ポインタ型を使う type Config struct { EnableFeature *bool `firestore:&amp;#34;enableFeature,omitempty&amp;#34;` } // パターン1: 未設定 config := Config{EnableFeature: nil} // → フィールド省略（未設定として扱える） // パターン2: 明示的にfalse falseValue := false config := Config{EnableFeature: &amp;amp;falseValue} // → ✅ falseとして保存される // パターン3: true trueValue := true config := Config{EnableFeature: &amp;amp;trueValue} // → ✅ trueとして保存される 動作比較 omitemptyあり type User struct { Name string `json:&amp;#34;name&amp;#34;` Age int `json:&amp;#34;age,omitempty&amp;#34;` Active bool `json:&amp;#34;active,omitempty&amp;#34;` } user := User{Name: &amp;#34;Alice&amp;#34;, Age: 0, Active: false} // JSON: {&amp;#34;name&amp;#34;:&amp;#34;Alice&amp;#34;} // ❌ Age=0 と Active=false は消える omitemptyなし user := User{Name: &amp;#34;Alice&amp;#34;, Age: 0, Active: false} // JSON: {&amp;#34;name&amp;#34;:&amp;#34;Alice&amp;#34;,&amp;#34;age&amp;#34;:0,&amp;#34;active&amp;#34;:false} // ✅ 0 と false もちゃんと保存される Firestore/JSONでの使い分け データ削減を優先する場合 Email string `json:&amp;#34;email,omitempty&amp;#34;` // 未入力のメールアドレスは保存しなくていい 値の区別が必要な場合 // boolean型: falseと未設定を区別したい IsAdmin *bool `firestore:&amp;#34;isAdmin,omitempty&amp;#34;` // 数値型: 0と未設定を区別したい Score *int `firestore:&amp;#34;score,omitempty&amp;#34;` まとめ omitemptyは空値を省略してデータサイズを削減できる false、0、空文字列は「空」扱いで消える（最大の罠） 値の区別が必要ならポインタ型を使う JSON/Firestoreどちらでも同じ仕組みで動作 Some illustrations on this site, including the Go Gopher, are by Renée French and licensed under CC BY 4.</description>
+    </item>
+    
+    <item>
+      <title>コンテナ内でのみ golangci-lint 実行時に &#39;error obtaining VCS status: exit status 128&#39; エラーが発生する問題</title>
+      <link>https://tro3373.github.io/posts/2025/2025-09-17-golangci-lint-error-in-docker-container-vcs-repository-not-found-use-buildvcs-false/</link>
+      <pubDate>Wed, 17 Sep 2025 06:54:28 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-09-17-golangci-lint-error-in-docker-container-vcs-repository-not-found-use-buildvcs-false/</guid>
+      <description>問題 golangci-lint をコンテナ内で実施すると以下エラーが発生した コンテナ内でのみ発生して、ホストで実行すると発生しなかった
+WARN [runner] Can&amp;#39;t process results by diff processor: can&amp;#39;t prepare diff by revgrep: no version control repository found cmd/main.go:1: : error obtaining VCS status: exit status 128 Use -buildvcs=false to disable VCS stamping. (typecheck) 原因 golangci-lint は git の情報を取得しようとするが、コンテナ内の 作業ディレクトリが git の安全なディレクトリとして登録されていないために発生する
+解決方法 以下 .gitconfig を作成して、compose.yaml で /root/.gitconfig:ro でマウントした
+[safe] directory = /work # コンテナ内の作業ディレクトリを指定 directory = /work/api # コンテナ内の作業ディレクトリを指定 </description>
+    </item>
+    
+    <item>
+      <title>GOで 構造体に定義したメソッドと埋め込みされたメソッドが同じシグニチャで無限ループに遭遇した</title>
+      <link>https://tro3373.github.io/posts/2025/2025-08-27-go-struct-embedded-method-same-signature-infinite-loop/</link>
+      <pubDate>Wed, 27 Aug 2025 10:41:13 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-08-27-go-struct-embedded-method-same-signature-infinite-loop/</guid>
+      <description>GOで 構造体に定義したメソッドと埋め込みされたメソッドが同じシグニチャで無限ループに遭遇した 以下実装で発生していた type SampleService struct { repository.SampleRepositoryHandler } func (s *SampleService) TargetFunction(ctx context.Context, sampleID, exampleID string) error { err := s.TargetFunction(ctx, sampleID, exampleID) if err != nil { // ... } } それまで異なる名前だったので、メソッド名変更を実施したタイミングで発生した為、気づかなかった ポイント 構造体埋め込み（匿名フィールド）は、委譲（delegation）として機能する 埋め込んだ型のメソッドを、親構造体のメソッドとして呼び出せる s.TargetFunction は SampleService のメソッドと、埋め込んだ SampleRepositoryHandler のメソッド両方を持つ 名前が重複している場合は、親構造体のメソッドが優先される 解決策 埋め込みで呼べたとしても、明示的に記載すべき </description>
+    </item>
+    
+    <item>
+      <title>Cloud Function から IAM認証で CloudSQL(PostgreSQL) へ接続する</title>
+      <link>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</link>
+      <pubDate>Wed, 29 Jan 2025 15:43:25 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</guid>
+      <description>はじめに クラウド環境でのデータベース管理において、セキュリティは日々進化する脅威への対応が求められる重要課題です。特に、以下の課題が顕在化しています：
+従来の認証情報（パスワード）の漏洩リスク 認証情報のローテーション管理の煩雑さ アプリケーション展開時の認証情報受け渡しの安全性確保 これらの課題に対し、IAM認証を活用することで、より強固でかつ運用負荷の少ないセキュリティ体制を実現できます。IAM認証のメリットは以下の通りです：
+一時的な認証トークンの利用による漏洩リスクの低減 クラウドプロバイダーの統合認証基盤との連携による管理の一元化 きめ細かなアクセス制御とアクセスログの監査対応 本ガイドでは、Cloud FunctionsからCloudSQL(PostgreSQL)へIAM認証で接続する実践的な手順を解説します。この設定により、セキュアかつスケーラブルなデータベースアクセス環境を構築できます。
+Cloud Function から CloudSQL(PostgreSQL) へ IAM 認証で接続するために必要な手順 Cloud Function 用 Service Account に必要な権限を付与 PGUSER の作成（IAM認証用） データベースへの権限付与 Cloud Function の実装 Service Account での Cloud Function のデプロイ 具体的な設定手順 1. Cloud Function 用 Service Account に必要な権限を付与 以下の権限が必要:
+Cloud SQL インスタンス ユーザー Cloud SQL クライアント 今回はコンソールから設定したが、以下のコマンドで設定も可能:
+gcloud projects add-iam-policy-binding example-project \ --member=&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34; \ --role=&amp;#34;roles/cloudsql.instanceUser&amp;#34; gcloud projects add-iam-policy-binding example-project \ --member=&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34; \ --role=&amp;#34;roles/cloudsql.client&amp;#34; 2. PGUSER の作成 IAM認証用のユーザーを作成する。</description>
+    </item>
+    
+    <item>
+      <title>Go モジュールの編成</title>
+      <link>https://tro3373.github.io/posts/2023/2023-09-24-organizing-a-go-module/</link>
+      <pubDate>Sun, 24 Sep 2023 10:29:16 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-09-24-organizing-a-go-module/</guid>
+      <description>先日バズってた Go のプロジェクトディレクトリの正式見解というか本家の推奨記事.
+気になってたので、読んでみた
+以下翻訳結果
+ファイルやフォルダのレイアウトに関して、Go を初めて使う開発者によくある質問は「Go プロジェクトをどのように整理すればいいのか」というものです。このドキュメントの目的は、この質問に答えるためのガイドラインを提供することです。このドキュメントを最大限に活用するために、チュートリアルを読み、モジュールソースを管理することで、Goモジュールの基本に精通していることを確認してください。
+Go プロジェクトには、パッケージ、コマンドライン・プログラム、またはその 2 つの組み合わせがあります。このガイドはプロジェクトの種類別に構成されています。
+基本パッケージ 基本的なGoパッケージは、すべてのコードがプロジェクトのルートディレクトリにあります。プロジェクトは1つのモジュールで構成され、1つのパッケージで構成されます。パッケージ名はモジュール名の最後のパスコンポーネントと一致します。単一のGoファイルを必要とする非常に単純なパッケージの場合、プロジェクトの構造は次のようになります：
+project-root-directory/ go.mod modname.go modname_test.go [この文書中、ファイル名/パッケージ名は完全に任意です]。
+このディレクトリが github.com/someuser/modname のGitHubリポジトリにアップロードされていると仮定すると、 go.mod ファイルのモジュール行には、 module github.com/someuser/modname と書かれているはずです。
+modname.go のコードでパッケージを宣言します：
+package modname // ... パッケージのコードはここ ユーザーは、Goのコードでこのパッケージをインポートすることで、このパッケージに依存することができます：
+import &amp;#34;github.com/someuser/modname&amp;#34; Goパッケージは複数のファイルに分割することができます：
+project-root-directory/ go.mod modname.go modname_test.go auth.go auth_test.go hash.go hash_test.go ディレクトリ内のファイルはすべてmodnameパッケージを宣言している。
+基本コマンド 基本的な実行可能プログラム（またはコマンドラインツール）は、その複雑さとコードサイズに応じて構成されます。最も単純なプログラムは、 func main が定義された1つのGoファイルで構成されます。より大きなプログラムでは、コードが複数のファイルに分割され、すべて main パッケージを宣言します：
+project-root-directory/ go.mod auth.go auth_test.go client.go main.go ここで main.go ファイルには func main が含まれているが、これは単なる慣例である。main ファイルは、modname.go（modnameの適切な値に対して）とか、他の名前にすることもできる。
+このディレクトリが github.com/someuser/modname のGitHubリポジトリにアップロードされていると仮定すると、 go.</description>
+    </item>
+    
+    <item>
+      <title>slices.Contains について少し調べた</title>
+      <link>https://tro3373.github.io/posts/2023/2023-09-14-golang-about-slices-contains/</link>
+      <pubDate>Thu, 14 Sep 2023 09:00:17 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-09-14-golang-about-slices-contains/</guid>
+      <description>slices.Contains を使用しようとして、コンパイルエラーになったので、少し中身を追ってみた
+以下が、実際の実装部分 slices.go func Contains[S ~[]E, E comparable](s S, v E) bool { return Index(s, v) &amp;gt;= 0 } Genericsを使用していて、E は comparable で S はその E の Sliceかー。
+では、S ~[]E の ~ とはなんだろうか？
+以下 ChatGPT さんの回答
+S ~[]E の表記は、Goの新しいジェネリクス機能において、型Sが型Eのスライスであるという制約を示します。この制約は、ジェネリクス関数やジェネリクス型を定義する際に使用されます。
+~ 演算子は、&amp;ldquo;型の等価性&amp;quot;を示すために使用されます。具体的には、S が []E という具体的な型であるか、それに等価な型（例えば、型エイリアスなど）である必要があります。
+例えば、以下のような型があるとします：
+type MyInt int type MySlice []MyInt この場合、Contains[MySlice, MyInt] のように関数を呼び出すことができます。なぜなら、MySlice は []MyInt に等価であり、MyInt は int に等価だからです。
+この ~ 演算子と型制約は、Goのジェネリクスが提供する強力な型安全性を維持する一方で、柔軟性も提供します。それによって、コンパイル時に型の不一致や他の型関連のエラーを防ぐことができます。
+~ は それに等価な型という制約 comparable な 型の Slice のようなものは許す みたいな感じか</description>
+    </item>
+    
+    <item>
+      <title>GoReleaser を GitHub workflow で設定する最低限の方法</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-09-setup-minimum-github-workflow-go-releaser/</link>
+      <pubDate>Wed, 09 Aug 2023 10:53:44 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-08-09-setup-minimum-github-workflow-go-releaser/</guid>
+      <description>手っ取り早くリポジトリの WorkFlow つかって Go の リリースを実装する為の設定をメモしておく v0.0.1 みたいな形式のタグを打てばリリースされる こんな感じのヤツ 1. goreleaser init で .goreleaser.yaml を生成する デフォルトでこんな感じで生成される
+# This is an example .goreleaser.yml file with some sensible defaults. # Make sure to check the documentation at https://goreleaser.com before: hooks: # You may remove this if you don&amp;#39;t use go modules. - go mod tidy # # you may remove this if you don&amp;#39;t need go generate - go generate ./... builds: - env: - CGO_ENABLED=0 goos: - linux - windows - darwin archives: - format: tar.</description>
+    </item>
+    
+    <item>
+      <title>Golangでディレクトリ内が空かどうかを判定する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-05-30-golang-implement-is-empty-directory/</link>
+      <pubDate>Fri, 21 Apr 2023 22:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-05-30-golang-implement-is-empty-directory/</guid>
+      <description>最終的にはこれ func IsEmpty(name string) (bool, error) { f, err := os.Open(name) if err != nil { return false, err } defer f.Close() _, err = f.Readdirnames(1) // Or f.Readdir(1) if err == io.EOF { return true, nil } return false, err // Either not empty or error, suits both cases } つまり システムにはディレクトリが空かどうかの情報は無いからディレクトリの子があるかどうかで判断するしか無い File.Readdirnames() が最速 以下日本語要約 ディレクトリが空であるか否かは、その名前、作成時間、またはそのサイズ（ファイルの場合）のようなファイルシステムレベルのプロパティとして保存されていません。
+つまり、os.FileInfoからこの情報を直接取得することはできません。最も簡単な方法は、ディレクトリの子（内容）をクエリすることです。
+ioutil.ReadDir()はあまり良い選択ではありません。なぜなら、これはまず指定されたディレクトリのすべての内容を読み取り、それらを名前でソートし、その後スライスを返すからです。最も速い方法はDave Cが言及したように、File.Readdir()または（好ましくは）File.Readdirnames()を使用してディレクトリの子をクエリすることです。
+File.Readdir()とFile.Readdirnames()の両方は、返される値の数を制限するために使用されるパラメータを取ります。1つの子をクエリするだけで十分です。Readdirnames()は名前のみを返すので、FileInfo構造体を取得（および構築）するためのさらなる呼び出しが必要ないため、速度が速くなります。
+ディレクトリが空の場合、io.EOFがエラーとして返され（空のスライスやnilのスライスではない）ため、返された名前のスライスは必要ありません。
+以下抜粋 Whether a directory is empty or not is not stored in the file-system level as properties like its name, creation time or its size (in case of files).</description>
+    </item>
+    
+    <item>
+      <title>Go では 複雑でコストのかかる処理を構文で隠してはいけないという基本的なルールがあります。</title>
+      <link>https://tro3373.github.io/posts/2022/2022-07-15-go-there-is-a-general-rule-that-syntax-shold-not-hide-complex-costly-operations/</link>
+      <pubDate>Fri, 15 Jul 2022 19:37:28 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-07-15-go-there-is-a-general-rule-that-syntax-shold-not-hide-complex-costly-operations/</guid>
+      <description>Go では複雑でコストのかかる処理を隠すような機能は実装されない []string を []interface{} に自動変換する良い方法や提供されている機能は無い func foo([]interface{}) { /* do somthing */ } func main() { var a[]string = []string{&amp;#34;hello&amp;#34;, &amp;#34;world&amp;#34;} for(a) } 毎回以下のように実装する必要がある
+b = make([]interface{}, len(a), len(a)) for i := range a { b[i] = a[i] } 参考 go - Type converting slices of interfaces - Stack Overflow In Go, there is a general rule that syntax should not hide complex/costly operations.
+Converting a string to an interface{} is done in O(1) time.</description>
+    </item>
+    
+    <item>
+      <title>Golang 組み込み構造体へのキャスト方法(Goのポリモーフィズムの実現)</title>
+      <link>https://tro3373.github.io/posts/2022/2022-07-11-golang-how-to-cast-to-embedded-struct/</link>
+      <pubDate>Mon, 11 Jul 2022 09:26:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-07-11-golang-how-to-cast-to-embedded-struct/</guid>
+      <description>Golang 組み込み構造体へのキャスト方法(Goのポリモーフィズムの実現) Golangで組み込み構造体（親）へのキャストを行いたい場合は(ポリモーフィズムを得るためには)、インターフェイスの実装が必要 子から親への参照はある インターフェースの名前はGolangでは er が慣例 package main import &amp;#34;fmt&amp;#34; type Parent struct { Attr1 string } type Parenter interface { GetParent() Parent } type Child struct { Parent //embed Attr string } func (c Child) GetParent() Parent { return c.Parent } func setf(p Parenter) { fmt.Println(p) } func main() { var ch Child ch.Attr = &amp;#34;1&amp;#34; ch.Attr1 = &amp;#34;2&amp;#34; setf(ch) } // result {{2} 1} 参考 go - Golang interface cast to embedded struct - Stack Overflow あなたは、継承を使ったオブジェクト指向のデザインパターンを使おうとしています。これはGoでのやり方ではありません。また、Javaや同等のオブジェクト指向言語では、インターフェース名は&amp;rsquo;able&amp;rsquo;で終わります。Goでは、インターフェイス名は&amp;rsquo;er&amp;rsquo;で終わるのが慣例です。 You are trying to use an object oriented design pattern with inheritance.</description>
+    </item>
+    
+    <item>
+      <title>go generate assests box</title>
+      <link>https://tro3373.github.io/posts/2022/2022-06-22-go-generate-assests-box/</link>
+      <pubDate>Wed, 22 Jun 2022 04:53:06 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-06-22-go-generate-assests-box/</guid>
+      <description>go generate を使った assets ディレクトリの静的組み込みバイナリ処理 モノリポで管理しているSPAなクライアント側の成果物 (dist) を gin で静的配布 できないかと思った際に調べた内容。 結局使用していないが、バイナリ化する手順としては使えそうなのでメモしておく。
+ディレクトリは以下の様な形
+├── Makefile ├── assets -&amp;gt; ../../client/back/dist ├── box │ ├── blob.go │ └── box.go └─generator.go Makefile まずは関係ないけど、Makefileって@書けば &amp;amp;&amp;amp; バックスラッシュ連結とかいらんのかという発見 ./... 指定で全てを対象に指定 generate: @go generate ./... @echo &amp;#34;[OK] Files added to embed box!&amp;#34; generator.go 1行目はfmtをかけると自動付与された // +build ignore コメントにより通常ビルド対象から外れる設定 生成される go ファイルは blob.go で box 配下に出力される f, err := os.Create(blobFileName) や、 embedFolder string = &amp;quot;../assets/&amp;quot; から current directory は box 配下の模様 //go:build ignore // +build ignore package main import ( &amp;#34;bytes&amp;#34; &amp;#34;fmt&amp;#34; &amp;#34;go/format&amp;#34; &amp;#34;io/ioutil&amp;#34; &amp;#34;log&amp;#34; &amp;#34;os&amp;#34; &amp;#34;path/filepath&amp;#34; &amp;#34;strings&amp;#34; &amp;#34;text/template&amp;#34; ) const ( blobFileName string = &amp;#34;blob.</description>
+    </item>
+    
+    <item>
+      <title>aws vault invalid client token id error</title>
+      <link>https://tro3373.github.io/posts/2021/2021-12-02-aws-vault-invalid-client-token-id-error/</link>
+      <pubDate>Thu, 02 Dec 2021 22:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2021/2021-12-02-aws-vault-invalid-client-token-id-error/</guid>
+      <description>aws-vault で InvalidClientTokenId: The security token included in the request is invalid で怒られる │ Error: error reading IAM Role (rds-enhanced-monitoring-dev-db): InvalidClientTokenId: The security token included in the request is invalid │ status code: 403, request id: d09fe380-0c00-4485-9aeb-1e58740fdcb3 ここに答えがあった
+Error: The security token included in the request is invalid · Issue #260 · 99designs/aws-vault · GitHub I&amp;rsquo;ve encountered the same problem. It&amp;rsquo;s caused by the AWS API restrictions, that won&amp;rsquo;t allow you to touch IAM related APIs using the account with MFA enabled, unless you pass the MFA token within the request.</description>
+    </item>
+    
+    <item>
+      <title>別ファイルに書いた main パッケージの Function が undefined 判定される</title>
+      <link>https://tro3373.github.io/posts/2021/2021-11-26-go_function_in_another_file_undefined_in_go_run_main_go/</link>
+      <pubDate>Fri, 26 Nov 2021 17:18:00 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2021/2021-11-26-go_function_in_another_file_undefined_in_go_run_main_go/</guid>
+      <description>別ファイルに書いた main パッケージの Function が undefined 判定される ここに答えがあった
+go - &amp;ldquo;undefined&amp;rdquo; function declared in another file? - Stack Overflow Please read &amp;ldquo;How to Write Go Code&amp;rdquo;.
+Use go build or go install within the package directory, or supply an import path for the package. Do not use file arguments for build or install.
+While you can use file arguments for go run, you should build a package instead, usually with go run .</description>
+    </item>
+    
+  </channel>
+</rss>

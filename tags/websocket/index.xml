@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>websocket on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/websocket/</link>
+    <description>Recent content in websocket on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 03 Oct 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu 14.04 libwebsockets クライアントを試す</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</guid>
+      <description>libwebsockets build sudo aptitude install cmake cd ~/works git clone git://git.libwebsockets.org/libwebsockets cd libwebsockets/ mkdir build cd build cmake .. make -j8 # sudo make install サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする server rails 上に em-websocket を実装したcontrollerを用意する
+※ rails に関しては、省略 Ubuntu 14.04 libwebsockets クライアントを試す libwebsockets build sudo aptitude install cmake cd ~/works git clone git://git.libwebsockets.org/libwebsockets cd libwebsockets/ mkdir build cd build cmake .. make -j8 # sudo make install サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする server rails 上に em-websocket を実装したcontrollerを用意する</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 14.04 で websocket, zeroMQ</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</guid>
+      <description>rails 、postgresql、zeroMQ、websocketを使って通信するサンプル環境を作成中
+create rails project cd 任意のディレクトリ rails new test_rails_postgres -d postgresql cd test_rails_postgres bundle install --path vendor/bundle bundle exec rake db:create db:migrate テスト起動確認 cd test_rails_postgres rails server http://[サーバアドレス]:3000へアクセス git 管理開始 cd test_rails_postgres git init vim .gitignore 以下を追加 doc/ *.swp *~ .project .DS_Store .idea .secret git add . git commit -m &amp;quot;initial commit.&amp;quot; テスト設定 bundle exec rails generate scaffold book title:string author:string outline:text bundle exec rake db:migrate bundle exec rails server db確認 -- database list \l -- user list select * from pg_user; -- table list \d routes の確認 http://localhost:3000/rails/info/routes rails へwebsocket実装 websocket-rails install cd test_rails_postgres vim Gemfile # 以下を追加 gem &#39;websocket-rails&#39; bundle install rails g websocket_rails:install # コントローラ作成 vim app/controllers/websocket_chat_controller.</description>
+    </item>
+    
+  </channel>
+</rss>

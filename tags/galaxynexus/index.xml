@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>GalaxyNexus on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/galaxynexus/</link>
+    <description>Recent content in GalaxyNexus on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 09 Jun 2012 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/galaxynexus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Galaxy Nexus タップ時の音を変更する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-09-galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</link>
+      <pubDate>Sat, 09 Jun 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2012/2012-06-09-galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</guid>
+      <description>Galaxy Nexus タップ時の音を変更する タップ時に鳴らす音を用意する（NexusSより抜いた）
+名前を以下に変更する
+Effect_Tick.ogg
+/systemを書き込み権限付きでremountする（要ルート）
+mount -o rw,remount /system
+adbでpushする
+adb push ./Effect_Tick.ogg /system/media/audio/ui</description>
+    </item>
+    
+  </channel>
+</rss>

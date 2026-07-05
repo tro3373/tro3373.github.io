@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>lua on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/lua/</link>
+    <description>Recent content in lua on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 03 Jan 2024 15:46:49 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/lua/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>lua</title>
+      <link>https://tro3373.github.io/posts/2024/2024-01-03-lua/</link>
+      <pubDate>Wed, 03 Jan 2024 15:46:49 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-01-03-lua/</guid>
+      <description>Lua色々 Luaにクラスがない テーブルの添字に数字または文字列を指定可能 テーブルの値の型はなんでもよい 配列は0オリジンでない(1オリジン) Lua における . と : の違い 関数呼び出し時に自分を含むか含まないか
+local addTable = { na = 1, nb = 2, add = function(this) return this.na + this.nb end diff_na = function(this, n) return this.na - n end } addTabel.add(addTable) addTabel.diff_na(addTable, 1) addTabel:add() addTabel:diff_na(1) Refs 姉好き変態プログラマーの備忘録 Lua .(ドット)による関数呼び出しと:(コロン)による関数呼び出し </description>
+    </item>
+    
+  </channel>
+</rss>

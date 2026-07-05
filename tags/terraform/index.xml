@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>terraform on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/terraform/</link>
+    <description>Recent content in terraform on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 20 Nov 2024 19:12:32 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform backend を GCS backet に設定する script 書いた</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-20-make-script-that-make-gcp-bucket-for-terraform-tf-state/</link>
+      <pubDate>Wed, 20 Nov 2024 19:12:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-20-make-script-that-make-gcp-bucket-for-terraform-tf-state/</guid>
+      <description>terrarorm init で バケットがなければ作成する バケット名は ${project_id}-${app}-tfstate とする project_id, app は Makefile で指定 terraform コマンドをラップした Makefile app := sample project_id := project-a export init_tfstate_gs: @init_gs_tfstate_if_needed init: init_tfstate_gs @echo &amp;#34;==&amp;gt; Initializing terraform...&amp;#34; @make _tf cmd=init init_if_needed: @if [[ ! -e envs/$(stage)/.terraform ]]; then \ make init; \ fi login: @make _tf cmd=login init_upgrade: @make _tf cmd=init opt=&amp;#34;-upgrade=true&amp;#34; init_migrate_state: @make _tf cmd=init opt=&amp;#34;-migrate-state&amp;#34; plan: init_if_needed @make _tf cmd=plan apply: init_if_needed @make _tf cmd=apply apply-auto-approve: @make _tf cmd=apply opt=-auto-approve apply-refresh: @make _tf cmd=apply opt=-refresh-only destroy: @make _tf cmd=destroy refresh: @make _tf cmd=refresh show: @make _tf cmd=show output: @make _tf cmd=output opt=-json console: @make _tf cmd=console validate: @make _tf cmd=validate _check_env: @test -e envs/$(stage) || (echo &amp;#39;No such stage:envs/$(stage) exist.</description>
+    </item>
+    
+    <item>
+      <title>Terraform で google_api_gateway_api_config に api_config_id を設定すると再作成時に罠がある</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-15-should-not-set-api-config-id-in-google-api-gateway-api-config/</link>
+      <pubDate>Fri, 15 Nov 2024 19:05:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-15-should-not-set-api-config-id-in-google-api-gateway-api-config/</guid>
+      <description>まとめ Terraform で google_api_gateway_api_config に api_config_id は設定しない 以下詳細 以下のように api_config_id を設定すると、再作成時にエラーが発生する resource &amp;#34;google_api_gateway_api_config&amp;#34; &amp;#34;default&amp;#34; { project = var.project_id provider = google-beta api = google_api_gateway_api.default.api_id api_config_id = &amp;#34;${var.env}-${var.service}-api-config&amp;#34; openapi_documents { document { path = &amp;#34;openapi.yaml&amp;#34; contents = base64encode(templatefile(&amp;#34;${path.module}/openapi.yaml&amp;#34;, { title = &amp;#34;${var.env} ${var.service} API&amp;#34; description = &amp;#34;This is the API for ${var.env} ${var.service}&amp;#34; version = &amp;#34;1.0.0&amp;#34; managed_service = google_api_gateway_api.default.managed_service func_url = google_cloud_run_service.default.status[0].url })) } } lifecycle { create_before_destroy = true } } │ Error: Error creating ApiConfig: googleapi: Error 409: Resource &amp;#39;projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_name}&amp;#39; already exists │ Details: │ [ │ { │ &amp;#34;@type&amp;#34;: &amp;#34;type.</description>
+    </item>
+    
+    <item>
+      <title>tflint Tips</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-08-tflint-tips/</link>
+      <pubDate>Fri, 08 Nov 2024 07:04:57 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-08-tflint-tips/</guid>
+      <description>はじめに tflint 利用時のメモ
+想定するディレクトリ構成 環境は dev, prd など 環境毎にディレクトリを切る 各環境の main.tf から使用したい module を使う module は 機能単位でディレクトリを切る cognitoとかで切ってるけど、サービスの有効無効など、もう少し大きな単位で切っても良いイメージ ├── envs │ ├── dev │ │ ├── main.tf │ │ ├── outputs.tf │ │ ├── swagger.yaml │ │ ├── terraform.tfvars │ │ └── variables.tf │ └── prd │ ├── main.tf │ └── ... └── module_aws ├── cognito │ ├── main.tf │ ├── outputs.tf │ └── variables.tf └── s3 ├── main.tf ├── outputs.</description>
+    </item>
+    
+    <item>
+      <title>terraform &#43; GitHub Actions &#43; ECR &#43; Lambda &#43; ApiGateway &#43; OpenAPI 調査したのでメモ</title>
+      <link>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</link>
+      <pubDate>Thu, 15 Feb 2024 09:08:52 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</guid>
+      <description>はじめに 色々調べたのでメモ..
+以下詳細 Terraform で Lambdaも管理できないか？ 最近やってるLambdaとAPI Gatewayの開発方法の話 tf, ecr, python, openapi TerraformでAPI Gateway + Lambdaの構成テンプレート #lambda - Qiita tf, NOT ecr, node, openapi TerraformでAmazon API Gatewayを構築する(基本編) #AWS - Qiita tf, NOT ecr, openapi LambdaをカスタムDockerランタイムで開発する方法 | フューチャー技術ブログ コンテナイメージを更新した際に気をつけるポイントですが、latestタグのコンテナイメージを更新しても、 すぐにLambda関数の挙動には反映されません。一晩寝かしても古いイメージが参照されていました。 全く同じimage-uriのまま更新コマンドを実行することで即時反映できます。
+TerraformでLambdaコンテナイメージを自動構築する #Docker - Qiita swagger ecr lambda apigateway codebuild aws_lambda_alias lambda version に対するエイリアス これに対するIgnore設定の記載など 【AWS Lambda】複数のLambda関数を１つのコンテナイメージにまとめる #AWS - Qiita entrypoint指定できる aws_lambda_function | Resources | hashicorp/aws | Terraform | Terraform Registry ここでいうhandler?</description>
+    </item>
+    
+    <item>
+      <title>terraform ステートを強制スキップする</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-08-terraform-could-not-find-resource-error/</link>
+      <pubDate>Mon, 08 May 2023 13:23:15 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-05-08-terraform-could-not-find-resource-error/</guid>
+      <description>遭遇したエラー Error: reading Secrets Manager Secret (arn:aws:secretsmanager:ap-northeast-1:xxxxxxxxxxxx:secret:sample-secret-xxxxxx): couldn&amp;#39;t find resource 環境構築時、デプロイ中にいきなりTokenの有効期限切れエラーが発生した。
+terraformのステート管理はS3に保存している。 99designs/aws-vault を使ってローカルでシークレット管理していたら急に..
+ここの原因はわかってないけど、デプロイ中でしかもステート保存失敗のエラーが出たので、完全に状態がおかしくなった。
+rdb接続情報のSecret保存部分でエラー
+幸い新規構築中だったので、一度 destroy してから再度作成しようとしていた。
+このタイミングで上記エラーが発生しだした。
+コンソールから削除しても、refresh しても何してもだめなので、ステータスが壊れたのだと思う。
+まずは、削除する上でもリソースのスキップが必要
+下記内容で強制スキップし、リソースは手動削除するなどして、削除完了できた。
+terraform で持っている状態の一覧 $ terraform state list : (省略) module.db.aws_secretsmanager_secret.sample : (省略) 調べたステート名を指定して削除 $ terraform state rm module.db.aws_secretsmanager_secret.sample </description>
+    </item>
+    
+    <item>
+      <title>The bucket does not allow ACLs エラーに出くわしたので調べる</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-08-i-ran-into-the-bucket-does-not-allows-acls-error/</link>
+      <pubDate>Mon, 08 May 2023 10:38:57 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-05-08-i-ran-into-the-bucket-does-not-allows-acls-error/</guid>
+      <description>Bucket作成時のACLエラー Terraform で環境構築時に下記エラーが発生
+ACL周りのデフォルト動作が変更となったようなので、少しメモ
+Error: error creating S3 bucket ACL for sample-bucket: AccessControlListNotSupported: The bucket does not allow ACLs status code: 400, request id: xxxxxxxxxxxxxxxx, host id: xxxxxxxxxxxxxxxxxxxxxxxxxxx+xxxxxxxxxxxxxxxxx/xxxxxxx/xxxxxxxxxxxxxxxxxxxxxx with module.s3.aws_s3_bucket_acl.sample, on ../../module_aws/s3/main.tf line 13, in resource &amp;#34;aws_s3_bucket_acl&amp;#34; &amp;#34;sample&amp;#34;: 13: resource &amp;#34;aws_s3_bucket_acl&amp;#34; &amp;#34;sample&amp;#34; { S3作成時のデフォルトの設定の変更 2023年4月より新規S3バケットは、デフォルトでパブリック・アクセスブロック有効化、ACL無効化 ACLは利用しないことが推奨される s3オブジェクトのACL有効・無効設定は aws_s3_bucket_ownership_controls で設定する resource &amp;#34;aws_s3_bucket_ownership_controls&amp;#34; &amp;#34;sample&amp;#34; { bucket = aws_s3_bucket.sample.bucket rule { object_ownership = &amp;#34;BucketOwnerEnforced&amp;#34; } } object_ownership に設定できるのは以下 ObjectWriter: 所有者はアップローダ BucketOwnerPreferred: バケット所有アカウントを指定可能(bucket-owner-full-control) BucketOwnerEnforced: バケット所有アカウント強制 BucketOwnerEnforced ではACL併用できない S3 ポリシー適用時のエラー S3 policy: AccessDenied: Access Denied 一部ディレクトリのみ公開したい場合など、ACLを指定する場合は、ObjectWriter &amp;amp; ACL設定 &amp;amp; ポリシーにはアカウントを指定する</description>
+    </item>
+    
+  </channel>
+</rss>
