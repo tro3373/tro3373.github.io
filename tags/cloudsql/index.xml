@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cloudsql on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/cloudsql/</link>
+    <description>Recent content in cloudsql on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 29 Jan 2025 15:43:25 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/cloudsql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloud Function から IAM認証で CloudSQL(PostgreSQL) へ接続する</title>
+      <link>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</link>
+      <pubDate>Wed, 29 Jan 2025 15:43:25 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</guid>
+      <description>はじめに クラウド環境でのデータベース管理において、セキュリティは日々進化する脅威への対応が求められる重要課題です。特に、以下の課題が顕在化しています：
+従来の認証情報（パスワード）の漏洩リスク 認証情報のローテーション管理の煩雑さ アプリケーション展開時の認証情報受け渡しの安全性確保 これらの課題に対し、IAM認証を活用することで、より強固でかつ運用負荷の少ないセキュリティ体制を実現できます。IAM認証のメリットは以下の通りです：
+一時的な認証トークンの利用による漏洩リスクの低減 クラウドプロバイダーの統合認証基盤との連携による管理の一元化 きめ細かなアクセス制御とアクセスログの監査対応 本ガイドでは、Cloud FunctionsからCloudSQL(PostgreSQL)へIAM認証で接続する実践的な手順を解説します。この設定により、セキュアかつスケーラブルなデータベースアクセス環境を構築できます。
+Cloud Function から CloudSQL(PostgreSQL) へ IAM 認証で接続するために必要な手順 Cloud Function 用 Service Account に必要な権限を付与 PGUSER の作成（IAM認証用） データベースへの権限付与 Cloud Function の実装 Service Account での Cloud Function のデプロイ 具体的な設定手順 1. Cloud Function 用 Service Account に必要な権限を付与 以下の権限が必要:
+Cloud SQL インスタンス ユーザー Cloud SQL クライアント 今回はコンソールから設定したが、以下のコマンドで設定も可能:
+gcloud projects add-iam-policy-binding example-project \ --member=&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34; \ --role=&amp;#34;roles/cloudsql.instanceUser&amp;#34; gcloud projects add-iam-policy-binding example-project \ --member=&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34; \ --role=&amp;#34;roles/cloudsql.client&amp;#34; 2. PGUSER の作成 IAM認証用のユーザーを作成する。</description>
+    </item>
+    
+  </channel>
+</rss>

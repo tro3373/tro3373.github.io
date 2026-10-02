@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>CloudRun on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/cloudrun/</link>
+    <description>Recent content in CloudRun on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 15 Nov 2024 19:05:32 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/cloudrun/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform で google_api_gateway_api_config に api_config_id を設定すると再作成時に罠がある</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-15-should-not-set-api-config-id-in-google-api-gateway-api-config/</link>
+      <pubDate>Fri, 15 Nov 2024 19:05:32 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-15-should-not-set-api-config-id-in-google-api-gateway-api-config/</guid>
+      <description>まとめ Terraform で google_api_gateway_api_config に api_config_id は設定しない 以下詳細 以下のように api_config_id を設定すると、再作成時にエラーが発生する resource &amp;#34;google_api_gateway_api_config&amp;#34; &amp;#34;default&amp;#34; { project = var.project_id provider = google-beta api = google_api_gateway_api.default.api_id api_config_id = &amp;#34;${var.env}-${var.service}-api-config&amp;#34; openapi_documents { document { path = &amp;#34;openapi.yaml&amp;#34; contents = base64encode(templatefile(&amp;#34;${path.module}/openapi.yaml&amp;#34;, { title = &amp;#34;${var.env} ${var.service} API&amp;#34; description = &amp;#34;This is the API for ${var.env} ${var.service}&amp;#34; version = &amp;#34;1.0.0&amp;#34; managed_service = google_api_gateway_api.default.managed_service func_url = google_cloud_run_service.default.status[0].url })) } } lifecycle { create_before_destroy = true } } │ Error: Error creating ApiConfig: googleapi: Error 409: Resource &amp;#39;projects/{project_id}/locations/global/apis/{api_id}/configs/{api_config_name}&amp;#39; already exists │ Details: │ [ │ { │ &amp;#34;@type&amp;#34;: &amp;#34;type.</description>
+    </item>
+    
+    <item>
+      <title>GCP ApiGateway &#43; CloudRun で CORS を設定する</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-15-enable-cors-in-apigateway-on-gcp-with-cloud-run/</link>
+      <pubDate>Fri, 15 Nov 2024 17:30:01 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-15-enable-cors-in-apigateway-on-gcp-with-cloud-run/</guid>
+      <description>構成 GCP ApiGateway -&amp;gt; CloudRun ApiGateway で OpenAPI yaml を定義している 1. OpenAPI yaml で x-google-endpoints に allowCors: True を設定して、バックエンドでCORSリクエストを処理する x-google-endpoints: - name: ${managed_service} allowCors: True # バックエンドでCORSリクエストを処理する 2. CloudRun で OPTIONS メソッドを設定する // 以下のように cors ミドルウェアを挟む http.HandleFunc(&amp;#34;/example&amp;#34;, cors(user.Handler)) // 定義はこんな感じ func cors(next http.HandlerFunc) http.HandlerFunc { return func(w http.ResponseWriter, r *http.Request) { if r.Method == &amp;#34;OPTIONS&amp;#34; { slog.Info(&amp;#34;==&amp;gt; Reply OPTIONS Request&amp;#34;, &amp;#34;status&amp;#34;, http.StatusNoContent) w.Header().Set(&amp;#34;Access-Control-Allow-Origin&amp;#34;, &amp;#34;*&amp;#34;) w.Header().Set(&amp;#34;Access-Control-Allow-Methods&amp;#34;, &amp;#34;GET, POST, PUT, PATCH, DELETE, OPTIONS&amp;#34;) w.</description>
+    </item>
+    
+  </channel>
+</rss>

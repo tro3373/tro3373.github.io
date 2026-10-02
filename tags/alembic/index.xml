@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>alembic on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/alembic/</link>
+    <description>Recent content in alembic on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 04 Jul 2024 13:36:09 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/alembic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>alembic で modelクラスを全てまるっとインポートする</title>
+      <link>https://tro3373.github.io/posts/2024/2024-07-04-import-all-models-from-directory-for-alembic/</link>
+      <pubDate>Thu, 04 Jul 2024 13:36:09 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-07-04-import-all-models-from-directory-for-alembic/</guid>
+      <description>はじめに alembic 自動生成する際に、指定ディレクトリ配下のクラスを全てまるっとインポートする方法 問題 疑問 自動生成したい対象のModelクラスをインポートしないと生成してくれない まとめ 結果 解決方法 以下を env.py 先頭に追記して、 app/models 配下の全てのクラスをインポートする
+# Import all models in app.models model_path = os.path.dirname(os.path.join(os.path.dirname(os.path.abspath(__file__)), &amp;#39;../app/models/&amp;#39;)) for py in [f[:-3] for f in os.listdir(model_path) if f.endswith(&amp;#39;.py&amp;#39;) and (f != &amp;#39;__init__.py&amp;#39; and f != &amp;#39;base_model.py&amp;#39;)]: mod = __import__(&amp;#39;.&amp;#39;.join([&amp;#39;app.modesl&amp;#39;, py])) classes = [getattr(mod, x) for x in dir(mod) if isinstance(getattr(mod, x), type)] for cls in classes: setattr(sys.modules[__name__], cls.__name__, cls) Refs python - Import all classes in directory?</description>
+    </item>
+    
+    <item>
+      <title>Alembic revision --autogenerate で変更がなくても空のrevisionファイルができるのを避ける</title>
+      <link>https://tro3373.github.io/posts/2024/2024-07-04-prevent-empty-revision-in-alembic-revision-autogenerate/</link>
+      <pubDate>Thu, 04 Jul 2024 11:41:33 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-07-04-prevent-empty-revision-in-alembic-revision-autogenerate/</guid>
+      <description>はじめに Alembic revision &amp;ndash;autogenerate で変更がなくても空のrevisionファイルができるのを避ける python 3.11, alembic 1.7.7, sqlalchemy 2.0.30, sqlmodel 0.0.18 問題 疑問 変更がなくても空のrevisionファイルが生成されてしまう
+まとめ 結果 解決方法 以下のような process_revision_directives を設定することで、差分がない場合は空のrevisionファイルを生成しない def run_migrations_online(): : def process_revision_directives(context, revision, directives): if config.cmd_opts.autogenerate: script = directives[0] if script.upgrade_ops.is_empty(): directives[:] = [] print(&amp;#39;No changes in schema detected.&amp;#39;) : with connectable.connect() as connection: context.configure( connection=connection, target_metadata=target_metadata, include_schemas=True, dialect_opts={&amp;#34;paramstyle&amp;#34;: &amp;#34;named&amp;#34;}, include_name=include_name, process_revision_directives=process_revision_directives, ) Refs python - How to prevent alembic revision &amp;ndash;autogenerate from making revision file if it has not detected any changes?</description>
+    </item>
+    
+  </channel>
+</rss>

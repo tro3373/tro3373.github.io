@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>google on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/google/</link>
+    <description>Recent content in google on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 15 Dec 2022 08:56:33 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/google/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Google Photo API ではそのアプリでアップロードしたITEMしかアルバムに追加できない</title>
+      <link>https://tro3373.github.io/posts/2022/2022-12-15-google_photo_api_can_only_add_item_that_uploaded_by_the_application_to_album/</link>
+      <pubDate>Thu, 15 Dec 2022 08:56:33 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-12-15-google_photo_api_can_only_add_item_that_uploaded_by_the_application_to_album/</guid>
+      <description>もろもろの事情により頑張ってGooglePhotoAPI使ってスクリプト書いていた。 MediaItemの一覧、検索、アルバムの追加等々いけるいけると 勧めていた矢先、最後にMediaItemの一覧にある画像をアルバムに追加しよう としたところで、以下エラー
+{ &amp;#34;error&amp;#34;: { &amp;#34;code&amp;#34;: 400, &amp;#34;message&amp;#34;: &amp;#34;Request contains an invalid media item id.&amp;#34;, &amp;#34;status&amp;#34;: &amp;#34;INVALID_ARGUMENT&amp;#34; } } いくらやり直してもエラーになる&amp;hellip; 確認すると、以下を発見&amp;hellip;
+you can only add media items that have been uploaded by your application to albums that your application has created.
+そのアプリでアップロードした画像しかアルバム追加できまへんで
+rest - Google Photo returns &amp;ldquo;error 400: Request contains an invalid media item id. (INVALID_ARGUMENT)&amp;rdquo; when adding a media item into an existing album - Stack Overflow 画像ファイル名にアルバム名を入れるなどして、先にアップロードした画像たちを あとからアルバム名で検索して、追加すればいい と思っていた。。。</description>
+    </item>
+    
+  </channel>
+</rss>

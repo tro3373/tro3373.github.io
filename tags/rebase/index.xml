@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>rebase on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/rebase/</link>
+    <description>Recent content in rebase on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 29 Sep 2026 13:34:34 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/rebase/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git rebase が警告なしに動かすものと残すもの</title>
+      <link>https://tro3373.github.io/posts/2026/2026-09-29-git-rebase-fork-point-pitfalls/</link>
+      <pubDate>Tue, 29 Sep 2026 13:34:34 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2026/2026-09-29-git-rebase-fork-point-pitfalls/</guid>
+      <description>結論 git rebase main は、ブランチにあって main に無いコミットを、main の先頭へ 1 本ずつ cherry-pick し直す。git はブランチの派生元を記録しないので、どこから先を載せるかは毎回コミットグラフから求める rebase の後は git merge-base main HEAD が main の先頭を返す。元の分岐点を後で使うなら rebase の前に控える 競合中の --ours は main 側、--theirs は自分のコミット。merge と逆になる 競合しなかったことは、整合していることを意味しない。main が入れた改名や規約は、競合しないファイルには届かない squash merge の後や載せるコミットが 0 件のときは、どこから先を載せるかの推定がずれて、衝突やブランチ先頭の移動が起きる。--onto で起点を明示する autostash の書き戻しが衝突しても、rebase も pull --ff-only も exit 0 で終わる 以下はすべて git 2.55.0 で実測した。pull.rebase や rerere.enabled などの利用者設定で結果が変わるので、GIT_CONFIG_GLOBAL=/dev/null で ~/.gitconfig を読ませずに実行している。
+前提: rebase は分岐点から先を作り直す git rebase &amp;lt;upstream&amp;gt; は次の 4 段で動く (man git-rebase)。
+今のブランチにあって &amp;lt;upstream&amp;gt; に無いコミットを並べる。&amp;lt;upstream&amp;gt; に同じ変更 (patch-id が一致するコミット) があるものは外す &amp;lt;upstream&amp;gt; の先頭を detach でチェックアウトする 並べたコミットを 1 本ずつ cherry-pick する ブランチをできあがった先頭へ付け替える 1 の範囲は git log &amp;lt;upstream&amp;gt;.</description>
+    </item>
+    
+  </channel>
+</rss>

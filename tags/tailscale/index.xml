@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tailscale on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/tailscale/</link>
+    <description>Recent content in Tailscale on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 01 Aug 2024 11:55:44 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/tailscale/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GitHub Actions で maven release コマンドを発行する with tailscale で</title>
+      <link>https://tro3373.github.io/posts/2024/2024-08-01-execute-maven-release-in-github-actions-with-tailscale/</link>
+      <pubDate>Thu, 01 Aug 2024 11:55:44 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-08-01-execute-maven-release-in-github-actions-with-tailscale/</guid>
+      <description>はじめに VPN配下でしかアクセスできない Maven リポジトリに Tailscale を利用してアクセスして、
+Github Actions で maven release コマンドを発行する方法が必要になったので、構築した。
+以下詳細 事前準備 各種 Secret 値を用意する
+Tailscale で TS_OAUTH_CLIENT_ID, TS_OAUTH_SECRET を発行
+GitHub Actions で以下プラグインを使用する為
+tailscale/github-action: A GitHub Action to connect your workflow to your Tailscale network. GitHub Actions 内から Maven Release コマンドで Git リポジトリにコミットする必要があるので、コミットユーザ用に 秘密鍵設定を行う
+以下コマンドで秘密鍵を作成しておく
+ssh-keygen -t rsa -b 4096 -f id_rsa -C &amp;#34;github-actions&amp;#34; Github Actions で 使用する Secrets の登録
+GitHub - Settings - Secrets and variables - Actions - Repository secrets に 以下キーで登録</description>
+    </item>
+    
+  </channel>
+</rss>

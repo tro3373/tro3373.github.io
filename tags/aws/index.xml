@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>AWS on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/aws/</link>
+    <description>Recent content in AWS on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 08 May 2023 13:23:15 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>terraform ステートを強制スキップする</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-08-terraform-could-not-find-resource-error/</link>
+      <pubDate>Mon, 08 May 2023 13:23:15 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-05-08-terraform-could-not-find-resource-error/</guid>
+      <description>遭遇したエラー Error: reading Secrets Manager Secret (arn:aws:secretsmanager:ap-northeast-1:xxxxxxxxxxxx:secret:sample-secret-xxxxxx): couldn&amp;#39;t find resource 環境構築時、デプロイ中にいきなりTokenの有効期限切れエラーが発生した。
+terraformのステート管理はS3に保存している。 99designs/aws-vault を使ってローカルでシークレット管理していたら急に..
+ここの原因はわかってないけど、デプロイ中でしかもステート保存失敗のエラーが出たので、完全に状態がおかしくなった。
+rdb接続情報のSecret保存部分でエラー
+幸い新規構築中だったので、一度 destroy してから再度作成しようとしていた。
+このタイミングで上記エラーが発生しだした。
+コンソールから削除しても、refresh しても何してもだめなので、ステータスが壊れたのだと思う。
+まずは、削除する上でもリソースのスキップが必要
+下記内容で強制スキップし、リソースは手動削除するなどして、削除完了できた。
+terraform で持っている状態の一覧 $ terraform state list : (省略) module.db.aws_secretsmanager_secret.sample : (省略) 調べたステート名を指定して削除 $ terraform state rm module.db.aws_secretsmanager_secret.sample </description>
+    </item>
+    
+    <item>
+      <title>The bucket does not allow ACLs エラーに出くわしたので調べる</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-08-i-ran-into-the-bucket-does-not-allows-acls-error/</link>
+      <pubDate>Mon, 08 May 2023 10:38:57 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-05-08-i-ran-into-the-bucket-does-not-allows-acls-error/</guid>
+      <description>Bucket作成時のACLエラー Terraform で環境構築時に下記エラーが発生
+ACL周りのデフォルト動作が変更となったようなので、少しメモ
+Error: error creating S3 bucket ACL for sample-bucket: AccessControlListNotSupported: The bucket does not allow ACLs status code: 400, request id: xxxxxxxxxxxxxxxx, host id: xxxxxxxxxxxxxxxxxxxxxxxxxxx+xxxxxxxxxxxxxxxxx/xxxxxxx/xxxxxxxxxxxxxxxxxxxxxx with module.s3.aws_s3_bucket_acl.sample, on ../../module_aws/s3/main.tf line 13, in resource &amp;#34;aws_s3_bucket_acl&amp;#34; &amp;#34;sample&amp;#34;: 13: resource &amp;#34;aws_s3_bucket_acl&amp;#34; &amp;#34;sample&amp;#34; { S3作成時のデフォルトの設定の変更 2023年4月より新規S3バケットは、デフォルトでパブリック・アクセスブロック有効化、ACL無効化 ACLは利用しないことが推奨される s3オブジェクトのACL有効・無効設定は aws_s3_bucket_ownership_controls で設定する resource &amp;#34;aws_s3_bucket_ownership_controls&amp;#34; &amp;#34;sample&amp;#34; { bucket = aws_s3_bucket.sample.bucket rule { object_ownership = &amp;#34;BucketOwnerEnforced&amp;#34; } } object_ownership に設定できるのは以下 ObjectWriter: 所有者はアップローダ BucketOwnerPreferred: バケット所有アカウントを指定可能(bucket-owner-full-control) BucketOwnerEnforced: バケット所有アカウント強制 BucketOwnerEnforced ではACL併用できない S3 ポリシー適用時のエラー S3 policy: AccessDenied: Access Denied 一部ディレクトリのみ公開したい場合など、ACLを指定する場合は、ObjectWriter &amp;amp; ACL設定 &amp;amp; ポリシーにはアカウントを指定する</description>
+    </item>
+    
+    <item>
+      <title>Serverless で ApiGw のロギングいれようとして、`CloudWatch Logs role ARN must be set in account settings to enable logging` となったのでメモ</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-13-cloud_watch_loggin_settings_to_api_gateway_was_role_error/</link>
+      <pubDate>Mon, 13 Feb 2023 12:01:33 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-02-13-cloud_watch_loggin_settings_to_api_gateway_was_role_error/</guid>
+      <description>問題 Serverless Framework で、以下のようにロギング設定を追加して、以下エラーになった
+provider: # 省略 logs: restApi: accessLogging: false # Optional configuration which enables or disables access logging. Defaults to true. executionLogging: true # Optional configuration which enables or disables execution logging. Defaults to true. level: ERROR # Optional configuration which specifies the log level to use for execution logging. May be set to either INFO or ERROR. fullExecutionData: false # Optional configuration which specifies whether or not to log full requests/responses for execution logging.</description>
+    </item>
+    
+    <item>
+      <title>firebase-admin で使用する秘密鍵を SecretManager に登録する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-13-register_secret_key_for_firebase_admin_to_secret_manager/</link>
+      <pubDate>Mon, 13 Feb 2023 10:13:37 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-02-13-register_secret_key_for_firebase_admin_to_secret_manager/</guid>
+      <description>FCM Push用秘密鍵を SecretManager に登録する FCM 秘密鍵を取得 FireBaseへログイン プロジェクトを選択 プロジェクトの設定 サービスアカウント FireBase Admin SDK &amp;gt; 新しい秘密鍵の生成 FCM 秘密鍵を SecretManager に登録 取得した秘密鍵を ./fcm.json で配置する 以下コマンドで登録 aws secretsmanager put-secret-value --secret-id ${SECRET_ID} --secret-string &amp;#34;$(cat&amp;lt;./fcm.json)&amp;#34; 使う SecretManager を扱い易いようにクラス化する &amp;#39;use strict&amp;#39;; const { SecretsManagerClient, GetSecretValueCommand } = require(&amp;#39;@aws-sdk/client-secrets-manager&amp;#39;); const clazz = class Sm { constructor() { this.client = new SecretsManagerClient({ region: process.env.REGION }); // REGION で環境変数へRegionを設定している前提 } async get(key) { const command = new GetSecretValueCommand({ SecretId: key }); const res = await this.</description>
+    </item>
+    
+    <item>
+      <title>アクセス制限ポリシーを当てたRoleへスイッチできるユーザをaws cli で作成する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-01-06-create_cf_sample_add_user_access_restricted/</link>
+      <pubDate>Fri, 06 Jan 2023 18:20:19 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-01-06-create_cf_sample_add_user_access_restricted/</guid>
+      <description>案件で作る機会があったので、さっと
+IAM.yml AWSTemplateFormatVersion: &amp;#34;2010-09-09&amp;#34; Description: &amp;#34;SampleApp - IAM&amp;#34; Parameters: ProjectName: Description: &amp;#34;Project name&amp;#34; Type: &amp;#34;String&amp;#34; Default: &amp;#34;SampleApp&amp;#34; Resources: IamSampleDeveloperRole: Type: AWS::IAM::Role Properties: RoleName: !Sub ${ProjectName}SampleDeveloper AssumeRolePolicyDocument: Version: 2012-10-17 Statement: - Effect: Allow Principal: AWS: !Sub arn:aws:iam::${AWS::AccountId}:root Action: sts:AssumeRole ManagedPolicyArns: - arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess IamSampleDeveloperPolicies: Type: AWS::IAM::Policy Properties: PolicyName: IamSampleDeveloperPolicy PolicyDocument: Version: 2012-10-17 Statement: - Effect: Allow Action: - dynamodb:List* - dynamodb:DescribeReservedCapacity* - dynamodb:DescribeLimits - dynamodb:DescribeTimeToLive Resource: &amp;#39;*&amp;#39; - Effect: Allow Action: - dynamodb:BatchGet* - dynamodb:DescribeStream - dynamodb:DescribeTable - dynamodb:Get* - dynamodb:Query - dynamodb:Scan - dynamodb:BatchWrite* - dynamodb:CreateTable - dynamodb:Delete* - dynamodb:Update* - dynamodb:PutItem Resource: - arn:aws:dynamodb:*:*:table/dev-* - Effect: Allow Action: - s3:ListAllMyBuckets Resource: - arn:aws:s3:::* - Effect: Allow Action: - s3:* Resource: - arn:aws:s3:::*dev* Roles: - Ref: IamSampleDeveloperRole IamSampleDevelopersGroup: Type: AWS::IAM::Group Properties: GroupName: !</description>
+    </item>
+    
+    <item>
+      <title>ApiGatewayのログを ServerlessFramework で設定したい</title>
+      <link>https://tro3373.github.io/posts/2019/2019-11-11-enable-apigw-log-via-serverless-framework/</link>
+      <pubDate>Mon, 11 Nov 2019 05:45:40 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2019/2019-11-11-enable-apigw-log-via-serverless-framework/</guid>
+      <description>要件としては、ApiGateway &amp;lt;=&amp;gt; Lambda の統合設定条件配下にて、 Lambdaからの応答結果が6MBを超えた場合に以下のようなログが出力される
+Lambda execution failed with status 200 due to customer function error: body size is too long. Lambda request id: XXXX-XXXX... これに対して、ServerlessFramework でログ設定を行いたい
+参考 Serverless.yml Reference Enhancements for API Gateway REST API log setup Serverless complains about &amp;ldquo;Rest API id could not be resolved.&amp;rdquo; ApiGateway ステージ ログ／トレース の設定と動作 IAM Policy作成含め以下の設定だけで作成される
+provider: logs: restApi: accessLogging: false # Optional configuration which enables or disables access logging. Defaults to true.</description>
+    </item>
+    
+    <item>
+      <title>Congnitoの発行するトークンの意味と動作</title>
+      <link>https://tro3373.github.io/posts/2019/2019-11-05-cognito-token-refresh/</link>
+      <pubDate>Tue, 05 Nov 2019 22:49:56 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2019/2019-11-05-cognito-token-refresh/</guid>
+      <description>参考URL https://dev.classmethod.jp/cloud/aws/study-tokens-of-cognito-user-pools/ 理解 Cognito トークンには３つ種類がある IDトークン クライムを表すトークン (JWT) アクセストークン Cognitoユーザ属性を表示、更新等行う為のトークン (JWT) リフレッシュトークン IDトークン、アクセストークンを更新する為のもの CognitoクライアントID設定画面で有効期限を設定できる デフォルトは30日(1-3650日指定可能) ID/アクセストークンは1時間で無効になる リフレッシュトークンが有効な間はID/アクセストークンは自動更新される getSession で自動更新 </description>
+    </item>
+    
+  </channel>
+</rss>

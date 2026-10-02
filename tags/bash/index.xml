@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>bash on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/bash/</link>
+    <description>Recent content in bash on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 28 Sep 2026 09:56:02 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bash の set -e が効かない場所と効きすぎる場所</title>
+      <link>https://tro3373.github.io/posts/2026/2026-09-28-bash-set-e-errexit-pitfalls/</link>
+      <pubDate>Mon, 28 Sep 2026 09:56:02 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2026/2026-09-28-bash-set-e-errexit-pitfalls/</guid>
+      <description>結論 set -e は「条件の文脈の外で、コマンドが非 0 を返したら止まる」だけの仕組みで、失敗を報告はしない 効きすぎる: 関数の戻り値、x=$(cmd) の代入、((n++))、wait、read が非 0 を返すと、メッセージ無しでその行で終わる 効かない: &amp;amp;&amp;amp; / || の途中、if / while の条件、そこから呼んだ関数と subshell の中、$( ) の中、set -e より前の行 失敗の扱いは set -e 任せにせず、その文に || return 1 や || fallback を付けて明示する 以下のコードはすべて GNU bash 5.3.15 で実測した。
+前提: set -e が止めない文脈 bash は、失敗したコマンドが次のどれかに当たるとき set -e で終了しない。
+while / until の直後のコマンドリスト if / elif の条件 &amp;amp;&amp;amp; / || のリストの途中 (最後以外) ! で反転したコマンド この免除は、その文脈で実行される関数本体と subshell の中まで及ぶ。 逆に、この文脈の外で非 0 を返した文は、関数呼び出しでも代入文でも止まる。</description>
+    </item>
+    
+  </channel>
+</rss>

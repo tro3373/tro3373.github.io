@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>acl on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/acl/</link>
+    <description>Recent content in acl on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 08 May 2023 10:38:57 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/acl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The bucket does not allow ACLs エラーに出くわしたので調べる</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-08-i-ran-into-the-bucket-does-not-allows-acls-error/</link>
+      <pubDate>Mon, 08 May 2023 10:38:57 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-05-08-i-ran-into-the-bucket-does-not-allows-acls-error/</guid>
+      <description>Bucket作成時のACLエラー Terraform で環境構築時に下記エラーが発生
+ACL周りのデフォルト動作が変更となったようなので、少しメモ
+Error: error creating S3 bucket ACL for sample-bucket: AccessControlListNotSupported: The bucket does not allow ACLs status code: 400, request id: xxxxxxxxxxxxxxxx, host id: xxxxxxxxxxxxxxxxxxxxxxxxxxx+xxxxxxxxxxxxxxxxx/xxxxxxx/xxxxxxxxxxxxxxxxxxxxxx with module.s3.aws_s3_bucket_acl.sample, on ../../module_aws/s3/main.tf line 13, in resource &amp;#34;aws_s3_bucket_acl&amp;#34; &amp;#34;sample&amp;#34;: 13: resource &amp;#34;aws_s3_bucket_acl&amp;#34; &amp;#34;sample&amp;#34; { S3作成時のデフォルトの設定の変更 2023年4月より新規S3バケットは、デフォルトでパブリック・アクセスブロック有効化、ACL無効化 ACLは利用しないことが推奨される s3オブジェクトのACL有効・無効設定は aws_s3_bucket_ownership_controls で設定する resource &amp;#34;aws_s3_bucket_ownership_controls&amp;#34; &amp;#34;sample&amp;#34; { bucket = aws_s3_bucket.sample.bucket rule { object_ownership = &amp;#34;BucketOwnerEnforced&amp;#34; } } object_ownership に設定できるのは以下 ObjectWriter: 所有者はアップローダ BucketOwnerPreferred: バケット所有アカウントを指定可能(bucket-owner-full-control) BucketOwnerEnforced: バケット所有アカウント強制 BucketOwnerEnforced ではACL併用できない S3 ポリシー適用時のエラー S3 policy: AccessDenied: Access Denied 一部ディレクトリのみ公開したい場合など、ACLを指定する場合は、ObjectWriter &amp;amp; ACL設定 &amp;amp; ポリシーにはアカウントを指定する</description>
+    </item>
+    
+  </channel>
+</rss>

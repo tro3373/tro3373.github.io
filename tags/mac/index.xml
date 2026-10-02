@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>mac on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/mac/</link>
+    <description>Recent content in mac on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 03 Jun 2023 09:20:53 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mac に SSH接続した際に日本語がアンダースコア2個になる問題は SendEnv LANG で解決した</title>
+      <link>https://tro3373.github.io/posts/2023/2023-06-03-fix_japanese_will_be_shown_double_underscore_issue_by_sendenv_lang/</link>
+      <pubDate>Sat, 03 Jun 2023 09:20:53 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-06-03-fix_japanese_will_be_shown_double_underscore_issue_by_sendenv_lang/</guid>
+      <description>SSH接続先の相手がMacであるかはあまり問題ではないかもしれないが、 Manjaro ArchLinux から Macbook に ssh 接続しようとして発生していた文字化け（日本語のみアンダースコア2つで表示される）が治った .ssh/config で SendEnv で 環境変数を接続先のリモートに引き継がせる事ができる
+以下のように共通で設定するように設定して解決した
+~/.ssh/config Host * SendEnv LANG LC_* 重要なのは LANG 設定でこの設定が一致している必要があるようで、LC_*だけでは治らなかったが、 ローカルで表示しても、アンダースコア2つ表示されている状態で調べても同じ値が設定されていた。。（謎）
+env |grep LANG= LANG=en_US.UTF-8 </description>
+    </item>
+    
+    <item>
+      <title>Mac いろは</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-26-mac-iroha/</link>
+      <pubDate>Fri, 26 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-26-mac-iroha/</guid>
+      <description> 新参者の私は、macを触る機会があったのでメモしています。
+再読み込み command + R shutdown control + 電源ボタン terminal 起動 control + space input &#39;terminal&#39; Enter chrome 起動 control + space input &#39;chrome&#39; Enter 全画面化、解除 command + control + F Finder 切り取り＆貼り付け command + c # copy command + option + v # paste </description>
+    </item>
+    
+  </channel>
+</rss>

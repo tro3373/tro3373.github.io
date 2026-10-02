@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tflint on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/tflint/</link>
+    <description>Recent content in tflint on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 08 Nov 2024 07:04:57 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/tflint/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tflint Tips</title>
+      <link>https://tro3373.github.io/posts/2024/2024-11-08-tflint-tips/</link>
+      <pubDate>Fri, 08 Nov 2024 07:04:57 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-11-08-tflint-tips/</guid>
+      <description>はじめに tflint 利用時のメモ
+想定するディレクトリ構成 環境は dev, prd など 環境毎にディレクトリを切る 各環境の main.tf から使用したい module を使う module は 機能単位でディレクトリを切る cognitoとかで切ってるけど、サービスの有効無効など、もう少し大きな単位で切っても良いイメージ ├── envs │ ├── dev │ │ ├── main.tf │ │ ├── outputs.tf │ │ ├── swagger.yaml │ │ ├── terraform.tfvars │ │ └── variables.tf │ └── prd │ ├── main.tf │ └── ... └── module_aws ├── cognito │ ├── main.tf │ ├── outputs.tf │ └── variables.tf └── s3 ├── main.tf ├── outputs.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>html on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/html/</link>
+    <description>Recent content in html on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 02 Aug 2023 06:36:21 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>html a タグで target=&#34;_blank&#34; を使うときは、rel=&#34;noopener&#34; をつける</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-02-add-noopener-to-link-with-blank-target/</link>
+      <pubDate>Wed, 02 Aug 2023 06:36:21 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-08-02-add-noopener-to-link-with-blank-target/</guid>
+      <description> パフォーマンス改善 他のページがあなたのページと同じプロセスで実行されている可能性があります。 他のページがJavaScriptを大量に実行している場合、あなたのページのパフォーマンスが低下する可能性があります。
+セキュリティ対策 他のページは、window.opener プロパティを使用してウィンドウ オブジェクトにアクセスできます。 これにより、他のページがあなたのページを悪意のある URL にリダイレクトする可能性があります。
+リンク先が悪意のあるサイト、またはハッキングされている場合などに、window.openerを用いてリンク元が操作されてしまう可能性がある
+Refs Links to cross-origin destinations are unsafe - Chrome Developers https://developer.chrome.com/docs/lighthouse/best-practices/external-anchors-use-rel-noopener/?hl=ja リンクのへの rel=noopener 付与による Tabnabbing 対策 | blog.jxck.io https://blog.jxck.io/entries/2016-06-12/noopener.html rel=&amp;ldquo;noopener noreferrer&amp;quot;の意味とアフィリエイト広告への影響 - WEBST8のブログ https://webst8.com/blog/rel-noopener-noreferrer/ </description>
+    </item>
+    
+  </channel>
+</rss>

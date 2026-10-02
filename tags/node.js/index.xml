@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>node.js on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/node.js/</link>
+    <description>Recent content in node.js on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 10 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://tro3373.github.io/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu14.04 Node.js をインストール</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu14-04-node-js-woinsutoru/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu14-04-node-js-woinsutoru/</guid>
+      <description>Ubuntu14.04 Node.jsをインストール install packages. sudo apt-get install git curl build-essential libssl-dev install nvm. git clone https://github.com/creationix/nvm.git ~/.nvm . ~/.nvm/nvm.sh nvm install 0.10 ######################################################################## 100.0% Now using node v0.10.31 nvm version vi ~/.bashrc # 以下追加 . ~/.nvm/nvm.sh nvm use v0.10.31 # defaultバージョンを指定 nvm alias default v0.10.31 # Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン hellow world 作成 cd 任意のディレクトリ vim hellowworld.js ------------------------------------- var sys = require(&#39;sys&#39;); var http = require(&#39;http&#39;); var server = http.createServer( function (request, response) { response.</description>
+    </item>
+    
+  </channel>
+</rss>

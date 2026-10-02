@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>sls on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/sls/</link>
+    <description>Recent content in sls on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 13 Feb 2023 12:01:33 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/sls/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Serverless で ApiGw のロギングいれようとして、`CloudWatch Logs role ARN must be set in account settings to enable logging` となったのでメモ</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-13-cloud_watch_loggin_settings_to_api_gateway_was_role_error/</link>
+      <pubDate>Mon, 13 Feb 2023 12:01:33 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-02-13-cloud_watch_loggin_settings_to_api_gateway_was_role_error/</guid>
+      <description>問題 Serverless Framework で、以下のようにロギング設定を追加して、以下エラーになった
+provider: # 省略 logs: restApi: accessLogging: false # Optional configuration which enables or disables access logging. Defaults to true. executionLogging: true # Optional configuration which enables or disables execution logging. Defaults to true. level: ERROR # Optional configuration which specifies the log level to use for execution logging. May be set to either INFO or ERROR. fullExecutionData: false # Optional configuration which specifies whether or not to log full requests/responses for execution logging.</description>
+    </item>
+    
+  </channel>
+</rss>

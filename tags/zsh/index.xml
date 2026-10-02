@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>zsh on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/zsh/</link>
+    <description>Recent content in zsh on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 02 Oct 2026 13:39:27 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/zsh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tmux サーバが握り続ける状態とエラーなしに通るコマンド</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/</link>
+      <pubDate>Fri, 02 Oct 2026 13:39:27 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/</guid>
+      <description>結論 tmux のキーバインド・オプション・@ 変数・環境変数はサーバのメモリにある。.tmux.conf はサーバ起動時に 1 回流すコマンド列で、行を消して source-file しても登録済みのものは消えない ペイン・popup・run-shell・if-shell のプロセスは、操作中のシェルではなくサーバの環境を継承する。後から足した PATH は届かず、if-shell &#39;command -v ...&#39; は偽になってブロックを警告なしに捨てる popup とコマンド付きのペインのシェルは非ログイン・非対話で、zsh なら .zshenv しか読まない 存在しない -c のパス、解決できない display-message -t、. や : を含むセッション名は、どれもその場ではエラーにならない (終了コード 0)。ずれは後で別の場所に出る 確かめるときは -L &amp;lt;名前&amp;gt; -f /dev/null で隔離したサーバを使う。-L だけだと ~/.tmux.conf を読む 以下は tmux 3.7c / zsh 5.9.2 で実測した。コード例はすべて -L demo の使い捨てサーバに対して打つので、普段のサーバには触れない。
+前提: tmux コマンドはサーバへの依頼でしかない tmux はクライアント・サーバ型になっている。端末で打つ tmux ... はクライアントで、ソケット越しにサーバへコマンドを送って終わる。 キーバインド・オプション・セッション・環境変数はサーバのメモリにあり、サーバが終わるまで残る。
+.tmux.conf を読むのはサーバの起動時だけ。新しいセッションを作っても読み直さない。source-file は書かれたコマンドをもう 1 度流すだけ ペイン・popup・run-shell・if-shell のプロセスを起動するのはサーバ。操作中のシェルの子ではない 以下の罠は、どれもこの 2 点のどちらかから来る。</description>
+    </item>
+    
+  </channel>
+</rss>

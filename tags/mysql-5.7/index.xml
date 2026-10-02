@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>mysql 5.7 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/mysql-5.7/</link>
+    <description>Recent content in mysql 5.7 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 04 Aug 2023 18:15:10 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/mysql-5.7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker mysql 5.7 イメージで初期化処理に失敗して、ログインできない</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-04-docker-mysql-5.7-initialize-error/</link>
+      <pubDate>Fri, 04 Aug 2023 18:15:10 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-08-04-docker-mysql-5.7-initialize-error/</guid>
+      <description>発生したエラー MySQL 5.7 のイメージ を使用して単純に起動しても下記エラーが発生して、初期化処理に失敗していた。
+厳密には初期化時に上記エラーが出て、初期化SQLまでたどり着かなかった。
+初期化処理に失敗すると、mysql userの設定や admin パスワードの設定がうまくできないようで、どうしようもない状態になるようで、、これをなんとかしたかった&amp;hellip;
+/usr/local/bin/docker-entrypoint.sh: line 137: 126 Killed &amp;#34;$@&amp;#34; --skip-networking --default-time-zone=SYSTEM --socket=&amp;#34;${SOCKET}&amp;#34; ログをみると怪しい部分は上記のみで、どうもプロセスがいきなり Kill されているように見える
+原因はリソースの使いすぎ 以下のようなコメントにたどり着いた
+1708115 – Running mysql container in moby-engine results in 100% memory usage Really high memory usage · Issue #579 · docker-library/mysql Thank you so much @evolbug! The bug you found put me on the right tracks. The issue is caused by the ulimit nofile. By default, on arch, the value is too low I guess.</description>
+    </item>
+    
+  </channel>
+</rss>

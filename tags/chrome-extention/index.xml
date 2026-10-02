@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>chrome-extention on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/chrome-extention/</link>
+    <description>Recent content in chrome-extention on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 25 Feb 2023 20:39:50 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/chrome-extention/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Chrome拡張で現在のタブ情報を取る方法(v3)</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-25-chrome_extention_get_current_tab_info/</link>
+      <pubDate>Sat, 25 Feb 2023 20:39:50 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-02-25-chrome_extention_get_current_tab_info/</guid>
+      <description>公式に記載のある通りだけど、 少し調べたので、メモをおいておく
+v3用 Promise const getCurrentTab = async () =&amp;gt; { const queryOptions = { active: true, lastFocusedWindow: true }; // `tab` will either be a `tabs.Tab` instance or `undefined`. const [tab] = await chrome.tabs.query(queryOptions); return tab; }; Refs chrome.tabs - Chrome Developers </description>
+    </item>
+    
+  </channel>
+</rss>

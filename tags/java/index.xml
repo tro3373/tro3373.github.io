@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>java on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/java/</link>
+    <description>Recent content in java on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 25 Apr 2024 10:46:11 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>apk の AndroidManifest.xml を確認するコマンド作った</title>
+      <link>https://tro3373.github.io/posts/2024/2024-04-25-read_android_manifest_from_apk/</link>
+      <pubDate>Thu, 25 Apr 2024 10:46:11 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2024/2024-04-25-read_android_manifest_from_apk/</guid>
+      <description>はじめに apk内の AndroidManifest.xml を確認するコマンドを作ったのでメモ
+要は AXMLPrinter2.jar があれば、java で AndroidManifest.xml を読める
+java -jar AXMLPrinter2.jar AndroidManifest.xml 以下を cat_android_manifest_from_apk などで保存して、chmod +x して使う
+#!/usr/bin/env -S bash -e script_dir=$(cd &amp;#34;$(dirname &amp;#34;${BASH_SOURCE:-$0}&amp;#34;)&amp;#34; &amp;amp;&amp;amp; pwd) &amp;amp;&amp;amp; readonly script_dir current_dir=$(pwd) &amp;amp;&amp;amp; readonly current_dir url=&amp;#34;https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/android4me/AXMLPrinter2.jar&amp;#34; jar=&amp;#34;$script_dir/AXMLPrinter2.jar&amp;#34; has() { command -v &amp;#34;${1}&amp;#34; &amp;gt;&amp;amp;/dev/null; } dl_if_needed() { [[ -e $jar ]] &amp;amp;&amp;amp; return curl -fSsL -o &amp;#34;$jar&amp;#34; &amp;#34;$url&amp;#34; } main() { if ! has java; then echo &amp;#34;==&amp;gt; No java found&amp;#34; &amp;gt;&amp;amp;2 exit 1 fi if [[ $# -eq 0 ]]; then echo &amp;#34;==&amp;gt; Specify apk&amp;#34; &amp;gt;&amp;amp;2 exit 1 fi local apk_name apk_name=$(basename &amp;#34;$1&amp;#34;) local tmpd=&amp;#34;$current_dir/tmp_$apk_name&amp;#34; if [[ !</description>
+    </item>
+    
+    <item>
+      <title>Java Spring PROPAGATION_REQUIRED の指定でネストしたトランザクションを制御する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-09-29-spring_transaction_propagation_requires_new/</link>
+      <pubDate>Thu, 29 Sep 2022 18:03:48 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-09-29-spring_transaction_propagation_requires_new/</guid>
+      <description>Spring で MyBatis(MySQL) つかって ネストした トランザクション制御しようとして以下エラーに遭遇した
+Caused by: org.springframework.transaction.UnexpectedRollbackException: Transaction rolled back because it has been marked as rollback-only トランザクションの伝播については、PROPAGATION_REQUIRED の理解が必要 とのことで調べた
+要は、明示的に Transaction を貼りたい場合にどういった振る舞いをすべきかを指定する必要があり、 選択肢は以下の2つある
+PROPAGATION_REQUIRED 存在しない場合は新たに作成、存在する場合は参加 内部スコープがロールバック専用マーカーを設定した場合、外部トランザクションはこれを予期していないため、 予期しないロールバックが発生するとUnexpectedRollbackExceptionがスローされる PROPAGATION_REQUIRES_NEW 常に独立したトランザクションを開始 独立してコミットまたはロールバック可能 以下詳細
+PROPAGATION_REQUIREDの理解 tx prop required PROPAGATION_REQUIREDは物理的なトランザクションを強制します。既存のトランザクションがまだ存在しない場合は現在のスコープでローカルに、または大きなスコープで定義された既存の&amp;rsquo;外部&amp;rsquo;トランザクションに参加します。これは同一スレッド内の一般的なコールスタックの配置（例えば、すべての基礎となるリソースがサービスレベルのトランザクションに参加しなければならない、いくつかのリポジトリメソッドに委任するサービスファサードなど）では良いデフォルトです。
+デフォルトでは、参加するトランザクションは外部スコープの特性に参加し、ローカルの分離レベル、タイムアウト値、または読み取り専用フラグ（あれば）を黙って無視します。異なる分離レベルで既存のトランザクションに参加する際に分離レベルの宣言を拒否する場合は、トランザクションマネージャーでvalidateExistingTransactionsフラグをtrueに切り替えることを検討してください。この非寛容モードは、読み取り専用の不一致（つまり、読み取り専用の外部スコープに参加しようとする内部の読み書き可能なトランザクション）も拒否します。 伝播設定がPROPAGATION_REQUIREDの場合、その設定が適用される各メソッドに対して論理的なトランザクションスコープが作成されます。各論理的なトランザクションスコープは、ロールバックのみのステータスを個々に決定でき、外部のトランザクションスコープは内部のトランザクションスコープから論理的に独立しています。標準的なPROPAGATION_REQUIREDの動作の場合、これらすべてのスコープは同一の物理的なトランザクションにマップされます。したがって、内部のトランザクションスコープで設定されたロールバックのみのマーカーは、外部のトランザクションが実際にコミットする可能性に影響を与えます。
+しかし、内部のトランザクショクションスコープがロールバック専用マーカーを設定した場合、外部のトランザクションは自身でロールバックを決定していないため、内部のトランザクションスコープによって黙ってトリガーされるロールバックは予期しないものです。その時点で対応するUnexpectedRollbackExceptionがスローされます。これはトランザクションの呼び出し元がコミットが実行されたと誤って推測することがないようにするための期待される挙動です。したがって、内部のトランザクション（外部の呼び出し元が認識していない）が黙ってトランザクションをロールバック専用とマークすると、外部の呼び出し元はまだコミットを呼び出します。外部の呼び出し元は、ロールバックが実行されたことを明確に示すために、UnexpectedRollbackExceptionを受け取る必要があります。
+PROPAGATION_REQUIRES_NEWの理解 tx prop requires new PROPAGATION_REQUIRES_NEWは、対象となるトランザクションスコープごとに常に独立した物理的なトランザクションを使用し、外部のスコープの既存のトランザクションには決して参加しない、という点でPROPAGATION_REQUIREDとは対照的です。このような配置では、基礎となるリソーストランザクションは異なり、したがって、独立してコミットまたはロールバックでき、外部のトランザクションは内部のトランザクションのロールバック状態に影響されず、内部のトランザクションのロックはその完了直後にすぐに解放されます。このような独立した内部トランザクションは、自身の分離レベル、タイムアウト、読み取り専用設定を宣言し、外部のトランザクションの特性を継承しないこともできます。
+以下翻訳元 Understanding PROPAGATION_REQUIRED tx prop required PROPAGATION_REQUIRED enforces a physical transaction, either locally for the current scope if no transaction exists yet or participating in an existing &amp;lsquo;outer&amp;rsquo; transaction defined for a larger scope.</description>
+    </item>
+    
+  </channel>
+</rss>

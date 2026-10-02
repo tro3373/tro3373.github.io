@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ci on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ci/</link>
+    <description>Recent content in ci on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 30 Sep 2026 13:37:04 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/ci/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GitHub Actions がエラーにせず通す空文字と失敗</title>
+      <link>https://tro3373.github.io/posts/2026/2026-09-30-github-actions-silent-empty-values/</link>
+      <pubDate>Wed, 30 Sep 2026 13:37:04 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2026/2026-09-30-github-actions-silent-empty-values/</guid>
+      <description>結論 式は、存在しない値を参照してもエラーにせず空文字を返す。未登録の secret も、skip された step の output も &#39;&#39; になる with: に空文字を渡すと action.yml の default は使われず、空文字がそのまま action に届く。hashicorp/setup-terraform は最新版を入れ、actions/checkout は起動したイベントの ref を取る。どちらも失敗しない step の env: は if: より先に評価される。skip させるつもりの step でも、空文字を fromJSON() に通すとその step が落ちる if: failure() は job のキャンセルと job の timeout-minutes 超過では走らない。後片付けは if: always() に置く shell: を書かない run と、shell: を自前の文字列に書き換えた run には pipefail が付かない 空文字は受け取る側では気付けない。値を作る step で空を落とし、真偽値の output は true / false 以外を落とす 以下は公式ドキュメントと、actions/runner v2.337.0 / actions/checkout v7.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cloudformation on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/cloudformation/</link>
+    <description>Recent content in cloudformation on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 06 Jan 2023 18:20:19 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/cloudformation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>アクセス制限ポリシーを当てたRoleへスイッチできるユーザをaws cli で作成する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-01-06-create_cf_sample_add_user_access_restricted/</link>
+      <pubDate>Fri, 06 Jan 2023 18:20:19 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2023/2023-01-06-create_cf_sample_add_user_access_restricted/</guid>
+      <description>案件で作る機会があったので、さっと
+IAM.yml AWSTemplateFormatVersion: &amp;#34;2010-09-09&amp;#34; Description: &amp;#34;SampleApp - IAM&amp;#34; Parameters: ProjectName: Description: &amp;#34;Project name&amp;#34; Type: &amp;#34;String&amp;#34; Default: &amp;#34;SampleApp&amp;#34; Resources: IamSampleDeveloperRole: Type: AWS::IAM::Role Properties: RoleName: !Sub ${ProjectName}SampleDeveloper AssumeRolePolicyDocument: Version: 2012-10-17 Statement: - Effect: Allow Principal: AWS: !Sub arn:aws:iam::${AWS::AccountId}:root Action: sts:AssumeRole ManagedPolicyArns: - arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess IamSampleDeveloperPolicies: Type: AWS::IAM::Policy Properties: PolicyName: IamSampleDeveloperPolicy PolicyDocument: Version: 2012-10-17 Statement: - Effect: Allow Action: - dynamodb:List* - dynamodb:DescribeReservedCapacity* - dynamodb:DescribeLimits - dynamodb:DescribeTimeToLive Resource: &amp;#39;*&amp;#39; - Effect: Allow Action: - dynamodb:BatchGet* - dynamodb:DescribeStream - dynamodb:DescribeTable - dynamodb:Get* - dynamodb:Query - dynamodb:Scan - dynamodb:BatchWrite* - dynamodb:CreateTable - dynamodb:Delete* - dynamodb:Update* - dynamodb:PutItem Resource: - arn:aws:dynamodb:*:*:table/dev-* - Effect: Allow Action: - s3:ListAllMyBuckets Resource: - arn:aws:s3:::* - Effect: Allow Action: - s3:* Resource: - arn:aws:s3:::*dev* Roles: - Ref: IamSampleDeveloperRole IamSampleDevelopersGroup: Type: AWS::IAM::Group Properties: GroupName: !</description>
+    </item>
+    
+  </channel>
+</rss>

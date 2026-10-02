@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>redocly on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/redocly/</link>
+    <description>Recent content in redocly on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 17 Jan 2026 07:33:24 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/redocly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RedoclyでOpenAPIをタグ分割する方法</title>
+      <link>https://tro3373.github.io/posts/2026/2026-01-17-splitting-openapi-swagger-yaml-by-tags-using-redocly/</link>
+      <pubDate>Sat, 17 Jan 2026 07:33:24 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2026/2026-01-17-splitting-openapi-swagger-yaml-by-tags-using-redocly/</guid>
+      <description>結論：RedoclyでOpenAPI Specをタグで分割できる Redocly CLIのfilter-in/filter-outデコレーターを使えば、1つのOpenAPI定義を複数のドキュメントに分割できる。
+公開API用と管理API用でSwagger UIを分けたい場合など、タグベースでAPI仕様を分離できる。
+背景：なぜ分割が必要か 単一のGo APIで複数のクライアント向けにエンドポイントを提供する場合、全エンドポイントを1つのSwagger UIに表示すると見づらい。
+例：
+公開API: ユーザー機能、コンテンツ表示 管理API: データ管理、レポート取得、設定変更 → それぞれ専用のSwagger UIを生成したい
+解決方法：Redocly CLI + filter デコレーター 1. swagでOpenAPI定義を生成 swag: @echo &amp;#34;==&amp;gt; Running swag init&amp;#34; &amp;gt;&amp;amp;2 @swag init -g cmd/your-api/main.go -o docs @npx -y @redocly/cli@latest bundle docs/swagger.yaml --config docs/redocly-public.yaml -o docs/swagger_public.yaml @npx -y @redocly/cli@latest bundle docs/swagger.yaml --config docs/redocly-admin.yaml -o docs/swagger_admin.yaml &amp;amp;&amp;amp; \ sed -i -e &amp;#39;s,API for Public,API for Admin,g&amp;#39; docs/swagger_admin.yaml 2. 公開API用設定：管理タグを除外 docs/redocly-public.yaml:</description>
+    </item>
+    
+  </channel>
+</rss>

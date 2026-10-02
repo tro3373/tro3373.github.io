@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>gradle on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/gradle/</link>
+    <description>Recent content in gradle on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 18 Oct 2022 17:38:21 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/gradle/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Android で環境設定ファイルからBuildConfig環境変数を生成する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-18-android_generate_build_config_class_for_env_variable_from_env_properties_file/</link>
+      <pubDate>Tue, 18 Oct 2022 17:38:21 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-10-18-android_generate_build_config_class_for_env_variable_from_env_properties_file/</guid>
+      <description>環境設定ファイル(env.propertiese)に定義したをビルドタイプで設定値を読み分ける関数を定義して、 それぞれの環境ビルド時に buildConfigField で定義 という感じ
+def envPropertiesFile = rootProject.file(&amp;#34;env.properties&amp;#34;); def envProperties = new Properties() envProperties.load(new FileInputStream(envPropertiesFile)) ext.buildConfigFieldFromEnvProp = { env -&amp;gt; def keys = [&amp;#34;apiPrefix&amp;#34;, &amp;#34;cognitoPoolId&amp;#34;, &amp;#34;cognitoClientId&amp;#34;, &amp;#34;cognitoClientSecret&amp;#34;, &amp;#34;cognitoRegion&amp;#34;] for (key in keys) { defaultConfig.buildConfigField(&amp;#34;String&amp;#34;, key, &amp;#34;\&amp;#34;${envProperties[&amp;#34;$env.$key&amp;#34;]}\&amp;#34;&amp;#34;) } } buildTypes { debug { debuggable true applicationIdSuffix = &amp;#39;.debug&amp;#39; versionNameSuffix = &amp;#39;-debug&amp;#39; buildConfigFieldFromEnvProp(&amp;#34;dev&amp;#34;) } release { minifyEnabled false proguardFiles getDefaultProguardFile(&amp;#39;proguard-android-optimize.txt&amp;#39;), &amp;#39;proguard-rules.pro&amp;#39; signingConfig signingConfigs.release buildConfigFieldFromEnvProp(&amp;#34;prd&amp;#34;) } } dev.apiPrefix=https://xxxx dev.cognitoPoolId=xxx dev.cognitoClientId=xxx dev.cognitoClientSecret=xxx dev.cognitoRegion=xxx </description>
+    </item>
+    
+  </channel>
+</rss>

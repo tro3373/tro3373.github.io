@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>make on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/make/</link>
+    <description>Recent content in make on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 28 Sep 2026 13:50:37 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/make/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GNU Make の展開タイミングとエラーにならない失敗</title>
+      <link>https://tro3373.github.io/posts/2026/2026-09-28-gnu-make-expansion-silent-failures/</link>
+      <pubDate>Mon, 28 Sep 2026 13:50:37 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2026/2026-09-28-gnu-make-expansion-silent-failures/</guid>
+      <description>結論 make は Makefile をすべて読み込んで依存グラフを作ってから、レシピを実行する。:= の右辺、ルールの前提条件、include の作り直しは読み込みの段階で走る make は失敗をほとんど報告しない。未定義の変数は空文字になり、.PHONY に名前だけあるターゲットやファイルが既にあるターゲットは「やることなし」で exit 0 になる レシピは既定で /bin/sh が実行し、pipefail が無い。シェルのメタ文字が無い行はシェルすら通らない 前提条件の並び順は実行順ではない。順序は依存関係か .WAIT で書く 外から来た値を $(shell ...) に埋めると、値がコマンドとして実行される 以下のコードはすべて GNU Make 4.4.1 で実測した。
+前提: 読み込みと実行の 2 段階 GNU make は 2 つの段階で動く。
+読み込み: include 先を含む全 makefile を読み、変数とルールを取り込んで依存グラフを作る 実行: グラフから更新が要るターゲットを決め、レシピを実行する 展開には、読み込みの段階で行う「即時」と、値が使われるまで遅らせる「遅延」がある。
+構文 即時に展開 遅延 VAR = value 左辺 右辺 (参照されるたびに展開) VAR ?= value 左辺 右辺 VAR := value 左辺と右辺 - target: prereq ターゲットと前提条件 - レシピ - 全体 以下の罠の多くは、この表と違うタイミングを想定して書いたときに起きる。</description>
+    </item>
+    
+  </channel>
+</rss>

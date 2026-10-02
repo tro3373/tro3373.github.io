@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ipv6 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ipv6/</link>
+    <description>Recent content in ipv6 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 04 Jan 2022 09:13:45 +0900</lastBuildDate><atom:link href="https://tro3373.github.io/tags/ipv6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ipv6</title>
+      <link>https://tro3373.github.io/posts/2022/2022-01-04-ipv6/</link>
+      <pubDate>Tue, 04 Jan 2022 09:13:45 +0900</pubDate>
+      
+      <guid>https://tro3373.github.io/posts/2022/2022-01-04-ipv6/</guid>
+      <description>楽天ひかり環境のネットワーク設定 最終的な構成は以下
+ONU - SwitchHub -- Router(PPPoE) | | |- 公開用サーバ | | | |(&amp;lt;= ルータ同士をローカルエリア接続) | | |- Router(IPoE) |- スマホ |- テレビ.. IPv6 で通常は高速通信 IPv4 PPPoE でポート公開やVPNなどの DS-Lite で利用できないものを使用する想定 以下各項目と溜まった知見 IPoE PPPoE ルーターの設定 設定といってもIPv4 ルーターのDHCPを無効にして、IPアドレスをIPv6ルーターに合わせるだけです。IPv6ルーター（AX1167GR2）はいじる必要はありません。
+IPv4 PPPoEとIPv6（v6プラス）を併用する | 小山電子 ONU SwitchingHub構成の方がシンプル PPPoEパススルー設定で数珠繋ぎとする方法も接続確認できたが、 ONU - ルータ間にSwitchingHubを挟むほうがシンプル PPPoEパススルー(ブリッジ) ネットワーク内部から外部へのPPPoE接続を中継(パススルー(ブリッジ))する機能。 家庭などでインターネット接続に用いられるブロードバンドルータなどが持つ機能の一つ 古いネットワーク(IPv4/PPPoE)接続方式に戻してからネットワークに接続する IPv4アドレスがない(IPv6で接続している)状態でも、IPv6非対応サービスなどに接続することが可能 IPv6パススルー(ブリッジ) IPv6ブリッジ機能が有効である状態のこと 配下に設置したPCやルータがIPv6ネットワークへ接続できる状態になっている事を言います。 PPTPパススルー(ブリッジ)(VPNパススルー) IPsec(IP Security)または、PPTP(Point to Point Tunneling Protocol)による VPN(Virtual Private Network)通信を通過させることができる機能 IPv4 over IPv6 サービス名として、 v6 プラス と表記する場合あり 通信のカプセル化 IPv6パケットの中にIPv4パケットを包含して通信 必要に応じてIPv6接続で通信でき、必要に応じてIPv4アドレスでの通信も可能 インターネット回線に接続するまでに中継ポイントを介さない為、高速 光回線(ipv4(PPPoE))では網終端装置を介する方式が主流 アクセス集中すると通信速度が遅くなる事が課題 接続方式は複数ある DS-Lite MAP-E IPv4 over IPv6技術としてMAP-EとDS-Liteを比較したとき、両者にほぼ違いはない IPv4 over IPv6では、IPアドレスのほか、ポートも複数のユーザーと共有 ポート開放は制限され、割り当てられたポートのみを開放可能 固定IPが使用できない 利用できる接続サービスが少ない VPS(仮想専用ネットワーク)などのPPTP SCTPを利用するサービスなど SCTP ストリーム コントロール トランスミッション プロトコル TCPやUDPと同様に、OSI参照モデルの中では第4層となるトランスポートレイヤに位置付けられるプロトコル 元々はIPネットワーク上で電話網のシグナリングプロトコルを実現するために設計されたが、 最終的には汎用性の高いトランスポートプロトコルとして、2000年に定義される インターネット接続の仕組み IPv4(PPPoE) 遅い IPv4方式のWEBサイトにのみアクセス可能 IPv6(PPPoE) 遅い IPv6方式のWEBサイトにのみアクセス可能 IPv6(IPoE) 速い IPv6方式のWEBサイトにのみアクセス可能 IPv6(IPoE)を利用するためには、インターネットを接続する企業側だけでなく、 プロバイダーなどの接続サービス側もIPv6に対応する必要あり 網終端装置はなぜアクセス集中で通信速度が遅くなるのか NGN網 Next Generation Network NTT東西の網 構造 PC - NGN - ISP - WWW</description>
+    </item>
+    
+  </channel>
+</rss>
