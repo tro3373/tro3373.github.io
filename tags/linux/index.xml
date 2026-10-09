@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>linux on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/linux/</link>
+    <description>Recent content in linux on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 24 Apr 2023 20:20:00 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>x11 and wayland</title>
+      <link>https://tro3373.github.io/posts/2023/2023-01-19-x11_wayland/</link>
+      <pubDate>Thu, 19 Jan 2023 09:29:39 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-01-19-x11_wayland/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.google.com/search?q=docker&amp;#43;wayland&amp;#43;%E8%BB%A2%E9%80%81&amp;amp;oq=docker&amp;#43;wayland&amp;#43;%E8%BB%A2%E9%80%81&amp;amp;aqs=chrome..69i57.5307j0j7&amp;amp;sourceid=chrome&amp;amp;ie=UTF-8&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  docker wayland 転送 - Google 検索
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zenn.dev/ysuito/articles/7693a3c1934fb4&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  WSLgとdocker composeで全部やる
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Waylandのソケットは、/mnt/wslg/runtime-dir/wayland-0にあります。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://unix.stackexchange.com/questions/330366/how-can-i-run-a-graphical-application-in-a-container-under-wayland&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  x11 - How can I run a graphical application in a container under Wayland? - Unix &amp;amp; Linux Stack Exchange
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LinuxとWSLとDockerとXの仕組み&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ここで注目すべき(?)はRDPの存在で、これまでのWindowsのリモートデスクトップの枠組みを拡張して（？）、VAILやRAILといった仕組みでデスクトップではなくWindowレベルでの「リモートデスクトップ」を実現しているということです。
+この他、Xパケットの転送のみでは実現できなかった「音情報」の転送も組み込んでいます。
+Docker on WSL2 on Windows 10?
+Docker Desktopを企業活動で利用するのが有料になったことから、Docker Desktop を使わずに Windows で Docker する - プログラム の超個人的なメモという魔術が出回るようになりました。このアーキテクチャの場合、TCPでX11 Protocolを書き出しているので、Unix Domain Socketではなく、ポートフォワードで実現するのかなと思います（未確認）
+&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/chachay/items/44fcf17ef84bb9f31d53&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  理解しながら動かすGUIアプリ on Docker - Qiita
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;wsl側からホスト側のアドレスは &lt;code&gt;イーサネット アダプター vEthernet (WSL)&lt;/code&gt; を探す&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;k&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DISPLAY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;aaa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bbb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ccc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ddd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/ryoi084/items/0dff11134592d0bb895c&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  WSL2におけるVcXsrvの設定 - Qiita
+&lt;/a&gt;
+&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>trap コマンドは pipe と併用すると動作しない</title>
+      <link>https://tro3373.github.io/posts/2021/2021-04-09-trap-not-work-with-pipe/</link>
+      <pubDate>Fri, 09 Apr 2021 09:24:08 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2021/2021-04-09-trap-not-work-with-pipe/</guid>
+      <description>&lt;h1 id=&#34;trap-コマンドは-pipe-と併用すると動作しない&#34;&gt;trap コマンドは pipe と併用すると動作しない&lt;/h1&gt;
+&lt;p&gt;以下のBashスクリプトがあった場合に、パイプで出力全部ログ吐いちゃおう、
+っておもったらうまくERRトラップが動かなくなったので、メモ&lt;/p&gt;
+&lt;h3 id=&#34;動くコード&#34;&gt;動くコード&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;trap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;echo Non-zero exit code detected!&amp;#34;&lt;/span&gt; ERR
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; fail_please&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Returning non-zero exit code!&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fail_please&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 出力結果
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Returning non-zero exit code!
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Non-zero exit code detected!&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;動かないコード&#34;&gt;動かないコード&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;trap&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;echo Non-zero exit code detected!&amp;#34;&lt;/span&gt; ERR
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; fail_please&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;Returning non-zero exit code!&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fail_please &lt;span class=&#34;p&#34;&gt;|&amp;amp;&lt;/span&gt; tee log_file.log&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# 出力結果
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Returning non-zero exit code!&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://stackoverflow.com/questions/27546819/bash-trap-err-does-not-work-when-pipe-operator-is-used&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Bash: Trap ERR does not work when pipe operator is used
+&lt;/a&gt;
+&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linux vs Windows コマンドラインからシャットダウンする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-25-linux-vs-windows-komandorainkarasiyatutodaunsuru/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-05-25-linux-vs-windows-komandorainkarasiyatutodaunsuru/</guid>
+      <description>&lt;h1 id=&#34;linux-vs-windows-コマンドラインからシャットダウンする&#34;&gt;Linux vs Windows コマンドラインからシャットダウンする&lt;/h1&gt;
+&lt;h2 id=&#34;linux&#34;&gt;Linux&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;shutdown -h now
+または、
+shutdown -h 00
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;shutdown -s -t 00
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>

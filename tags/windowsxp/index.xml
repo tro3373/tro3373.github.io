@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>windowsXP on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/windowsxp/</link>
+    <description>Recent content in windowsXP on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 04 Jun 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/windowsxp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UbuntuとWindowsXPデュアルブート環境にて、Windowsの時刻が大幅に（９時間程ずれる）場合の設定</title>
+      <link>https://tro3373.github.io/posts/2011/2011-06-04-ubuntutowindowsxpdeyuarubutohuan-jing-nite-windowsnoshi-ke-gada-fu-ni9shi-jian-cheng-zureruchang-he-noshe-ding/</link>
+      <pubDate>Sat, 04 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-06-04-ubuntutowindowsxpdeyuarubutohuan-jing-nite-windowsnoshi-ke-gada-fu-ni9shi-jian-cheng-zureruchang-he-noshe-ding/</guid>
+      <description>&lt;h2 id=&#34;ubuntuとwindowsをデュアルブート環境にしてさぁとおもったらwindowsの時刻が大幅にずれている&#34;&gt;UbuntuとWindowsをデュアルブート環境にしてさぁ、とおもったらWindowsの時刻が大幅にずれている。。&lt;/h2&gt;
+&lt;p&gt;そんなことになったら、これ。&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;http://blogs.yahoo.co.jp/kdrama_fansub/58351660.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考
+&lt;/a&gt;
+&lt;br&gt;
+/etc/default/rcSを書き換える&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo gedit /etc/default/rcS
+    以下のように書き換える
+    UTC=yes =&amp;gt; no
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以上！&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

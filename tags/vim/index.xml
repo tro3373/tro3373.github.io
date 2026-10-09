@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>vim on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/vim/</link>
+    <description>Recent content in vim on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 22 Sep 2023 22:37:55 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VIMの外部で変更されたファイルの自動読み込み設定が効いていない問題を解決した(ようやく手をつけた)</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-16-fix-vim-autoread-settings-not-work-in-tmux/</link>
+      <pubDate>Tue, 16 May 2023 09:32:00 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-05-16-fix-vim-autoread-settings-not-work-in-tmux/</guid>
+      <description>&lt;p&gt;長らく放置していた以下の問題&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;vimでファイルを開いている際に、裏で IntelliJ Idea や、 VSCode やらで編集しても自動再リロードがかからない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下の設定をしていた。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;#34; 元のファイルの変更を Vim が検知し、かつバッファが変更されていなかった場合、バッファは自動的に再読み込み&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;autoread&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;もう少し処理を足して &lt;code&gt;checktime&lt;/code&gt; を自動発行すればよいことがわかったので、以下を追加したけど動作しなかった&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;#34; 以下タイミングで、checktime を実行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;#34; WinEnter: ウィンドウがアクティブになった時&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;#34; FocusGained: ウィンドウがアクティブになった時&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;#34; BufEnter: バッファがアクティブになった時&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;augroup&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;auto&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;checktime&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;autocmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;autocmd&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;WinEnter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;FocusGained&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;BufEnter&lt;/span&gt; * &lt;span class=&#34;nx&#34;&gt;checktime&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;augroup&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;END&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;色々調べるうちに &lt;code&gt;FocusGained&lt;/code&gt; イベントが発行されていない事を確認&lt;/p&gt;
+&lt;p&gt;イベントが発行されない原因を調査中以下コメントを発見&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/tmux/tmux/issues/2856#issuecomment-1166358054&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Feature: neovim/vim does not always trigger FocusLost/FocusGained when a client is detached/attached respectively · Issue #2856 · tmux/tmux
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;Tmux&lt;/code&gt; のフォーカスイベント検知設定を有効にしてなかった。&lt;/p&gt;
+&lt;p&gt;以下を tmux.conf についかして無事解決&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  &lt;div class=&#34;codeblock--name&#34;&gt;tmux.conf&lt;/div&gt;
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;set-option -g focus-events on&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;refs&#34;&gt;Refs&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://vim-jp.org/vim-users-jp/2011/10/05/Hack-234.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  vim-jp » Hack #234: Vim外にいるときはVimを透けさせる
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu14.04 ruby 用 vim 設定</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu14-04-ruby-yong-vim-she-ding/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu14-04-ruby-yong-vim-she-ding/</guid>
+      <description>&lt;h2 id=&#34;ruby-開発環境&#34;&gt;ruby 開発環境&lt;/h2&gt;
+&lt;h3 id=&#34;vim-install&#34;&gt;vim install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install vim vim-gtk vim-gui-common
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;install-vim-nox&#34;&gt;install vim-nox&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;vim --version |grep ruby
+    +diff            +menu            -ruby            +writebackup
+sudo apt-get install vim-nox
+vim --version |grep ruby
+    +diff            +menu            +ruby            +writebackup
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;settings&#34;&gt;settings&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p ~/.vim/bundle
+cd ~/.vim/bundle/
+git clone http://github.com/Shougo/neobundle.vim
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;vim ~/.vimrc&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;set number
+set nocompatible
+filetype plugin indent off
+
+if has(&#39;vim_starting&#39;)
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+  call neobundle#rc(expand(&#39;~/.vim/bundle&#39;))
+endif
+
+&amp;quot; 以下は必要に応じて追加
+&amp;quot; NeoBundle &#39;Shougo/unite.vim&#39;
+&amp;quot; NeoBundle &#39;Shougo/neosnippet.vim&#39;
+NeoBundle &#39;git://github.com/Shougo/neobundle.vim.git&#39;
+NeoBundle &#39;git://github.com/Shougo/neocomplcache.git&#39;
+NeoBundle &#39;git://github.com/Shougo/unite.vim.git&#39;
+NeoBundle &#39;git://github.com/Shougo/vimshell.git&#39;
+NeoBundle &#39;git://github.com/Shougo/vimproc.git&#39;
+NeoBundle &#39;git://github.com/vim-scripts/taglist.vim.git&#39;
+NeoBundle &#39;git://github.com/Lokaltog/vim-powerline.git&#39;
+NeoBundle &#39;git://github.com/vim-scripts/TwitVim.git&#39;
+filetype plugin indent on
+
+# 終了せずに、vim上で以下を実行
+:NeoBundleInstall
+:wq!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;open-java-install&#34;&gt;open-java install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install openjdk-7-jdk
+cd ~/Downloads &amp;amp;&amp;amp; wget http://cx4a.org/pub/rsense/rsense-0.3.zip
+unzip rsense-0.3.zip
+sudo cp -R rsense-0.3 /opt/.
+sudo chmod +x /opt/rsense-0.3/bin/rsense
+/opt/rsense-0.3/bin/rsense version
+RSense 0.3
+ruby /opt/rsense-0.3/etc/config.rb &amp;gt; ~/.rsense
+export RSENSE_HOME=&amp;quot;/opt/rsense-0.3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;vim-setting&#34;&gt;vim setting&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;vim ~/.vimrc&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

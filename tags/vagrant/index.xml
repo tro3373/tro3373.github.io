@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>vagrant on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/vagrant/</link>
+    <description>Recent content in vagrant on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 29 Jan 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/vagrant/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows 7 で vaygrant(CentOS 6.5)にRails4.1 &#43; Nginx &#43; Unicorn &#43; Postgres 9.3 を起動する</title>
+      <link>https://tro3373.github.io/posts/2015/2015-01-29-windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/</link>
+      <pubDate>Thu, 29 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2015/2015-01-29-windows-7-de-vaygrantcentos-6-5nirails4-1-nginx-unicorn-postgres-9-3-woqi-dong-suru/</guid>
+      <description>&lt;h1 id=&#34;virtual-box-インストール&#34;&gt;Virtual Box インストール&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Download&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.virtualbox.org/wiki/Downloads&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  本家 Virtualbox
+&lt;/a&gt;
+ より、 Virtual Box ダウンロード&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;インストール&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;vagrant-インストール&#34;&gt;Vagrant インストール&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Download&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.vagrantup.com/downloads.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  本家 Vagrant
+&lt;/a&gt;
+ より、 Vagrantダウンロード&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;インストール&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;再起動が必要&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;仮想マシンboxテンプレート取得追加&#34;&gt;仮想マシン（BOX（テンプレート））取得・追加&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;CnetOS 6.5 用 URL 取得&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://www.vagrantbox.es/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Vagrantbox.es
+&lt;/a&gt;
+より、Virtual Box用、CentOS 6.5 x86_64 URLをコピーする&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Box add&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;\&lt;span class=&#34;n&#34;&gt;HashiCorp&lt;/span&gt;\&lt;span class=&#34;n&#34;&gt;Vagrant&lt;/span&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;mkdir&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;myhost&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;myhost&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;\&lt;span class=&#34;n&#34;&gt;HashiCorp&lt;/span&gt;\&lt;span class=&#34;n&#34;&gt;Vagrant&lt;/span&gt;\&lt;span class=&#34;n&#34;&gt;myhost&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vagrant&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;box&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;centos65&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;github&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;creatives&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vagrant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;centos&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;releases&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;download&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v6&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;5.3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;centos65&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x86_64&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;20140116.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;box&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;==&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;box&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Adding&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;box&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;centos65&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;provider&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;box&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Downloading&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;https&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;github&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;com&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;creatives&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vagrant&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;centos&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;releases&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;download&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v6&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;5.3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;centos65&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x86_64&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mf&#34;&gt;20140116.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;box&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;box&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Progress&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Rate&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3348&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Estimated&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;time&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;remaining&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;==&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;box&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Successfully&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;added&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;box&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;centos65&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;virtualbox&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;仮想マシン初期化&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; c:\HashiCorp\Vagrant\myhost&amp;gt; vagrant init centos65
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;ブリッジ設定&#34;&gt;ブリッジ設定&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;c:\HashiCorp\Vagrant\myhost\vagrantfile&lt;/code&gt; を編集する&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;config.vm.network &amp;quot;public_network&amp;quot; # ←アンコメントする
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;仮想マシン起動&#34;&gt;仮想マシン起動&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;仮想マシン起動&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;c:\HashiCorp\Vagrant\myhost&amp;gt; vagrant up
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    Bringing machine &amp;#39;default&amp;#39; up with &amp;#39;virtualbox&amp;#39; provider...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Importing base box &amp;#39;centos65&amp;#39;...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Matching MAC address for NAT networking...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Setting the name of the VM: myhost_default_1421716347228_35069
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Clearing any previously set network interfaces...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Preparing network interfaces based on configuration...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: Adapter 1: nat
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Forwarding ports...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: 22 =&amp;gt; 2222 (adapter 1)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Booting VM...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Waiting for machine to boot. This may take a few minutes...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: SSH address: 127.0.0.1:2222
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: SSH username: vagrant
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: SSH auth method: private key
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: Warning: Connection timeout. Retrying...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: Vagrant insecure key detected. Vagrant will automatically replace
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: this with a newly generated keypair for better security.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: Inserting generated public key within guest...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: Removing insecure key from the guest if its present...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: Key inserted! Disconnecting and reconnecting using new SSH key...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Machine booted and ready!
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Checking for guest additions in VM...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ==&amp;gt; default: Mounting shared folders...
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        default: /vagrant =&amp;gt; C:/HashiCorp/Vagrant/myhost&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;ssh-接続teraterm-で確認&#34;&gt;SSH 接続(TeraTerm で確認)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;アドレス: 127.0.0.1&lt;/li&gt;
+&lt;li&gt;ポート: 2222&lt;/li&gt;
+&lt;li&gt;ユーザ: vagrant&lt;/li&gt;
+&lt;li&gt;パスワード: vagrant&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;仮想マシン停止&#34;&gt;仮想マシン停止&lt;/h2&gt;
+&lt;p&gt;状態確認&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

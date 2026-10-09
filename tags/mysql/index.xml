@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>mysql on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/mysql/</link>
+    <description>Recent content in mysql on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 01 Aug 2024 07:03:45 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL で 実行計画を取る</title>
+      <link>https://tro3373.github.io/posts/2024/2024-02-14-mysql-explain-json/</link>
+      <pubDate>Wed, 14 Feb 2024 13:34:22 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2024/2024-02-14-mysql-explain-json/</guid>
+      <description>&lt;h2 id=&#34;はじめに&#34;&gt;はじめに&lt;/h2&gt;
+&lt;p&gt;MySQLで実行計画を取りたい場合の書き方は &lt;code&gt;EXPLAIN&lt;/code&gt; をつければいいが、
+SQLのコスト表示がされないので、これを付けたい。
+その場合の指定方法&lt;/p&gt;
+&lt;h2 id=&#34;まとめ-結果-解決方法&#34;&gt;まとめ 結果 解決方法&lt;/h2&gt;
+&lt;p&gt;先頭に以下をつけて、JSONフォーマットを指定する。
+&lt;code&gt;query_cost&lt;/code&gt; 付きでJSONの結果が表示できる&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;EXPLAIN FORMAT=JSON
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;select * from sample where id = 1;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>Docker mysql 5.7 イメージで初期化処理に失敗して、ログインできない</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-04-docker-mysql-5.7-initialize-error/</link>
+      <pubDate>Fri, 04 Aug 2023 18:15:10 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-08-04-docker-mysql-5.7-initialize-error/</guid>
+      <description>&lt;h2 id=&#34;発生したエラー&#34;&gt;発生したエラー&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://hub.docker.com/layers/library/mysql/5.7/images/sha256-aaa1374f1e6c24d73e9dfa8f2cdae81c8054e6d1d80c32da883a9050258b6e83?context=explore&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  MySQL 5.7 のイメージ
+&lt;/a&gt;
+ を使用して単純に起動しても下記エラーが発生して、初期化処理に失敗していた。&lt;br&gt;
+厳密には初期化時に上記エラーが出て、初期化SQLまでたどり着かなかった。&lt;/p&gt;
+&lt;p&gt;初期化処理に失敗すると、mysql userの設定や admin パスワードの設定がうまくできないようで、どうしようもない状態になるようで、、これをなんとかしたかった&amp;hellip;&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/usr/local/bin/docker-entrypoint.sh: line 137: &lt;span class=&#34;m&#34;&gt;126&lt;/span&gt; Killed &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$@&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt; --skip-networking --default-time-zone&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;SYSTEM --socket&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;SOCKET&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;ログをみると怪しい部分は上記のみで、どうもプロセスがいきなり Kill されているように見える&lt;/p&gt;
+&lt;h2 id=&#34;原因はリソースの使いすぎ&#34;&gt;原因はリソースの使いすぎ&lt;/h2&gt;
+&lt;p&gt;以下のようなコメントにたどり着いた&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://bugzilla.redhat.com/show_bug.cgi?id=1708115&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  1708115 – Running mysql container in moby-engine results in 100% memory usage
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/docker-library/mysql/issues/579#issuecomment-519495808&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Really high memory usage · Issue #579 · docker-library/mysql
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Thank you so much @evolbug!
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;The bug you found put me on the right tracks. The issue is caused by the ulimit nofile.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;By default, on arch, the value is too low I guess.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;running the container with --ulimit nofile=262144:262144 solve the issue and mysql behaves normally. I guess the best way to fix this would be to set this option by default.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Should this be documented on docker images prone to this issue?
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Edit:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Actually, it&amp;#39;s weird, I think the default limit is way to high, this is what I get by default:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;gt; docker run --rm centos:7 /bin/bash -c &amp;#39;ulimit -Hn &amp;amp;&amp;amp; ulimit -Sn&amp;#39;  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1073741816
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1073741816
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;So lowering the value fixes the issue&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/docker-library/mysql/issues/579#issuecomment-1075119349&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  The ulimits does the trick. I added this to my docker-compose and make it work. @vodkhard
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;ulimits&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;nproc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;65535&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;nofile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;soft&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;26677&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;hard&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;46677&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>debian wheezy mysql 設定、データ移行</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-debian-wheezy-mysql-she-ding-detayi-xing/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-debian-wheezy-mysql-she-ding-detayi-xing/</guid>
+      <description>&lt;h2 id=&#34;インストール&#34;&gt;インストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install mysql-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;alive-check&#34;&gt;alive check&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysqladmin ping -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;mysqlパスワード変更&#34;&gt;mysqlパスワード変更&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+    rootパスワード入力
+SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ユーザ確認&#34;&gt;ユーザ確認&lt;/h2&gt;
+&lt;h3 id=&#34;ログイン&#34;&gt;ログイン&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;sql実行&#34;&gt;SQL実行&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;SELECT host,user,password FROM mysql.user;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;文字コード設定&#34;&gt;文字コード設定&lt;/h2&gt;
+&lt;h3 id=&#34;charset-utf8-check&#34;&gt;charset UTF8 check&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; status
+--------------
+mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2
+
+Connection id:      39
+Current database:   
+Current user:       root@localhost
+SSL:            Not in use
+Current pager:      stdout
+Using outfile:      &#39;&#39;
+Using delimiter:    ;
+Server version:     5.5.38-0+wheezy1 (Debian)
+Protocol version:   10
+Connection:     Localhost via UNIX socket
+Server characterset:    utf8
+Db     characterset:    utf8
+Client characterset:    utf8
+Conn.  characterset:    utf8
+UNIX socket:        /var/run/mysqld/mysqld.sock
+Uptime:         5 hours 20 min 7 sec
+
+Threads: 1  Questions: 114  Slow queries: 0  Opens: 171  Flush tables: 1  Open tables: 41  Queries per second avg: 0.005
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;if-your-env-is-not-seted-to-utf8-add-utf8-settings-below&#34;&gt;if your env is not seted to utf8, add utf8 settings below&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;sudo vim /etc/mysql/conf.d/character_set.cnf&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linkstation(debian wheezy) へ mysql を設定、データ移行</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</guid>
+      <description>&lt;h2 id=&#34;インストール&#34;&gt;インストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install mysql-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;alive-check&#34;&gt;alive check&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysqladmin ping -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;mysqlパスワード変更&#34;&gt;mysqlパスワード変更&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+    rootパスワード入力
+SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ユーザ確認&#34;&gt;ユーザ確認&lt;/h2&gt;
+&lt;h3 id=&#34;ログイン&#34;&gt;ログイン&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;sql実行&#34;&gt;SQL実行&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;SELECT host,user,password FROM mysql.user;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;文字コード設定&#34;&gt;文字コード設定&lt;/h2&gt;
+&lt;h3 id=&#34;charset-utf8-check&#34;&gt;charset UTF8 check&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; status
+--------------
+mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2
+
+Connection id:      39
+Current database:   
+Current user:       root@localhost
+SSL:            Not in use
+Current pager:      stdout
+Using outfile:      &#39;&#39;
+Using delimiter:    ;
+Server version:     5.5.38-0+wheezy1 (Debian)
+Protocol version:   10
+Connection:     Localhost via UNIX socket
+Server characterset:    utf8
+Db     characterset:    utf8
+Client characterset:    utf8
+Conn.  characterset:    utf8
+UNIX socket:        /var/run/mysqld/mysqld.sock
+Uptime:         5 hours 20 min 7 sec
+
+Threads: 1  Questions: 114  Slow queries: 0  Opens: 171  Flush tables: 1  Open tables: 41  Queries per second avg: 0.005
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;if-your-env-is-not-seted-to-utf8-add-utf8-settings-below&#34;&gt;if your env is not seted to utf8, add utf8 settings below&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;sudo vim /etc/mysql/conf.d/character_set.cnf&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG(debian lenny) mysqlディレクトリ変更</title>
+      <link>https://tro3373.github.io/posts/2012/2012-10-20-%E7%8E%84%E7%AE%B1hg-debian-lenny-mysqldeirekutoribian-geng/</link>
+      <pubDate>Sat, 20 Oct 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-10-20-%E7%8E%84%E7%AE%B1hg-debian-lenny-mysqldeirekutoribian-geng/</guid>
+      <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://tobysoft.net/wiki/index.php?Ubuntu%2Fmysql&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;h1 id=&#34;mysql停止&#34;&gt;mysql停止&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo /etc/init.d/mysql stop
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;データ移行&#34;&gt;データ移行&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p /path/to/mysql_directory
+chown mysql:mysql /path/to/mysql_directory
+cd /path/to/mysql_directory
+mkdir mysqldata mysqldump
+chown mysql:mysql mysqldata
+chown mysql:mysql mysqldump
+sudo cp -fprv /var/lib/mysql/ ./mysqldata/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;ディレクトリ指定設定&#34;&gt;ディレクトリ指定設定&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo vi /etc/mysql/conf.d/my_datadir.cnf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;修正内容は以下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[mysqld]
+datadir = /path/to/mysql_directory/mysqldata/mysql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;正しく設定変更され起動できるか確認する為元のデータは別場所へ移動&#34;&gt;正しく設定変更され起動できるか確認する為、元のデータは別場所へ移動&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;mkdir /data/tmp
+sudo mv /var/lib/mysql /data/tmp
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;mysql-再起動&#34;&gt;mysql 再起動&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo /etc/init.d/mysql restart
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;不要となったデータを削除&#34;&gt;不要となったデータを削除&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo rm /data/tmp
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>mysql で sql ファイルを流し実行する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-04-mysql-de-sql-huairuwoliu-sishi-xing-suru/</link>
+      <pubDate>Fri, 04 May 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-05-04-mysql-de-sql-huairuwoliu-sishi-xing-suru/</guid>
+      <description>&lt;h1 id=&#34;mysql-で-sql-ファイルを流し実行する&#34;&gt;mysql で sql ファイルを流し実行する&lt;/h1&gt;
+&lt;p&gt;sql の記載されたファイルの中身を mysql で実行する&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u [username] -h [hostname] -p
+  # パスワード入力
+use [database_name]
+SET AUTOCOMMIT=0; # auto commit 無効化
+START TRANSACTION; # 明示的にトランザクション開始
+source /path/to/sqlファイル;
+commit;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://open-groove.net/mysql/autocommit/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>mysql 操作色々</title>
+      <link>https://tro3373.github.io/posts/2011/2011-10-22-mysql-cao-zuo-se/</link>
+      <pubDate>Sat, 22 Oct 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-10-22-mysql-cao-zuo-se/</guid>
+      <description>&lt;h1 id=&#34;mysql-設定操作色々&#34;&gt;mysql 設定＆操作色々&lt;/h1&gt;
+&lt;h1 id=&#34;mysql-server-local以外からもアクセス出きるように設定する&#34;&gt;mysql-server local以外からもアクセス出きるように設定する&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;参考&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://phpspot.net/php/pgMySQL%E3%83%A6%E3%83%BC%E3%82%B6%E3%81%AE%E8%BF%BD%E5%8A%A0.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  MySQLユーザの追加
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;mycnf編集&#34;&gt;my.cnf編集&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://somenotes.seesaa.net/category/7286175-1.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Debian/lenny MySQLに外部マシンから接続(リモート接続)
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo vi /etc/mysql/my.cnf
+    #bind-address           = 127.0.0.1
+    bind-address            = [server_name]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;再起動&#34;&gt;再起動&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;$ /etc/init.d/mysql restart
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;リモートマシンからも接続可能なユーザを作成&#34;&gt;リモートマシンからも接続可能なユーザを作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;# 現状確認
+$ mysql -u root -p
+mysql&amp;gt; select User,Host from mysql.user;
+mysql&amp;gt; grant all on *.* to [user_name]@&amp;quot;[client_hostname]&amp;quot;identified by &amp;quot;[user_password]&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;リモートマシンubuntuにクライアントをインストール&#34;&gt;リモートマシン（Ubuntu）にクライアントをインストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;$ apt-get install mysql-client
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;リモートから接続&#34;&gt;リモートから接続&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;$ mysql -u [user_name] -h [host_name] -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;データベース作成&#34;&gt;データベース作成&lt;/h1&gt;
+&lt;h2 id=&#34;接続&#34;&gt;接続&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;$ mysql -u [user_name] -h [host_name] -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;データベース確認&#34;&gt;データベース確認&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; show databases;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;データベース作成-1&#34;&gt;データベース作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; create database [database_name] default character set utf8;
+mysql&amp;gt; show create database [database_name];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;使用するデータベースの選択&#34;&gt;使用するデータベースの選択&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; use [database_name];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;テーブル確認&#34;&gt;テーブル確認&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; show tables;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;テーブル削除&#34;&gt;テーブル削除&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; drop table [database_name].[table_name];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;インデックス作成&#34;&gt;インデックス作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; alter table [database_name].[table_name] add index ([column_name]);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;インデックス確認&#34;&gt;インデックス確認&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; show indexes from [table_name];
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;テーブル確認-1&#34;&gt;テーブル確認&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; show table status;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;innodb変換&#34;&gt;innodb変換&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; alter table [table_name] engine = innodb;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (8)mysqlインストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-08-mysqlinsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-08-mysqlinsutoru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-8mysqlインストール&#34;&gt;玄箱HG debian lenny (8)mysqlインストール&lt;/h1&gt;
+&lt;h2 id=&#34;mysqlを導入&#34;&gt;mysqlを導入&lt;/h2&gt;
+&lt;h3 id=&#34;インストール&#34;&gt;インストール&lt;/h3&gt;
+&lt;p&gt;・インストール&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install mysql-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・mysql動作確認&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ mysqladmin ping -u root -p
+    正常動作時
+    Enter password:
+    mysqld is alive
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;パスワード変更&#34;&gt;パスワード変更&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ mysql -u root -p
+    rootパスワード入力
+    SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;ユーザ確認&#34;&gt;ユーザ確認&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;ログイン
+$ mysql -u root -p
+SQL実行
+mysql&amp;gt; SELECT host,user,password FROM mysql.user;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;文字コード設定&#34;&gt;文字コード設定&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://d.hatena.ne.jp/apple_v_apple/20100105/1262712431&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考1
+&lt;/a&gt;
+&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;http://d.hatena.ne.jp/shimonoakio/20080129/1201609465&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考2
+&lt;/a&gt;
+&lt;br&gt;
+現状確認&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sql&amp;gt; status
+    Server characterset:    latin1
+    Db     characterset:    latin1
+    Client characterset:    latin1
+    Conn.  characterset:    latin1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;/etc/mysql/conf.d/以下に「character_set.cnf」というファイルを新規作成し、編集。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

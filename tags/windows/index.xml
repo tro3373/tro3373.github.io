@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>windows on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/windows/</link>
+    <description>Recent content in windows on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 28 Jun 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows でコマンドプロンプトのフォントを変更する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-28-windows-dekomandopuronputonohuontowobian-geng-suru/</link>
+      <pubDate>Thu, 28 Jun 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-06-28-windows-dekomandopuronputonohuontowobian-geng-suru/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ファイル名を指定して実行より、&lt;code&gt;regedit&lt;/code&gt;を実行&lt;br&gt;
+以下の順にたどる&lt;/p&gt;
+&lt;p&gt;HKEY_LOCAL_MACHINE - SOFTWARE - Microsoft - Windows NT - CurrentVersion - console - TrueTypeFont&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;932.&lt;/code&gt;を追加し、値に&lt;code&gt;Migu 1M&lt;/code&gt;など、使用したいフォント名を入力する&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;コマンドプロンプトから、フォントを変更する&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntuのgrubを用いてWindowsとデュアルブートする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-06-08-ubuntunogrubwoyong-itewindowstodeyuarubutosuru/</link>
+      <pubDate>Wed, 08 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-06-08-ubuntunogrubwoyong-itewindowstodeyuarubutosuru/</guid>
+      <description>&lt;h1 id=&#34;ubuntuのgrubを用いてwindowsとデュアルブートする&#34;&gt;Ubuntuのgrubを用いてWindowsとデュアルブートする&lt;/h1&gt;
+&lt;h2 id=&#34;grubをもちいてubuntu側の設定でwindowsとデュアルブート&#34;&gt;grubをもちいて、Ubuntu側の設定でWindowsとデュアルブート&lt;/h2&gt;
+&lt;p&gt;参考はこちら&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;「&lt;a class=&#34;link&#34; href=&#34;http://www37.atwiki.jp/brain_walks2/m/pages/13.html?guid=on&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  GRUB2
+&lt;/a&gt;
+」&lt;/li&gt;
+&lt;li&gt;「&lt;a class=&#34;link&#34; href=&#34;https://forums.ubuntulinux.jp/viewtopic.php?pid=76893&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Grub2 でのUUID 変更方法を教えてください。
+&lt;/a&gt;
+」&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;構造流れ&#34;&gt;構造(流れ)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;/etc/default/grubを編集
+sudo update-grub
+/boot/grub/grub.cfgへ反映される
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;手動で追加&#34;&gt;手動で追加&lt;/h3&gt;
+&lt;p&gt;1.手動で追加する場合は、/etc/grub.d/40_customに、grub.cfgに書かれているようにOS設定を登録&lt;br&gt;
+2.sudo update-grub で完了のはず&lt;/p&gt;
+&lt;p&gt;編集する&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo gedit /etc/grub.d/40_custom
+以下を追加
+menuentry &amp;quot;Windows XP Service Pack 3 (on /dev/sdb1)&amp;quot; {
+    insmod part_msdos
+    insmod ntfs
+    set root=&#39;(hd1,1)&#39;
+    chainloader +1
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;※(hd1,1)・・・HDDの2番目、2番目のパーティションの意味(どちらも0オリジン)。&lt;/p&gt;
+&lt;p&gt;反映&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo update-grub
+    Generating grub.cfg ...
+    Found linux image: /boot/vmlinuz-2.6.35-28-generic
+    Found initrd image: /boot/initrd.img-2.6.35-28-generic
+    Found linux image: /boot/vmlinuz-2.6.35-22-generic
+    Found initrd image: /boot/initrd.img-2.6.35-22-generic
+    Found memtest86+ image: /boot/memtest86+.bin
+    Found Microsoft Windows XP Professional on /dev/sdb1
+    done
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>WindowsのブートローダーでUbuntuとデュアルブートする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-31-windowsnobutorodadeubuntutodeyuarubutosuru/</link>
+      <pubDate>Tue, 31 May 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-05-31-windowsnobutorodadeubuntutodeyuarubutosuru/</guid>
+      <description>&lt;h1 id=&#34;windowsのブートローダーでubuntuとデュアルブートする&#34;&gt;WindowsのブートローダーでUbuntuとデュアルブートする&lt;/h1&gt;
+&lt;h2 id=&#34;grub4dosをもちいてwindowsブートローダでubuntuとデュアルブート&#34;&gt;grub4dosをもちいて、WindowsブートローダでUbuntuとデュアルブート&lt;/h2&gt;
+&lt;p&gt;参考はこちら&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;「&lt;a class=&#34;link&#34; href=&#34;https://forums.ubuntulinux.jp/viewtopic.php?pid=716&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Ubuntu Windows デュアルブート
+&lt;/a&gt;
+」&lt;/li&gt;
+&lt;li&gt;「&lt;a class=&#34;link&#34; href=&#34;http://blog.nyarla.net/2010/12/08/1&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Windows XPとUbuntu 10.10をMBMを使ってデュアルブートしました！
+&lt;/a&gt;
+」&lt;/li&gt;
+&lt;li&gt;「&lt;a class=&#34;link&#34; href=&#34;http://taka8aru.blogspot.com/2010/08/windowslinux-ubuntu-1004-lts-grub-2.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  WindowsのブートローダーでLinuxとデュアルブートする方法 - Ubuntu 10.04 LTS, Grub 2の場合
+&lt;/a&gt;
+」&lt;/li&gt;
+&lt;li&gt;「&lt;a class=&#34;link&#34; href=&#34;http://taka8aru.blogspot.com/2011/05/windowslinux-ubuntu-1104-grub2.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  WindowsのブートローダーでLinuxとデュアルブートする方法 - Ubuntu 11.04, Grub2の場合
+&lt;/a&gt;
+」&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;・grub4dosダウンロード&lt;a class=&#34;link&#34; href=&#34;http://sourceforge.net/projects/grub4dos/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  こちら
+&lt;/a&gt;
+からダウンロード&lt;br&gt;
+・grub4dosを解凍しc:¥直下に配置&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;以下２ファイル
+  grldr.mbr
+  grldr
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・c:¥menu.list作成&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;内容は以下
+  # ３番目のデバイスの１番目のパーティション指定UUIDなども使用できるそう。
+  title    Ubuntu /dev/sdc1
+  root (hd2,0)
+  kernel /boot/grub/core.img
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;※(hd2,0)・・・HDDの3番目、1番目のパーティションの意味(どちらも0オリジン)。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Windowsをまるごとバックアップする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-31-windowswomarugotobatukuatupusuru/</link>
+      <pubDate>Tue, 31 May 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-05-31-windowswomarugotobatukuatupusuru/</guid>
+      <description>&lt;h2 id=&#34;partition-imageをつかってシステムをバックアップする&#34;&gt;Partition Imageをつかってシステムをバックアップする&lt;/h2&gt;
+&lt;p&gt;参考はこちら「&lt;a class=&#34;link&#34; href=&#34;http://www.aconus.com/~oyaji/backup/partimage.htm&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  システムバックアップ(PartitionImage)
+&lt;/a&gt;
+」&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linux vs Windows コマンドラインからシャットダウンする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-25-linux-vs-windows-komandorainkarasiyatutodaunsuru/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-05-25-linux-vs-windows-komandorainkarasiyatutodaunsuru/</guid>
+      <description>&lt;h1 id=&#34;linux-vs-windows-コマンドラインからシャットダウンする&#34;&gt;Linux vs Windows コマンドラインからシャットダウンする&lt;/h1&gt;
+&lt;h2 id=&#34;linux&#34;&gt;Linux&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;shutdown -h now
+または、
+shutdown -h 00
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;windows&#34;&gt;Windows&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;shutdown -s -t 00
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>

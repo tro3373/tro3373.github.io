@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ipv6 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ipv6/</link>
+    <description>Recent content in ipv6 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 22 Sep 2023 22:55:47 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/ipv6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ipv6</title>
+      <link>https://tro3373.github.io/posts/2022/2022-01-04-ipv6/</link>
+      <pubDate>Tue, 04 Jan 2022 09:13:45 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2022/2022-01-04-ipv6/</guid>
+      <description>&lt;h1 id=&#34;楽天ひかり環境のネットワーク設定&#34;&gt;楽天ひかり環境のネットワーク設定&lt;/h1&gt;
+&lt;p&gt;最終的な構成は以下&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ONU - SwitchHub -- Router(PPPoE)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                |   |   |- 公開用サーバ
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                |   |
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                |   |(&amp;lt;= ルータ同士をローカルエリア接続)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                |   |
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                |- Router(IPoE)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                    |- スマホ
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                    |- テレビ..&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IPv6 で通常は高速通信&lt;/li&gt;
+&lt;li&gt;IPv4 PPPoE でポート公開やVPNなどの DS-Lite で利用できないものを使用する想定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;以下各項目と溜まった知見&#34;&gt;以下各項目と溜まった知見&lt;/h1&gt;
+&lt;h2 id=&#34;ipoe-pppoe&#34;&gt;IPoE PPPoE&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ルーターの設定
+設定といってもIPv4 ルーターのDHCPを無効にして、IPアドレスをIPv6ルーターに合わせるだけです。IPv6ルーター（AX1167GR2）はいじる必要はありません。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://oyamadenshi.com/ipv6-ipv4/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  IPv4 PPPoEとIPv6（v6プラス）を併用する | 小山電子
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;onu-switchinghub構成の方がシンプル&#34;&gt;ONU SwitchingHub構成の方がシンプル&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;PPPoEパススルー設定で数珠繋ぎとする方法も接続確認できたが、
+ONU - ルータ間にSwitchingHubを挟むほうがシンプル&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;pppoeパススルーブリッジ&#34;&gt;PPPoEパススルー(ブリッジ)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ネットワーク内部から外部へのPPPoE接続を中継(パススルー(ブリッジ))する機能。&lt;/li&gt;
+&lt;li&gt;家庭などでインターネット接続に用いられるブロードバンドルータなどが持つ機能の一つ&lt;/li&gt;
+&lt;li&gt;古いネットワーク(IPv4/PPPoE)接続方式に戻してからネットワークに接続する&lt;/li&gt;
+&lt;li&gt;IPv4アドレスがない(IPv6で接続している)状態でも、IPv6非対応サービスなどに接続することが可能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ipv6パススルーブリッジ&#34;&gt;IPv6パススルー(ブリッジ)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;IPv6ブリッジ機能が有効である状態のこと&lt;/li&gt;
+&lt;li&gt;配下に設置したPCやルータがIPv6ネットワークへ接続できる状態になっている事を言います。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;pptpパススルーブリッジvpnパススルー&#34;&gt;PPTPパススルー(ブリッジ)(VPNパススルー)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;IPsec(IP Security)または、PPTP(Point to Point Tunneling Protocol)による
+VPN(Virtual Private Network)通信を通過させることができる機能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ipv4-over-ipv6&#34;&gt;IPv4 over IPv6&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;サービス名として、 &lt;code&gt;v6 プラス&lt;/code&gt; と表記する場合あり&lt;/li&gt;
+&lt;li&gt;通信のカプセル化
+&lt;ul&gt;
+&lt;li&gt;IPv6パケットの中にIPv4パケットを包含して通信&lt;/li&gt;
+&lt;li&gt;必要に応じてIPv6接続で通信でき、必要に応じてIPv4アドレスでの通信も可能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;インターネット回線に接続するまでに中継ポイントを介さない為、高速
+&lt;ul&gt;
+&lt;li&gt;光回線(ipv4(PPPoE))では網終端装置を介する方式が主流
+&lt;ul&gt;
+&lt;li&gt;アクセス集中すると通信速度が遅くなる事が課題&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;接続方式は複数ある
+&lt;ul&gt;
+&lt;li&gt;DS-Lite&lt;/li&gt;
+&lt;li&gt;MAP-E&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;IPv4 over IPv6技術としてMAP-EとDS-Liteを比較したとき、両者にほぼ違いはない&lt;/li&gt;
+&lt;li&gt;IPv4 over IPv6では、IPアドレスのほか、ポートも複数のユーザーと共有
+&lt;ul&gt;
+&lt;li&gt;ポート開放は制限され、割り当てられたポートのみを開放可能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;固定IPが使用できない
+&lt;ul&gt;
+&lt;li&gt;利用できる接続サービスが少ない
+&lt;ul&gt;
+&lt;li&gt;VPS(仮想専用ネットワーク)などのPPTP&lt;/li&gt;
+&lt;li&gt;SCTPを利用するサービスなど&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;sctp&#34;&gt;SCTP&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ストリーム コントロール トランスミッション プロトコル&lt;/li&gt;
+&lt;li&gt;TCPやUDPと同様に、OSI参照モデルの中では第4層となるトランスポートレイヤに位置付けられるプロトコル&lt;/li&gt;
+&lt;li&gt;元々はIPネットワーク上で電話網のシグナリングプロトコルを実現するために設計されたが、
+最終的には汎用性の高いトランスポートプロトコルとして、2000年に定義される&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;インターネット接続の仕組み&#34;&gt;インターネット接続の仕組み&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;IPv4(PPPoE)
+&lt;ul&gt;
+&lt;li&gt;遅い&lt;/li&gt;
+&lt;li&gt;IPv4方式のWEBサイトにのみアクセス可能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;IPv6(PPPoE)
+&lt;ul&gt;
+&lt;li&gt;遅い&lt;/li&gt;
+&lt;li&gt;IPv6方式のWEBサイトにのみアクセス可能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;IPv6(IPoE)
+&lt;ul&gt;
+&lt;li&gt;速い&lt;/li&gt;
+&lt;li&gt;IPv6方式のWEBサイトにのみアクセス可能&lt;/li&gt;
+&lt;li&gt;IPv6(IPoE)を利用するためには、インターネットを接続する企業側だけでなく、
+プロバイダーなどの接続サービス側もIPv6に対応する必要あり&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;網終端装置はなぜアクセス集中で通信速度が遅くなるのか&#34;&gt;網終端装置はなぜアクセス集中で通信速度が遅くなるのか&lt;/h2&gt;
+&lt;h3 id=&#34;ngn網&#34;&gt;NGN網&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Next Generation Network&lt;/li&gt;
+&lt;li&gt;NTT東西の網&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;構造&#34;&gt;構造&lt;/h3&gt;
+&lt;p&gt;PC - NGN - ISP - WWW&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

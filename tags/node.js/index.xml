@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>node.js on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/node.js/</link>
+    <description>Recent content in node.js on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 10 Sep 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/node.js/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu14.04 Node.js をインストール</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu14-04-node-js-woinsutoru/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu14-04-node-js-woinsutoru/</guid>
+      <description>&lt;h1 id=&#34;ubuntu1404-nodejsをインストール&#34;&gt;Ubuntu14.04 Node.jsをインストール&lt;/h1&gt;
+&lt;h1 id=&#34;install-packages&#34;&gt;install packages.&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install git curl build-essential libssl-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;install-nvm&#34;&gt;install nvm.&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/creationix/nvm.git ~/.nvm
+. ~/.nvm/nvm.sh
+nvm install 0.10
+    ######################################################################## 100.0%
+    Now using node v0.10.31
+nvm version
+vi ~/.bashrc
+    # 以下追加
+    . ~/.nvm/nvm.sh
+    nvm use v0.10.31
+# defaultバージョンを指定
+nvm alias default v0.10.31
+# Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;hellow-world-作成&#34;&gt;hellow world 作成&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+vim hellowworld.js
+-------------------------------------
+    var sys = require(&#39;sys&#39;);
+    var http = require(&#39;http&#39;);
+    var server = http.createServer(
+            function (request, response) {
+                response.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39;});
+                response.write(&#39;Hello World!!\n&#39;);
+                response.end();
+            }
+        ).listen(8124);
+    sys.log(&#39;Server running at http://127.0.0.1:8124/&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;hellowworld起動&#34;&gt;hellowworld起動&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;node hellowworls.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;browserから起動確認&#34;&gt;browserから起動確認&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;http://127.0.0.1:8124/ へアクセス
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;nodejs-socketio&#34;&gt;Node.js socket.io&lt;/h1&gt;
+&lt;h2 id=&#34;install-socketio&#34;&gt;install socket.io&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mkdir test_socketio_standalone &amp;amp;&amp;amp; cd test_socketio_standalone
+sudo npm install socket.io -g
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-server-js&#34;&gt;create server js&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;vim socket.io.server.js
+-----------------------------
+// Server
+var io = require(&#39;socket.io&#39;).listen(3000); // デフォルトポートは 80
+var log = console.log;
+
+io.sockets.on(&#39;connection&#39;, function (socket) {
+  log(&#39;server connection called. scoket id=&#39; + socket.id);
+  socket.on(&#39;cchat&#39;, function (data) {
+    socket.broadcast.emit(&#39;cchat&#39;, {msg: &#39;server echo:cchat!&#39;});
+    log(data);
+    socket.broadcast.emit(&#39;cchat&#39;, {msg: &#39;server echo:&#39; + data.msg});
+    log(&amp;quot;echo message sended.&amp;quot;);
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-ruby-client&#34;&gt;create ruby client&lt;/h2&gt;
+&lt;h3 id=&#34;install-socketio-client-simple&#34;&gt;install socket.io-client-simple&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gem install socket.io-client-simple
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;create-client-ruby&#34;&gt;create client ruby&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;vim socket.io.client.rb&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

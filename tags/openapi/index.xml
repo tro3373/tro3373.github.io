@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>OpenAPI on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/openapi/</link>
+    <description>Recent content in OpenAPI on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 17 Jan 2026 07:33:24 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/openapi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RedoclyでOpenAPIをタグ分割する方法</title>
+      <link>https://tro3373.github.io/posts/2026/2026-01-17-splitting-openapi-swagger-yaml-by-tags-using-redocly/</link>
+      <pubDate>Sat, 17 Jan 2026 07:33:24 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-01-17-splitting-openapi-swagger-yaml-by-tags-using-redocly/</guid>
+      <description>&lt;h2 id=&#34;結論redoclyでopenapi-specをタグで分割できる&#34;&gt;結論：RedoclyでOpenAPI Specをタグで分割できる&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Redocly CLIの&lt;code&gt;filter-in&lt;/code&gt;/&lt;code&gt;filter-out&lt;/code&gt;デコレーターを使えば、1つのOpenAPI定義を複数のドキュメントに分割できる。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;公開API用と管理API用でSwagger UIを分けたい場合など、タグベースでAPI仕様を分離できる。&lt;/p&gt;
+&lt;h2 id=&#34;背景なぜ分割が必要か&#34;&gt;背景：なぜ分割が必要か&lt;/h2&gt;
+&lt;p&gt;単一のGo APIで複数のクライアント向けにエンドポイントを提供する場合、&lt;strong&gt;全エンドポイントを1つのSwagger UIに表示すると見づらい。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;公開API&lt;/strong&gt;: ユーザー機能、コンテンツ表示&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;管理API&lt;/strong&gt;: データ管理、レポート取得、設定変更&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;→ &lt;strong&gt;それぞれ専用のSwagger UIを生成したい&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;解決方法redocly-cli--filter-デコレーター&#34;&gt;解決方法：Redocly CLI + filter デコレーター&lt;/h2&gt;
+&lt;h3 id=&#34;1-swagでopenapi定義を生成&#34;&gt;1. swagでOpenAPI定義を生成&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-makefile&#34; data-lang=&#34;makefile&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;swag&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	@echo &lt;span class=&#34;s2&#34;&gt;&amp;#34;==&amp;gt; Running swag init&amp;#34;&lt;/span&gt; &amp;gt;&lt;span class=&#34;p&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	@swag init -g cmd/your-api/main.go -o docs
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	@npx -y @redocly/cli@latest bundle docs/swagger.yaml --config docs/redocly-public.yaml -o docs/swagger_public.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	@npx -y @redocly/cli@latest bundle docs/swagger.yaml --config docs/redocly-admin.yaml -o docs/swagger_admin.yaml &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;		sed -i -e &lt;span class=&#34;s1&#34;&gt;&amp;#39;s,API for Public,API for Admin,g&amp;#39;&lt;/span&gt; docs/swagger_admin.yaml
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;2-公開api用設定管理タグを除外&#34;&gt;2. 公開API用設定：管理タグを除外&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;docs/redocly-public.yaml&lt;/code&gt;:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>terraform &#43; GitHub Actions &#43; ECR &#43; Lambda &#43; ApiGateway &#43; OpenAPI 調査したのでメモ</title>
+      <link>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</link>
+      <pubDate>Thu, 15 Feb 2024 09:08:52 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</guid>
+      <description>&lt;h2 id=&#34;はじめに&#34;&gt;はじめに&lt;/h2&gt;
+&lt;p&gt;色々調べたのでメモ..&lt;/p&gt;
+&lt;h2 id=&#34;以下詳細&#34;&gt;以下詳細&lt;/h2&gt;
+&lt;h3 id=&#34;terraform-で-lambdaも管理できないか&#34;&gt;Terraform で Lambdaも管理できないか？&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zenn.dev/shirou/articles/lambda_apigateway&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  最近やってるLambdaとAPI Gatewayの開発方法の話
+&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;tf, ecr, python, openapi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/suzuki-navi/items/6a896a6577deaa858210&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  TerraformでAPI Gateway + Lambdaの構成テンプレート #lambda - Qiita
+&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;tf, NOT ecr, node, openapi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/neruneruo/items/94a0e637ea1c6c95d9e4&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  TerraformでAmazon API Gatewayを構築する(基本編) #AWS - Qiita
+&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;tf, NOT ecr, openapi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://future-architect.github.io/articles/20210914a/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  LambdaをカスタムDockerランタイムで開発する方法 | フューチャー技術ブログ
+&lt;/a&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;コンテナイメージを更新した際に気をつけるポイントですが、latestタグのコンテナイメージを更新しても、
+すぐにLambda関数の挙動には反映されません。一晩寝かしても古いイメージが参照されていました。
+全く同じimage-uriのまま更新コマンドを実行することで即時反映できます。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/neruneruo/items/d395fef4929c9486ec0a&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  TerraformでLambdaコンテナイメージを自動構築する #Docker - Qiita
+&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;swagger&lt;/li&gt;
+&lt;li&gt;ecr&lt;/li&gt;
+&lt;li&gt;lambda&lt;/li&gt;
+&lt;li&gt;apigateway&lt;/li&gt;
+&lt;li&gt;codebuild&lt;/li&gt;
+&lt;li&gt;aws_lambda_alias
+&lt;ul&gt;
+&lt;li&gt;lambda version に対するエイリアス&lt;/li&gt;
+&lt;li&gt;これに対するIgnore設定の記載など&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/sakuchi/items/7c5bd06a863c1f87e9d3&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  【AWS Lambda】複数のLambda関数を１つのコンテナイメージにまとめる #AWS - Qiita
+&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;entrypoint指定できる
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  aws_lambda_function | Resources | hashicorp/aws | Terraform | Terraform Registry
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;ここでいうhandler?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Terraform で ApiGateway を作成する
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://midorigame-jo.com/serverless/#google_vignette&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  【Terraform】Terraformで作るサーバレス構成（API Gateway、Lambda、DynamoDB）
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/chacco38/items/de7a514b3122761d24e8&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  TerraformでAmazon API Gatewayを構築するサンプルコードを書いてみた #AWS - Qiita
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dev.classmethod.jp/articles/terraform-deployment-rest-api-gateway/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Terraform で API Gateway（REST API）を構築する | DevelopersIO
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://spacelift.io/blog/terraform-api-gateway#step-7-test-the-deployment-using-postman&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  How to Create API Gateway With Terraform and AWS Lambda
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://inovaonlinesolutions.medium.com/creating-a-rest-api-in-aws-api-gateway-using-terraform-a61fd00a3fbf&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Creating a Rest API in AWS API Gateway using Terraform and OpenAPI Swagger specification | by InovaOnlineSolutions | Medium
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;ecr-の-pros-and-cons&#34;&gt;ECR の Pros and Cons&lt;/h3&gt;
+&lt;h4 id=&#34;cons&#34;&gt;Cons&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://log.noid11.com/posts/aws-lambda-love-golang/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  AWS Lambda で Go ランタイムを使うのが良いと思っている理由
+&lt;/a&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;基本的にコンテナイメージより zip 形式の方が安く使える
+コンテナイメージとカスタムランタイムは Lambda 関数の初期化時にも課金が発生する&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

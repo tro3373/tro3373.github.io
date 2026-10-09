@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>serverless on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/serverless/</link>
+    <description>Recent content in serverless on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 24 Apr 2023 19:27:36 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/serverless/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Serverless で ApiGw のロギングいれようとして、`CloudWatch Logs role ARN must be set in account settings to enable logging` となったのでメモ</title>
+      <link>https://tro3373.github.io/posts/2023/2023-02-13-cloud_watch_loggin_settings_to_api_gateway_was_role_error/</link>
+      <pubDate>Mon, 13 Feb 2023 12:01:33 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-02-13-cloud_watch_loggin_settings_to_api_gateway_was_role_error/</guid>
+      <description>&lt;h2 id=&#34;問題&#34;&gt;問題&lt;/h2&gt;
+&lt;p&gt;Serverless Framework で、以下のようにロギング設定を追加して、以下エラーになった&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;provider:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  # 省略
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  logs:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    restApi:
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      accessLogging: false # Optional configuration which enables or disables access logging. Defaults to true.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      executionLogging: true # Optional configuration which enables or disables execution logging. Defaults to true.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      level: ERROR # Optional configuration which specifies the log level to use for execution logging. May be set to either INFO or ERROR.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      fullExecutionData: false # Optional configuration which specifies whether or not to log full requests/responses for execution logging. Defaults to true.&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;CloudWatch Logs role ARN must be set in account settings to enable logging&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

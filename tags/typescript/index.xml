@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>typescript on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/typescript/</link>
+    <description>Recent content in typescript on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 02 Aug 2024 06:44:52 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TypeScriptで型宣言を優先する理由</title>
+      <link>https://tro3373.github.io/posts/2024/2024-07-26-why-prefer-type-declarations-over-type-assertions-in-typescript/</link>
+      <pubDate>Fri, 26 Jul 2024 06:57:37 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2024/2024-07-26-why-prefer-type-declarations-over-type-assertions-in-typescript/</guid>
+      <description>&lt;h2 id=&#34;はじめに&#34;&gt;はじめに&lt;/h2&gt;
+&lt;p&gt;TypeScriptで型の管理方法にはいくつかの選択肢があり、型アサーション、型宣言、型推論などがある。&lt;/p&gt;
+&lt;h2 id=&#34;疑問&#34;&gt;疑問&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;なぜ型アサーションよりも型宣言を優先すべきなのか。&lt;/li&gt;
+&lt;li&gt;型アサーションは便利に見えるが、実際にどのような問題を引き起こす可能性があるのか。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;まとめ&#34;&gt;まとめ&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;型アサーションよりも型宣言を優先すべき型宣言よりも型推論できる状態にすべき&lt;/li&gt;
+&lt;li&gt;型宣言を使用することで、型安全性が向上し、コードの可読性が高まる。&lt;/li&gt;
+&lt;li&gt;IDEのサポートが強化され、リファクタリングが容易になる。&lt;/li&gt;
+&lt;li&gt;TypeScriptの型推論機能を活用することで、冗長なコードを減らせる。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;以下詳細&#34;&gt;以下詳細&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;型安全性の向上&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;型宣言は変数やパラメータの型を明示的に定義するため、コンパイル時に型チェックが行われる。&lt;/li&gt;
+&lt;li&gt;型アサーションはコンパイラに対して「この型で間違いない」と主張するため、潜在的なエラーを見逃す可能性がある。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;コードの可読性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;型宣言はコードの意図をより明確に示す。他の開発者がコードを読む際に、変数や関数の期待される型が一目で分かる。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IDEのサポート&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;型宣言を使用すると、IDEの自動補完やリファクタリング機能がより効果的に機能する。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;リファクタリングの容易さ&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;型宣言を使用していると、後でコードを変更する際に型の不整合を早期に発見できる。&lt;/li&gt;
+&lt;li&gt;型アサーションを多用していると、これらの問題が見逃される可能性が高くなる。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;型推論の活用&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TypeScriptの型推論は非常に強力。&lt;/li&gt;
+&lt;li&gt;型宣言を適切に使用することで、型推論をより効果的に活用でき、冗長なコードを減らせる。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;簡単な例:&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-typescript&#34; data-lang=&#34;typescript&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 型アサーション（避けるべき）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;getSomeValue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 型宣言（推奨）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt;: &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;getSomeValue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// さらに良い方法（型推論を活用）
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;value&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;getSomeValue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;// valueの型は自動的に推論される
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;型宣言を使用することで、コードの品質と保守性が向上し、長期的にはより堅牢なアプリケーションの開発につながる。&lt;br&gt;
+ただし、どうしても型アサーションが必要な場合もあるので、完全に避けることはできない。適切な判断で使い分けることが重要。&lt;/p&gt;
+&lt;h2 id=&#34;refs&#34;&gt;Refs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/uhyo/items/e2fdef2d3236b9bfe74a&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  TypeScriptの型入門 #TypeScript - Qiita
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zenn.dev/mrbabyyy/articles/0be002fedafef4&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  【TypeScript】できるだけ as を避ける理由
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

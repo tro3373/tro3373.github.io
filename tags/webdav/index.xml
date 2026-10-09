@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>webdav on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/webdav/</link>
+    <description>Recent content in webdav on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 29 May 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/webdav/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>玄箱HG(lenny)へwebdavを導入する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-29-%E7%8E%84%E7%AE%B1hg-debian-lennyhewebdavwodao-ru-suru/</link>
+      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-05-29-%E7%8E%84%E7%AE%B1hg-debian-lennyhewebdavwodao-ru-suru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hglennyへwebdavを導入する&#34;&gt;玄箱HG(lenny)へwebdavを導入する&lt;/h1&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://nofx2.txt-nifty.com/it/2009/07/apache-22-webda.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Apache 2.2 WebDAV 設定
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://yaw.jp/hobby/linux/article/apache.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Apache関連
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;前提事項&#34;&gt;前提事項&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;apache2,sslは導入済み&lt;/li&gt;
+&lt;li&gt;su 実行済み&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;webdavディレクトリを作成する&#34;&gt;webdavディレクトリを作成する&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+mkdir webdav
+chown www-data:www-data webdav
+chmod 700 webdav
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;確認&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ls -l
+    drwx------ 2 www-data www-data 4096 2012-05-29 22:22 webdav
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;webdavアクセスユーザを作成&#34;&gt;webdavアクセスユーザを作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo htpasswd -c /etc/apache2/dav.passwd [username]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;確認&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat /etc/apache2/dav.passwd
+ちなみにユーザの確認は
+    cat /etc/passwd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;apache-の設定に-webdav-へのアクセスを設定する&#34;&gt;apache の設定に Webdav へのアクセスを設定する&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo vi /etc/apache2/sites-available/[target_site_settings_file]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以下を追加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Alias /webdav &amp;quot;作成したディレクトリ&amp;quot;
+&amp;lt;Location /webdav&amp;gt;
+        DAV On
+        Options indexes FollowSymlinks
+        Order allow,deny
+        allow from all
+        AuthType Basic
+        AuthName &amp;quot;Authentification Required&amp;quot;
+        AuthUserFile /etc/apache2/dav.passwd
+        Require user [username] # ユーザを指定する場合
+&amp;lt;/Location&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;※ Options indexes FollowSymlinks設定
+Options -indexes FollowSymlinksとすると
+index.htmlが存在しない場合などに、ファイル一覧を表示する機能を
+無効にできる。
+&lt;a class=&#34;link&#34; href=&#34;http://www.atmarkit.co.jp/flinux/rensai/linuxtips/705noindexes.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://www.atmarkit.co.jp/flinux/rensai/linuxtips/705noindexes.html
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+  </channel>
+</rss>
