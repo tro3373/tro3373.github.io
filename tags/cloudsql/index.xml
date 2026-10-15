@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cloudsql on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/cloudsql/</link>
+    <description>Recent content in cloudsql on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 30 Jan 2025 08:49:48 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/cloudsql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloud Function から IAM認証で CloudSQL(PostgreSQL) へ接続する</title>
+      <link>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</link>
+      <pubDate>Wed, 29 Jan 2025 15:43:25 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</guid>
+      <description>&lt;h2 id=&#34;はじめに&#34;&gt;はじめに&lt;/h2&gt;
+&lt;p&gt;クラウド環境でのデータベース管理において、セキュリティは日々進化する脅威への対応が求められる重要課題です。特に、以下の課題が顕在化しています：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;従来の認証情報（パスワード）の漏洩リスク&lt;/li&gt;
+&lt;li&gt;認証情報のローテーション管理の煩雑さ&lt;/li&gt;
+&lt;li&gt;アプリケーション展開時の認証情報受け渡しの安全性確保&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;これらの課題に対し、IAM認証を活用することで、より強固でかつ運用負荷の少ないセキュリティ体制を実現できます。IAM認証のメリットは以下の通りです：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一時的な認証トークンの利用による漏洩リスクの低減&lt;/li&gt;
+&lt;li&gt;クラウドプロバイダーの統合認証基盤との連携による管理の一元化&lt;/li&gt;
+&lt;li&gt;きめ細かなアクセス制御とアクセスログの監査対応&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本ガイドでは、Cloud FunctionsからCloudSQL(PostgreSQL)へIAM認証で接続する実践的な手順を解説します。この設定により、セキュアかつスケーラブルなデータベースアクセス環境を構築できます。&lt;/p&gt;
+&lt;h2 id=&#34;cloud-function-から-cloudsqlpostgresql-へ-iam-認証で接続するために必要な手順&#34;&gt;Cloud Function から CloudSQL(PostgreSQL) へ IAM 認証で接続するために必要な手順&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Cloud Function 用 Service Account に必要な権限を付与&lt;/li&gt;
+&lt;li&gt;PGUSER の作成（IAM認証用）&lt;/li&gt;
+&lt;li&gt;データベースへの権限付与&lt;/li&gt;
+&lt;li&gt;Cloud Function の実装&lt;/li&gt;
+&lt;li&gt;Service Account での Cloud Function のデプロイ&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;具体的な設定手順&#34;&gt;具体的な設定手順&lt;/h2&gt;
+&lt;h3 id=&#34;1-cloud-function-用-service-account-に必要な権限を付与&#34;&gt;1. Cloud Function 用 Service Account に必要な権限を付与&lt;/h3&gt;
+&lt;p&gt;以下の権限が必要:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cloud SQL インスタンス ユーザー&lt;/li&gt;
+&lt;li&gt;Cloud SQL クライアント&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;今回はコンソールから設定したが、以下のコマンドで設定も可能:&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gcloud projects add-iam-policy-binding example-project &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --member&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --role&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;roles/cloudsql.instanceUser&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gcloud projects add-iam-policy-binding example-project &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --member&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --role&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;roles/cloudsql.client&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;2-pguser-の作成&#34;&gt;2. PGUSER の作成&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;IAM認証用のユーザーを作成する。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gcloud sql users create example-function@example-project.iam &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --instance&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;example-project-fdc &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;cloud_iam_service_account&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;PostgreSQLの場合、以下の点に注意が必要:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ユーザー名から &lt;code&gt;.gserviceaccount.com&lt;/code&gt; を除いた形で作成&lt;/li&gt;
+&lt;li&gt;タイプは &lt;code&gt;cloud_iam_service_account&lt;/code&gt; を指定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MySQL の場合は &lt;code&gt;@project-id.iam.gserviceaccount.com&lt;/code&gt; を除いた形で作成する模様&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Refs: &lt;a class=&#34;link&#34; href=&#34;https://github.com/GoogleCloudPlatform/cloud-sql-nodejs-connector?tab=readme-ov-file#automatic-iam-database-authentication&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  GoogleCloudPlatform/cloud-sql-nodejs-connector: A JavaScript library for connecting securely to your Cloud SQL instances
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Postgres: For an IAM user account, this is the user&amp;rsquo;s email address.
+For a service account, it is the service account&amp;rsquo;s email without the .gserviceaccount.com domain suffix.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MySQL: For an IAM user account, this is the user&amp;rsquo;s email address, without the @ or domain name.
+For example, for &lt;a class=&#34;link&#34; href=&#34;mailto:test-user@gmail.com&#34;
+  
+  &gt;
+  test-user@gmail.com
+&lt;/a&gt;
+, set the user field to test-user.
+For a service account, this is the service account&amp;rsquo;s email address without the @project-id.iam.gserviceaccount.com suffix.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

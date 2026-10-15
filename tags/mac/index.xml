@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>mac on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/mac/</link>
+    <description>Recent content in mac on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 22 Sep 2023 22:25:09 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/mac/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mac に SSH接続した際に日本語がアンダースコア2個になる問題は SendEnv LANG で解決した</title>
+      <link>https://tro3373.github.io/posts/2023/2023-06-03-fix_japanese_will_be_shown_double_underscore_issue_by_sendenv_lang/</link>
+      <pubDate>Sat, 03 Jun 2023 09:20:53 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-06-03-fix_japanese_will_be_shown_double_underscore_issue_by_sendenv_lang/</guid>
+      <description>&lt;p&gt;SSH接続先の相手がMacであるかはあまり問題ではないかもしれないが、 Manjaro ArchLinux から
+Macbook に ssh 接続しようとして発生していた文字化け（日本語のみアンダースコア2つで表示される）が治った
+.ssh/config で &lt;code&gt;SendEnv&lt;/code&gt; で 環境変数を接続先のリモートに引き継がせる事ができる&lt;/p&gt;
+&lt;p&gt;以下のように共通で設定するように設定して解決した&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  &lt;div class=&#34;codeblock--name&#34;&gt;~/.ssh/config&lt;/div&gt;
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Host *
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  SendEnv LANG LC_*&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;重要なのは &lt;code&gt;LANG&lt;/code&gt; 設定でこの設定が一致している必要があるようで、LC_*だけでは治らなかったが、
+ローカルで表示しても、アンダースコア2つ表示されている状態で調べても同じ値が設定されていた。。（謎）&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;env &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;grep &lt;span class=&#34;nv&#34;&gt;LANG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;LANG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;en_US.UTF-8&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>Mac いろは</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-26-mac-iroha/</link>
+      <pubDate>Fri, 26 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-09-26-mac-iroha/</guid>
+      <description>&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2014/2014-09-26-mac-iroha/macbook-air-retina_01-1.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;新参者の私は、macを触る機会があったのでメモしています。&lt;/p&gt;
+&lt;h2 id=&#34;再読み込み&#34;&gt;再読み込み&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;command + R
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;shutdown&#34;&gt;shutdown&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;control + 電源ボタン
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;terminal-起動&#34;&gt;terminal 起動&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;control + space
+input &#39;terminal&#39;
+Enter
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;chrome-起動&#34;&gt;chrome 起動&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;control + space
+input &#39;chrome&#39;
+Enter
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;全画面化解除&#34;&gt;全画面化、解除&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;command + control + F
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;finder-切り取り貼り付け&#34;&gt;Finder 切り取り＆貼り付け&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;command + c # copy
+command + option + v # paste
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>

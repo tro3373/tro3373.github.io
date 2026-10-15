@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ActiveRecord on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/activerecord/</link>
+    <description>Recent content in ActiveRecord on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 03 Oct 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/activerecord/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu 14.04 ruby2.1.2 で ActiveRecord4.1.6 を使用し、postgresql4.1.6 へアクセス</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</guid>
+      <description>&lt;h2 id=&#34;まずはdatabase-確認&#34;&gt;まずはdatabase 確認&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo su postgres -c psql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;install-activerecordpg&#34;&gt;install activerecord,pg&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p ~/works/99_sample/02_activerecord
+cd ~/works/99_sample/02_activerecord
+gem install activerecord
+gem install pg
+gem list
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;dbユーザtest_nameを作成しておく&#34;&gt;DBユーザ&lt;code&gt;test_name&lt;/code&gt;を作成しておく&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;sudo su postgres -c psql
+create role test_name superuser login;
+\password test_name
+  Enter new password: test_name
+  Enter it again: test_name
+create database test_name;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;configdatabaseyml&#34;&gt;config/database.yml&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;mkdir -p config &amp;amp;&amp;amp; vim config/database.yml&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;db:
+  production:
+    adapter:  postgresql
+    host:     localhost
+    username: test_name
+    password: test_name
+    database: test_name
+
+  development:
+    adapter:  postgresql
+    host:     localhost
+    username: test_name
+    password: test_name
+    database: test_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;dbmigrate配下に３ファイルを配置rails環境からコピー&#34;&gt;&lt;code&gt;db/migrate&lt;/code&gt;配下に、３ファイルを配置(rails環境からコピー)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;mkdir -p db/migrate&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

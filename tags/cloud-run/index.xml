@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cloud run on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/cloud-run/</link>
+    <description>Recent content in cloud run on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 26 May 2026 20:39:49 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/cloud-run/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Firebase Hosting &#43; Cloud Run で認証が動かない？Cookie名を `__session` にすべき理由</title>
+      <link>https://tro3373.github.io/posts/2026/2026-01-27-firebase-hosting-session-cookie/</link>
+      <pubDate>Tue, 27 Jan 2026 07:33:24 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-01-27-firebase-hosting-session-cookie/</guid>
+      <description>&lt;h1 id=&#34;firebase-hosting--cloud-run-で認証が動かないcookie名を-__session-にすべき理由&#34;&gt;Firebase Hosting + Cloud Run で認証が動かない？Cookie名を &lt;code&gt;__session&lt;/code&gt; にすべき理由&lt;/h1&gt;
+&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;Firebase Hosting 経由で Cloud Run にアクセスする場合、セッション Cookie の名前は &lt;strong&gt;必ず &lt;code&gt;__session&lt;/code&gt; にする必要がある&lt;/strong&gt;。それ以外の名前（&lt;code&gt;session&lt;/code&gt;, &lt;code&gt;auth&lt;/code&gt;, &lt;code&gt;token&lt;/code&gt; など）は Firebase Hosting (CDN) によってストリップ（削除）され、バックエンドに届かない。&lt;/p&gt;
+&lt;h2 id=&#34;問題の症状&#34;&gt;問題の症状&lt;/h2&gt;
+&lt;p&gt;Next.js アプリを Firebase Hosting + Cloud Run で運用している際、以下のような不可解な現象に遭遇した：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ Cloud Run の URL（&lt;code&gt;https://&amp;lt;service&amp;gt;-&amp;lt;hash&amp;gt;.run.app&lt;/code&gt;）では正常にログインできる&lt;/li&gt;
+&lt;li&gt;❌ Firebase Hosting の URL（&lt;code&gt;https://&amp;lt;project&amp;gt;.web.app&lt;/code&gt;）ではログインできない&lt;/li&gt;
+&lt;li&gt;Set-Cookie ヘッダーは正しく返されている&lt;/li&gt;
+&lt;li&gt;ブラウザの Application タブでは Cookie が設定されている&lt;/li&gt;
+&lt;li&gt;しかし Middleware では Cookie が &lt;code&gt;undefined&lt;/code&gt; になる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;根本原因firebase-hosting-の-cookie-制限&#34;&gt;根本原因：Firebase Hosting の Cookie 制限&lt;/h2&gt;
+&lt;h3 id=&#34;firebase-hosting-は-cdn-として動作する&#34;&gt;Firebase Hosting は CDN として動作する&lt;/h3&gt;
+&lt;p&gt;Firebase Hosting は静的コンテンツ配信のために CDN（コンテンツ配信ネットワーク）として動作する。CDN はキャッシュ効率を最大化するため、&lt;strong&gt;デフォルトで全ての Cookie をストリップ（削除）する&lt;/strong&gt;。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

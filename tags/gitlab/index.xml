@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>gitlab on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/gitlab/</link>
+    <description>Recent content in gitlab on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 10 Oct 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Machine(Boot2Docker(Tiny Linux)) 上で docker/gitlab を動かしてみる</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/</link>
+      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/</guid>
+      <description>&lt;h3 id=&#34;sameersbngitlab804&#34;&gt;sameersbn/gitlab:8.0.4&lt;/h3&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/ef40cfe5-df07-df18-6864-fe9ecf0f58b2-compressor.jpeg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;オンプレミスな GitHub Clone GitLab&lt;br&gt;
+かなり気持ち悪いロゴ&amp;hellip;(なぜこうなった)
+&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/gitlab-compressor.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;バージョンUPでこうなったらしい&amp;hellip;
+&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/277d9badcbd723e913b3a41e64e8d2f3d2c80598-compressor.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;それはいいとして、 Docker image を利用して、公式に公開されている、docker/gitlab&lt;br&gt;
+を docker-machine で作成した docker-host（virtual-box） 上で 動かしてみた。&lt;/p&gt;
+&lt;h2 id=&#34;インストール&#34;&gt;インストール&lt;/h2&gt;
+&lt;p&gt;ssh で docker-machine ホストOSへ接続した状態でおこなう&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine ssh dev&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker pull sameersbn/gitlab:8.0.4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/works/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/sameersbn/docker-gitlab.git
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; docker-gitlab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Dockerfile からビルドする場合&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   docker build --tag=$USER/gitlab .&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;docker-compose-インストール&#34;&gt;docker-compose インストール&lt;/h2&gt;
+&lt;p&gt;docker コンテナを複数使用するアプリケーションの構成（起動順序や必要リソースなど）をまとめて管理できるのが、 &lt;code&gt;docker-compose&lt;/code&gt;&lt;br&gt;
+clone されたディレクトリに、 &lt;code&gt;docker-compose.yml&lt;/code&gt; が存在するので、 docker-compose で起動できる。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker-compose ダウンロード&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/Downloads
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wget https://github.com/docker/compose/releases/download/1.4.2/docker-compose-Linux-x86_64
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod &lt;span class=&#34;m&#34;&gt;755&lt;/span&gt; /usr/local/bin/docker-compose
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# version 確認&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-compose --version
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下が表示される&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   docker-compose version: 1.4.2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;gitlab-設定&#34;&gt;GitLab 設定&lt;/h2&gt;
+&lt;p&gt;以下コマンドで SEACRET_KEY を生成する&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
