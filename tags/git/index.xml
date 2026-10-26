@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>git on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/git/</link>
+    <description>Recent content in git on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 29 Sep 2026 13:34:34 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git rebase が警告なしに動かすものと残すもの</title>
+      <link>https://tro3373.github.io/posts/2026/2026-09-29-git-rebase-fork-point-pitfalls/</link>
+      <pubDate>Tue, 29 Sep 2026 13:34:34 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-09-29-git-rebase-fork-point-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;git rebase main&lt;/code&gt; は、ブランチにあって &lt;code&gt;main&lt;/code&gt; に無いコミットを、&lt;code&gt;main&lt;/code&gt; の先頭へ 1 本ずつ cherry-pick し直す。git はブランチの派生元を記録しないので、どこから先を載せるかは毎回コミットグラフから求める&lt;/li&gt;
+&lt;li&gt;rebase の後は &lt;code&gt;git merge-base main HEAD&lt;/code&gt; が &lt;code&gt;main&lt;/code&gt; の先頭を返す。元の分岐点を後で使うなら rebase の前に控える&lt;/li&gt;
+&lt;li&gt;競合中の &lt;code&gt;--ours&lt;/code&gt; は &lt;code&gt;main&lt;/code&gt; 側、&lt;code&gt;--theirs&lt;/code&gt; は自分のコミット。merge と逆になる&lt;/li&gt;
+&lt;li&gt;競合しなかったことは、整合していることを意味しない。&lt;code&gt;main&lt;/code&gt; が入れた改名や規約は、競合しないファイルには届かない&lt;/li&gt;
+&lt;li&gt;squash merge の後や載せるコミットが 0 件のときは、どこから先を載せるかの推定がずれて、衝突やブランチ先頭の移動が起きる。&lt;code&gt;--onto&lt;/code&gt; で起点を明示する&lt;/li&gt;
+&lt;li&gt;autostash の書き戻しが衝突しても、rebase も &lt;code&gt;pull --ff-only&lt;/code&gt; も exit 0 で終わる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下はすべて git 2.55.0 で実測した。&lt;code&gt;pull.rebase&lt;/code&gt; や &lt;code&gt;rerere.enabled&lt;/code&gt; などの利用者設定で結果が変わるので、&lt;code&gt;GIT_CONFIG_GLOBAL=/dev/null&lt;/code&gt; で &lt;code&gt;~/.gitconfig&lt;/code&gt; を読ませずに実行している。&lt;/p&gt;
+&lt;h2 id=&#34;前提-rebase-は分岐点から先を作り直す&#34;&gt;前提: rebase は分岐点から先を作り直す&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;git rebase &amp;lt;upstream&amp;gt;&lt;/code&gt; は次の 4 段で動く (&lt;code&gt;man git-rebase&lt;/code&gt;)。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;今のブランチにあって &lt;code&gt;&amp;lt;upstream&amp;gt;&lt;/code&gt; に無いコミットを並べる。&lt;code&gt;&amp;lt;upstream&amp;gt;&lt;/code&gt; に同じ変更 (patch-id が一致するコミット) があるものは外す&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;upstream&amp;gt;&lt;/code&gt; の先頭を detach でチェックアウトする&lt;/li&gt;
+&lt;li&gt;並べたコミットを 1 本ずつ cherry-pick する&lt;/li&gt;
+&lt;li&gt;ブランチをできあがった先頭へ付け替える&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;1 の範囲は &lt;code&gt;git log &amp;lt;upstream&amp;gt;..HEAD&lt;/code&gt; と同じで、分岐点から先にあたる (&lt;a class=&#34;link&#34; href=&#34;https://tro3373.github.io/posts/2025/2025-11-22-git-log-compare-main-develop-branches-with-dots-and-ellipsis/&#34;
+  
+  &gt;
+  git logの「..」と「&amp;hellip;」の違い
+&lt;/a&gt;
+)。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>git logの「..」と「...」の違い</title>
+      <link>https://tro3373.github.io/posts/2025/2025-11-22-git-log-compare-main-develop-branches-with-dots-and-ellipsis/</link>
+      <pubDate>Sat, 22 Nov 2025 10:05:34 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2025/2025-11-22-git-log-compare-main-develop-branches-with-dots-and-ellipsis/</guid>
+      <description>&lt;h2 id=&#34;結論は片方は両方の差分&#34;&gt;結論：「..」は片方、「&amp;hellip;」は両方の差分&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;git log&lt;/code&gt;の&lt;code&gt;..&lt;/code&gt;（ドット2つ）と&lt;code&gt;...&lt;/code&gt;（ドット3つ）は、ブランチ間のコミット比較方法が異なる。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;..&lt;/code&gt;（2ドット）&lt;/strong&gt;: 一方のブランチにのみ存在するコミット&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;...&lt;/code&gt;（3ドット）&lt;/strong&gt;: 両方のブランチで異なるコミット全て&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;使い分け&#34;&gt;使い分け&lt;/h2&gt;
+&lt;h3 id=&#34;2ドット--未マージのコミットを確認&#34;&gt;&lt;code&gt;..&lt;/code&gt;（2ドット）- 未マージのコミットを確認&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;developにあってmainにないコミット（未マージ分のみ）&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log origin/main..origin/develop&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;用途：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PR前の差分確認&lt;/li&gt;
+&lt;li&gt;マージ漏れチェック&lt;/li&gt;
+&lt;li&gt;リリース対象の確認&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;結果：&lt;/strong&gt;
+developにしかないコミットのみ表示（mainには既にあるコミットは除外）&lt;/p&gt;
+&lt;h3 id=&#34;3ドット--分岐後の全差分&#34;&gt;&lt;code&gt;...&lt;/code&gt;（3ドット）- 分岐後の全差分&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;mainとdevelopの差分（どちらか一方にしかないコミット全て）&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log origin/main...origin/develop&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;用途：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ブランチの分岐点以降の変更全体を確認&lt;/li&gt;
+&lt;li&gt;両ブランチの独立した開発内容を比較&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;結果：&lt;/strong&gt;
+mainにのみあるコミット + developにのみあるコミット&lt;/p&gt;
+&lt;h2 id=&#34;視覚的に確認&#34;&gt;視覚的に確認&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# グラフで分岐を表示&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log --oneline --graph origin/main...origin/develop&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;--graph&lt;/code&gt;オプション:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;コミットの分岐・マージをビジュアル化&lt;/li&gt;
+&lt;li&gt;どちらのブランチに属するか一目で分かる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;具体例&#34;&gt;具体例&lt;/h2&gt;
+&lt;h3 id=&#34;状況&#34;&gt;状況&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;main:    A - B - C - D
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;develop:       E - F - G&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;2ドットの結果&#34;&gt;&lt;code&gt;..&lt;/code&gt;（2ドット）の結果&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log main..develop
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 結果: E, F, G（developにのみ存在）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log develop..main
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 結果: C, D（mainにのみ存在）&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;3ドットの結果&#34;&gt;&lt;code&gt;...&lt;/code&gt;（3ドット）の結果&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log main...develop
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 結果: C, D, E, F, G（両方の差分）&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;よくある用途&#34;&gt;よくある用途&lt;/h2&gt;
+&lt;h3 id=&#34;pr作成前のコミット確認&#34;&gt;PR作成前のコミット確認&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# featureブランチにあってmainにないコミット&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log main..feature&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;リリース対象の確認&#34;&gt;リリース対象の確認&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# developにあってmainにない（次のリリース内容）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log origin/main..origin/develop --oneline&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;両ブランチの独立した変更を比較&#34;&gt;両ブランチの独立した変更を比較&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# mainとdevelopで独立して開発された内容を全て表示&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log origin/main...origin/develop --oneline --graph&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;まとめ&#34;&gt;まとめ&lt;/h2&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;記法&lt;/th&gt;
+					&lt;th&gt;意味&lt;/th&gt;
+					&lt;th&gt;用途&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;&lt;code&gt;A..B&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;Bにあって&lt;br&gt;Aにないコミット&lt;/td&gt;
+					&lt;td&gt;未マージ確認&lt;br&gt;PR差分確認&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;&lt;code&gt;A...B&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;AとBで&lt;br&gt;異なる全コミット&lt;/td&gt;
+					&lt;td&gt;分岐後の全変更&lt;br&gt;両ブランチ比較&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;..&lt;/code&gt;（2ドット）&lt;/strong&gt;: 片方にしかないコミット（未マージ確認）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;...&lt;/code&gt;（3ドット）&lt;/strong&gt;: 両方で異なるコミット全て（分岐後の全変更）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;--graph&lt;/code&gt;&lt;/strong&gt;: 視覚的に分岐を確認&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Gitコマンドあれこれ</title>
+      <link>https://tro3373.github.io/posts/2015/2015-07-18-git-komando/</link>
+      <pubDate>Sat, 18 Jul 2015 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2015/2015-07-18-git-komando/</guid>
+      <description>&lt;h2 id=&#34;コミットユーザ名を設定する&#34;&gt;コミットユーザ名を設定する&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global user.name &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;UserName&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;コミットユーザ名を設定する-1&#34;&gt;コミットユーザ名を設定する&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global user.email &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;Email&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;コミット時等に使用するエディタを設定する&#34;&gt;コミット時等に使用するエディタを設定する&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# vim(Linux,mac)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global core.editor &lt;span class=&#34;s2&#34;&gt;&amp;#34;vim -c &amp;#39;set fenc=utf-8&amp;#39;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Sublime(Liux,mac)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# subl コマンドが登録できていない場合は以下も実行(mac)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# &amp;#34;/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl&amp;#34; &amp;#34;/usr/local/bin/subl&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global core.editor &lt;span class=&#34;s2&#34;&gt;&amp;#34;subl -w&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Sublime(windows)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global core.editor &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#39;C:/Program Files/Sublime Text 3/sublime_text.exe&amp;#39; -w&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;git-の標準出力をカラーリングする&#34;&gt;git の標準出力をカラーリングする&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global color.ui auto&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;git-push-時の宛先省略時のデフォルト動作設定&#34;&gt;git push 時の宛先省略時のデフォルト動作設定&lt;/h2&gt;
+&lt;p&gt;simple: カレントブランチに追跡ブランチが設定されている、&lt;br&gt;
+かつローカルとリモートのブランチ名が同じである場合に、追跡ブランチに対して push する。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global push.default simple&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;日本語ファイルの文字化け対応&#34;&gt;日本語ファイルの文字化け対応&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global core.quotepath false&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;現在のブランチのトラッキング先を設定する&#34;&gt;現在のブランチのトラッキング先を設定する&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git branch --set-upstream-to&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;origin/master&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;git-コマンドのエイリアス設定&#34;&gt;git コマンドのエイリアス設定&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global alias.co checkout
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global alias.cm commit
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global alias.st status
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global alias.br branch
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global alias.lg &lt;span class=&#34;s2&#34;&gt;&amp;#34;log --graph --pretty=format:&amp;#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&amp;lt;%an&amp;gt;%Creset&amp;#39; --abbrev-commit --date=relative&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global alias.lga &lt;span class=&#34;s2&#34;&gt;&amp;#34;log --graph --all --pretty=format:&amp;#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&amp;lt;%an&amp;gt;%Creset&amp;#39; --abbrev-commit --date=relative&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;git差分のあるファイルをscp転送する&#34;&gt;Git差分のあるファイルをSCP転送する&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git status --short &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;awk &lt;span class=&#34;s1&#34;&gt;&amp;#39;{print substr($0, 4, length($0) - 3)}&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;xargs -I &lt;span class=&#34;s1&#34;&gt;&amp;#39;send_file_path&amp;#39;&lt;/span&gt; scp send_file_path server:/対象ディレクトリ/send_file_path&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+  </channel>
+</rss>

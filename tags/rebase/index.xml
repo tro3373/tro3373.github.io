@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>rebase on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/rebase/</link>
+    <description>Recent content in rebase on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 29 Sep 2026 13:34:34 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/rebase/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git rebase が警告なしに動かすものと残すもの</title>
+      <link>https://tro3373.github.io/posts/2026/2026-09-29-git-rebase-fork-point-pitfalls/</link>
+      <pubDate>Tue, 29 Sep 2026 13:34:34 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-09-29-git-rebase-fork-point-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;git rebase main&lt;/code&gt; は、ブランチにあって &lt;code&gt;main&lt;/code&gt; に無いコミットを、&lt;code&gt;main&lt;/code&gt; の先頭へ 1 本ずつ cherry-pick し直す。git はブランチの派生元を記録しないので、どこから先を載せるかは毎回コミットグラフから求める&lt;/li&gt;
+&lt;li&gt;rebase の後は &lt;code&gt;git merge-base main HEAD&lt;/code&gt; が &lt;code&gt;main&lt;/code&gt; の先頭を返す。元の分岐点を後で使うなら rebase の前に控える&lt;/li&gt;
+&lt;li&gt;競合中の &lt;code&gt;--ours&lt;/code&gt; は &lt;code&gt;main&lt;/code&gt; 側、&lt;code&gt;--theirs&lt;/code&gt; は自分のコミット。merge と逆になる&lt;/li&gt;
+&lt;li&gt;競合しなかったことは、整合していることを意味しない。&lt;code&gt;main&lt;/code&gt; が入れた改名や規約は、競合しないファイルには届かない&lt;/li&gt;
+&lt;li&gt;squash merge の後や載せるコミットが 0 件のときは、どこから先を載せるかの推定がずれて、衝突やブランチ先頭の移動が起きる。&lt;code&gt;--onto&lt;/code&gt; で起点を明示する&lt;/li&gt;
+&lt;li&gt;autostash の書き戻しが衝突しても、rebase も &lt;code&gt;pull --ff-only&lt;/code&gt; も exit 0 で終わる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下はすべて git 2.55.0 で実測した。&lt;code&gt;pull.rebase&lt;/code&gt; や &lt;code&gt;rerere.enabled&lt;/code&gt; などの利用者設定で結果が変わるので、&lt;code&gt;GIT_CONFIG_GLOBAL=/dev/null&lt;/code&gt; で &lt;code&gt;~/.gitconfig&lt;/code&gt; を読ませずに実行している。&lt;/p&gt;
+&lt;h2 id=&#34;前提-rebase-は分岐点から先を作り直す&#34;&gt;前提: rebase は分岐点から先を作り直す&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;git rebase &amp;lt;upstream&amp;gt;&lt;/code&gt; は次の 4 段で動く (&lt;code&gt;man git-rebase&lt;/code&gt;)。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;今のブランチにあって &lt;code&gt;&amp;lt;upstream&amp;gt;&lt;/code&gt; に無いコミットを並べる。&lt;code&gt;&amp;lt;upstream&amp;gt;&lt;/code&gt; に同じ変更 (patch-id が一致するコミット) があるものは外す&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;upstream&amp;gt;&lt;/code&gt; の先頭を detach でチェックアウトする&lt;/li&gt;
+&lt;li&gt;並べたコミットを 1 本ずつ cherry-pick する&lt;/li&gt;
+&lt;li&gt;ブランチをできあがった先頭へ付け替える&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;1 の範囲は &lt;code&gt;git log &amp;lt;upstream&amp;gt;..HEAD&lt;/code&gt; と同じで、分岐点から先にあたる (&lt;a class=&#34;link&#34; href=&#34;https://tro3373.github.io/posts/2025/2025-11-22-git-log-compare-main-develop-branches-with-dots-and-ellipsis/&#34;
+  
+  &gt;
+  git logの「..」と「&amp;hellip;」の違い
+&lt;/a&gt;
+)。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

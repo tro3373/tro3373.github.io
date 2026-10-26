@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>NexusS on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/nexuss/</link>
+    <description>Recent content in NexusS on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 30 Jul 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/nexuss/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nexus S ビルド〜ロム焼き まで</title>
+      <link>https://tro3373.github.io/posts/2011/2011-07-30-nexus-s-birudo-romushao-ki-made/</link>
+      <pubDate>Sat, 30 Jul 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-07-30-nexus-s-birudo-romushao-ki-made/</guid>
+      <description>&lt;h1 id=&#34;nexus-s-ビルドロム焼き-まで&#34;&gt;Nexus S ビルド〜ロム焼き まで&lt;/h1&gt;
+&lt;p&gt;Nexus S 目指せ文鎮化！ぐらいの勢いで、ソースビルドからロム焼き&lt;/p&gt;
+&lt;h2 id=&#34;前提条件&#34;&gt;前提条件&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;環境PC
+&lt;ul&gt;
+&lt;li&gt;Ubuntu 10.10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;端末
+&lt;ul&gt;
+&lt;li&gt;Samsung製 Nexus S gingerbread 2.3.4 GRJ22&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ベースバンドバージョン
+&lt;ul&gt;
+&lt;li&gt;I9023XXKD1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;カーネルバージョン
+&lt;ul&gt;
+&lt;li&gt;2.6.35.7-ge382d80&lt;/li&gt;
+&lt;li&gt;android-build@apa28 #1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ソース
+&lt;ul&gt;
+&lt;li&gt;android 2.3.4ソースをrepoより取得している。&lt;/li&gt;
+&lt;li&gt;ライブラリ等については、通常ビルドできる状態とする。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ubuntu-1010-に-nexus-s-を認識させる&#34;&gt;Ubuntu 10.10 に Nexus S を認識させる。&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;lsusb&lt;/code&gt; で &lt;code&gt;Google inc.&lt;/code&gt; を探す&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sudo gedit /etc/udev/rules.d/51-android.rules&lt;/code&gt;でデバイス情報を登録してやる&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  # 以下を追加
+  SUBSYSTEM==&amp;quot;usb&amp;quot;, SYSFS{idVendor}==&amp;quot;18d1&amp;quot;, MODE=&amp;quot;0666&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;リカバリイメージのダウンロード&#34;&gt;リカバリイメージのダウンロード&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://www.koushikdutta.com/2010/02/clockwork-recovery-image.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Clockwork Recovery image置き場
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ビルド用のソースを取得&#34;&gt;ビルド用のソースを取得&lt;/h2&gt;
+&lt;p&gt;ソース取得したいディレクトリへ移動&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ソース取得したいディレクトリ
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;repo 初期化&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;repo init -u git://android.git.kernel.org/platform/manifest.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;取得対象のブランチ一覧を表示する（&lt;a class=&#34;link&#34; href=&#34;http://stackoverflow.com/questions/2874347/how-to-display-available-branches-in-android-source-tree&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考
+&lt;/a&gt;
+）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ./.repo/manifest
+git branch -r
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;対象ブランチの決定&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

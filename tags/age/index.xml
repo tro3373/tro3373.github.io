@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>age on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/age/</link>
+    <description>Recent content in age on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 06 Oct 2026 13:38:45 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/age/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>sops の暗号文・鍵・平文はどこに残るか</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-06-sops-age-where-secrets-remain/</link>
+      <pubDate>Tue, 06 Oct 2026 13:38:45 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-06-sops-age-where-secrets-remain/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;sops のファイルは、値の暗号文を 1 つだけ持つ。受け取り手 (age の公開鍵) ごとの封筒と MAC は、同じファイルの &lt;code&gt;sops&lt;/code&gt; メタデータに入る&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.sops.yaml&lt;/code&gt; が効くのは新規の暗号化だけ。既存ファイルの受け取り手は &lt;code&gt;sops updatekeys&lt;/code&gt; を実行するまで変わらない&lt;/li&gt;
+&lt;li&gt;暗号化されるのは値とコメントで、キー名は平文で残る。MAC は既定で、暗号化していない値も覆う&lt;/li&gt;
+&lt;li&gt;復号鍵は 1 か所を選んで読むのではない。環境変数と &lt;code&gt;~/.config/sops/age/keys.txt&lt;/code&gt; など、見つかった鍵を全部足して試す&lt;/li&gt;
+&lt;li&gt;復号した平文は &lt;code&gt;exec-env&lt;/code&gt; / &lt;code&gt;exec-file&lt;/code&gt; で子プロセスへ渡せる。リポジトリに平文は残らないが、&lt;code&gt;direnv_load&lt;/code&gt; は一時ファイルを経由し、同じユーザーのプロセスからは読める&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は sops 3.13.3 / age v1.3.2 / direnv 2.37.1 で確かめた。
+ソースの参照先は &lt;code&gt;github.com/getsops/sops/v3@v3.13.3&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;前提-値はデータ鍵で-1-回だけ暗号化しデータ鍵を人数分の封筒に入れる&#34;&gt;前提: 値はデータ鍵で 1 回だけ暗号化し、データ鍵を人数分の封筒に入れる&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;値の暗号文は 1 つで、受け取り手ごとに増えるのはデータ鍵の封筒だけ&#34; loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2026/2026-10-06-sops-age-where-secrets-remain/fig-envelope.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;sops はファイルを新しく暗号化するときにランダムなデータ鍵を 1 つ作り、値をそのデータ鍵で AES-256-GCM 暗号化する。
+データ鍵は受け取り手それぞれの公開鍵で暗号化し (封筒)、ファイル末尾のメタデータに &lt;code&gt;recipient&lt;/code&gt; (公開鍵) と &lt;code&gt;enc&lt;/code&gt; (封筒) の組で並べる。
+復号する側は、自分の秘密鍵で開けられる封筒を探してデータ鍵を取り出し、値を復号する。&lt;/p&gt;
+&lt;p&gt;データ鍵はファイルごとに 1 つで、&lt;code&gt;sops edit&lt;/code&gt; で保存しても作り直さない。
+編集の前後で封筒 (&lt;code&gt;enc&lt;/code&gt;) は変わらず、触っていない値の暗号文も 1 文字も変わらなかった。変わるのは書き換えた値の暗号文だけ。
+データ鍵を作り直すのは &lt;code&gt;sops rotate&lt;/code&gt; だけ (&lt;a class=&#34;link&#34; href=&#34;#%e9%8d%b5%e3%81%ae%e8%bf%bd%e5%8a%a0%e3%81%a8%e5%89%8a%e9%99%a4%e3%81%af-updatekeys%e5%a4%96%e3%81%97%e3%81%9f%e9%8d%b5%e3%81%ab%e3%81%af-rotate-%e3%82%82%e8%a6%81%e3%82%8b&#34;
+  
+  &gt;
+  後述
+&lt;/a&gt;
+)。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

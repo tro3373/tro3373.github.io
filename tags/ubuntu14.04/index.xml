@@ -1,0 +1,1445 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ubuntu14.04 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ubuntu14.04/</link>
+    <description>Recent content in ubuntu14.04 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 10 Oct 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/ubuntu14.04/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Machine(Boot2Docker(Tiny Linux)) 上で docker/gitlab を動かしてみる</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/</link>
+      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/</guid>
+      <description>&lt;h3 id=&#34;sameersbngitlab804&#34;&gt;sameersbn/gitlab:8.0.4&lt;/h3&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/ef40cfe5-df07-df18-6864-fe9ecf0f58b2-compressor.jpeg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;オンプレミスな GitHub Clone GitLab&lt;br&gt;
+かなり気持ち悪いロゴ&amp;hellip;(なぜこうなった)
+&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/gitlab-compressor.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;バージョンUPでこうなったらしい&amp;hellip;
+&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-10-10-docker-machine-docker-gitlab/277d9badcbd723e913b3a41e64e8d2f3d2c80598-compressor.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;それはいいとして、 Docker image を利用して、公式に公開されている、docker/gitlab&lt;br&gt;
+を docker-machine で作成した docker-host（virtual-box） 上で 動かしてみた。&lt;/p&gt;
+&lt;h2 id=&#34;インストール&#34;&gt;インストール&lt;/h2&gt;
+&lt;p&gt;ssh で docker-machine ホストOSへ接続した状態でおこなう&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine ssh dev&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker pull sameersbn/gitlab:8.0.4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/works/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/sameersbn/docker-gitlab.git
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; docker-gitlab
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Dockerfile からビルドする場合&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   docker build --tag=$USER/gitlab .&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;docker-compose-インストール&#34;&gt;docker-compose インストール&lt;/h2&gt;
+&lt;p&gt;docker コンテナを複数使用するアプリケーションの構成（起動順序や必要リソースなど）をまとめて管理できるのが、 &lt;code&gt;docker-compose&lt;/code&gt;&lt;br&gt;
+clone されたディレクトリに、 &lt;code&gt;docker-compose.yml&lt;/code&gt; が存在するので、 docker-compose で起動できる。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker-compose ダウンロード&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/Downloads
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wget https://github.com/docker/compose/releases/download/1.4.2/docker-compose-Linux-x86_64
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mv docker-compose-Linux-x86_64 /usr/local/bin/docker-compose
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod &lt;span class=&#34;m&#34;&gt;755&lt;/span&gt; /usr/local/bin/docker-compose
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# version 確認&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-compose --version
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下が表示される&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   docker-compose version: 1.4.2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;gitlab-設定&#34;&gt;GitLab 設定&lt;/h2&gt;
+&lt;p&gt;以下コマンドで SEACRET_KEY を生成する&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 上に Docker Machine を インストールする</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-10-ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</link>
+      <pubDate>Sat, 10 Oct 2015 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2015/2015-10-10-ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/</guid>
+      <description>&lt;p&gt;Docker Machine を試す！&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-10-10-ubuntu-14-04-shang-ni-docker-machine-wo-insutorusuru/docker-compose-machine-and-swarm-1-638-compressor-1.jpg&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;docker-machine&#34;&gt;docker-machine&lt;/h2&gt;
+&lt;p&gt;docker-machine は Docker ホストを管理するツールで、ホストとなる Docker コンテナ起動サーバが、VM や AWS、 Digital Ocean などの ホストへ接続し実行する事で、あたかも local で docker コンテナが動いているかのように振る舞うツール。&lt;br&gt;
+Docker コンテナ管理ツールとしても仕様できるみたい。&lt;/p&gt;
+&lt;h2 id=&#34;docker-インストール&#34;&gt;docker インストール&lt;/h2&gt;
+&lt;p&gt;まずは、 &lt;code&gt;dokcer&lt;/code&gt; のインストール&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Docker install&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wget -qO- https://get.docker.com/ &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# version を確認しておく。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker --version
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下が表示される&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#    Docker version 1.8.2, build 0a8c2e3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ユーザーを docker グループに追加&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo usermod -aG docker &lt;span class=&#34;nv&#34;&gt;$USER&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;docker-machine-インストール&#34;&gt;docker-machine インストール&lt;/h2&gt;
+&lt;p&gt;続いて、 &lt;code&gt;docker-machine&lt;/code&gt; をインストールする。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/Download
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wget https://github.com/docker/machine/releases/download/v0.4.1/docker-machine_linux-amd64
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mkdir -p /opt/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo mv docker-machine_linux-amd64 /opt/bin/docker-machine
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod +x /opt/bin/docker-machine
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker-machine version 確認&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# /opt/bin にパスが通っている事！&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine -v
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下のようにバージョンが表示される&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   docker-machine version 0.4.1 (e2c88d6)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker-machin の作成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker-machine [--debug] create --driver virtualbox [マシン名]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine --debug create --driver virtualbox dev
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# エラーがでて以下を実行しろと怒られたので実行。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   sudo /etc/init.d/vboxdrv setup&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 再実行時、既に マシンが存在すると怒られるので、以下で削除できる&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   docker-machine rm dev&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker-machine の一覧表示&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine ls
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下のような結果が表示される&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  NAME   ACTIVE   DRIVER       STATE     URL                         SWARM&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  dev    *        virtualbox   Running   tcp://192.168.99.100:2376&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ホストマシンのDocker Remote API のエンドポイントや、certファイルのパスが表示される&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine env dev
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下のような結果が表示される&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   export DOCKER_TLS_VERIFY=&amp;#34;1&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   export DOCKER_HOST=&amp;#34;tcp://192.168.99.100:2376&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   export DOCKER_CERT_PATH=&amp;#34;/home/username/.docker/machine/machines/dev&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   export DOCKER_MACHINE_NAME=&amp;#34;dev&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   # Run this command to configure your shell:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   # eval &amp;#34;$(docker-machine env dev)&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 指示通り実行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;docker-machine env dev&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 上記コマンドで、 `virtual-machine` 上で動くコンテナをあたかもローカルで動いているかのように操作できる。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;doker images
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   REPOSITORY             TAG                 IMAGE ID            CREATED             VIRTUAL SIZE&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   docker/gitlab          latest              8e122d458cf4        5 hours ago         654.1 MB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   sameersbn/gitlab       8.0.4               e6964ca49453        3 days ago          653.5 MB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   sameersbn/redis        latest              7bfd2b846d7b        6 weeks ago         196.9 MB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   sameersbn/ubuntu       14.04.20150825      2bde99560607        6 weeks ago         194.8 MB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   sameersbn/postgresql   9.4-3               6fc4cce07194        9 weeks ago         231.6 MB&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 後は docker コマンドで自由に操作するだけ！&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;tips&#34;&gt;Tips&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ワンライナコマンドオプションの表示&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine config dev
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下のような結果が表示される&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  --tlsverify --tlscacert=&amp;#34;/home/username/.docker/machine/machines/dev/ca.pem&amp;#34; --tlscert=&amp;#34;/home/username/.docker/machine/machines/dev/cert.pem&amp;#34; --tlskey=&amp;#34;/home/username/.docker/machine/machines/dev/key.pem&amp;#34; -H=tcp://192.168.99.100:2376%&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# これを利用して以下でも起動できるらしい&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker $(docker-machine config dev) ps&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# マシンのストップ&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine stop dev
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ストップしたマシンのスタート&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine start dev
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker machine へ ssh 接続&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine ssh dev
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#                         ##         .&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#                   ## ## ##        ==&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#                ## ## ## ## ##    ===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#            /&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;&amp;#34;\___/ ===&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       ~~~ {~~ ~~~~ ~~~ ~~~~ ~~~ ~ /  ===- ~~~&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#            \______ o           __/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#              \    \         __/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#               \____\_______/&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#  _                 _   ____     _            _&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# | |__   ___   ___ | |_|___ \ __| | ___   ___| | _____ _ __&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# | &amp;#39;_ \ / _ \ / _ \| __| __) / _` |/ _ \ / __| |/ / _ \ &amp;#39;__|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# | |_) | (_) | (_) | |_ / __/ (_| | (_) | (__|   &amp;lt;  __/ |&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# |_.__/ \___/ \___/ \__|_____\__,_|\___/ \___|_|\_\___|_|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Boot2Docker version 1.8.2, build master : aba6192 - Thu Sep 10 20:58:17 UTC 2015&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Docker version 1.8.2, build 0a8c2e3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# docker machine へ ssh 経由でコマンド発行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;docker-machine ssh dev &lt;span class=&#34;s2&#34;&gt;&amp;#34;hostname &amp;amp;&amp;amp; uname -a&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下が表示される&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   dev&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   Linux dev 4.0.9-boot2docker #1 SMP Thu Sep 10 20:39:20 UTC 2015 x86_64 GNU/Linux&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://qiita.com/spesnova/items/038af6a8a4e401e3d2aa&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Docker Machine を使って VirtualBox に Dockerホストを立てる
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 wireshark 設定</title>
+      <link>https://tro3373.github.io/posts/2015/2015-09-12-ubuntu-14-04-wireshark-she-ding/</link>
+      <pubDate>Sat, 12 Sep 2015 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2015/2015-09-12-ubuntu-14-04-wireshark-she-ding/</guid>
+      <description>&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-09-12-ubuntu-14-04-wireshark-she-ding/wireshark.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Ubuntu 14.04 で wireshark を導入すると、root 権限で起動するなりしないと、
+通常はパケットキャプチャできない設定になっている。
+ので、任意の一般ユーザをキャプチャできるよう、設定する。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# wireshark インストール&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo add-apt-repository ppa:wireshark-dev/stable
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install wireshark&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## TODO 以下、、必要？？？&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# wireshark グループ作成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo groupadd wireshark
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# wireshark グループ に自分を追加&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo usermod -a -G wireshark &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;user_name&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chgrp wireshark /usr/bin/dumpcap
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo chmod &lt;span class=&#34;m&#34;&gt;750&lt;/span&gt; /usr/bin/dumpcap
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# dumpcapに対して以下のケーバビリティを許可&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo setcap cap_net_raw,cap_net_admin&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;eip /usr/bin/dumpcap
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo getcap /usr/bin/dumpcap&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;それでもダメな場合は&#34;&gt;それでもダメな場合は、、、&lt;/h1&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;LIBOVERLAY_SCROLLBAR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wireshark&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu14.04 Upstart チート</title>
+      <link>https://tro3373.github.io/posts/2015/2015-09-10-ubuntu14-04-upstart-tito/</link>
+      <pubDate>Thu, 10 Sep 2015 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2015/2015-09-10-ubuntu14-04-upstart-tito/</guid>
+      <description>&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-09-10-ubuntu14-04-upstart-tito/upstart80-1.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/etc/init/&lt;/code&gt; 配下に &lt;code&gt;XXXXX.conf&lt;/code&gt; ファイルを作成するのみ&lt;/p&gt;
+&lt;h2 id=&#34;基本コマンド&#34;&gt;基本コマンド&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 設定を反映&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo initctl reload-configuration
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# XXXXX JOB の状態確認&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo initctl status XXXXX
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# XXXXX JOB を開始&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo initctl start XXXXX
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# XXXXX JOB を停止&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo initctl stop XXXXX
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# XXXXX イベントを発生&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo initctl emmit XXXXX&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;xxxxxconf-書き方&#34;&gt;XXXXX.conf 書き方&lt;/h2&gt;
+&lt;p&gt;Job 基準&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Job が開始されたら 起動
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;start on started [開始するためのJOB名]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Job が停止されたら 停止
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stop on stopped [開始するためのJOB名]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;イベント 基準&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# イベントが発生したら開始
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;start on [開始するためのイベント名]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# イベントが発生したら停止
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;stop on [停止するためのイベント名]&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;参考&#34;&gt;参考&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://heartbeats.jp/hbblog/2013/02/upstart-daemon.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Upstart を使ってお手軽 daemon 化
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://www.usupi.org/sysad/189.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  いますぐ実践! Linux システム管理 / Vol.189
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu14.04 AtomエディタをPPAでインストールする</title>
+      <link>https://tro3373.github.io/posts/2015/2015-06-05-atomedeitawoppadeinsutorusuru/</link>
+      <pubDate>Fri, 05 Jun 2015 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2015/2015-06-05-atomedeitawoppadeinsutorusuru/</guid>
+      <description>&lt;h2 id=&#34;ubuntu-で-github-製エディタ-atom-の自動アップデートを有効にする&#34;&gt;Ubuntu で Github 製エディタ Atom の自動アップデートを有効にする&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo add-apt-repository ppa:webupd8team/atom
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get update
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install atom&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu14.04 bashrc にCentOs6.5 Solarizedカラースキームを設定</title>
+      <link>https://tro3373.github.io/posts/2015/2015-01-21-ubuntu14-04-bashrc-nicentos6-5-solarizedkarasukimuwoshe-ding/</link>
+      <pubDate>Wed, 21 Jan 2015 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2015/2015-01-21-ubuntu14-04-bashrc-nicentos6-5-solarizedkarasukimuwoshe-ding/</guid>
+      <description>&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://qiita.com/mashumashu/items/edea85ff4253cde064d7&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  CentOS環境にSolarizedカラースキームを適用する
+&lt;/a&gt;
+ を参考に&lt;/p&gt;
+&lt;h2 id=&#34;設定&#34;&gt;設定&lt;/h2&gt;
+&lt;p&gt;以下を .bashrc へ追記&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ vim ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;LS_COLORS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;no=00;38;5;244:rs=0:di=00;38;5;33:ln=00;38;5;37:mh=00:pi=48;5;230;38;5;136;01:so=48;5;230;38;5;136;01:do=48;5;230;38;5;136;01:bd=48;5;230;38;5;244;01:cd=48;5;230;38;5;244;01:or=48;5;235;38;5;160:su=48;5;160;38;5;230:sg=48;5;136;38;5;230:ca=30;41:tw=48;5;64;38;5;230:ow=48;5;235;38;5;33:st=48;5;33;38;5;230:ex=00;38;5;64:*.tar=00;38;5;61:*.tgz=00;38;5;61:*.arj=00;38;5;61:*.taz=00;38;5;61:*.lzh=00;38;5;61:*.lzma=00;38;5;61:*.tlz=00;38;5;61:*.txz=00;38;5;61:*.zip=00;38;5;61:*.z=00;38;5;61:*.Z=00;38;5;61:*.dz=00;38;5;61:*.gz=00;38;5;61:*.lz=00;38;5;61:*.xz=00;38;5;61:*.bz2=00;38;5;61:*.bz=00;38;5;61:*.tbz=00;38;5;61:*.tbz2=00;38;5;61:*.tz=00;38;5;61:*.deb=00;38;5;61:*.rpm=00;38;5;61:*.jar=00;38;5;61:*.rar=00;38;5;61:*.ace=00;38;5;61:*.zoo=00;38;5;61:*.cpio=00;38;5;61:*.7z=00;38;5;61:*.rz=00;38;5;61:*.apk=00;38;5;61:*.gem=00;38;5;61:*.jpg=00;38;5;136:*.JPG=00;38;5;136:*.jpeg=00;38;5;136:*.gif=00;38;5;136:*.bmp=00;38;5;136:*.pbm=00;38;5;136:*.pgm=00;38;5;136:*.ppm=00;38;5;136:*.tga=00;38;5;136:*.xbm=00;38;5;136:*.xpm=00;38;5;136:*.tif=00;38;5;136:*.tiff=00;38;5;136:*.png=00;38;5;136:*.svg=00;38;5;136:*.svgz=00;38;5;136:*.mng=00;38;5;136:*.pcx=00;38;5;136:*.dl=00;38;5;136:*.xcf=00;38;5;136:*.xwd=00;38;5;136:*.yuv=00;38;5;136:*.cgm=00;38;5;136:*.emf=00;38;5;136:*.eps=00;38;5;136:*.CR2=00;38;5;136:*.ico=00;38;5;136:*.tex=00;38;5;245:*.rdf=00;38;5;245:*.owl=00;38;5;245:*.n3=00;38;5;245:*.ttl=00;38;5;245:*.nt=00;38;5;245:*.torrent=00;38;5;245:*.xml=00;38;5;245:*Makefile=00;38;5;245:*Rakefile=00;38;5;245:*build.xml=00;38;5;245:*rc=00;38;5;245:*1=00;38;5;245:*.nfo=00;38;5;245:*README=00;38;5;245:*README.txt=00;38;5;245:*readme.txt=00;38;5;245:*.md=00;38;5;245:*README.markdown=00;38;5;245:*.ini=00;38;5;245:*.yml=00;38;5;245:*.cfg=00;38;5;245:*.conf=00;38;5;245:*.c=00;38;5;245:*.cpp=00;38;5;245:*.cc=00;38;5;245:*.log=00;38;5;240:*.bak=00;38;5;240:*.aux=00;38;5;240:*.lof=00;38;5;240:*.lol=00;38;5;240:*.lot=00;38;5;240:*.out=00;38;5;240:*.toc=00;38;5;240:*.bbl=00;38;5;240:*.blg=00;38;5;240:*~=00;38;5;240:*#=00;38;5;240:*.part=00;38;5;240:*.incomplete=00;38;5;240:*.swp=00;38;5;240:*.tmp=00;38;5;240:*.temp=00;38;5;240:*.o=00;38;5;240:*.pyc=00;38;5;240:*.class=00;38;5;240:*.cache=00;38;5;240:*.aac=00;38;5;166:*.au=00;38;5;166:*.flac=00;38;5;166:*.mid=00;38;5;166:*.midi=00;38;5;166:*.mka=00;38;5;166:*.mp3=00;38;5;166:*.mpc=00;38;5;166:*.ogg=00;38;5;166:*.ra=00;38;5;166:*.wav=00;38;5;166:*.m4a=00;38;5;166:*.axa=00;38;5;166:*.oga=00;38;5;166:*.spx=00;38;5;166:*.xspf=00;38;5;166:*.mov=00;38;5;166:*.mpg=00;38;5;166:*.mpeg=00;38;5;166:*.m2v=00;38;5;166:*.mkv=00;38;5;166:*.ogm=00;38;5;166:*.mp4=00;38;5;166:*.m4v=00;38;5;166:*.mp4v=00;38;5;166:*.vob=00;38;5;166:*.qt=00;38;5;166:*.nuv=00;38;5;166:*.wmv=00;38;5;166:*.asf=00;38;5;166:*.rm=00;38;5;166:*.rmvb=00;38;5;166:*.flc=00;38;5;166:*.avi=00;38;5;166:*.fli=00;38;5;166:*.flv=00;38;5;166:*.gl=00;38;5;166:*.m2ts=00;38;5;166:*.divx=00;38;5;166:*.webm=00;38;5;166:*.axv=00;38;5;166:*.anx=00;38;5;166:*.ogv=00;38;5;166:*.ogx=00;38;5;166:&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;LS_COLORS&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 terminalからログオフする</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-28-ubuntu-14-04-terminalkararoguohusuru/</link>
+      <pubDate>Fri, 28 Nov 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-11-28-ubuntu-14-04-terminalkararoguohusuru/</guid>
+      <description>&lt;p&gt;Ubuntu 14.04 terminalからログオフする&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;	DISPLAY=:0 gnome-session-quit --logout --no-prompt
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 で、ruby on rails passenger をインストールして apache 連携する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</link>
+      <pubDate>Fri, 14 Nov 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</guid>
+      <description>&lt;h2 id=&#34;passenger-インストール&#34;&gt;passenger インストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/
+rbenv exec gem install passenger
+rbenv rehash
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;passenger-install-apache2-module実行&#34;&gt;passenger-install-apache2-module実行&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;rbenv exec passenger-install-apache2-module
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;passenger-install-apache2-module 詳細&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  This installer will guide you through the entire installation process. It
+  shouldn&#39;t take more than 3 minutes in total.
+
+  Here&#39;s what you can expect from the installation process:
+
+   1. The Apache 2 module will be installed for you.
+   2. You&#39;ll learn how to configure Apache.
+   3. You&#39;ll learn how to deploy a Ruby on Rails application.
+
+  Don&#39;t worry if anything goes wrong. This installer will advise you on how to
+  solve any problems.
+
+  Press Enter to continue, or Ctrl-C to abort.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Which languages are you interested in?
+
+  Use &amp;lt;space&amp;gt; to select.
+  If the menu doesn&#39;t display correctly, press &#39;!&#39;
+
+   ? ?  Ruby
+     ?  Python
+     ?  Node.js
+     ?  Meteor
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;! 入力&lt;br&gt;
+上下でカーソルを移動できる&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;gt; (*)  Ruby
+     (*)  Python
+     (*)  Node.js
+     ( )  Meteor
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ruby を選択し、Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Checking for required software...
+
+   * Checking for C compiler...
+        Found: yes
+        Location: /usr/bin/cc
+   * Checking for C++ compiler...
+        Found: yes
+        Location: /usr/bin/c++
+   * Checking for Curl development headers with SSL support...
+        Found: no
+        Error: Cannot find the `curl-config` command.
+   * Checking for OpenSSL development headers...
+        Found: yes
+        Location: /usr/include/openssl/ssl.h
+   * Checking for Zlib development headers...
+        Found: yes
+        Location: /usr/include/zlib.h
+   * Checking for Apache 2...
+        Found: yes
+        Location of httpd: /usr/sbin/apache2
+        Apache version: 2.4.7
+   * Checking for Apache 2 development headers...
+        Found: no
+   * Checking for Rake (associated with /home/[loginusername]/.rbenv/versions/2.1.2/bin/ruby)...
+        Found: yes
+        Location: /home/[loginusername]/.rbenv/versions/2.1.2/bin/ruby /home/[loginusername]/.rbenv/versions/2.1.2/bin/rake
+   * Checking for OpenSSL support for Ruby...
+        Found: yes
+   * Checking for RubyGems...
+        Found: yes
+   * Checking for Ruby development headers...
+        Found: yes
+        Location: /home/[loginusername]/.rbenv/versions/2.1.2/include/ruby-2.1.0/ruby.h
+   * Checking for rack...
+        Found: yes
+   * Checking for Apache Portable Runtime (APR) development headers...
+        Found: no
+   * Checking for Apache Portable Runtime Utility (APU) development headers...
+        Found: no
+
+  Some required software is not installed.
+  But don&#39;t worry, this installer will tell you how to install them.
+  Press Enter to continue, or Ctrl-C to abort.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Installation instructions for required software
+
+   * To install Curl development headers with SSL support:
+     Please run apt-get install libcurl4-openssl-dev or libcurl4-gnutls-dev, whichever you prefer.
+
+   * To install Apache 2 development headers:
+     Please install it with apt-get install apache2-threaded-dev
+
+   * To install Apache Portable Runtime (APR) development headers:
+     Please install it with apt-get install libapr1-dev
+
+   * To install Apache Portable Runtime Utility (APU) development headers:
+     Please install it with apt-get install libaprutil1-dev
+
+  If the aforementioned instructions didn&#39;t solve your problem, then please take
+  a look at the Users Guide:
+
+    /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53/doc/Users guide Apache.html
+    https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ガイドに従い、必要なパッケージをインストールする&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  sudo apt-get install libcurl4-openssl-dev apache2-threaded-dev libapr1-dev libaprutil1-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再度インストールコマンド実行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  rbenv exec passenger-install-apache2-module
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再度エラーが出る場合は、パッケージインストール、&lt;code&gt;passenger-install-apache2-module&lt;/code&gt; を&lt;br&gt;
+エラーがなくなるまで、繰り返す
+エラーがなくなると、自動でコンパイルが始まる&lt;br&gt;
+最後に以下が表示される&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+  Almost there!
+
+  Please edit your Apache configuration file, and add these lines:
+
+     LoadModule passenger_module /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53/buildout/apache2/mod_passenger.so
+     &amp;lt;IfModule mod_passenger.c&amp;gt;
+       PassengerRoot /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53
+       PassengerDefaultRuby /home/[loginusername]/.rbenv/versions/2.1.2/bin/ruby
+     &amp;lt;/IfModule&amp;gt;
+
+  After you restart Apache, you are ready to deploy any number of web
+  applications on Apache, with a minimum amount of configuration!
+
+  Press ENTER to continue.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上記をコピーし、控えておく&lt;br&gt;
+再度表示したい場合は、&lt;code&gt;rbenv exec passenger-install-apache2-module --snippet&lt;/code&gt;を実行すると
+上記と同じものが表示される&lt;br&gt;
+Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Deploying a web application: an example
+
+  Suppose you have a web application in /somewhere. Add a virtual host to your
+  Apache configuration file and set its DocumentRoot to /somewhere/public:
+
+     &amp;lt;VirtualHost *:80&amp;gt;
+        ServerName www.yourhost.com
+        # !!! Be sure to point DocumentRoot to &#39;public&#39;!
+        DocumentRoot /somewhere/public
+        &amp;lt;Directory /somewhere/public&amp;gt;
+           # This relaxes Apache security settings.
+           AllowOverride all
+           # MultiViews must be turned off.
+           Options -MultiViews
+           # Uncomment this if you&#39;re on Apache &amp;gt;= 2.4:
+           #Require all granted
+        &amp;lt;/Directory&amp;gt;
+     &amp;lt;/VirtualHost&amp;gt;
+
+  And that&#39;s it! You may also want to check the Users Guide for security and
+  optimization tips, troubleshooting and other useful information:
+
+    /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53/doc/Users guide Apache.html
+    https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html
+
+  Enjoy Phusion Passenger, a product of Phusion (www.phusion.nl) :-)
+  https://www.phusionpassenger.com
+
+  Phusion Passenger is a trademark of Hongli Lai &amp;amp; Ninh Bui.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;最後にapache バーチャルホスト設定のサンプルも表示されるので、控えておく&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu14.04 visudo エディタをvimに設定する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-10-ubuntu14-04-visudo-edeitawovimnishe-ding-suru/</link>
+      <pubDate>Mon, 10 Nov 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-11-10-ubuntu14-04-visudo-edeitawovimnishe-ding-suru/</guid>
+      <description>&lt;h1 id=&#34;ubuntu1404-visudo-エディタをvimに設定する&#34;&gt;Ubuntu14.04 visudo エディタをvimに設定する&lt;/h1&gt;
+&lt;p&gt;以下コマンドでエディタを変更しておく&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo update-alternatives --config editor
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 postgresql install</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-postgresql-install/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-postgresql-install/</guid>
+      <description>&lt;h2 id=&#34;postgresql-install&#34;&gt;postgresql install&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install postgresql
+sudo apt-get install libpq-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;postgresql-settings&#34;&gt;postgresql settings&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo su postgres -c psql
+postgres=# CREATE ROLE [user] SUPERUSER LOGIN;
+postgres=# \password [user]
+  [userpassword]
+  [userpassword]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;check-or-list-database-tables-indexes-and-so-on&#34;&gt;check or list database, tables, indexes, and so on.&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;postgres=# create database [user];
+postgres=# select * from pg_user; /* ユーザ一覧 */
+postgres=# \d /* 表、インデックスの一覧 */
+postgres=# \dt /* 表の一覧 */
+postgres=# \d [表名] /* 表の項目一覧 */
+postgres=# \l /* データベース一覧、文字コード表示 */
+postgres=# \q /* 終了 */
+psql -l # データベース 一覧
+psql [データベース名] # psql へ切り替え
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 remote desktop with xrdp</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-remote-desktop-with-xrdp/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-remote-desktop-with-xrdp/</guid>
+      <description>&lt;h1 id=&#34;install-xrdp-server&#34;&gt;install xrdp server&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install xrdp
+sudo apt-get install xlde
+echo lxsession -s LXDE -e LXDE &amp;gt; ~/.xsession
+sudo service xrdp restart
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu14.04 ruby 用 vim 設定</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu14-04-ruby-yong-vim-she-ding/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu14-04-ruby-yong-vim-she-ding/</guid>
+      <description>&lt;h2 id=&#34;ruby-開発環境&#34;&gt;ruby 開発環境&lt;/h2&gt;
+&lt;h3 id=&#34;vim-install&#34;&gt;vim install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install vim vim-gtk vim-gui-common
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;install-vim-nox&#34;&gt;install vim-nox&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;vim --version |grep ruby
+    +diff            +menu            -ruby            +writebackup
+sudo apt-get install vim-nox
+vim --version |grep ruby
+    +diff            +menu            +ruby            +writebackup
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;settings&#34;&gt;settings&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p ~/.vim/bundle
+cd ~/.vim/bundle/
+git clone http://github.com/Shougo/neobundle.vim
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;vim ~/.vimrc&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;set number
+set nocompatible
+filetype plugin indent off
+
+if has(&#39;vim_starting&#39;)
+  set runtimepath+=~/.vim/bundle/neobundle.vim
+  call neobundle#rc(expand(&#39;~/.vim/bundle&#39;))
+endif
+
+&amp;quot; 以下は必要に応じて追加
+&amp;quot; NeoBundle &#39;Shougo/unite.vim&#39;
+&amp;quot; NeoBundle &#39;Shougo/neosnippet.vim&#39;
+NeoBundle &#39;git://github.com/Shougo/neobundle.vim.git&#39;
+NeoBundle &#39;git://github.com/Shougo/neocomplcache.git&#39;
+NeoBundle &#39;git://github.com/Shougo/unite.vim.git&#39;
+NeoBundle &#39;git://github.com/Shougo/vimshell.git&#39;
+NeoBundle &#39;git://github.com/Shougo/vimproc.git&#39;
+NeoBundle &#39;git://github.com/vim-scripts/taglist.vim.git&#39;
+NeoBundle &#39;git://github.com/Lokaltog/vim-powerline.git&#39;
+NeoBundle &#39;git://github.com/vim-scripts/TwitVim.git&#39;
+filetype plugin indent on
+
+# 終了せずに、vim上で以下を実行
+:NeoBundleInstall
+:wq!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;open-java-install&#34;&gt;open-java install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install openjdk-7-jdk
+cd ~/Downloads &amp;amp;&amp;amp; wget http://cx4a.org/pub/rsense/rsense-0.3.zip
+unzip rsense-0.3.zip
+sudo cp -R rsense-0.3 /opt/.
+sudo chmod +x /opt/rsense-0.3/bin/rsense
+/opt/rsense-0.3/bin/rsense version
+RSense 0.3
+ruby /opt/rsense-0.3/etc/config.rb &amp;gt; ~/.rsense
+export RSENSE_HOME=&amp;quot;/opt/rsense-0.3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;vim-setting&#34;&gt;vim setting&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;vim ~/.vimrc&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 Change LF UTF-8 Under Specified Directory</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-12-ubuntu-14-04-change-lf-utf-8-under-specified-directory/</link>
+      <pubDate>Sun, 12 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-12-ubuntu-14-04-change-lf-utf-8-under-specified-directory/</guid>
+      <description>&lt;h2 id=&#34;install-nkf&#34;&gt;Install nkf&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install nkf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;usege&#34;&gt;usege&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;nkf -wLu --overwrite *.txt
+# -w: change to UTF8
+# -Lu: change to LF
+# --overwrite: overwrite file!
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;exclude-git-or-and-so-on-files-and-specified-some-extension&#34;&gt;Exclude .git or and so on files, and specified some extension.&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;find . \( -name &amp;quot;i18n&amp;quot; -o -name &amp;quot;.git&amp;quot; -o -name &amp;quot;jquery*.js&amp;quot; -o -name &amp;quot;jquery*.css&amp;quot; \) -prune -o -type f \( -name &amp;quot;*.txt&amp;quot; -o -name &amp;quot;*.js&amp;quot; -o -name &amp;quot;*.css&amp;quot; -o -name &amp;quot;*.html&amp;quot; -o -name &amp;quot;*.php&amp;quot; \) -print -exec nkf -wLu --overwrite {} \;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 grive install</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-ubuntu-14-04-grive-install/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-ubuntu-14-04-grive-install/</guid>
+      <description>&lt;h2 id=&#34;install&#34;&gt;install&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo add-apt-repository ppa:nilarimogard/webupd8
+sudo apt-get update
+sudo aptitude install grive
+mkdir -p ~/grive
+cd ~/grive
+grive -a
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;grive -a&lt;/code&gt; コマンドでURL表示&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;アクセスし、承認するとキーが表示される&lt;/li&gt;
+&lt;li&gt;terminalへ貼り付け！&lt;/li&gt;
+&lt;li&gt;同期開始！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;file-sync&#34;&gt;file sync&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/grive
+grive
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 Theme をnumixへ変更</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-08-ubuntu-14-04-theme-wonumixhebian-geng/</link>
+      <pubDate>Wed, 08 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-08-ubuntu-14-04-theme-wonumixhebian-geng/</guid>
+      <description>&lt;h2 id=&#34;install&#34;&gt;install&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-add-repository ppa:numix/ppa
+sudo aptitude update
+sudo aptitude install numix-gtk-theme
+#sudo aptitude install numix-icon-theme-utouch
+sudo aptitude install numix-icon-theme
+sudo aptitude install numix-wallpaper-saucy
+# ↓この丸いアイコンがすごくよい。
+sudo aptitude install numix-icon-theme-circle 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;theme-setting&#34;&gt;theme setting&lt;/h2&gt;
+&lt;p&gt;setting from tweak-tool&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 libwebsockets クライアントを試す</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</guid>
+      <description>&lt;h2 id=&#34;libwebsockets-build&#34;&gt;libwebsockets build&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install cmake
+cd ~/works
+git clone git://git.libwebsockets.org/libwebsockets
+cd libwebsockets/
+mkdir build
+cd build
+cmake ..
+make -j8
+# sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;サンプルとして作成したサーバに-libwebsocket-test-echo-サンプルからアクセスする&#34;&gt;サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする&lt;/h2&gt;
+&lt;h3 id=&#34;server&#34;&gt;server&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;rails 上に em-websocket を実装したcontrollerを用意する&lt;br&gt;
+※ rails に関しては、省略&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;ubuntu-1404-libwebsockets-クライアントを試す&#34;&gt;Ubuntu 14.04 libwebsockets クライアントを試す&lt;/h1&gt;
+&lt;h2 id=&#34;libwebsockets-build-1&#34;&gt;libwebsockets build&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install cmake
+cd ~/works
+git clone git://git.libwebsockets.org/libwebsockets
+cd libwebsockets/
+mkdir build
+cd build
+cmake ..
+make -j8
+# sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;サンプルとして作成したサーバに-libwebsocket-test-echo-サンプルからアクセスする-1&#34;&gt;サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする&lt;/h2&gt;
+&lt;h3 id=&#34;server-1&#34;&gt;server&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;rails 上に em-websocket を実装したcontrollerを用意する&lt;br&gt;
+※ rails に関しては、省略&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;gem-settings&#34;&gt;gem settings&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/works/test_rails
+vim GemFile
+----------------- 以下を追加
+gem &#39;em-websocket&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;gem-install&#34;&gt;gem install&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;bundle update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;mod-controller&#34;&gt;mod controller&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;任意のcontrollerに以下を追加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  require &amp;quot;em-websocket&amp;quot;
+  ～ 省略 ～
+  connections = EM::Channel.new
+  EM::WebSocket.start(host: &amp;quot;[server address]&amp;quot;, port: 3001) do |ws_conn|
+    ws_conn.onopen do
+      puts &amp;quot;connected&amp;quot;
+      # EventMachine#subscribeを用い、コネクションオブジェクトと処理を登録
+      connections.subscribe{|message| ws_conn.send(message) }
+    end
+    ws_conn.onmessage do |message|
+      # onopen内で登録した処理を呼び出し
+      puts &amp;quot;received:&amp;quot; + message
+      connections.push(message)
+    end
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 rails scoffoldでEntity作成、からDB migrateまで</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-rails-scoffolddeentityzuo-cheng-karadb-migratemade/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-rails-scoffolddeentityzuo-cheng-karadb-migratemade/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;以下のような形式で generate できる
+bundle exec rails generate scaffold [entity_name] [column_name]:[data_type][column_name]:[data_type] 
+# 間違えたら！
+bundle exec rails destroy scaffold &amp;quot;name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;data type
+&lt;ul&gt;
+&lt;li&gt;integer, string, timestamp などなどが使える&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;generateした各ファイルをそれぞれ条件を追加するように下記のように修正&#34;&gt;Generateした各ファイルをそれぞれ条件を追加するように、下記のように修正&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;db/migrate/YYYYMMDDhhmmss_create_[entity_name].rb
+以下のように、NotNullや桁指定、デフォルト指定ができる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;class CreateEvents &amp;lt; ActiveRecord::Migration
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  def change
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    create_table :[entity_name] do |t|
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      t.string :column_name, :null =&amp;gt; false, :limit =&amp;gt; 1, :default =&amp;gt; 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      t.timestamps
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    end
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  end
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;作成した-rb-ファイルでdb再作成&#34;&gt;作成した rb ファイルで、DB再作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;# 通常DB作成
+# bundle exec rake db:migrate
+# DB再作成（db/schema.rb より再実行）
+# bundle exec rake db:reset
+# DB再作成（db/migrate/**.rb より再実行）
+# →今回は追加する形であるので、以下を実行する
+# →DROP→CREATEされる
+bundle exec rake db:migrate:reset
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;サーバ立ち上げ&#34;&gt;サーバ立ち上げ&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails server
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 ruby2.1.2 で ActiveRecord4.1.6 を使用し、postgresql4.1.6 へアクセス</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</guid>
+      <description>&lt;h2 id=&#34;まずはdatabase-確認&#34;&gt;まずはdatabase 確認&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo su postgres -c psql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;install-activerecordpg&#34;&gt;install activerecord,pg&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p ~/works/99_sample/02_activerecord
+cd ~/works/99_sample/02_activerecord
+gem install activerecord
+gem install pg
+gem list
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;dbユーザtest_nameを作成しておく&#34;&gt;DBユーザ&lt;code&gt;test_name&lt;/code&gt;を作成しておく&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;sudo su postgres -c psql
+create role test_name superuser login;
+\password test_name
+  Enter new password: test_name
+  Enter it again: test_name
+create database test_name;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;configdatabaseyml&#34;&gt;config/database.yml&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;mkdir -p config &amp;amp;&amp;amp; vim config/database.yml&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;db:
+  production:
+    adapter:  postgresql
+    host:     localhost
+    username: test_name
+    password: test_name
+    database: test_name
+
+  development:
+    adapter:  postgresql
+    host:     localhost
+    username: test_name
+    password: test_name
+    database: test_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;dbmigrate配下に３ファイルを配置rails環境からコピー&#34;&gt;&lt;code&gt;db/migrate&lt;/code&gt;配下に、３ファイルを配置(rails環境からコピー)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;mkdir -p db/migrate&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 で websocket, zeroMQ</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</guid>
+      <description>&lt;p&gt;rails 、postgresql、zeroMQ、websocketを使って通信するサンプル環境を作成中&lt;/p&gt;
+&lt;h3 id=&#34;create-rails-project&#34;&gt;create rails project&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+rails new test_rails_postgres -d postgresql
+cd test_rails_postgres
+bundle install --path vendor/bundle
+bundle exec rake db:create db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;テスト起動確認&#34;&gt;テスト起動確認&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+rails server
+http://[サーバアドレス]:3000へアクセス
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;git-管理開始&#34;&gt;git 管理開始&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+git init
+vim .gitignore
+以下を追加
+    doc/
+    *.swp
+    *~
+    .project
+    .DS_Store
+    .idea
+    .secret
+git add .
+git commit -m &amp;quot;initial commit.&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;テスト設定&#34;&gt;テスト設定&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails generate scaffold book title:string author:string outline:text
+bundle exec rake db:migrate
+bundle exec rails server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;db確認&#34;&gt;db確認&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;-- database list
+\l
+-- user list
+select * from pg_user;
+-- table list
+\d
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;routes-の確認&#34;&gt;routes の確認&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;http://localhost:3000/rails/info/routes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-へwebsocket実装&#34;&gt;rails へwebsocket実装&lt;/h2&gt;
+&lt;h3 id=&#34;websocket-rails-install&#34;&gt;websocket-rails install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+vim Gemfile
+# 以下を追加  
+    gem &#39;websocket-rails&#39;
+bundle install
+rails g websocket_rails:install
+# コントローラ作成
+vim app/controllers/websocket_chat_controller.rb
+    # WebsocketRails::BaseControllerを継承
+    class WebsocketChatController &amp;lt; WebsocketRails::BaseController
+      def message_recieve
+        # クライアントからのメッセージを取得
+        recieve_message = message()
+        # websocket_chatイベントで接続しているクライアントにブロードキャスト
+        broadcast_message(:websocket_chat, recieve_message)
+      end
+    end
+vim config/events.rb
+    WebsocketRails::EventMap.describe do
+          # websocket_chatイベントのマッピング
+        subscribe :websocket_chat, to: WebsocketChatController,
+        with_method: :message_recieve
+    end
+
+# クライアント
+rails g controller chat index
+vim app/views/chat/index.html.erb
+以下追加
+    &amp;lt;!-- チャット表示部分 --&amp;gt;
+    &amp;lt;ul id=&amp;quot;chat_area&amp;quot;&amp;gt;
+    &amp;lt;/ul&amp;gt;
+    &amp;lt;!-- コメントフォーム --&amp;gt;
+    &amp;lt;input id=&amp;quot;comment&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;
+    &amp;lt;input id=&amp;quot;send&amp;quot; type=&amp;quot;button&amp;quot; value=&amp;quot;send&amp;quot;&amp;gt;
+    &amp;lt;script&amp;gt;
+      var ws_rails = new WebSocketRails(&amp;quot;[url]:3000/websocket&amp;quot;);
+      // メッセージ受信時の処理
+      ws_rails.bind(&amp;quot;websocket_chat&amp;quot;, function(message){
+        var message_li = document.createElement(&amp;quot;li&amp;quot;);
+        message_li.textContent = message;
+        
+        document.getElementById(&amp;quot;chat_area&amp;quot;).appendChild(message_li);
+      })
+      // メッセージ送信時の処理
+      document.getElementById(&amp;quot;send&amp;quot;).onclick =  function(){
+        var comment = document.getElementById(&amp;quot;comment&amp;quot;).value;
+        ws_rails.trigger(&amp;quot;websocket_chat&amp;quot;, comment);
+      }
+    &amp;lt;/script&amp;gt;
+vim config/environments/development.rb
+    # 以下を追加
+    config.middleware.delete Rack::Lock
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;test-websocket-client作成&#34;&gt;test websocket client作成&lt;/h2&gt;
+&lt;h3 id=&#34;gem-install&#34;&gt;gem install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gem install websocket-client-simple
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;client-program動かない&#34;&gt;client program(動かない)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;vim websocket_client.rb
+    require &#39;rubygems&#39;
+    require &#39;websocket-client-simple&#39;
+    
+    ws = WebSocket::Client::Simple.connect &#39;[url]:3000/websocket&#39;
+    
+    ws.on :message do |msg|
+      puts msg.data
+    end
+    
+    ws.on :open do
+      ws.send &#39;hello!!!&#39;
+    end
+    
+    ws.on :close do |e|
+      p e
+      exit 1
+    end
+    
+    loop do
+      ws.send STDIN.gets.strip
+    end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;execjs-install不要&#34;&gt;execjs install(不要)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gem install execjs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;zeromq-install&#34;&gt;zeromq install&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+git clone https://github.com/zeromq/zeromq4-x.git
+cd zeromq4-x
+# git checkout origin/v4.0.1
+sudo aptitude install libtool autoconf uuid-dev
+./autogen.sh
+#./configure --prefix=/usr/local/zmq
+./configure
+make
+sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;zeromq導入&#34;&gt;ZeroMQ導入&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;vim Gemfile
+--------------------
+# Use zeroMq
+gem &#39;rbzmq&#39;
+#gem &#39;ffi-rzmq&#39;
+#gem &#39;zqm&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ffi-rzmqのバージョンが合っている201が要る&#34;&gt;ffi-rzmqのバージョンが合っている2.0.1が要る？&lt;/h2&gt;
+&lt;h2 id=&#34;rails-コントローラにzmqスレッドを立ち上げる&#34;&gt;rails コントローラにZMQスレッドを立ち上げる&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;vim websocket_chat_controller.rb
+---------------------------------------------------
+require &#39;rbzmq&#39;
+# WebsocketRails::BaseControllerを継承
+class WebsocketChatController &amp;lt; WebsocketRails::BaseController
+  context = ZMQ::Context.new
+  publisher = context.socket ZMQ::PUB
+  publisher.bind &amp;quot;tcp://*:5563&amp;quot;
+  begin
+    t = Thread.new do
+      Thread.pass    # メインスレッドが確実にjoinするように
+      puts &amp;quot;[rails] Tread loop start.&amp;quot;
+      loop do
+        publisher.send_string &#39;A&#39;, ZMQ::SNDMORE
+        publisher.send_string &amp;quot;We don&#39;t want to see this.&amp;quot;
+
+        publisher.send_string &#39;B&#39;, ZMQ::SNDMORE
+        publisher.send_string &amp;quot;We would like to see this.&amp;quot;
+
+        sleep 1
+      end
+      publisher.close
+      raise &amp;quot;unhandled exception&amp;quot;
+    end
+    t.join
+  rescue
+    p $!  # =&amp;gt; &amp;quot;unhandled exception&amp;quot;
+  end
+
+  puts &amp;quot;[rails] WebsocketChatController is started!!!!!&amp;quot;
+  def message_recieve
+    # クライアントからのメッセージを取得
+    recieve_message = message()
+    puts &amp;quot;[rails] server message receive and broadcast =&amp;gt; #{recieve_message}&amp;quot;
+    # websocket_chatイベントで接続しているクライアントにブロードキャスト
+    broadcast_message(:websocket_chat, recieve_message)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-server立ち上げ&#34;&gt;rails server立ち上げ&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;em-websocket-in-rails&#34;&gt;em-websocket in rails&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;vim websocket_chat_controller.rb
+require &amp;ldquo;em-websocket&amp;rdquo;
+# 省略
+puts &amp;ldquo;rails emwebsocket server start&amp;rdquo;
+# 配列ではなくEventMachineオブジェクトを生成
+connections = EM::Channel.new
+EM::WebSocket.start(host: &amp;ldquo;172.19.1.94&amp;rdquo;, port: 3001) do |ws_conn|
+ws_conn.onopen do
+puts &amp;ldquo;connected&amp;rdquo;
+# EventMachine#subscribeを用い、コネクションオブジェクトと処理を登録
+connections.subscribe{|message| ws_conn.send(message) }
+end
+ws_conn.onmessage do |message|
+# onopen内で登録した処理を呼び出し
+puts &amp;ldquo;received:&amp;rdquo; + message
+connections.push(message)
+end
+end&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 ランチャーにアプリ(meld)を登録する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-25-ubuntu-14-04-rantiyaniapurimeldwodeng-lu-suru/</link>
+      <pubDate>Thu, 25 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-09-25-ubuntu-14-04-rantiyaniapurimeldwodeng-lu-suru/</guid>
+      <description>&lt;h2 id=&#34;適当な場所に以下のファイルを作成する&#34;&gt;適当な場所に以下のファイルを作成する&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vim ~/bin/meld.desktop&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;以下内容にする&#34;&gt;以下内容にする&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;Desktop Entry&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Application
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;Meld
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;GenericName&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;meld
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Icon&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;~/bin/meld-1.8.6/data/icons/hicolor/48x48/apps/meld.png
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Exec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;~/bin/meld-1.8.6/bin/meld
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;Terminal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;false&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>UX21A prime へ Win8.1 と Ubuntu14.04のデュアルブート</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-24-ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</link>
+      <pubDate>Wed, 24 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-09-24-ux21a-prime-he-win8-1-to-ubuntu14-04nodeyuarubuto/</guid>
+      <description>&lt;p&gt;参考にしたのは&lt;a class=&#34;link&#34; href=&#34;http://kysikiky.blog.fc2.com/blog-entry-300.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  ここ
+&lt;/a&gt;
+&lt;br&gt;
+ありがとうございます。これでようやく素敵うぼんとぅライフin電車！&lt;/p&gt;
+&lt;h2 id=&#34;windowsリカバリイメージをバックアップ&#34;&gt;Windowsリカバリイメージをバックアップ&lt;/h2&gt;
+&lt;p&gt;windows 8 標準機能にてバックアップ&lt;/p&gt;
+&lt;h2 id=&#34;usb-ubuntu-1404を作成&#34;&gt;usb ubuntu 14.04を作成&lt;/h2&gt;
+&lt;p&gt;ubuntu 14.04(別PC)よりブータブルUSBの作成から&lt;a class=&#34;link&#34; href=&#34;http://ubuntutym2.u-toyama.ac.jp/ubuntu/14.04.1/ubuntu-14.04.1-desktop-amd64.iso&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  ダウンロード
+&lt;/a&gt;
+したISOファイルを焼く&lt;/p&gt;
+&lt;h2 id=&#34;ux21aをusbから起動&#34;&gt;ux21aをUSBから起動&lt;/h2&gt;
+&lt;p&gt;起動時にesc連打し、USBを選択&lt;/p&gt;
+&lt;h2 id=&#34;パーティション編集&#34;&gt;パーティション編集&lt;/h2&gt;
+&lt;p&gt;Gpartedパーティション編集ツールにて、Win8システムパーティションより後ろを全て削除&lt;br&gt;
+このへんの記憶が曖昧過ぎて申し訳ないですが、なんせDドライブの一つ左にあるリカバリ用のパーティションを含め削除しても、&lt;strong&gt;問題なかった！&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;ubuntu-インストール&#34;&gt;ubuntu インストール&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;EFI 50Mb作成&lt;/li&gt;
+&lt;li&gt;/システムパーティション作成(ext4 約141G作成(swap4096Mb引いて作成))&lt;/li&gt;
+&lt;li&gt;残りをswapに&lt;/li&gt;
+&lt;li&gt;/システム(/dev/sda6かな？)にブートローダ設定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;起動時にesc連打で切り替え可能右クリックも効いてる&#34;&gt;起動時にESC連打で切り替え可能！右クリックも効いてる！&lt;/h2&gt;
+&lt;p&gt;というより、自然に動き過ぎて怖い。すべて問題なく動作しています。&lt;br&gt;
+起動時に自動で、Ubuntuのブートローダが自動で windows8 認識しており、&lt;br&gt;
+起動時に &lt;code&gt;esc&lt;/code&gt; 連打しなくても勝手に選択画面に移動するし。。。&lt;br&gt;
+ステキ！あーすーす、あ、ちが、えいすぅーすぅたまぁ！&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;wifi&lt;/li&gt;
+&lt;li&gt;bluetooth&lt;/li&gt;
+&lt;li&gt;mouse pad&lt;/li&gt;
+&lt;li&gt;音量設定&lt;/li&gt;
+&lt;li&gt;etc&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 にrbenvを使用し、ruby2.1.2をインストールする</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-18-ubuntu-14-04-nirbenvwoshi-yong-si-ruby2-1-2woinsutorusuru/</link>
+      <pubDate>Thu, 18 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-09-18-ubuntu-14-04-nirbenvwoshi-yong-si-ruby2-1-2woinsutorusuru/</guid>
+      <description>&lt;h2 id=&#34;install-packages&#34;&gt;install packages&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo add-apt-repository ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get install build-essential git curl zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev sqlite3 libsqlite3-dev nodejs tk ruby-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rbenv-install&#34;&gt;rbenv install&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo &#39;export PATH=&amp;quot;$HOME/.rbenv/bin:$PATH&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
+echo &#39;eval &amp;quot;$(rbenv init -)&amp;quot;&#39; &amp;gt;&amp;gt; ~/.bashrc
+. .bashrc
+gem install rbenv-rehash
+gem install bundler
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ruby-install&#34;&gt;ruby install&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;rbenv install -list
+rbenv install 2.1.2
+rbenv versions
+rbenv global 2.1.2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails&#34;&gt;rails&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;gem install rails
+rbenv rehash
+rails -v
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 日本語ディレクトリ名を英語にする</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-11-ubuntu-14-04-ri-ben-yu-deirekutoriming-woying-yu-nisuru/</link>
+      <pubDate>Thu, 11 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-09-11-ubuntu-14-04-ri-ben-yu-deirekutoriming-woying-yu-nisuru/</guid>
+      <description>&lt;h1 id=&#34;ubuntu-1404-日本語ディレクトリ名を英語にする&#34;&gt;Ubuntu 14.04 日本語ディレクトリ名を英語にする&lt;/h1&gt;
+&lt;h2 id=&#34;terminal-で以下を実行&#34;&gt;terminal で以下を実行&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;以下を実行&#34;&gt;以下を実行&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;ログアウト&lt;/li&gt;
+&lt;li&gt;ログイン&lt;/li&gt;
+&lt;li&gt;古い名前のままにするかどうかを聞かれる&lt;/li&gt;
+&lt;li&gt;これ以上表示させないにチェックを付けて終了&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 Python でWebsocket実装</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu-14-04-python-dewebsocketshi-zhuang/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu-14-04-python-dewebsocketshi-zhuang/</guid>
+      <description>&lt;h1 id=&#34;ubuntu1404-python-276-でwebsocket実装&#34;&gt;Ubuntu14.04 Python 2.7.6 でWebsocket実装&lt;/h1&gt;
+&lt;h2 id=&#34;モジュールのインストール&#34;&gt;モジュールのインストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install libevent-dev python-dev python-setuptools
+sudo easy_install gevent
+sudo easy_install gevent-websocket
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;サーバスクリプト作成&#34;&gt;サーバスクリプト作成&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;vi chat.py&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#! /usr/bin/python
+# -*- coding: utf-8 -*-
+
+import os
+import random
+from geventwebsocket.handler import WebSocketHandler
+from gevent import pywsgi, sleep
+
+ws_list = set()
+
+def chat_handle(environ, start_response):
+    global cnt
+    ws = environ[&#39;wsgi.websocket&#39;]
+    ws_list.add(ws)a
+    print &#39;enter!&#39;, len(ws_list)
+    while 1:
+        msg = ws.receive()
+        if msg is None:
+            break
+        remove = set()
+        for s in ws_list:
+            try:
+                s.send(msg)
+            except Exception:
+                remove.add(s)
+        for s in remove:
+            ws_list.remove(s)
+    print &#39;exit!&#39;, len(ws_list)
+
+def myapp(environ, start_response):  
+    path = environ[&amp;quot;PATH_INFO&amp;quot;]
+    print path
+    if path == &amp;quot;/&amp;quot;: 
+        start_response(&amp;quot;200 OK&amp;quot;, [(&amp;quot;Content-Type&amp;quot;, &amp;quot;text/html&amp;quot;)])  
+        return open(&#39;./chat_sample.html&#39;).read()
+    elif path == &amp;quot;/chat&amp;quot;:  
+        return chat_handle(environ, start_response)
+    raise Exception(&#39;Not found.&#39;)
+
+server = pywsgi.WSGIServer((&#39;0.0.0.0&#39;, 8080), myapp, handler_class=WebSocketHandler)
+
+server.serve_forever()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;クライアント側-html作成&#34;&gt;クライアント側 HTML作成&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;vi chat_sample.html&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu14.04 Node.js をインストール</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu14-04-node-js-woinsutoru/</link>
+      <pubDate>Wed, 10 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-09-10-ubuntu14-04-node-js-woinsutoru/</guid>
+      <description>&lt;h1 id=&#34;ubuntu1404-nodejsをインストール&#34;&gt;Ubuntu14.04 Node.jsをインストール&lt;/h1&gt;
+&lt;h1 id=&#34;install-packages&#34;&gt;install packages.&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install git curl build-essential libssl-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;install-nvm&#34;&gt;install nvm.&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/creationix/nvm.git ~/.nvm
+. ~/.nvm/nvm.sh
+nvm install 0.10
+    ######################################################################## 100.0%
+    Now using node v0.10.31
+nvm version
+vi ~/.bashrc
+    # 以下追加
+    . ~/.nvm/nvm.sh
+    nvm use v0.10.31
+# defaultバージョンを指定
+nvm alias default v0.10.31
+# Node.jsはバージョン番号が偶数が安定バージョン、奇数は開発バージョン
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;hellow-world-作成&#34;&gt;hellow world 作成&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+vim hellowworld.js
+-------------------------------------
+    var sys = require(&#39;sys&#39;);
+    var http = require(&#39;http&#39;);
+    var server = http.createServer(
+            function (request, response) {
+                response.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39;});
+                response.write(&#39;Hello World!!\n&#39;);
+                response.end();
+            }
+        ).listen(8124);
+    sys.log(&#39;Server running at http://127.0.0.1:8124/&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;hellowworld起動&#34;&gt;hellowworld起動&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;node hellowworls.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;browserから起動確認&#34;&gt;browserから起動確認&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;http://127.0.0.1:8124/ へアクセス
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;nodejs-socketio&#34;&gt;Node.js socket.io&lt;/h1&gt;
+&lt;h2 id=&#34;install-socketio&#34;&gt;install socket.io&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mkdir test_socketio_standalone &amp;amp;&amp;amp; cd test_socketio_standalone
+sudo npm install socket.io -g
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-server-js&#34;&gt;create server js&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;vim socket.io.server.js
+-----------------------------
+// Server
+var io = require(&#39;socket.io&#39;).listen(3000); // デフォルトポートは 80
+var log = console.log;
+
+io.sockets.on(&#39;connection&#39;, function (socket) {
+  log(&#39;server connection called. scoket id=&#39; + socket.id);
+  socket.on(&#39;cchat&#39;, function (data) {
+    socket.broadcast.emit(&#39;cchat&#39;, {msg: &#39;server echo:cchat!&#39;});
+    log(data);
+    socket.broadcast.emit(&#39;cchat&#39;, {msg: &#39;server echo:&#39; + data.msg});
+    log(&amp;quot;echo message sended.&amp;quot;);
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;create-ruby-client&#34;&gt;create ruby client&lt;/h2&gt;
+&lt;h3 id=&#34;install-socketio-client-simple&#34;&gt;install socket.io-client-simple&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gem install socket.io-client-simple
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;create-client-ruby&#34;&gt;create client ruby&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;vim socket.io.client.rb&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

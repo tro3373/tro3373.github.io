@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>net-http on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/net-http/</link>
+    <description>Recent content in net-http on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 26 Oct 2026 13:40:19 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/net-http/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go の http.Client が送り直す要求と返すエラー</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-26-go-http-client-resend-errors/</link>
+      <pubDate>Mon, 26 Oct 2026 13:40:19 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-26-go-http-client-resend-errors/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;http.Client&lt;/code&gt; は 301 / 302 / 303 の転送に従うと、DELETE・PUT・POST を本文なしの GET にして転送先へ送る。DELETE への 302 が一覧へ転送されると、一覧の GET が 200 を返し、何も消さずに成功として返る。307 / 308 はメソッドと本文を保つ&lt;/li&gt;
+&lt;li&gt;再利用した接続が応答の前に切られると、HTTP/1.1 の Transport は GET などと &lt;code&gt;Idempotency-Key&lt;/code&gt; 付きの要求だけを、新しい接続で送り直す。HTTP/2 では GET でも送り直さず、&lt;code&gt;connection reset by peer&lt;/code&gt; を返す&lt;/li&gt;
+&lt;li&gt;本文を送り直せるのは &lt;code&gt;GetBody&lt;/code&gt; があるときだけで、&lt;code&gt;http.NewRequest&lt;/code&gt; が &lt;code&gt;GetBody&lt;/code&gt; を付けるのは &lt;code&gt;*bytes.Buffer&lt;/code&gt; / &lt;code&gt;*bytes.Reader&lt;/code&gt; / &lt;code&gt;*strings.Reader&lt;/code&gt; だけ。それ以外の &lt;code&gt;io.Reader&lt;/code&gt; では、307 は転送されずにそのまま返り、読み切った要求をもう一度 &lt;code&gt;Do&lt;/code&gt; すると空の本文がエラーなしに届く&lt;/li&gt;
+&lt;li&gt;HTTP/2 の接続は &lt;code&gt;MaxIdleConnsPerHost&lt;/code&gt; の数を超えても閉じられない。取り置き 2 本の設定で、張った 8 本を残して使い回した。&lt;code&gt;MaxConnsPerHost&lt;/code&gt; は同時に張りに行く接続を絞るが、HTTP/2 の接続の数の上限にはならない (サーバの同時ストリームが 2 のとき、1 にしても 4-6 本張った)&lt;/li&gt;
+&lt;li&gt;失敗は &lt;code&gt;*url.Error&lt;/code&gt; で返り、&lt;code&gt;Error()&lt;/code&gt; にクエリ込みの URL が入る。&lt;code&gt;%w&lt;/code&gt; で包んでも、文字列にすれば URL が出る。接続リセットも接続拒否も &lt;code&gt;net.Error&lt;/code&gt; を満たすので、タイムアウトかどうかは &lt;code&gt;Timeout()&lt;/code&gt; で分ける&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は go1.26.4 / linux/amd64 で実測した。サーバは &lt;code&gt;net/http/httptest&lt;/code&gt; で手元に立て、HTTP/2 は &lt;code&gt;EnableHTTP2&lt;/code&gt; と &lt;code&gt;StartTLS&lt;/code&gt; で話させた。各節のコードは &lt;code&gt;main.go&lt;/code&gt; 1 つで、&lt;code&gt;go run&lt;/code&gt; で動く。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

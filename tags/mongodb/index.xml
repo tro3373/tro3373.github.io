@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>mongodb on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/mongodb/</link>
+    <description>Recent content in mongodb on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 17 Oct 2025 10:46:17 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Firestore MongoDB互換の要点まとめ</title>
+      <link>https://tro3373.github.io/posts/2025/2025-10-17-firestore-mongodb-compatibility-key-points/</link>
+      <pubDate>Fri, 17 Oct 2025 10:44:25 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2025/2025-10-17-firestore-mongodb-compatibility-key-points/</guid>
+      <description>&lt;h2 id=&#34;firestore-mongodb互換の要点まとめ&#34;&gt;Firestore MongoDB互換の要点まとめ&lt;/h2&gt;
+&lt;h3 id=&#34;概要&#34;&gt;概要&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Googleが「Firestore with MongoDB compatibility」を&lt;a class=&#34;link&#34; href=&#34;https://cloud.google.com/blog/products/databases/announcing-firestore-with-mongodb-compatibility?utm_source=chatgpt.com&amp;amp;hl=en&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  発表
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;MongoDB用ドライバやMQL（MongoDB Query Language）をそのまま使ってFirestoreを操作可能&lt;/li&gt;
+&lt;li&gt;Firestoreのスケーラブルな基盤の上にMongoDB互換レイヤーを構築&lt;/li&gt;
+&lt;li&gt;現時点ではEnterpriseエディションのPreview機能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;仕組み&#34;&gt;仕組み&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;MongoDBクエリをFirestore内部クエリに変換する互換APIレイヤーを提供&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;collection.find()&lt;/code&gt; などのMongoDBドライバ呼び出しをそのまま利用可能&lt;/li&gt;
+&lt;li&gt;MongoDB→Firestoreへのクエリ変換処理で、未対応や制限付きの演算子が存在&lt;/li&gt;
+&lt;li&gt;Firestoreのインデックス構造に基づいて最適化されるが、MongoDBとは挙動が異なる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;クエリ互換性&#34;&gt;クエリ互換性&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;基本的なクエリ（比較、論理、範囲、配列など）は概ね対応&lt;/li&gt;
+&lt;li&gt;複雑なAggregation Pipeline、ジオクエリ、テキスト検索（&lt;code&gt;$text&lt;/code&gt;）などは未対応または制限あり&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$regex&lt;/code&gt; など一部の正規表現検索は動作する可能性があるが完全な互換ではない&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$where&lt;/code&gt;、&lt;code&gt;$lookup&lt;/code&gt;などのサーバーサイドスクリプト・結合系クエリは非対応&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;like検索部分一致&#34;&gt;like検索・部分一致&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;MongoDBでは &lt;code&gt;$regex&lt;/code&gt; で部分一致検索が可能&lt;/li&gt;
+&lt;li&gt;Firestoreネイティブでは前方一致（prefix検索）のみ対応&lt;/li&gt;
+&lt;li&gt;MongoDB互換モードでも正規表現機能は一部制限あり&lt;/li&gt;
+&lt;li&gt;任意の位置一致や複雑な正規表現検索は非対応または非推奨&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;制限注意点&#34;&gt;制限・注意点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;現時点でPreview段階のためAPI変更の可能性あり&lt;/li&gt;
+&lt;li&gt;MongoDBすべての演算子を網羅していない&lt;/li&gt;
+&lt;li&gt;Firestore独自のクエリ制限（フィルター数上限など）は引き継がれる&lt;/li&gt;
+&lt;li&gt;同一クエリでもMongoDBより遅くなるケースあり（インデックス構造差による）&lt;/li&gt;
+&lt;li&gt;リアルタイム更新やオフライン対応などFirestore特有の機能との完全互換は未実装&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;利用上の位置づけ&#34;&gt;利用上の位置づけ&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;MongoDBからFirestoreへの移行を容易にするための互換レイヤー&lt;/li&gt;
+&lt;li&gt;機能完全再現ではなく、移行コスト低減が主目的&lt;/li&gt;
+&lt;li&gt;高度な全文検索や結合が必要な場合はMongoDB本体を利用すべき&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;refs&#34;&gt;Refs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://cloud.google.com/blog/products/databases/announcing-firestore-with-mongodb-compatibility&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://cloud.google.com/blog/products/databases/announcing-firestore-with-mongodb-compatibility
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://cloud.google.com/firestore/mongodb-compatibility/docs/overview&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://cloud.google.com/firestore/mongodb-compatibility/docs/overview
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://firebase.google.com/docs/firestore/enterprise/migrate-to-firestore-with-mongodb&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://firebase.google.com/docs/firestore/enterprise/migrate-to-firestore-with-mongodb
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/@aswinalexandersam/firestore-with-mongodb-compatibility-current-state-limitations-and-opportunities-fbf03542d0c3&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://medium.com/@aswinalexandersam/firestore-with-mongodb-compatibility-current-state-limitations-and-opportunities-fbf03542d0c3
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dev.to/franckpachot/firestore-with-mongodb-compatibility-testing-pagination-queries-jmf&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://dev.to/franckpachot/firestore-with-mongodb-compatibility-testing-pagination-queries-jmf
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://stackoverflow.com/questions/79631546/the-query-limitation-with-max-30-filter-parameters-still-exists-in-gcp-firestore&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://stackoverflow.com/questions/79631546/the-query-limitation-with-max-30-filter-parameters-still-exists-in-gcp-firestore
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

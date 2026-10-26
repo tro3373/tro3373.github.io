@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ECR on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ecr/</link>
+    <description>Recent content in ECR on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 01 Aug 2024 09:49:12 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/ecr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>terraform &#43; GitHub Actions &#43; ECR &#43; Lambda &#43; ApiGateway &#43; OpenAPI 調査したのでメモ</title>
+      <link>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</link>
+      <pubDate>Thu, 15 Feb 2024 09:08:52 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2024/2024-02-15-terraform-github-actions-ecr-lambda-api-gateway-openapi/</guid>
+      <description>&lt;h2 id=&#34;はじめに&#34;&gt;はじめに&lt;/h2&gt;
+&lt;p&gt;色々調べたのでメモ..&lt;/p&gt;
+&lt;h2 id=&#34;以下詳細&#34;&gt;以下詳細&lt;/h2&gt;
+&lt;h3 id=&#34;terraform-で-lambdaも管理できないか&#34;&gt;Terraform で Lambdaも管理できないか？&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zenn.dev/shirou/articles/lambda_apigateway&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  最近やってるLambdaとAPI Gatewayの開発方法の話
+&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;tf, ecr, python, openapi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/suzuki-navi/items/6a896a6577deaa858210&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  TerraformでAPI Gateway + Lambdaの構成テンプレート #lambda - Qiita
+&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;tf, NOT ecr, node, openapi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/neruneruo/items/94a0e637ea1c6c95d9e4&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  TerraformでAmazon API Gatewayを構築する(基本編) #AWS - Qiita
+&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;tf, NOT ecr, openapi&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://future-architect.github.io/articles/20210914a/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  LambdaをカスタムDockerランタイムで開発する方法 | フューチャー技術ブログ
+&lt;/a&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;コンテナイメージを更新した際に気をつけるポイントですが、latestタグのコンテナイメージを更新しても、
+すぐにLambda関数の挙動には反映されません。一晩寝かしても古いイメージが参照されていました。
+全く同じimage-uriのまま更新コマンドを実行することで即時反映できます。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/neruneruo/items/d395fef4929c9486ec0a&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  TerraformでLambdaコンテナイメージを自動構築する #Docker - Qiita
+&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;swagger&lt;/li&gt;
+&lt;li&gt;ecr&lt;/li&gt;
+&lt;li&gt;lambda&lt;/li&gt;
+&lt;li&gt;apigateway&lt;/li&gt;
+&lt;li&gt;codebuild&lt;/li&gt;
+&lt;li&gt;aws_lambda_alias
+&lt;ul&gt;
+&lt;li&gt;lambda version に対するエイリアス&lt;/li&gt;
+&lt;li&gt;これに対するIgnore設定の記載など&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/sakuchi/items/7c5bd06a863c1f87e9d3&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  【AWS Lambda】複数のLambda関数を１つのコンテナイメージにまとめる #AWS - Qiita
+&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;entrypoint指定できる
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  aws_lambda_function | Resources | hashicorp/aws | Terraform | Terraform Registry
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;ここでいうhandler?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Terraform で ApiGateway を作成する
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://midorigame-jo.com/serverless/#google_vignette&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  【Terraform】Terraformで作るサーバレス構成（API Gateway、Lambda、DynamoDB）
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/chacco38/items/de7a514b3122761d24e8&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  TerraformでAmazon API Gatewayを構築するサンプルコードを書いてみた #AWS - Qiita
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dev.classmethod.jp/articles/terraform-deployment-rest-api-gateway/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Terraform で API Gateway（REST API）を構築する | DevelopersIO
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://spacelift.io/blog/terraform-api-gateway#step-7-test-the-deployment-using-postman&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  How to Create API Gateway With Terraform and AWS Lambda
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://inovaonlinesolutions.medium.com/creating-a-rest-api-in-aws-api-gateway-using-terraform-a61fd00a3fbf&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Creating a Rest API in AWS API Gateway using Terraform and OpenAPI Swagger specification | by InovaOnlineSolutions | Medium
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;ecr-の-pros-and-cons&#34;&gt;ECR の Pros and Cons&lt;/h3&gt;
+&lt;h4 id=&#34;cons&#34;&gt;Cons&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://log.noid11.com/posts/aws-lambda-love-golang/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  AWS Lambda で Go ランタイムを使うのが良いと思っている理由
+&lt;/a&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;基本的にコンテナイメージより zip 形式の方が安く使える
+コンテナイメージとカスタムランタイムは Lambda 関数の初期化時にも課金が発生する&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

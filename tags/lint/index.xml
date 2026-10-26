@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>lint on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/lint/</link>
+    <description>Recent content in lint on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 10 Oct 2026 13:36:01 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/lint/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golangci-lint が 0 issues で通す違反</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-10-golangci-lint-unreported-violations/</link>
+      <pubDate>Sat, 10 Oct 2026 13:36:01 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-10-golangci-lint-unreported-violations/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;0 issues.&lt;/code&gt; / exit 0 は「違反が無い」ではなく「報告まで残った指摘が無い」。golangci-lint は ファイルの読み込み =&amp;gt; linter の検査 =&amp;gt; 検査後の後処理 の 3 段階で動き、指摘はどの段階でも消える&lt;/li&gt;
+&lt;li&gt;後処理: &lt;code&gt;issues.new: true&lt;/code&gt; は差分で追加された行の指摘だけを残す。クリーンな checkout では &lt;code&gt;HEAD~&lt;/code&gt; との差分しか見ない。&lt;code&gt;issues.fix: true&lt;/code&gt; は直せる指摘をファイルへ書き込み、報告から外す&lt;/li&gt;
+&lt;li&gt;抑止コメント: gosec の指摘を抑止するコメントは 2 種類ある。&lt;code&gt;#nosec&lt;/code&gt; は gosec が読むので、gosec 単体でも golangci-lint 経由でも効く。&lt;code&gt;//nolint:gosec&lt;/code&gt; は golangci-lint が読むので、golangci-lint 経由でだけ効く。&lt;code&gt;#&lt;/code&gt; を抜いた &lt;code&gt;//nosec&lt;/code&gt; は gosec も golangci-lint も読まず、どの実行でも指摘が出る。抑止されるのは名指しした ID だけ&lt;/li&gt;
+&lt;li&gt;読み込み: build tag 付きのファイルは、&lt;code&gt;run.build-tags&lt;/code&gt; に入れないと型検査にも載らない&lt;/li&gt;
+&lt;li&gt;検査: staticcheck は ST の一部を既定で外す。forbidigo は既定で呼び出しの字面だけを照合し、exhaustive は名前付きの型の列挙だけを見る。gopls の analyzer の一部は golangci-lint に入っていない&lt;/li&gt;
+&lt;li&gt;CI では &lt;code&gt;--new=false --fix=false&lt;/code&gt; を明示する。設定を書いたら、違反を 1 つ置いて検出されることを確かめる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は golangci-lint 2.14.0 (go1.26.4, linux/amd64) と gopls v0.23.0 で実測した。設定は v2 の形式 (&lt;code&gt;version: &amp;quot;2&amp;quot;&lt;/code&gt;) で書く。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
