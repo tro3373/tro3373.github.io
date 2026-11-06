@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>PostgreSQL on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/postgresql/</link>
+    <description>Recent content in PostgreSQL on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 30 Jan 2025 08:49:48 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/postgresql/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cloud Function から IAM認証で CloudSQL(PostgreSQL) へ接続する</title>
+      <link>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</link>
+      <pubDate>Wed, 29 Jan 2025 15:43:25 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2025/2025-01-29-cloudsql-iam-authentication-for-cloud-functions/</guid>
+      <description>&lt;h2 id=&#34;はじめに&#34;&gt;はじめに&lt;/h2&gt;
+&lt;p&gt;クラウド環境でのデータベース管理において、セキュリティは日々進化する脅威への対応が求められる重要課題です。特に、以下の課題が顕在化しています：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;従来の認証情報（パスワード）の漏洩リスク&lt;/li&gt;
+&lt;li&gt;認証情報のローテーション管理の煩雑さ&lt;/li&gt;
+&lt;li&gt;アプリケーション展開時の認証情報受け渡しの安全性確保&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;これらの課題に対し、IAM認証を活用することで、より強固でかつ運用負荷の少ないセキュリティ体制を実現できます。IAM認証のメリットは以下の通りです：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一時的な認証トークンの利用による漏洩リスクの低減&lt;/li&gt;
+&lt;li&gt;クラウドプロバイダーの統合認証基盤との連携による管理の一元化&lt;/li&gt;
+&lt;li&gt;きめ細かなアクセス制御とアクセスログの監査対応&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本ガイドでは、Cloud FunctionsからCloudSQL(PostgreSQL)へIAM認証で接続する実践的な手順を解説します。この設定により、セキュアかつスケーラブルなデータベースアクセス環境を構築できます。&lt;/p&gt;
+&lt;h2 id=&#34;cloud-function-から-cloudsqlpostgresql-へ-iam-認証で接続するために必要な手順&#34;&gt;Cloud Function から CloudSQL(PostgreSQL) へ IAM 認証で接続するために必要な手順&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Cloud Function 用 Service Account に必要な権限を付与&lt;/li&gt;
+&lt;li&gt;PGUSER の作成（IAM認証用）&lt;/li&gt;
+&lt;li&gt;データベースへの権限付与&lt;/li&gt;
+&lt;li&gt;Cloud Function の実装&lt;/li&gt;
+&lt;li&gt;Service Account での Cloud Function のデプロイ&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;具体的な設定手順&#34;&gt;具体的な設定手順&lt;/h2&gt;
+&lt;h3 id=&#34;1-cloud-function-用-service-account-に必要な権限を付与&#34;&gt;1. Cloud Function 用 Service Account に必要な権限を付与&lt;/h3&gt;
+&lt;p&gt;以下の権限が必要:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cloud SQL インスタンス ユーザー&lt;/li&gt;
+&lt;li&gt;Cloud SQL クライアント&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;今回はコンソールから設定したが、以下のコマンドで設定も可能:&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gcloud projects add-iam-policy-binding example-project &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --member&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --role&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;roles/cloudsql.instanceUser&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gcloud projects add-iam-policy-binding example-project &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --member&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;serviceAccount:example-function@example-project.iam.gserviceaccount.com&amp;#34;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --role&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;roles/cloudsql.client&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;2-pguser-の作成&#34;&gt;2. PGUSER の作成&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;IAM認証用のユーザーを作成する。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;gcloud sql users create example-function@example-project.iam &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --instance&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;example-project-fdc &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    --type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;cloud_iam_service_account&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;PostgreSQLの場合、以下の点に注意が必要:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ユーザー名から &lt;code&gt;.gserviceaccount.com&lt;/code&gt; を除いた形で作成&lt;/li&gt;
+&lt;li&gt;タイプは &lt;code&gt;cloud_iam_service_account&lt;/code&gt; を指定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;MySQL の場合は &lt;code&gt;@project-id.iam.gserviceaccount.com&lt;/code&gt; を除いた形で作成する模様&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Refs: &lt;a class=&#34;link&#34; href=&#34;https://github.com/GoogleCloudPlatform/cloud-sql-nodejs-connector?tab=readme-ov-file#automatic-iam-database-authentication&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  GoogleCloudPlatform/cloud-sql-nodejs-connector: A JavaScript library for connecting securely to your Cloud SQL instances
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Postgres: For an IAM user account, this is the user&amp;rsquo;s email address.
+For a service account, it is the service account&amp;rsquo;s email without the .gserviceaccount.com domain suffix.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;MySQL: For an IAM user account, this is the user&amp;rsquo;s email address, without the @ or domain name.
+For example, for &lt;a class=&#34;link&#34; href=&#34;mailto:test-user@gmail.com&#34;
+  
+  &gt;
+  test-user@gmail.com
+&lt;/a&gt;
+, set the user field to test-user.
+For a service account, this is the service account&amp;rsquo;s email address without the @project-id.iam.gserviceaccount.com suffix.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 postgresql install</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-postgresql-install/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-23-ubuntu-14-04-postgresql-install/</guid>
+      <description>&lt;h2 id=&#34;postgresql-install&#34;&gt;postgresql install&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install postgresql
+sudo apt-get install libpq-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;postgresql-settings&#34;&gt;postgresql settings&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo su postgres -c psql
+postgres=# CREATE ROLE [user] SUPERUSER LOGIN;
+postgres=# \password [user]
+  [userpassword]
+  [userpassword]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;check-or-list-database-tables-indexes-and-so-on&#34;&gt;check or list database, tables, indexes, and so on.&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;postgres=# create database [user];
+postgres=# select * from pg_user; /* ユーザ一覧 */
+postgres=# \d /* 表、インデックスの一覧 */
+postgres=# \dt /* 表の一覧 */
+postgres=# \d [表名] /* 表の項目一覧 */
+postgres=# \l /* データベース一覧、文字コード表示 */
+postgres=# \q /* 終了 */
+psql -l # データベース 一覧
+psql [データベース名] # psql へ切り替え
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 ruby2.1.2 で ActiveRecord4.1.6 を使用し、postgresql4.1.6 へアクセス</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</guid>
+      <description>&lt;h2 id=&#34;まずはdatabase-確認&#34;&gt;まずはdatabase 確認&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo su postgres -c psql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;install-activerecordpg&#34;&gt;install activerecord,pg&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p ~/works/99_sample/02_activerecord
+cd ~/works/99_sample/02_activerecord
+gem install activerecord
+gem install pg
+gem list
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;dbユーザtest_nameを作成しておく&#34;&gt;DBユーザ&lt;code&gt;test_name&lt;/code&gt;を作成しておく&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;sudo su postgres -c psql
+create role test_name superuser login;
+\password test_name
+  Enter new password: test_name
+  Enter it again: test_name
+create database test_name;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;configdatabaseyml&#34;&gt;config/database.yml&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;mkdir -p config &amp;amp;&amp;amp; vim config/database.yml&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;db:
+  production:
+    adapter:  postgresql
+    host:     localhost
+    username: test_name
+    password: test_name
+    database: test_name
+
+  development:
+    adapter:  postgresql
+    host:     localhost
+    username: test_name
+    password: test_name
+    database: test_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;dbmigrate配下に３ファイルを配置rails環境からコピー&#34;&gt;&lt;code&gt;db/migrate&lt;/code&gt;配下に、３ファイルを配置(rails環境からコピー)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;mkdir -p db/migrate&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 で websocket, zeroMQ</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</guid>
+      <description>&lt;p&gt;rails 、postgresql、zeroMQ、websocketを使って通信するサンプル環境を作成中&lt;/p&gt;
+&lt;h3 id=&#34;create-rails-project&#34;&gt;create rails project&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+rails new test_rails_postgres -d postgresql
+cd test_rails_postgres
+bundle install --path vendor/bundle
+bundle exec rake db:create db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;テスト起動確認&#34;&gt;テスト起動確認&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+rails server
+http://[サーバアドレス]:3000へアクセス
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;git-管理開始&#34;&gt;git 管理開始&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+git init
+vim .gitignore
+以下を追加
+    doc/
+    *.swp
+    *~
+    .project
+    .DS_Store
+    .idea
+    .secret
+git add .
+git commit -m &amp;quot;initial commit.&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;テスト設定&#34;&gt;テスト設定&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails generate scaffold book title:string author:string outline:text
+bundle exec rake db:migrate
+bundle exec rails server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;db確認&#34;&gt;db確認&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;-- database list
+\l
+-- user list
+select * from pg_user;
+-- table list
+\d
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;routes-の確認&#34;&gt;routes の確認&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;http://localhost:3000/rails/info/routes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-へwebsocket実装&#34;&gt;rails へwebsocket実装&lt;/h2&gt;
+&lt;h3 id=&#34;websocket-rails-install&#34;&gt;websocket-rails install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+vim Gemfile
+# 以下を追加  
+    gem &#39;websocket-rails&#39;
+bundle install
+rails g websocket_rails:install
+# コントローラ作成
+vim app/controllers/websocket_chat_controller.rb
+    # WebsocketRails::BaseControllerを継承
+    class WebsocketChatController &amp;lt; WebsocketRails::BaseController
+      def message_recieve
+        # クライアントからのメッセージを取得
+        recieve_message = message()
+        # websocket_chatイベントで接続しているクライアントにブロードキャスト
+        broadcast_message(:websocket_chat, recieve_message)
+      end
+    end
+vim config/events.rb
+    WebsocketRails::EventMap.describe do
+          # websocket_chatイベントのマッピング
+        subscribe :websocket_chat, to: WebsocketChatController,
+        with_method: :message_recieve
+    end
+
+# クライアント
+rails g controller chat index
+vim app/views/chat/index.html.erb
+以下追加
+    &amp;lt;!-- チャット表示部分 --&amp;gt;
+    &amp;lt;ul id=&amp;quot;chat_area&amp;quot;&amp;gt;
+    &amp;lt;/ul&amp;gt;
+    &amp;lt;!-- コメントフォーム --&amp;gt;
+    &amp;lt;input id=&amp;quot;comment&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;
+    &amp;lt;input id=&amp;quot;send&amp;quot; type=&amp;quot;button&amp;quot; value=&amp;quot;send&amp;quot;&amp;gt;
+    &amp;lt;script&amp;gt;
+      var ws_rails = new WebSocketRails(&amp;quot;[url]:3000/websocket&amp;quot;);
+      // メッセージ受信時の処理
+      ws_rails.bind(&amp;quot;websocket_chat&amp;quot;, function(message){
+        var message_li = document.createElement(&amp;quot;li&amp;quot;);
+        message_li.textContent = message;
+        
+        document.getElementById(&amp;quot;chat_area&amp;quot;).appendChild(message_li);
+      })
+      // メッセージ送信時の処理
+      document.getElementById(&amp;quot;send&amp;quot;).onclick =  function(){
+        var comment = document.getElementById(&amp;quot;comment&amp;quot;).value;
+        ws_rails.trigger(&amp;quot;websocket_chat&amp;quot;, comment);
+      }
+    &amp;lt;/script&amp;gt;
+vim config/environments/development.rb
+    # 以下を追加
+    config.middleware.delete Rack::Lock
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;test-websocket-client作成&#34;&gt;test websocket client作成&lt;/h2&gt;
+&lt;h3 id=&#34;gem-install&#34;&gt;gem install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gem install websocket-client-simple
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;client-program動かない&#34;&gt;client program(動かない)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;vim websocket_client.rb
+    require &#39;rubygems&#39;
+    require &#39;websocket-client-simple&#39;
+    
+    ws = WebSocket::Client::Simple.connect &#39;[url]:3000/websocket&#39;
+    
+    ws.on :message do |msg|
+      puts msg.data
+    end
+    
+    ws.on :open do
+      ws.send &#39;hello!!!&#39;
+    end
+    
+    ws.on :close do |e|
+      p e
+      exit 1
+    end
+    
+    loop do
+      ws.send STDIN.gets.strip
+    end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;execjs-install不要&#34;&gt;execjs install(不要)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gem install execjs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;zeromq-install&#34;&gt;zeromq install&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+git clone https://github.com/zeromq/zeromq4-x.git
+cd zeromq4-x
+# git checkout origin/v4.0.1
+sudo aptitude install libtool autoconf uuid-dev
+./autogen.sh
+#./configure --prefix=/usr/local/zmq
+./configure
+make
+sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;zeromq導入&#34;&gt;ZeroMQ導入&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;vim Gemfile
+--------------------
+# Use zeroMq
+gem &#39;rbzmq&#39;
+#gem &#39;ffi-rzmq&#39;
+#gem &#39;zqm&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ffi-rzmqのバージョンが合っている201が要る&#34;&gt;ffi-rzmqのバージョンが合っている2.0.1が要る？&lt;/h2&gt;
+&lt;h2 id=&#34;rails-コントローラにzmqスレッドを立ち上げる&#34;&gt;rails コントローラにZMQスレッドを立ち上げる&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;vim websocket_chat_controller.rb
+---------------------------------------------------
+require &#39;rbzmq&#39;
+# WebsocketRails::BaseControllerを継承
+class WebsocketChatController &amp;lt; WebsocketRails::BaseController
+  context = ZMQ::Context.new
+  publisher = context.socket ZMQ::PUB
+  publisher.bind &amp;quot;tcp://*:5563&amp;quot;
+  begin
+    t = Thread.new do
+      Thread.pass    # メインスレッドが確実にjoinするように
+      puts &amp;quot;[rails] Tread loop start.&amp;quot;
+      loop do
+        publisher.send_string &#39;A&#39;, ZMQ::SNDMORE
+        publisher.send_string &amp;quot;We don&#39;t want to see this.&amp;quot;
+
+        publisher.send_string &#39;B&#39;, ZMQ::SNDMORE
+        publisher.send_string &amp;quot;We would like to see this.&amp;quot;
+
+        sleep 1
+      end
+      publisher.close
+      raise &amp;quot;unhandled exception&amp;quot;
+    end
+    t.join
+  rescue
+    p $!  # =&amp;gt; &amp;quot;unhandled exception&amp;quot;
+  end
+
+  puts &amp;quot;[rails] WebsocketChatController is started!!!!!&amp;quot;
+  def message_recieve
+    # クライアントからのメッセージを取得
+    recieve_message = message()
+    puts &amp;quot;[rails] server message receive and broadcast =&amp;gt; #{recieve_message}&amp;quot;
+    # websocket_chatイベントで接続しているクライアントにブロードキャスト
+    broadcast_message(:websocket_chat, recieve_message)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-server立ち上げ&#34;&gt;rails server立ち上げ&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;em-websocket-in-rails&#34;&gt;em-websocket in rails&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;vim websocket_chat_controller.rb
+require &amp;ldquo;em-websocket&amp;rdquo;
+# 省略
+puts &amp;ldquo;rails emwebsocket server start&amp;rdquo;
+# 配列ではなくEventMachineオブジェクトを生成
+connections = EM::Channel.new
+EM::WebSocket.start(host: &amp;ldquo;172.19.1.94&amp;rdquo;, port: 3001) do |ws_conn|
+ws_conn.onopen do
+puts &amp;ldquo;connected&amp;rdquo;
+# EventMachine#subscribeを用い、コネクションオブジェクトと処理を登録
+connections.subscribe{|message| ws_conn.send(message) }
+end
+ws_conn.onmessage do |message|
+# onopen内で登録した処理を呼び出し
+puts &amp;ldquo;received:&amp;rdquo; + message
+connections.push(message)
+end
+end&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

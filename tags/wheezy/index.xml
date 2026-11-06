@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>wheezy on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/wheezy/</link>
+    <description>Recent content in wheezy on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 11 Oct 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/wheezy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>debian wheezy mysql 設定、データ移行</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-debian-wheezy-mysql-she-ding-detayi-xing/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-debian-wheezy-mysql-she-ding-detayi-xing/</guid>
+      <description>&lt;h2 id=&#34;インストール&#34;&gt;インストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install mysql-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;alive-check&#34;&gt;alive check&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysqladmin ping -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;mysqlパスワード変更&#34;&gt;mysqlパスワード変更&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+    rootパスワード入力
+SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ユーザ確認&#34;&gt;ユーザ確認&lt;/h2&gt;
+&lt;h3 id=&#34;ログイン&#34;&gt;ログイン&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;sql実行&#34;&gt;SQL実行&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;SELECT host,user,password FROM mysql.user;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;文字コード設定&#34;&gt;文字コード設定&lt;/h2&gt;
+&lt;h3 id=&#34;charset-utf8-check&#34;&gt;charset UTF8 check&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; status
+--------------
+mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2
+
+Connection id:      39
+Current database:   
+Current user:       root@localhost
+SSL:            Not in use
+Current pager:      stdout
+Using outfile:      &#39;&#39;
+Using delimiter:    ;
+Server version:     5.5.38-0+wheezy1 (Debian)
+Protocol version:   10
+Connection:     Localhost via UNIX socket
+Server characterset:    utf8
+Db     characterset:    utf8
+Client characterset:    utf8
+Conn.  characterset:    utf8
+UNIX socket:        /var/run/mysqld/mysqld.sock
+Uptime:         5 hours 20 min 7 sec
+
+Threads: 1  Questions: 114  Slow queries: 0  Opens: 171  Flush tables: 1  Open tables: 41  Queries per second avg: 0.005
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;if-your-env-is-not-seted-to-utf8-add-utf8-settings-below&#34;&gt;if your env is not seted to utf8, add utf8 settings below&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;sudo vim /etc/mysql/conf.d/character_set.cnf&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linkstation(debian wheezy) へ mysql を設定、データ移行</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</guid>
+      <description>&lt;h2 id=&#34;インストール&#34;&gt;インストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install mysql-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;alive-check&#34;&gt;alive check&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysqladmin ping -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;mysqlパスワード変更&#34;&gt;mysqlパスワード変更&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+    rootパスワード入力
+SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ユーザ確認&#34;&gt;ユーザ確認&lt;/h2&gt;
+&lt;h3 id=&#34;ログイン&#34;&gt;ログイン&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;sql実行&#34;&gt;SQL実行&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;SELECT host,user,password FROM mysql.user;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;文字コード設定&#34;&gt;文字コード設定&lt;/h2&gt;
+&lt;h3 id=&#34;charset-utf8-check&#34;&gt;charset UTF8 check&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; status
+--------------
+mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2
+
+Connection id:      39
+Current database:   
+Current user:       root@localhost
+SSL:            Not in use
+Current pager:      stdout
+Using outfile:      &#39;&#39;
+Using delimiter:    ;
+Server version:     5.5.38-0+wheezy1 (Debian)
+Protocol version:   10
+Connection:     Localhost via UNIX socket
+Server characterset:    utf8
+Db     characterset:    utf8
+Client characterset:    utf8
+Conn.  characterset:    utf8
+UNIX socket:        /var/run/mysqld/mysqld.sock
+Uptime:         5 hours 20 min 7 sec
+
+Threads: 1  Questions: 114  Slow queries: 0  Opens: 171  Flush tables: 1  Open tables: 41  Queries per second avg: 0.005
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;if-your-env-is-not-seted-to-utf8-add-utf8-settings-below&#34;&gt;if your env is not seted to utf8, add utf8 settings below&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;sudo vim /etc/mysql/conf.d/character_set.cnf&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Debian wheezy に Ubuntu 14.04 クライアントからSSH接続する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-07-debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</link>
+      <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-07-debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</guid>
+      <description>&lt;h2 id=&#34;client-key-generate&#34;&gt;[Client] Key generate&lt;/h2&gt;
+&lt;h3 id=&#34;create-pub-private-key-at-ssh&#34;&gt;create pub, private key at &lt;code&gt;~/.ssh&lt;/code&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/.ssh
+ssh-keygen -t rsa
+# created under files
+    id_rsa
+    id_rsa.pub
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;upload-public-key-to-server&#34;&gt;upload public key to server.&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;scp id_rsa.pub [server ip address]:~/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;client-sshconfig&#34;&gt;[Client] .ssh/config&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;vim ~/.ssh/config&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Host [server name]
+    HostName [server name or ipaddress]
+    Port 22
+    User [login user name]
+    IdentityFile ~/.ssh/id_rsa
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;server-regist-pub-key&#34;&gt;[server] regist pub key&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;login the server.
+cd ~
+cat rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;server-sshd-settings&#34;&gt;[server] sshd settings&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;sudo vim /etc/ssh/sshd_config&lt;/code&gt; check the settings&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linkstation(ls-xhle) へdebian wheezy を導入する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-13-linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</link>
+      <pubDate>Sat, 13 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-09-13-linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</guid>
+      <description>&lt;h2 id=&#34;パーティション構成&#34;&gt;パーティション構成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;/dev/sda1 /boot
+/dev/sda2 /
+/dev/sda3 swap
+/dev/sda4 /data
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!--
+     smartctl -a /dev/sda -s on
+ --&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://forum.buffalo.nas-central.org/viewtopic.php?f=71&amp;amp;t=26291&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  ここを参考に
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;update 2013.05.15: Now when Debian 7 wheezy is stable, i made a new image.&lt;/p&gt;
+&lt;p&gt;I created a minimal debian wheezy bootstrap for our Linkstations. It comes with 3.9.2 kernels for both LS-CHLv2 and LS-XHL, which you can find here.&lt;/p&gt;
+&lt;h3 id=&#34;infos&#34;&gt;Infos&lt;/h3&gt;
+&lt;p&gt;Changes to plain debootstrap
+This is a ready to use image, no need to tweak device specific stuff after install e.g. do NOT install blstools.&lt;/p&gt;
+&lt;h3 id=&#34;download&#34;&gt;Download&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://neboola.de/fjen/lschlv2/debian/wheezy/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://neboola.de/fjen/lschlv2/debian/wheezy/
+&lt;/a&gt;
+
+Archive is packed with tar/xz. Use tar/xz-utils on Linux to extract.
+Do not extract it on Windows or it won&amp;rsquo;t boot because of permission problems!&lt;/p&gt;
+&lt;h3 id=&#34;installation&#34;&gt;Installation&lt;/h3&gt;
+&lt;p&gt;-backup your installation
+-partition harddrive with gpt layout
+&amp;ndash;sda1 boot ext3 128MB
+&amp;ndash;sda2 root ext4 &amp;gt;1GB
+-extract archive to / and /boot&lt;/p&gt;
+&lt;p&gt;FOR LSXHL: Replace /boot/uImage.buffalo.3.9.2-fjen-1 with the lsxhl one.&lt;/p&gt;
+&lt;p&gt;your setup should look like this:
+Code:&lt;/p&gt;
+&lt;h3 id=&#34;boot--sda1&#34;&gt;boot / sda1&lt;/h3&gt;
+&lt;p&gt;uImage.buffalo
+uImage.buffalo.3.9.2-fjen-1
+initrd.buffalo&lt;/p&gt;
+&lt;h3 id=&#34;root--sda2&#34;&gt;root / sda2&lt;/h3&gt;
+&lt;p&gt;/bin
+/boot
+/dev
+/etc
+[&amp;hellip;]&lt;/p&gt;
+&lt;h3 id=&#34;after-installation&#34;&gt;After installation&lt;/h3&gt;
+&lt;p&gt;Device gets IP through DHCP.
+root pw: toor
+ssh port: 22&lt;/p&gt;
+&lt;p&gt;Execute these commands to have a sane system:
+Code:
+dpkg-reconfigure locales
+dpkg-reconfigure tzdata
+rm /etc/ssh/ssh_host_* &amp;amp;&amp;amp; dpkg-reconfigure openssh-server
+apt-get update&lt;/p&gt;
+&lt;p&gt;Have fun!&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;linkstation-ls-chlv2-and-ls-xhl-stuff&#34;&gt;Linkstation LS-CHLv2 and LS-XHL stuff:&lt;/h2&gt;
+&lt;p&gt;Debian 7 Wheezy - Rootfs
+Kernel 3.13&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>trap on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/trap/</link>
+    <description>Recent content in trap on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 05 Nov 2026 13:36:50 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/trap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bash の trap で書く後始末と終了コード</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-05-bash-trap-cleanup-pitfalls/</link>
+      <pubDate>Thu, 05 Nov 2026 13:36:50 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-05-bash-trap-cleanup-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;trap&lt;/code&gt; は渡した文字列を登録し、発火した時点でコードとして読み直す。単引用符なら変数は発火時の値になり、二重引用符なら張った時点の値が構文の一部として埋まる&lt;/li&gt;
+&lt;li&gt;EXIT trap が発火するのはシェルの終了時で、張った関数の中ではない。その関数の &lt;code&gt;local&lt;/code&gt; 変数はもう無いので、値は &lt;code&gt;printf -v q &#39;%q&#39;&lt;/code&gt; で埋めるか、グローバル変数に置く&lt;/li&gt;
+&lt;li&gt;EXIT trap は SIGINT・SIGTERM・SIGHUP で止められても走り、SIGKILL では走らない。&lt;code&gt;trap cleanup EXIT INT&lt;/code&gt; と INT も並べると、Ctrl-C の後もスクリプトが先へ進む&lt;/li&gt;
+&lt;li&gt;trap はシェルに 1 つの表で、関数ごとの範囲を持たない。ライブラリの &lt;code&gt;trap - EXIT&lt;/code&gt; は呼び出し元の EXIT trap も消し、関数で張った RETURN trap は呼び出し元の return でも発火する&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;set -e&lt;/code&gt; の下では、EXIT trap の中の失敗が終了コードを書き換え、trap の残りの行を飛ばす。&lt;code&gt;set -u&lt;/code&gt; だけなら trap は止まるが、終了コードは残る&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は GNU bash 5.3.20 / Linux x86_64 で実測した。&lt;/p&gt;
+&lt;h2 id=&#34;前提-trap-は後で読み直す文字列をシェルの表に登録する&#34;&gt;前提: trap は「後で読み直す文字列」をシェルの表に登録する&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;trap &#39;&amp;lt;文字列&amp;gt;&#39; EXIT&lt;/code&gt; は、その場では何も実行しない。文字列をシェルの表に登録し、発火したときに新しいコマンドとして読み直す。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;表はシェル (プロセス) に 1 つで、シグナル (EXIT・RETURN を含む) ごとに 1 本の文字列を持つ。同じシグナルに張り直すと、前の文字列は置き換わる&lt;/li&gt;
+&lt;li&gt;登録した文字列は &lt;code&gt;trap -p &amp;lt;シグナル&amp;gt;&lt;/code&gt; で読める&lt;/li&gt;
+&lt;li&gt;張った時点と発火した時点では、変数の値も、呼び出し中の関数も、表の中身も変わりうる。以下の罠はどれもこのずれから起きる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;set -e&lt;/code&gt; 自体の効き方は &lt;a class=&#34;link&#34; href=&#34;https://tro3373.github.io/posts/2026/2026-09-28-bash-set-e-errexit-pitfalls/&#34;
+  
+  &gt;
+  bash の set -e が効かない場所と効きすぎる場所
+&lt;/a&gt;
+ に、
+ERR trap がパイプの失敗で発火しない件は &lt;a class=&#34;link&#34; href=&#34;https://tro3373.github.io/posts/2021/2021-04-09-trap-not-work-with-pipe/&#34;
+  
+  &gt;
+  trap コマンドは pipe と併用すると動作しない
+&lt;/a&gt;
+ に書いた。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

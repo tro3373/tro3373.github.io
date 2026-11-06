@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>hurl on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/hurl/</link>
+    <description>Recent content in hurl on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 23 Oct 2026 13:38:07 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/hurl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hurl に渡す変数と jsonpath で取る値の型</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-23-hurl-variables-jsonpath-pitfalls/</link>
+      <pubDate>Fri, 23 Oct 2026 13:38:07 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-23-hurl-variables-jsonpath-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;hurl の変数はファイルごとに作り直される。&lt;code&gt;hurl login.hurl me.hurl&lt;/code&gt; で login.hurl が capture した値は me.hurl に届かず、me.hurl は &lt;code&gt;Undefined variable&lt;/code&gt; で exit 3 になる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--variable&lt;/code&gt; の値は、数字だけなら数値として読まれる。&lt;code&gt;+819098765432&lt;/code&gt; は &lt;code&gt;819098765432&lt;/code&gt;、&lt;code&gt;09012345678&lt;/code&gt; は &lt;code&gt;9012345678&lt;/code&gt;、&lt;code&gt;1.50&lt;/code&gt; は &lt;code&gt;1.5&lt;/code&gt; として届く。書いた文字のまま渡すなら &lt;code&gt;&amp;quot;...&amp;quot;&lt;/code&gt; で囲む&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--variables-file&lt;/code&gt; は値の &lt;code&gt;$VAR&lt;/code&gt; も &lt;code&gt;$(...)&lt;/code&gt; も展開しない。同じ名前を &lt;code&gt;--variable&lt;/code&gt; でも渡すと、渡す順に関係なく &lt;code&gt;--variable&lt;/code&gt; の値が使われる&lt;/li&gt;
+&lt;li&gt;環境変数で届くのは &lt;code&gt;HURL_VARIABLE_&amp;lt;name&amp;gt;&lt;/code&gt; と &lt;code&gt;HURL_SECRET_&amp;lt;name&amp;gt;&lt;/code&gt; だけで、&lt;code&gt;HURL_&amp;lt;name&amp;gt;&lt;/code&gt; は届かない。ファイルで使わない変数を渡しても、エラーも警告も出ない&lt;/li&gt;
+&lt;li&gt;jsonpath の結果は件数で型が変わる。フィルタの一致が 0 件なら値なし (none)、1 件ならその値、2 件以上ならリストになる。1 件の &lt;code&gt;count == 1&lt;/code&gt; は &lt;code&gt;Filter error&lt;/code&gt; で落ち、2 件を capture して &lt;code&gt;{{}}&lt;/code&gt; で埋め込むと &lt;code&gt;Unrenderable expression&lt;/code&gt; で落ちる&lt;/li&gt;
+&lt;li&gt;値が &lt;code&gt;null&lt;/code&gt; なのとキーが無いのは別の状態で、&lt;code&gt;not exists&lt;/code&gt; はキーが無いときだけ通る。ただし親が &lt;code&gt;null&lt;/code&gt; なら、その下のキーへの &lt;code&gt;not exists&lt;/code&gt; は通る&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は hurl 8.0.1 / bash 5.3.15 / linux/amd64 で実測した。要求は手元で立てたサーバ (&lt;code&gt;/echo&lt;/code&gt; は受けた要求の &lt;code&gt;X-&lt;/code&gt; ヘッダを JSON で返し、それ以外のパスは同名の JSON ファイルを返す) に送った。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

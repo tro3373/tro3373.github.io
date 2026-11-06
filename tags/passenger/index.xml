@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>passenger on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/passenger/</link>
+    <description>Recent content in passenger on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 14 Nov 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/passenger/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu 14.04 で、ruby on rails passenger をインストールして apache 連携する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</link>
+      <pubDate>Fri, 14 Nov 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</guid>
+      <description>&lt;h2 id=&#34;passenger-インストール&#34;&gt;passenger インストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/
+rbenv exec gem install passenger
+rbenv rehash
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;passenger-install-apache2-module実行&#34;&gt;passenger-install-apache2-module実行&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;rbenv exec passenger-install-apache2-module
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;passenger-install-apache2-module 詳細&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  This installer will guide you through the entire installation process. It
+  shouldn&#39;t take more than 3 minutes in total.
+
+  Here&#39;s what you can expect from the installation process:
+
+   1. The Apache 2 module will be installed for you.
+   2. You&#39;ll learn how to configure Apache.
+   3. You&#39;ll learn how to deploy a Ruby on Rails application.
+
+  Don&#39;t worry if anything goes wrong. This installer will advise you on how to
+  solve any problems.
+
+  Press Enter to continue, or Ctrl-C to abort.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Which languages are you interested in?
+
+  Use &amp;lt;space&amp;gt; to select.
+  If the menu doesn&#39;t display correctly, press &#39;!&#39;
+
+   ? ?  Ruby
+     ?  Python
+     ?  Node.js
+     ?  Meteor
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;! 入力&lt;br&gt;
+上下でカーソルを移動できる&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;gt; (*)  Ruby
+     (*)  Python
+     (*)  Node.js
+     ( )  Meteor
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ruby を選択し、Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Checking for required software...
+
+   * Checking for C compiler...
+        Found: yes
+        Location: /usr/bin/cc
+   * Checking for C++ compiler...
+        Found: yes
+        Location: /usr/bin/c++
+   * Checking for Curl development headers with SSL support...
+        Found: no
+        Error: Cannot find the `curl-config` command.
+   * Checking for OpenSSL development headers...
+        Found: yes
+        Location: /usr/include/openssl/ssl.h
+   * Checking for Zlib development headers...
+        Found: yes
+        Location: /usr/include/zlib.h
+   * Checking for Apache 2...
+        Found: yes
+        Location of httpd: /usr/sbin/apache2
+        Apache version: 2.4.7
+   * Checking for Apache 2 development headers...
+        Found: no
+   * Checking for Rake (associated with /home/[loginusername]/.rbenv/versions/2.1.2/bin/ruby)...
+        Found: yes
+        Location: /home/[loginusername]/.rbenv/versions/2.1.2/bin/ruby /home/[loginusername]/.rbenv/versions/2.1.2/bin/rake
+   * Checking for OpenSSL support for Ruby...
+        Found: yes
+   * Checking for RubyGems...
+        Found: yes
+   * Checking for Ruby development headers...
+        Found: yes
+        Location: /home/[loginusername]/.rbenv/versions/2.1.2/include/ruby-2.1.0/ruby.h
+   * Checking for rack...
+        Found: yes
+   * Checking for Apache Portable Runtime (APR) development headers...
+        Found: no
+   * Checking for Apache Portable Runtime Utility (APU) development headers...
+        Found: no
+
+  Some required software is not installed.
+  But don&#39;t worry, this installer will tell you how to install them.
+  Press Enter to continue, or Ctrl-C to abort.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Installation instructions for required software
+
+   * To install Curl development headers with SSL support:
+     Please run apt-get install libcurl4-openssl-dev or libcurl4-gnutls-dev, whichever you prefer.
+
+   * To install Apache 2 development headers:
+     Please install it with apt-get install apache2-threaded-dev
+
+   * To install Apache Portable Runtime (APR) development headers:
+     Please install it with apt-get install libapr1-dev
+
+   * To install Apache Portable Runtime Utility (APU) development headers:
+     Please install it with apt-get install libaprutil1-dev
+
+  If the aforementioned instructions didn&#39;t solve your problem, then please take
+  a look at the Users Guide:
+
+    /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53/doc/Users guide Apache.html
+    https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ガイドに従い、必要なパッケージをインストールする&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  sudo apt-get install libcurl4-openssl-dev apache2-threaded-dev libapr1-dev libaprutil1-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再度インストールコマンド実行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  rbenv exec passenger-install-apache2-module
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再度エラーが出る場合は、パッケージインストール、&lt;code&gt;passenger-install-apache2-module&lt;/code&gt; を&lt;br&gt;
+エラーがなくなるまで、繰り返す
+エラーがなくなると、自動でコンパイルが始まる&lt;br&gt;
+最後に以下が表示される&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+  Almost there!
+
+  Please edit your Apache configuration file, and add these lines:
+
+     LoadModule passenger_module /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53/buildout/apache2/mod_passenger.so
+     &amp;lt;IfModule mod_passenger.c&amp;gt;
+       PassengerRoot /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53
+       PassengerDefaultRuby /home/[loginusername]/.rbenv/versions/2.1.2/bin/ruby
+     &amp;lt;/IfModule&amp;gt;
+
+  After you restart Apache, you are ready to deploy any number of web
+  applications on Apache, with a minimum amount of configuration!
+
+  Press ENTER to continue.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上記をコピーし、控えておく&lt;br&gt;
+再度表示したい場合は、&lt;code&gt;rbenv exec passenger-install-apache2-module --snippet&lt;/code&gt;を実行すると
+上記と同じものが表示される&lt;br&gt;
+Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Deploying a web application: an example
+
+  Suppose you have a web application in /somewhere. Add a virtual host to your
+  Apache configuration file and set its DocumentRoot to /somewhere/public:
+
+     &amp;lt;VirtualHost *:80&amp;gt;
+        ServerName www.yourhost.com
+        # !!! Be sure to point DocumentRoot to &#39;public&#39;!
+        DocumentRoot /somewhere/public
+        &amp;lt;Directory /somewhere/public&amp;gt;
+           # This relaxes Apache security settings.
+           AllowOverride all
+           # MultiViews must be turned off.
+           Options -MultiViews
+           # Uncomment this if you&#39;re on Apache &amp;gt;= 2.4:
+           #Require all granted
+        &amp;lt;/Directory&amp;gt;
+     &amp;lt;/VirtualHost&amp;gt;
+
+  And that&#39;s it! You may also want to check the Users Guide for security and
+  optimization tips, troubleshooting and other useful information:
+
+    /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53/doc/Users guide Apache.html
+    https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html
+
+  Enjoy Phusion Passenger, a product of Phusion (www.phusion.nl) :-)
+  https://www.phusionpassenger.com
+
+  Phusion Passenger is a trademark of Hongli Lai &amp;amp; Ninh Bui.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;最後にapache バーチャルホスト設定のサンプルも表示されるので、控えておく&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

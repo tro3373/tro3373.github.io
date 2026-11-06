@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>json on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/json/</link>
+    <description>Recent content in json on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 03 Oct 2026 13:38:01 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/json/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go の JSON が警告なしに潰す null と欠落</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-01-go-encoding-json-silent-null-pitfalls/</link>
+      <pubDate>Thu, 01 Oct 2026 13:34:24 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-01-go-encoding-json-silent-null-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;JSON の「キー欠落」「&lt;code&gt;null&lt;/code&gt;」「&lt;code&gt;[]&lt;/code&gt;」「&lt;code&gt;0&lt;/code&gt;」を、Go の型は全部は区別できない。&lt;code&gt;encoding/json&lt;/code&gt; は区別が消えてもエラーを返さない&lt;/li&gt;
+&lt;li&gt;書く側: nil スライスは &lt;code&gt;null&lt;/code&gt; になる。&lt;code&gt;*T&lt;/code&gt; に &lt;code&gt;omitempty&lt;/code&gt; を付けると &lt;code&gt;null&lt;/code&gt; を出せない。同じ階層に同じタグがあると両方消える。NaN が 1 つあると Marshal そのものが失敗する&lt;/li&gt;
+&lt;li&gt;読む側: キーは大文字小文字を無視して照合し、構造体に無いキーは捨てる。&lt;code&gt;null&lt;/code&gt; はポインタ・スライス・map・interface 以外には何もしない。値型は &lt;code&gt;0&lt;/code&gt; と欠落を、ポインタは &lt;code&gt;null&lt;/code&gt; と欠落を区別できない&lt;/li&gt;
+&lt;li&gt;区別が契約なら、型に頼らず &lt;code&gt;map[string]json.RawMessage&lt;/code&gt; でキー単位に見る。テストも構造体ではなく生の JSON で固定する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は Go 1.26.4 / testify v1.12.1 / go-playground/validator v10.30.5 で実測した。&lt;/p&gt;
+&lt;h2 id=&#34;前提-区別を持てるのは-go-の型の側だけ&#34;&gt;前提: 区別を持てるのは Go の型の側だけ&lt;/h2&gt;
+&lt;p&gt;JSON の 1 項目は「キーが無い」「&lt;code&gt;null&lt;/code&gt;」「空 (&lt;code&gt;[]&lt;/code&gt; / &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;)」「ゼロ (&lt;code&gt;0&lt;/code&gt; / &lt;code&gt;false&lt;/code&gt;)」「値あり」のどれかになる。
+Go の値型が持てる状態は「ゼロ値」か「値あり」の 2 つで、ポインタ・スライス・map は nil の分だけ 1 つ増える。
+JSON 側の状態を Go の型へ写すと、どこかの区別が消える。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go言語omitemptyの罠：falseが保存できない</title>
+      <link>https://tro3373.github.io/posts/2025/2025-10-27-go-omitempty-tag-for-json-and-firestore/</link>
+      <pubDate>Mon, 27 Oct 2025 16:02:13 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2025/2025-10-27-go-omitempty-tag-for-json-and-firestore/</guid>
+      <description>&lt;h2 id=&#34;結論omitemptyは便利だが罠がある&#34;&gt;結論：omitemptyは便利だが罠がある&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;omitempty&lt;/code&gt;タグは空値を省略できて便利だが、&lt;code&gt;false&lt;/code&gt;や&lt;code&gt;0&lt;/code&gt;が保存できなくなる罠がある。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;特にboolean型で**「false」と「未設定」を区別したい場合は要注意**だ。&lt;/p&gt;
+&lt;h2 id=&#34;omitemptyとは&#34;&gt;omitemptyとは&lt;/h2&gt;
+&lt;p&gt;空値の場合にフィールドを省略するタグ。JSON/Firestoreへの保存時にデータサイズを削減できる。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;User&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;`json:&amp;#34;name&amp;#34;`&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Email&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;`json:&amp;#34;email,omitempty&amp;#34;`&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 空なら省略&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;-最大の罠空とみなされる値&#34;&gt;⚠️ 最大の罠：「空」とみなされる値&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;以下の値は「空」として扱われ、omitempty付きフィールドから消える:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;型&lt;/th&gt;
+					&lt;th&gt;空とみなされる値&lt;/th&gt;
+					&lt;th&gt;保存できない値の例&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;真偽値&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;❌ &lt;code&gt;false&lt;/code&gt;が保存不可&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;数値&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;❌ &lt;code&gt;0&lt;/code&gt;が保存不可&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;文字列&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;❌ 空文字列が保存不可&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;スライス/マップ&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;nil&lt;/code&gt; または長さ0&lt;/td&gt;
+					&lt;td&gt;❌ 空配列が保存不可&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;ポインタ&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;-&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;code&gt;time.Time&lt;/code&gt;のゼロ値は、JSONでは「空」に当たらず消えない。下の「struct と time.Time は omitempty で消えない」を参照。&lt;/p&gt;
+&lt;h2 id=&#34;実例boolean型の罠&#34;&gt;実例：boolean型の罠&lt;/h2&gt;
+&lt;h3 id=&#34;問題のあるコード&#34;&gt;問題のあるコード&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Config&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;EnableFeature&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;`firestore:&amp;#34;enableFeature,omitempty&amp;#34;`&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Config&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;EnableFeature&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ❌ Firestoreに保存されない！&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// &amp;#34;enableFeature&amp;#34;フィールド自体が消える&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;これでは「false」と「未設定」が区別できない。&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

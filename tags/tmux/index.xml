@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tmux on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/tmux/</link>
+    <description>Recent content in tmux on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 02 Oct 2026 13:39:27 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/tmux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tmux サーバが握り続ける状態とエラーなしに通るコマンド</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/</link>
+      <pubDate>Fri, 02 Oct 2026 13:39:27 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;tmux のキーバインド・オプション・&lt;code&gt;@&lt;/code&gt; 変数・環境変数はサーバのメモリにある。&lt;code&gt;.tmux.conf&lt;/code&gt; はサーバ起動時に 1 回流すコマンド列で、行を消して &lt;code&gt;source-file&lt;/code&gt; しても登録済みのものは消えない&lt;/li&gt;
+&lt;li&gt;ペイン・popup・&lt;code&gt;run-shell&lt;/code&gt;・&lt;code&gt;if-shell&lt;/code&gt; のプロセスは、操作中のシェルではなくサーバの環境を継承する。後から足した PATH は届かず、&lt;code&gt;if-shell &#39;command -v ...&#39;&lt;/code&gt; は偽になってブロックを警告なしに捨てる&lt;/li&gt;
+&lt;li&gt;popup とコマンド付きのペインのシェルは非ログイン・非対話で、zsh なら &lt;code&gt;.zshenv&lt;/code&gt; しか読まない&lt;/li&gt;
+&lt;li&gt;存在しない &lt;code&gt;-c&lt;/code&gt; のパス、解決できない &lt;code&gt;display-message -t&lt;/code&gt;、&lt;code&gt;.&lt;/code&gt; や &lt;code&gt;:&lt;/code&gt; を含むセッション名は、どれもその場ではエラーにならない (終了コード 0)。ずれは後で別の場所に出る&lt;/li&gt;
+&lt;li&gt;確かめるときは &lt;code&gt;-L &amp;lt;名前&amp;gt; -f /dev/null&lt;/code&gt; で隔離したサーバを使う。&lt;code&gt;-L&lt;/code&gt; だけだと &lt;code&gt;~/.tmux.conf&lt;/code&gt; を読む&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は tmux 3.7c / zsh 5.9.2 で実測した。コード例はすべて &lt;code&gt;-L demo&lt;/code&gt; の使い捨てサーバに対して打つので、普段のサーバには触れない。&lt;/p&gt;
+&lt;h2 id=&#34;前提-tmux-コマンドはサーバへの依頼でしかない&#34;&gt;前提: tmux コマンドはサーバへの依頼でしかない&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;tmux コマンドはサーバへコマンドを送るだけで、設定はサーバ起動時に 1 回読まれ、ペインや popup はサーバが起動する&#34; loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/fig-server-model.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;tmux はクライアント・サーバ型になっている。端末で打つ &lt;code&gt;tmux ...&lt;/code&gt; はクライアントで、ソケット越しにサーバへコマンドを送って終わる。
+キーバインド・オプション・セッション・環境変数はサーバのメモリにあり、サーバが終わるまで残る。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.tmux.conf&lt;/code&gt; を読むのはサーバの起動時だけ。新しいセッションを作っても読み直さない。&lt;code&gt;source-file&lt;/code&gt; は書かれたコマンドをもう 1 度流すだけ&lt;/li&gt;
+&lt;li&gt;ペイン・popup・&lt;code&gt;run-shell&lt;/code&gt;・&lt;code&gt;if-shell&lt;/code&gt; のプロセスを起動するのはサーバ。操作中のシェルの子ではない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下の罠は、どれもこの 2 点のどちらかから来る。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>VIMの外部で変更されたファイルの自動読み込み設定が効いていない問題を解決した(ようやく手をつけた)</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-16-fix-vim-autoread-settings-not-work-in-tmux/</link>
+      <pubDate>Tue, 16 May 2023 09:32:00 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-05-16-fix-vim-autoread-settings-not-work-in-tmux/</guid>
+      <description>&lt;p&gt;長らく放置していた以下の問題&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;vimでファイルを開いている際に、裏で IntelliJ Idea や、 VSCode やらで編集しても自動再リロードがかからない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下の設定をしていた。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;#34; 元のファイルの変更を Vim が検知し、かつバッファが変更されていなかった場合、バッファは自動的に再読み込み&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;autoread&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;もう少し処理を足して &lt;code&gt;checktime&lt;/code&gt; を自動発行すればよいことがわかったので、以下を追加したけど動作しなかった&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;#34; 以下タイミングで、checktime を実行&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;#34; WinEnter: ウィンドウがアクティブになった時&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;#34; FocusGained: ウィンドウがアクティブになった時&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;&amp;#34; BufEnter: バッファがアクティブになった時&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;augroup&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;auto&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;checktime&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;autocmd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;autocmd&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;WinEnter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;FocusGained&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;BufEnter&lt;/span&gt; * &lt;span class=&#34;nx&#34;&gt;checktime&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;augroup&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;END&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;色々調べるうちに &lt;code&gt;FocusGained&lt;/code&gt; イベントが発行されていない事を確認&lt;/p&gt;
+&lt;p&gt;イベントが発行されない原因を調査中以下コメントを発見&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/tmux/tmux/issues/2856#issuecomment-1166358054&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Feature: neovim/vim does not always trigger FocusLost/FocusGained when a client is detached/attached respectively · Issue #2856 · tmux/tmux
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;Tmux&lt;/code&gt; のフォーカスイベント検知設定を有効にしてなかった。&lt;/p&gt;
+&lt;p&gt;以下を tmux.conf についかして無事解決&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  &lt;div class=&#34;codeblock--name&#34;&gt;tmux.conf&lt;/div&gt;
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;set-option -g focus-events on&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;refs&#34;&gt;Refs&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://vim-jp.org/vim-users-jp/2011/10/05/Hack-234.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  vim-jp » Hack #234: Vim外にいるときはVimを透けさせる
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

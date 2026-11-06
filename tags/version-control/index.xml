@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>version-control on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/version-control/</link>
+    <description>Recent content in version-control on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 22 Nov 2025 10:05:34 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/version-control/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git logの「..」と「...」の違い</title>
+      <link>https://tro3373.github.io/posts/2025/2025-11-22-git-log-compare-main-develop-branches-with-dots-and-ellipsis/</link>
+      <pubDate>Sat, 22 Nov 2025 10:05:34 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2025/2025-11-22-git-log-compare-main-develop-branches-with-dots-and-ellipsis/</guid>
+      <description>&lt;h2 id=&#34;結論は片方は両方の差分&#34;&gt;結論：「..」は片方、「&amp;hellip;」は両方の差分&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;git log&lt;/code&gt;の&lt;code&gt;..&lt;/code&gt;（ドット2つ）と&lt;code&gt;...&lt;/code&gt;（ドット3つ）は、ブランチ間のコミット比較方法が異なる。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;..&lt;/code&gt;（2ドット）&lt;/strong&gt;: 一方のブランチにのみ存在するコミット&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;...&lt;/code&gt;（3ドット）&lt;/strong&gt;: 両方のブランチで異なるコミット全て&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;使い分け&#34;&gt;使い分け&lt;/h2&gt;
+&lt;h3 id=&#34;2ドット--未マージのコミットを確認&#34;&gt;&lt;code&gt;..&lt;/code&gt;（2ドット）- 未マージのコミットを確認&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;developにあってmainにないコミット（未マージ分のみ）&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log origin/main..origin/develop&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;用途：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PR前の差分確認&lt;/li&gt;
+&lt;li&gt;マージ漏れチェック&lt;/li&gt;
+&lt;li&gt;リリース対象の確認&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;結果：&lt;/strong&gt;
+developにしかないコミットのみ表示（mainには既にあるコミットは除外）&lt;/p&gt;
+&lt;h3 id=&#34;3ドット--分岐後の全差分&#34;&gt;&lt;code&gt;...&lt;/code&gt;（3ドット）- 分岐後の全差分&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;mainとdevelopの差分（どちらか一方にしかないコミット全て）&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log origin/main...origin/develop&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;用途：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ブランチの分岐点以降の変更全体を確認&lt;/li&gt;
+&lt;li&gt;両ブランチの独立した開発内容を比較&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;結果：&lt;/strong&gt;
+mainにのみあるコミット + developにのみあるコミット&lt;/p&gt;
+&lt;h2 id=&#34;視覚的に確認&#34;&gt;視覚的に確認&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# グラフで分岐を表示&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log --oneline --graph origin/main...origin/develop&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;--graph&lt;/code&gt;オプション:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;コミットの分岐・マージをビジュアル化&lt;/li&gt;
+&lt;li&gt;どちらのブランチに属するか一目で分かる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;具体例&#34;&gt;具体例&lt;/h2&gt;
+&lt;h3 id=&#34;状況&#34;&gt;状況&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;main:    A - B - C - D
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              \
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;develop:       E - F - G&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;2ドットの結果&#34;&gt;&lt;code&gt;..&lt;/code&gt;（2ドット）の結果&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log main..develop
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 結果: E, F, G（developにのみ存在）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log develop..main
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 結果: C, D（mainにのみ存在）&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;3ドットの結果&#34;&gt;&lt;code&gt;...&lt;/code&gt;（3ドット）の結果&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log main...develop
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 結果: C, D, E, F, G（両方の差分）&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;よくある用途&#34;&gt;よくある用途&lt;/h2&gt;
+&lt;h3 id=&#34;pr作成前のコミット確認&#34;&gt;PR作成前のコミット確認&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# featureブランチにあってmainにないコミット&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log main..feature&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;リリース対象の確認&#34;&gt;リリース対象の確認&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# developにあってmainにない（次のリリース内容）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log origin/main..origin/develop --oneline&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;両ブランチの独立した変更を比較&#34;&gt;両ブランチの独立した変更を比較&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# mainとdevelopで独立して開発された内容を全て表示&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git log origin/main...origin/develop --oneline --graph&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;まとめ&#34;&gt;まとめ&lt;/h2&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;記法&lt;/th&gt;
+					&lt;th&gt;意味&lt;/th&gt;
+					&lt;th&gt;用途&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;&lt;code&gt;A..B&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;Bにあって&lt;br&gt;Aにないコミット&lt;/td&gt;
+					&lt;td&gt;未マージ確認&lt;br&gt;PR差分確認&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;&lt;code&gt;A...B&lt;/code&gt;&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;AとBで&lt;br&gt;異なる全コミット&lt;/td&gt;
+					&lt;td&gt;分岐後の全変更&lt;br&gt;両ブランチ比較&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;..&lt;/code&gt;（2ドット）&lt;/strong&gt;: 片方にしかないコミット（未マージ確認）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;...&lt;/code&gt;（3ドット）&lt;/strong&gt;: 両方で異なるコミット全て（分岐後の全変更）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;--graph&lt;/code&gt;&lt;/strong&gt;: 視覚的に分岐を確認&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

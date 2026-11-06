@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Cognito on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/cognito/</link>
+    <description>Recent content in Cognito on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 05 Nov 2019 22:49:56 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/cognito/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Congnitoの発行するトークンの意味と動作</title>
+      <link>https://tro3373.github.io/posts/2019/2019-11-05-cognito-token-refresh/</link>
+      <pubDate>Tue, 05 Nov 2019 22:49:56 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2019/2019-11-05-cognito-token-refresh/</guid>
+      <description>&lt;h2 id=&#34;参考url&#34;&gt;参考URL&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dev.classmethod.jp/cloud/aws/study-tokens-of-cognito-user-pools/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://dev.classmethod.jp/cloud/aws/study-tokens-of-cognito-user-pools/
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;理解&#34;&gt;理解&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Cognito トークンには３つ種類がある
+&lt;ul&gt;
+&lt;li&gt;IDトークン
+&lt;ul&gt;
+&lt;li&gt;クライムを表すトークン (JWT)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;アクセストークン
+&lt;ul&gt;
+&lt;li&gt;Cognitoユーザ属性を表示、更新等行う為のトークン (JWT)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;リフレッシュトークン
+&lt;ul&gt;
+&lt;li&gt;IDトークン、アクセストークンを更新する為のもの&lt;/li&gt;
+&lt;li&gt;CognitoクライアントID設定画面で有効期限を設定できる
+&lt;ul&gt;
+&lt;li&gt;デフォルトは30日(1-3650日指定可能)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ID/アクセストークンは1時間で無効になる&lt;/li&gt;
+&lt;li&gt;リフレッシュトークンが有効な間はID/アクセストークンは自動更新される
+&lt;ul&gt;
+&lt;li&gt;getSession で自動更新&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

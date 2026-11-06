@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>zsh on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/zsh/</link>
+    <description>Recent content in zsh on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 02 Oct 2026 13:39:27 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/zsh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tmux サーバが握り続ける状態とエラーなしに通るコマンド</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/</link>
+      <pubDate>Fri, 02 Oct 2026 13:39:27 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;tmux のキーバインド・オプション・&lt;code&gt;@&lt;/code&gt; 変数・環境変数はサーバのメモリにある。&lt;code&gt;.tmux.conf&lt;/code&gt; はサーバ起動時に 1 回流すコマンド列で、行を消して &lt;code&gt;source-file&lt;/code&gt; しても登録済みのものは消えない&lt;/li&gt;
+&lt;li&gt;ペイン・popup・&lt;code&gt;run-shell&lt;/code&gt;・&lt;code&gt;if-shell&lt;/code&gt; のプロセスは、操作中のシェルではなくサーバの環境を継承する。後から足した PATH は届かず、&lt;code&gt;if-shell &#39;command -v ...&#39;&lt;/code&gt; は偽になってブロックを警告なしに捨てる&lt;/li&gt;
+&lt;li&gt;popup とコマンド付きのペインのシェルは非ログイン・非対話で、zsh なら &lt;code&gt;.zshenv&lt;/code&gt; しか読まない&lt;/li&gt;
+&lt;li&gt;存在しない &lt;code&gt;-c&lt;/code&gt; のパス、解決できない &lt;code&gt;display-message -t&lt;/code&gt;、&lt;code&gt;.&lt;/code&gt; や &lt;code&gt;:&lt;/code&gt; を含むセッション名は、どれもその場ではエラーにならない (終了コード 0)。ずれは後で別の場所に出る&lt;/li&gt;
+&lt;li&gt;確かめるときは &lt;code&gt;-L &amp;lt;名前&amp;gt; -f /dev/null&lt;/code&gt; で隔離したサーバを使う。&lt;code&gt;-L&lt;/code&gt; だけだと &lt;code&gt;~/.tmux.conf&lt;/code&gt; を読む&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は tmux 3.7c / zsh 5.9.2 で実測した。コード例はすべて &lt;code&gt;-L demo&lt;/code&gt; の使い捨てサーバに対して打つので、普段のサーバには触れない。&lt;/p&gt;
+&lt;h2 id=&#34;前提-tmux-コマンドはサーバへの依頼でしかない&#34;&gt;前提: tmux コマンドはサーバへの依頼でしかない&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;tmux コマンドはサーバへコマンドを送るだけで、設定はサーバ起動時に 1 回読まれ、ペインや popup はサーバが起動する&#34; loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/fig-server-model.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;tmux はクライアント・サーバ型になっている。端末で打つ &lt;code&gt;tmux ...&lt;/code&gt; はクライアントで、ソケット越しにサーバへコマンドを送って終わる。
+キーバインド・オプション・セッション・環境変数はサーバのメモリにあり、サーバが終わるまで残る。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.tmux.conf&lt;/code&gt; を読むのはサーバの起動時だけ。新しいセッションを作っても読み直さない。&lt;code&gt;source-file&lt;/code&gt; は書かれたコマンドをもう 1 度流すだけ&lt;/li&gt;
+&lt;li&gt;ペイン・popup・&lt;code&gt;run-shell&lt;/code&gt;・&lt;code&gt;if-shell&lt;/code&gt; のプロセスを起動するのはサーバ。操作中のシェルの子ではない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下の罠は、どれもこの 2 点のどちらかから来る。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ubuntu12.04 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ubuntu12.04/</link>
+    <description>Recent content in ubuntu12.04 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 08 Jun 2013 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/ubuntu12.04/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu 12.04 でメディア自動マウントを無効化する</title>
+      <link>https://tro3373.github.io/posts/2013/2013-06-08-ubuntu-12-04-demedeiazi-dong-mauntowowu-xiao-hua-suru/</link>
+      <pubDate>Sat, 08 Jun 2013 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2013/2013-06-08-ubuntu-12-04-demedeiazi-dong-mauntowowu-xiao-hua-suru/</guid>
+      <description>&lt;h1 id=&#34;ubuntu-1204-でメディア自動マウントを無効化する&#34;&gt;Ubuntu 12.04 でメディア自動マウントを無効化する&lt;/h1&gt;
+&lt;p&gt;Ubuntu 12.04のGNOMEのメディア自動マウントを無効化する&lt;br&gt;
+自動マウントは便利といえば便利なのだが、ファイルシステム復旧のようなセンシティブな作業をしているときにやられると困る場合がある。&lt;br&gt;
+その際に、無効化するには、以下のコマンドを実行する。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ gsettings get org.gnome.desktop.media-handling automount
+true    ←有効の状態
+
+$ gsettings set org.gnome.desktop.media-handling automount false
+$ gsettings get org.gnome.desktop.media-handling automount
+false   ←無効になった
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>

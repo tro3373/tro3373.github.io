@@ -1,0 +1,1416 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>debian on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/debian/</link>
+    <description>Recent content in debian on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 11 Oct 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/debian/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>debian wheezy mysql 設定、データ移行</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-debian-wheezy-mysql-she-ding-detayi-xing/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-debian-wheezy-mysql-she-ding-detayi-xing/</guid>
+      <description>&lt;h2 id=&#34;インストール&#34;&gt;インストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install mysql-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;alive-check&#34;&gt;alive check&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysqladmin ping -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;mysqlパスワード変更&#34;&gt;mysqlパスワード変更&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+    rootパスワード入力
+SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ユーザ確認&#34;&gt;ユーザ確認&lt;/h2&gt;
+&lt;h3 id=&#34;ログイン&#34;&gt;ログイン&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;sql実行&#34;&gt;SQL実行&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;SELECT host,user,password FROM mysql.user;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;文字コード設定&#34;&gt;文字コード設定&lt;/h2&gt;
+&lt;h3 id=&#34;charset-utf8-check&#34;&gt;charset UTF8 check&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; status
+--------------
+mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2
+
+Connection id:      39
+Current database:   
+Current user:       root@localhost
+SSL:            Not in use
+Current pager:      stdout
+Using outfile:      &#39;&#39;
+Using delimiter:    ;
+Server version:     5.5.38-0+wheezy1 (Debian)
+Protocol version:   10
+Connection:     Localhost via UNIX socket
+Server characterset:    utf8
+Db     characterset:    utf8
+Client characterset:    utf8
+Conn.  characterset:    utf8
+UNIX socket:        /var/run/mysqld/mysqld.sock
+Uptime:         5 hours 20 min 7 sec
+
+Threads: 1  Questions: 114  Slow queries: 0  Opens: 171  Flush tables: 1  Open tables: 41  Queries per second avg: 0.005
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;if-your-env-is-not-seted-to-utf8-add-utf8-settings-below&#34;&gt;if your env is not seted to utf8, add utf8 settings below&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;sudo vim /etc/mysql/conf.d/character_set.cnf&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linkstation(debian wheezy) へ mysql を設定、データ移行</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-11-linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</link>
+      <pubDate>Sat, 11 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-11-linkstationdebian-wheezy-he-mysql-woshe-ding-detayi-xing/</guid>
+      <description>&lt;h2 id=&#34;インストール&#34;&gt;インストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install mysql-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;alive-check&#34;&gt;alive check&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysqladmin ping -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;mysqlパスワード変更&#34;&gt;mysqlパスワード変更&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+    rootパスワード入力
+SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ユーザ確認&#34;&gt;ユーザ確認&lt;/h2&gt;
+&lt;h3 id=&#34;ログイン&#34;&gt;ログイン&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql -u root -p
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;sql実行&#34;&gt;SQL実行&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;SELECT host,user,password FROM mysql.user;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;文字コード設定&#34;&gt;文字コード設定&lt;/h2&gt;
+&lt;h3 id=&#34;charset-utf8-check&#34;&gt;charset UTF8 check&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;mysql&amp;gt; status
+--------------
+mysql  Ver 14.14 Distrib 5.5.38, for debian-linux-gnu (armv7l) using readline 6.2
+
+Connection id:      39
+Current database:   
+Current user:       root@localhost
+SSL:            Not in use
+Current pager:      stdout
+Using outfile:      &#39;&#39;
+Using delimiter:    ;
+Server version:     5.5.38-0+wheezy1 (Debian)
+Protocol version:   10
+Connection:     Localhost via UNIX socket
+Server characterset:    utf8
+Db     characterset:    utf8
+Client characterset:    utf8
+Conn.  characterset:    utf8
+UNIX socket:        /var/run/mysqld/mysqld.sock
+Uptime:         5 hours 20 min 7 sec
+
+Threads: 1  Questions: 114  Slow queries: 0  Opens: 171  Flush tables: 1  Open tables: 41  Queries per second avg: 0.005
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;if-your-env-is-not-seted-to-utf8-add-utf8-settings-below&#34;&gt;if your env is not seted to utf8, add utf8 settings below&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;sudo vim /etc/mysql/conf.d/character_set.cnf&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Debian wheezy に Ubuntu 14.04 クライアントからSSH接続する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-07-debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</link>
+      <pubDate>Tue, 07 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-07-debian-wheezy-ni-ubuntu-14-04-kuraiantokarasshjie-sok-suru/</guid>
+      <description>&lt;h2 id=&#34;client-key-generate&#34;&gt;[Client] Key generate&lt;/h2&gt;
+&lt;h3 id=&#34;create-pub-private-key-at-ssh&#34;&gt;create pub, private key at &lt;code&gt;~/.ssh&lt;/code&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/.ssh
+ssh-keygen -t rsa
+# created under files
+    id_rsa
+    id_rsa.pub
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;upload-public-key-to-server&#34;&gt;upload public key to server.&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;scp id_rsa.pub [server ip address]:~/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;client-sshconfig&#34;&gt;[Client] .ssh/config&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;vim ~/.ssh/config&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Host [server name]
+    HostName [server name or ipaddress]
+    Port 22
+    User [login user name]
+    IdentityFile ~/.ssh/id_rsa
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;server-regist-pub-key&#34;&gt;[server] regist pub key&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;login the server.
+cd ~
+cat rsa.pub &amp;gt;&amp;gt; ~/.ssh/authorized_keys
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;server-sshd-settings&#34;&gt;[server] sshd settings&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;sudo vim /etc/ssh/sshd_config&lt;/code&gt; check the settings&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linkstation(ls-xhle) へdebian wheezy を導入する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-09-13-linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</link>
+      <pubDate>Sat, 13 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-09-13-linkstationls-xhle-hedebian-wheezy-wodao-ru-suru/</guid>
+      <description>&lt;h2 id=&#34;パーティション構成&#34;&gt;パーティション構成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;/dev/sda1 /boot
+/dev/sda2 /
+/dev/sda3 swap
+/dev/sda4 /data
+&lt;/code&gt;&lt;/pre&gt;
+&lt;!--
+     smartctl -a /dev/sda -s on
+ --&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://forum.buffalo.nas-central.org/viewtopic.php?f=71&amp;amp;t=26291&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  ここを参考に
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;update 2013.05.15: Now when Debian 7 wheezy is stable, i made a new image.&lt;/p&gt;
+&lt;p&gt;I created a minimal debian wheezy bootstrap for our Linkstations. It comes with 3.9.2 kernels for both LS-CHLv2 and LS-XHL, which you can find here.&lt;/p&gt;
+&lt;h3 id=&#34;infos&#34;&gt;Infos&lt;/h3&gt;
+&lt;p&gt;Changes to plain debootstrap
+This is a ready to use image, no need to tweak device specific stuff after install e.g. do NOT install blstools.&lt;/p&gt;
+&lt;h3 id=&#34;download&#34;&gt;Download&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://neboola.de/fjen/lschlv2/debian/wheezy/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://neboola.de/fjen/lschlv2/debian/wheezy/
+&lt;/a&gt;
+
+Archive is packed with tar/xz. Use tar/xz-utils on Linux to extract.
+Do not extract it on Windows or it won&amp;rsquo;t boot because of permission problems!&lt;/p&gt;
+&lt;h3 id=&#34;installation&#34;&gt;Installation&lt;/h3&gt;
+&lt;p&gt;-backup your installation
+-partition harddrive with gpt layout
+&amp;ndash;sda1 boot ext3 128MB
+&amp;ndash;sda2 root ext4 &amp;gt;1GB
+-extract archive to / and /boot&lt;/p&gt;
+&lt;p&gt;FOR LSXHL: Replace /boot/uImage.buffalo.3.9.2-fjen-1 with the lsxhl one.&lt;/p&gt;
+&lt;p&gt;your setup should look like this:
+Code:&lt;/p&gt;
+&lt;h3 id=&#34;boot--sda1&#34;&gt;boot / sda1&lt;/h3&gt;
+&lt;p&gt;uImage.buffalo
+uImage.buffalo.3.9.2-fjen-1
+initrd.buffalo&lt;/p&gt;
+&lt;h3 id=&#34;root--sda2&#34;&gt;root / sda2&lt;/h3&gt;
+&lt;p&gt;/bin
+/boot
+/dev
+/etc
+[&amp;hellip;]&lt;/p&gt;
+&lt;h3 id=&#34;after-installation&#34;&gt;After installation&lt;/h3&gt;
+&lt;p&gt;Device gets IP through DHCP.
+root pw: toor
+ssh port: 22&lt;/p&gt;
+&lt;p&gt;Execute these commands to have a sane system:
+Code:
+dpkg-reconfigure locales
+dpkg-reconfigure tzdata
+rm /etc/ssh/ssh_host_* &amp;amp;&amp;amp; dpkg-reconfigure openssh-server
+apt-get update&lt;/p&gt;
+&lt;p&gt;Have fun!&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;linkstation-ls-chlv2-and-ls-xhl-stuff&#34;&gt;Linkstation LS-CHLv2 and LS-XHL stuff:&lt;/h2&gt;
+&lt;p&gt;Debian 7 Wheezy - Rootfs
+Kernel 3.13&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG(debian lenny) mysqlディレクトリ変更</title>
+      <link>https://tro3373.github.io/posts/2012/2012-10-20-%E7%8E%84%E7%AE%B1hg-debian-lenny-mysqldeirekutoribian-geng/</link>
+      <pubDate>Sat, 20 Oct 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-10-20-%E7%8E%84%E7%AE%B1hg-debian-lenny-mysqldeirekutoribian-geng/</guid>
+      <description>&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://tobysoft.net/wiki/index.php?Ubuntu%2Fmysql&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;h1 id=&#34;mysql停止&#34;&gt;mysql停止&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo /etc/init.d/mysql stop
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;データ移行&#34;&gt;データ移行&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p /path/to/mysql_directory
+chown mysql:mysql /path/to/mysql_directory
+cd /path/to/mysql_directory
+mkdir mysqldata mysqldump
+chown mysql:mysql mysqldata
+chown mysql:mysql mysqldump
+sudo cp -fprv /var/lib/mysql/ ./mysqldata/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;ディレクトリ指定設定&#34;&gt;ディレクトリ指定設定&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo vi /etc/mysql/conf.d/my_datadir.cnf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;修正内容は以下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[mysqld]
+datadir = /path/to/mysql_directory/mysqldata/mysql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;正しく設定変更され起動できるか確認する為元のデータは別場所へ移動&#34;&gt;正しく設定変更され起動できるか確認する為、元のデータは別場所へ移動&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;mkdir /data/tmp
+sudo mv /var/lib/mysql /data/tmp
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;mysql-再起動&#34;&gt;mysql 再起動&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo /etc/init.d/mysql restart
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;不要となったデータを削除&#34;&gt;不要となったデータを削除&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;sudo rm /data/tmp
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>玄箱lenny リストアテストを行う</title>
+      <link>https://tro3373.github.io/posts/2012/2012-07-28-%E7%8E%84%E7%AE%B1hg-debian-lenny-risutoatesutowoxing-u/</link>
+      <pubDate>Sat, 28 Jul 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-07-28-%E7%8E%84%E7%AE%B1hg-debian-lenny-risutoatesutowoxing-u/</guid>
+      <description>&lt;h1 id=&#34;玄箱lennyリストアテスト&#34;&gt;玄箱lenny,リストアテスト&lt;/h1&gt;
+&lt;p&gt;新しく買ってきたWD20 EARX(9Kなり)でリカバリテストを行う&lt;/p&gt;
+&lt;h2 id=&#34;mbrフォーマットへ切り替え&#34;&gt;MBRフォーマットへ切り替え&lt;/h2&gt;
+&lt;p&gt;Ubuntu 11.10へUSB接続し、ディスクユーティリティから
+対象HDDのフォーマットをマスターブートレコードへ切り替える（もともとなってる？）&lt;/p&gt;
+&lt;h2 id=&#34;次にaft4096問題&#34;&gt;次に、&lt;a class=&#34;link&#34; href=&#34;http://calves.jugem.jp/?search=WD&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  AFT,4096問題
+&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;通常パーティション切りで書き込みテストを行う&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo fdisk /dev/sdh
+    Disk /dev/sdh: 2000.4 GB, 2000398934016 bytes
+    ヘッド 255, セクタ 63, シリンダ 243201, 合計 3907029168 セクタ
+    Units = セクタ数 of 1 * 512 = 512 バイト
+    セクタサイズ (論理 / 物理): 512 バイト / 512 バイト
+    I/O サイズ (最小 / 推奨): 512 バイト / 512 バイト
+    ディスク識別子: 0x0006c4b4
+
+cd /media/test
+dd if=/dev/zero of=./hage bs=128k count=32768
+    32768+0 レコード入力
+    32768+0 レコード出力
+    4294967296 バイト (4.3 GB) コピーされました、 193.343 秒、 22.2 MB/秒
+
+# やたら遅い。。。これは酷い。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;8で割り切れる対応&#34;&gt;8で割り切れる対応&lt;/h2&gt;
+&lt;p&gt;パーティション切り&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG（debian lenny）へ SVN を導入する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-21-%E7%8E%84%E7%AE%B1hg-debian-lennyhe-svn-wodao-ru-suru/</link>
+      <pubDate>Thu, 21 Jun 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-06-21-%E7%8E%84%E7%AE%B1hg-debian-lennyhe-svn-wodao-ru-suru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hgdebian-lennyへ-svn-を導入する&#34;&gt;玄箱HG（debian lenny）へ SVN を導入する&lt;/h1&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://wlog.flatlib.jp/item/1289&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://wlog.flatlib.jp/item/1289
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://brokendish.org/debian/609/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://brokendish.org/debian/609/
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;subversionインストール&#34;&gt;subversionインストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install subversion
+sudo apt-get install libapache2-svn libapache2-mod-encoding
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;subversionの設定&#34;&gt;subversionの設定&lt;/h1&gt;
+&lt;h2 id=&#34;svnロケーション設定&#34;&gt;svnロケーション設定&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd /etc/apache2
+sudo vi mods-available/dav_svn.conf 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以下を追加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;Location /svn&amp;gt;
+  DAV svn
+  SVNParentPath /path/to/svn_server_directory
+  SVNListParentPath on
+
+  #require ssl
+  SSLRequireSSL
+  AuthType Basic
+  # auto commit on
+  SVNAutoversioning on
+  AuthName &amp;quot;Subversion Repository&amp;quot;
+  AuthUserFile /etc/apache2/dav_svn.passwd
+  # require authentication other than require method for read repository.
+  Require valid-user
+&amp;lt;/Location&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;svnルートディレクトリの作成&#34;&gt;svnルートディレクトリの作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p /path/to/svn_server_directory
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;svnディレクトリプロジェクト単位の作成&#34;&gt;svnディレクトリ（プロジェクト単位？）の作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo svnadmin create --fs-type=fsfs /path/to/svn_server_directory/repo
+sudo chown -R www-data:www-data /path/to/svn_server_directory
+sudo chmod -R gu+w /path/to/svn_server_directory
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;svnアクセスユーザの作成&#34;&gt;svnアクセスユーザの作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;htpasswd -c /etc/apache2/dav_svn.passwd [user_name]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;作成したdav_svnの有効化&#34;&gt;作成したdav_svnの有効化&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo a2dismod dav_svn
+sudo a2enmod dav_svn
+sudo /etc/init.d/apache2 restart
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;svn基本ディレクトリを作成&#34;&gt;svn基本ディレクトリを作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;svn mkdir https://[server_url]/svn/repo/trunk -m &amp;quot;create&amp;quot;
+svn mkdir https://[server_url]/svn/repo/branches -m &amp;quot;create&amp;quot;
+svn mkdir https://[server_url]/svn/repo/tags -m &amp;quot;create&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;オラオラ認証のエラー対応&#34;&gt;オラオラ認証のエラー対応&lt;/h2&gt;
+&lt;p&gt;オラオラ認証なので以下のようなメッセージがでる。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG(lenny) Apache2 ssl化</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-29-%E7%8E%84%E7%AE%B1hg-debian-lenny-apache2-sslhua/</link>
+      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-05-29-%E7%8E%84%E7%AE%B1hg-debian-lenny-apache2-sslhua/</guid>
+      <description>&lt;h1 id=&#34;玄箱hglenny-apache2-ssl化&#34;&gt;玄箱HG(lenny) Apache2 ssl化&lt;/h1&gt;
+&lt;h2 id=&#34;前提条件&#34;&gt;前提条件&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;opensslはインストール済み&lt;/li&gt;
+&lt;li&gt;apache2で既にサイトが稼働済み&lt;/li&gt;
+&lt;li&gt;su 実行済み&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;opensslの設定&#34;&gt;opensslの設定&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd /etc/ssl
+ls -l
+    合計 28
+    drwxr-xr-x 2 root root     12288 2011-11-16 00:11 certs
+    -rw-r--r-- 1 root root      9374 2010-12-06 00:23 openssl.cnf
+    drwx--x--- 2 root ssl-cert  4096 2011-03-19 20:58 private
+cp -p openssl.cnf openssl.cnf.org
+vi openssl.cnf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;編集内容は以下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;diff ./openssl.cnf.org openssl.cnf
+    172c172
+    &amp;lt; # nsCertType			= server
+    ---
+    &amp;gt; nsCertType			= server
+    241c241
+    &amp;lt; # nsCertType = sslCA, emailCA
+    ---
+    &amp;gt; nsCertType = sslCA, emailCA
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;証明書の作成&#34;&gt;証明書の作成&lt;/h2&gt;
+&lt;p&gt;場所はどこでもよいと思われる。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG(lenny)へwebdavを導入する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-29-%E7%8E%84%E7%AE%B1hg-debian-lennyhewebdavwodao-ru-suru/</link>
+      <pubDate>Tue, 29 May 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-05-29-%E7%8E%84%E7%AE%B1hg-debian-lennyhewebdavwodao-ru-suru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hglennyへwebdavを導入する&#34;&gt;玄箱HG(lenny)へwebdavを導入する&lt;/h1&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://nofx2.txt-nifty.com/it/2009/07/apache-22-webda.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Apache 2.2 WebDAV 設定
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://yaw.jp/hobby/linux/article/apache.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Apache関連
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;前提事項&#34;&gt;前提事項&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;apache2,sslは導入済み&lt;/li&gt;
+&lt;li&gt;su 実行済み&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;webdavディレクトリを作成する&#34;&gt;webdavディレクトリを作成する&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+mkdir webdav
+chown www-data:www-data webdav
+chmod 700 webdav
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;確認&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ls -l
+    drwx------ 2 www-data www-data 4096 2012-05-29 22:22 webdav
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;webdavアクセスユーザを作成&#34;&gt;webdavアクセスユーザを作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo htpasswd -c /etc/apache2/dav.passwd [username]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;確認&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat /etc/apache2/dav.passwd
+ちなみにユーザの確認は
+    cat /etc/passwd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;apache-の設定に-webdav-へのアクセスを設定する&#34;&gt;apache の設定に Webdav へのアクセスを設定する&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo vi /etc/apache2/sites-available/[target_site_settings_file]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以下を追加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Alias /webdav &amp;quot;作成したディレクトリ&amp;quot;
+&amp;lt;Location /webdav&amp;gt;
+        DAV On
+        Options indexes FollowSymlinks
+        Order allow,deny
+        allow from all
+        AuthType Basic
+        AuthName &amp;quot;Authentification Required&amp;quot;
+        AuthUserFile /etc/apache2/dav.passwd
+        Require user [username] # ユーザを指定する場合
+&amp;lt;/Location&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;※ Options indexes FollowSymlinks設定
+Options -indexes FollowSymlinksとすると
+index.htmlが存在しない場合などに、ファイル一覧を表示する機能を
+無効にできる。
+&lt;a class=&#34;link&#34; href=&#34;http://www.atmarkit.co.jp/flinux/rensai/linuxtips/705noindexes.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://www.atmarkit.co.jp/flinux/rensai/linuxtips/705noindexes.html
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG(lenny) Apache2 再起動時にでる警告を消す</title>
+      <link>https://tro3373.github.io/posts/2012/2012-05-28-%E7%8E%84%E7%AE%B1hg-debian-lenny-apache2-zai-qi-dong-shi-niderujing-gao-woxiao-su/</link>
+      <pubDate>Mon, 28 May 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-05-28-%E7%8E%84%E7%AE%B1hg-debian-lenny-apache2-zai-qi-dong-shi-niderujing-gao-woxiao-su/</guid>
+      <description>&lt;h1 id=&#34;玄箱hglenny-apache2-再起動時に警告がでる&#34;&gt;玄箱HG(lenny) Apache2 再起動時に警告がでる&lt;/h1&gt;
+&lt;p&gt;apache2 再起動やら設定リロードなどで下記エラーが出る場合の対処&lt;/p&gt;
+&lt;h2 id=&#34;エラー内容&#34;&gt;エラー内容&lt;/h2&gt;
+&lt;p&gt;以下のようなログがでる&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Could not reliably determine the server&#39;s fully qualified domain name, using 192.168.24.2 for ServerName
+... waiting apache2: Could not reliably determine the server&#39;s fully qualified domain name, using 192.168.24.2 for ServerName
+...done.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;対処&#34;&gt;対処&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd /etc/apache2
+vi apache2.conf
+    ### Section 1: Global Environment
+    #
+    # The directives in this section affect the overall operation of Apache,
+    # such as the number of concurrent requests it can handle or where it
+    # can find its configuration files.
+    #
+    Servername サーバ名
+    ↑これ追加
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;確認&#34;&gt;確認&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;/etc/init.d/apache2 restart
+    Restarting web server: apache2 ... waiting ..
+→  エラーがでなくなった！
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った</title>
+      <link>https://tro3373.github.io/posts/2011/2011-11-18-%E7%8E%84%E7%AE%B1hg-debian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</link>
+      <pubDate>Fri, 18 Nov 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-11-18-%E7%8E%84%E7%AE%B1hg-debian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</guid>
+      <description>&lt;h1 id=&#34;玄箱hgdebian-lenny-のデータをlinkstationを起動マウントしてrsyncするバックアップ処理を作った&#34;&gt;玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った&lt;/h1&gt;
+&lt;p&gt;大まかな仕様は以下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通常電源OFF状態の、同一ネットワーク内にあるLinkstationを 定時刻に wakeonlan にて起動&lt;/li&gt;
+&lt;li&gt;起動した Linkstation をネットワーク経由にてマウント&lt;/li&gt;
+&lt;li&gt;サーバデータを全てrsyncしてバックアップ&lt;/li&gt;
+&lt;li&gt;処理の開始、終了時、特定のメールアドレスへメール送信する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;必要パッケージのインストール&#34;&gt;必要パッケージのインストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get update
+sudp apt-get upgrade
+sudo apt-get install wakeonlan
+sudo apt-get install rsync
+# mysql はインストール済みとする
+# python はインストール済みとする
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;メール送信処理&#34;&gt;メール送信処理&lt;/h2&gt;
+&lt;p&gt;特定アドレスにGメール送信する処理
+Gmail 送信処理本体 &lt;code&gt;GmailApi.py&lt;/code&gt; と、それを使用する &lt;code&gt;sendMail.py&lt;/code&gt;で構成&lt;/p&gt;
+&lt;p&gt;まずは、Gmail送信処理から&lt;/p&gt;
+&lt;p&gt;新規作成 &lt;code&gt;vim GmailApi.py&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import smtplib
+from email.MIMEText import MIMEText
+from email.Header import Header
+from email.Utils import formatdate
+
+class sendGmail:
+    def __init__(self, encoding, subject, body, from_addr, to_addr, login_addr, passwd):
+        self.date = formatdate()
+        self.encoding = encoding
+        self.subject = subject
+        self.body = body.encode(&#39;utf-8&#39;)
+        self.from_addr = from_addr
+        self.to_addr = to_addr
+        self.login_addr = login_addr
+        self.passwd = passwd
+
+    def sendMail(self):
+        msg = MIMEText(self.body, &#39;html&#39;, self.encoding)
+        msg[&#39;Subject&#39;] = Header(self.subject, self.encoding)
+        msg[&#39;From&#39;] = self.from_addr
+        msg[&#39;To&#39;] = self.to_addr
+        msg[&#39;Date&#39;] = self.date
+
+        s = smtplib.SMTP(&#39;smtp.gmail.com&#39;, 587)
+        s.ehlo()
+        s.starttls()
+        s.ehlo()
+        s.login(self.login_addr, self.passwd)
+        s.sendmail(self.from_addr, self.to_addr, msg.as_string())
+        s.close()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上記を使用し、Gmail送信する処理
+引数は以下で&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (14) 強引にIntelliParkを無効にする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-06-07-%E7%8E%84%E7%AE%B1hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</link>
+      <pubDate>Tue, 07 Jun 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-06-07-%E7%8E%84%E7%AE%B1hg-debian-lenny-14-qiang-yin-niintelliparkwowu-xiao-nisuru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-14-強引にintelliparkを無効にする&#34;&gt;玄箱HG debian lenny (14) 強引にIntelliParkを無効にする&lt;/h1&gt;
+&lt;h2 id=&#34;intelliparkを無効にする&#34;&gt;IntelliParkを無効にする&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;WD製2TibHDDである、WD20EARS-2TB-SATA300において、HDDアクセスが無かった場合の省電力モードを強制的に無効にする方法です。&lt;/li&gt;
+&lt;li&gt;省電力モードなるものは一般的にHDDの寿命を縮めるなどの理由より。&lt;br&gt;
+こちらを参考に「&lt;a class=&#34;link&#34; href=&#34;http://d.hatena.ne.jp/rubikitch/20101001/newhdd&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  ハードウェア linux WD WD20EARSの正しい扱い方
+&lt;/a&gt;
+」&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;シェルの作成&#34;&gt;シェルの作成&lt;/h3&gt;
+&lt;p&gt;以下のようなシェルを作成し適当なディレクトリへ配置します&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ vi disable-intellipark.sh
+    #!/bin/sh
+    while true;do
+      date &amp;gt; /tmp/disable-intellipark
+      sleep 5
+    done
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以下のようなシェルを作成し/etc/init.d 配下に配置します&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ vi kick.disable-intellipark.sh
+    echo ================================
+    echo  [start] disable-intellipark
+    echo ================================
+    . /上記シェルスクリプトを配置したディレクトリ/disable-intellipark.sh &amp;amp;
+    echo ================================
+    echo   [end]  disable-intellipark
+    echo ================================
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;起動設定&#34;&gt;起動設定&lt;/h3&gt;
+&lt;p&gt;init.dへ配備します&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ cd /etc/init.d
+$ sudo update-rc.d kick.disable-intellipark.sh defaults
+$ sudo reboot
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;停止設定&#34;&gt;停止設定&lt;/h3&gt;
+&lt;p&gt;init.dから排除します&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ cd /etc/init.d
+$ sudo update-rc.d -f kick.disable-intellipark.sh remove
+$ sudo reboot
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;ちなみにとしてintelliparkの発動回数を数える方法はこちら&#34;&gt;ちなみに・・・として、intelliparkの発動回数を数える方法はこちら&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install smartmontools
+$ sudo smartctl -a /dev/hda | grep Load_Cycle_Count
+    193 Load_Cycle_Count        0x0032   200   200   000    Old_age   Always       -       2332
+    20110607.22:28
+        193 Load_Cycle_Count        0x0032   200   200   000    Old_age   Always       -       2646
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (13) ロケール設定</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-27-%E7%8E%84%E7%AE%B1hg-debian-lenny-13-rokerushe-ding/</link>
+      <pubDate>Fri, 27 May 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-05-27-%E7%8E%84%E7%AE%B1hg-debian-lenny-13-rokerushe-ding/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-13-ロケール設定&#34;&gt;玄箱HG debian lenny (13) ロケール設定&lt;/h1&gt;
+&lt;h2 id=&#34;ロケール設定&#34;&gt;ロケール設定&lt;/h2&gt;
+&lt;h3 id=&#34;bashrc-設定&#34;&gt;.bashrc 設定&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;追加＆編集
+  文字コード設定
+    export LANG=ja_JP.UTF-8
+  ls オプション追加
+    export LS_OPTIONS=&#39;--color=auto --show-control-chars&#39;
+    # eval `dircolors`
+    alias ls=&#39;ls $LS_OPTIONS&#39;
+    alias ll=&#39;ls $LS_OPTIONS -la&#39;
+    alias l=&#39;ls $LS_OPTIONS -lA&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;.bashrc を反映させる&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;source .bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;locales-インストール&#34;&gt;locales インストール&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install locales
+    Reading package lists... Done
+    Building dependency tree
+    Reading state information... Done
+    The following packages were automatically installed and are no longer required:
+      python2.6-minimal python2.6 python-minimal libkrb53 libfuse2 python libfusefs-ruby1.8 libruby1.8 libntfs-3g75
+    Use &#39;apt-get autoremove&#39; to remove them.
+    The following NEW packages will be installed:
+      locales
+    0 upgraded, 1 newly installed, 0 to remove and 27 not upgraded.
+    Need to get 4757kB of archives.
+    After this operation, 13.1MB of additional disk space will be used.
+    Get:1 ftp://ftp2.jp.debian.org stable/main locales 2.11.2-10 [4757kB]
+    Fetched 4757kB in 2s (1932kB/s)
+    perl: warning: Setting locale failed.
+    perl: warning: Please check that your locale settings:
+        LANGUAGE = (unset),
+        LC_ALL = (unset),
+        LANG = &amp;quot;ja_JP.UTF-8&amp;quot;
+        are supported and installed on your system.
+    perl: warning: Falling back to the standard locale (&amp;quot;C&amp;quot;).
+    locale: Cannot set LC_CTYPE to default locale: No such file or directory
+    locale: Cannot set LC_MESSAGES to default locale: No such file or directory
+    locale: Cannot set LC_ALL to default locale: No such file or directory
+    Preconfiguring packages ...
+    Selecting previously deselected package locales.
+    (Reading database ... 14438 files and directories currently installed.)
+    Unpacking locales (from .../locales_2.11.2-10_all.deb) ...
+    Processing triggers for man-db ...
+    locale: Cannot set LC_CTYPE to default locale: No such file or directory
+    locale: Cannot set LC_MESSAGES to default locale: No such file or directory
+    locale: Cannot set LC_ALL to default locale: No such file or directory
+    Setting up locales (2.11.2-10) ...
+    Generating locales (this might take a while)...
+    Generation complete.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;dpkg-reconfigure locales実行&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (11)システムまるごとバックアップ</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-25-%E7%8E%84%E7%AE%B1hg-debian-lenny-11-sisutemumarugotobatukuatupu/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-05-25-%E7%8E%84%E7%AE%B1hg-debian-lenny-11-sisutemumarugotobatukuatupu/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-11システムまるごとバックアップ&#34;&gt;玄箱HG debian lenny (11)システムまるごとバックアップ&lt;/h1&gt;
+&lt;p&gt;debian lenny化した玄箱HGをまるごとバックアップする方法。&lt;br&gt;
+現在WD製2TibHDD(WD20EARS-2TB-SATA300)で構築しいる鯖ですが、構成は以下のようになっています。&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th style=&#34;text-align: left&#34;&gt;パーティション&lt;/th&gt;
+					&lt;th&gt;サイズ&lt;/th&gt;
+					&lt;th style=&#34;text-align: right&#34;&gt;用途&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td style=&#34;text-align: left&#34;&gt;/dev/hda1&lt;/td&gt;
+					&lt;td&gt;2G&lt;/td&gt;
+					&lt;td style=&#34;text-align: right&#34;&gt;ブート用&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style=&#34;text-align: left&#34;&gt;/dev/hda2&lt;/td&gt;
+					&lt;td&gt;512M&lt;/td&gt;
+					&lt;td style=&#34;text-align: right&#34;&gt;スワップ領域&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style=&#34;text-align: left&#34;&gt;/dev/hda3&lt;/td&gt;
+					&lt;td&gt;3G&lt;/td&gt;
+					&lt;td style=&#34;text-align: right&#34;&gt;lenny 用&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td style=&#34;text-align: left&#34;&gt;/dev/hda4&lt;/td&gt;
+					&lt;td&gt;残り(およそ1994G)&lt;/td&gt;
+					&lt;td style=&#34;text-align: right&#34;&gt;データ用&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;こちらを参考に構築しましたので。&lt;a class=&#34;link&#34; href=&#34;http://www.revulo.com/kuro-box/Debian/lenny.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「玄箱に Debian 5.0 (lenny) をインストールする」
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;このうち、/dev/hda1と/dev/hda3のみをtarボールバックアップする方法です。&lt;/p&gt;
+&lt;h2 id=&#34;バックアップ&#34;&gt;バックアップ&lt;/h2&gt;
+&lt;h3 id=&#34;debina-lenny起動している玄箱hgをまずはemモード化する&#34;&gt;debina lenny起動している玄箱HGをまずは、EMモード化する&lt;/h3&gt;
+&lt;p&gt;telnetにてログイン&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;telnet myserverIpAddress
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;スーパユーザへ切り替え&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo su -
+パスワード入力
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以下を実行&lt;br&gt;
+　※debian2.4化の場合&lt;br&gt;
+　　$ echo -n &amp;ldquo;NGNG&amp;rdquo; &amp;gt; /dev/fl3&lt;br&gt;
+　※debian2.6化パッチのカーネル（私の環境はこちらでした）&lt;br&gt;
+　　$ echo -n &amp;ldquo;NGNG&amp;rdquo; &amp;gt; /dev/mtdblock2&lt;br&gt;
+らしいです。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;echo -n &amp;quot;NGNG&amp;quot; &amp;gt; /dev/mtdblock2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再起動&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;reboot
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再度telnetでログインします。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;以下のようなプロンプトがでればEM化成功です。
+  KURO-BOX-EM login: 
+玄箱の仕様通りにログインします。
+  KURO-BOX-EM login: root
+  Password: kuroadmin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;hddのパーティションをマウント&#34;&gt;HDDのパーティションをマウント&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;# /bin/mount -t ext3 /dev/hda1 /mnt
+# /bin/mount -t ext3 /dev/hda3 /mnt2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;バックアップ-1&#34;&gt;バックアップ&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;# cd /
+/hda1をバックアップ
+# tar cvpf /mnt2/kurobox.hda1.tar mnt
+/hda3をバックアップ
+# tar cvpf /mnt2/kurobox.hda3.tar mnt2 --exclude mnt2/kurobox.hda1.tar --exclude mnt2/kurobox.hda3.tar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;/mnt2(/dev/hda3)にできているtarをバックアップしておきます。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (12)システムまるごとリストア(2TibHDDへの移行)</title>
+      <link>https://tro3373.github.io/posts/2011/2011-05-25-%E7%8E%84%E7%AE%B1hg-debian-lenny-12-sisutemumarugotorisutoa2tibhddhenoyi-xing/</link>
+      <pubDate>Wed, 25 May 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-05-25-%E7%8E%84%E7%AE%B1hg-debian-lenny-12-sisutemumarugotorisutoa2tibhddhenoyi-xing/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-12システムまるごとリストア2tibhddへの移行&#34;&gt;玄箱HG debian lenny (12)システムまるごとリストア(2TibHDDへの移行)&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;debian lenny化した玄箱HGをまるごとリストアする方法です。&lt;/li&gt;
+&lt;li&gt;WD製2TibHDD(WD20EARS-2TB-SATA300)へ移行する際のログになります。&lt;/li&gt;
+&lt;li&gt;2Tib越えのHDDを導入する際の注意点が色々ありますが、なんとか完成しました。&lt;/li&gt;
+&lt;li&gt;AFT(Advanced Format Technology)対応にかなり苦戦；；；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下参考サイトです&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://jehupc.exblog.jp/14870862/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「(HDD)WD WD20EARSのベンチマークとAFTの問題」
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://d.hatena.ne.jp/rubikitch/20101001/newhdd&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「[ハードウェア][linux]WD WD20EARSの正しい扱い方」
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://www.kuroutoshikou.com/modules/kurobbs/?tid=3181&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「初期の玄箱＋KURO-SATAでHDD２Tでセットアップができません。」
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://calves.jugem.jp/?search=WD&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「WD20EARS買った。」
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://d.hatena.ne.jp/dayflower/touch/20100310/1268208064&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「4096 バイトセクタの HDD と Linux」
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://jiya.cocolog-nifty.com/tawagoto/2010/12/2tb-c087.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「玄箱を2TBに増強する。。。。（その１？）」
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://d.hatena.ne.jp/zuntan02/20101231/1293772304&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「玄箱無印のHDDを2TBにしたときのメモ」
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://rynan.com/wiki/wiki.cgi?page=%B8%BC%C8%A2%A4%CE%A5%D0%A5%C3%A5%AF%A5%A2%A5%C3%A5%D7&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「玄箱のバックアップ＆リストア」
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://blog.livedoor.jp/hiroumauma/archives/1313205.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「LinuxでAFT仕様のHDDを使用する」
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;玄箱HGへ2TibHDD導入時の注意点&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SATAHDDなら[&lt;a class=&#34;link&#34; href=&#34;http://www.kuroutoshikou.com/modules/display/?iid=898&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  KURO-SATA
+&lt;/a&gt;
+]は必須&lt;/li&gt;
+&lt;li&gt;AFT対応として、セクタ開始位置に注意してフォーマットする。&lt;/li&gt;
+&lt;li&gt;フォーマットには、GPTではなく、MBR&lt;/li&gt;
+&lt;li&gt;スピンアップタイムアウトによる起動時のエラーには、２度押し対応&lt;/li&gt;
+&lt;li&gt;（これはいるんだったかな？？）ジャンパピンを6-5ショート（転送モード1.5Gらしい）&lt;a class=&#34;link&#34; href=&#34;http://wdc.custhelp.com/app/answers/detail/search/1/a_id/1679#jumper&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  [本家サイト]
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;（これはいるんだったかな？？）でかすぎる容量のフォーマット時にスワップ領域が足りない為エラーとなるので、データ領域は後からフォーマット&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ぐらいなのかなぁ。。（記憶があいまいで。。）&lt;/p&gt;
+&lt;h2 id=&#34;リストア新しく買ったwd製2tibhddwd20ears-2tb-sata300に再現させる&#34;&gt;リストア(新しく買ったWD製2TibHDD(WD20EARS-2TB-SATA300)に再現させる)&lt;/h2&gt;
+&lt;h3 id=&#34;前準備&#34;&gt;前準備&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;（これはいるんだったかな？？）HDDはジャンパピン6-5ショート&lt;/li&gt;
+&lt;li&gt;UbuntuライブCDなどから母艦PCにてUSB接続し、MBRフォーマットへ切り替える&lt;/li&gt;
+&lt;li&gt;玄箱HGへ2TibHDDを組み込み電源ONしてから2度押しを何度か繰り返すなどしてEMモードへ入れ、&lt;br&gt;
+telnetログインします。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;パーティションフォーマット&#34;&gt;パーティション＆フォーマット&lt;/h3&gt;
+&lt;p&gt;パーティション境界を 8 セクタ単位とする。&lt;br&gt;
+(細かい設定を以下で設定しなくても、「fdisk -H 224 -S 56 /dev/hda」なる解決策があるようですが、&lt;br&gt;
+ここでは直接セクタ数を指定しています。)&lt;/p&gt;
+&lt;p&gt;パーティションをひとつずつ作成。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ /sbin/mfdisk -c /dev/hda
+    Command (m for help): m
+    Command action
+       a   toggle a bootable flag
+       b   edit bsd disklabel
+       c   toggle the dos compatibility flag
+       d   delete a partition
+       l   list known partition types
+       m   print this menu
+       n   add a new partition
+       o   create a new empty DOS partition table
+       p   print the partition table
+       q   quit without saving changes
+       s   create a new empty Sun disklabel
+       t   change a partition&#39;s system id
+       u   change display/entry units
+       v   verify the partition table
+       w   write table to disk and exit
+    Command (m for help): n
+    Command action
+       e   extended
+       p   primary partition (1-4)
+    p
+    Partition number (1-4): 1
+    First cylinder (1-19929, default 1):64
+    Last cylinder or +size or +sizeM or +sizeK (1-19929, default 19929): +4096001
+    Command (m for help): n
+    Command action
+       e   extended
+       p   primary partition (1-4)
+    p
+    Partition number (1-4): 2
+    First cylinder (256-19929, default 256):4096072
+    Last cylinder or +size or +sizeM or +sizeK (256-19929, default 19929): +1048577
+    Command (m for help): n
+    Command action
+       e   extended
+       p   primary partition (1-4)
+    p
+    Partition number (1-4): 3
+    First cylinder (289-19929, default 289):5144656
+    Last cylinder or +size or +sizeM or +sizeK (289-19929, default 19929): +6144001
+(※実際のログが残ってないので怪しいです。。。)
+
+# /dev/hda2をswap領域とする
+    Command (m for help): t
+    Partition number (1-4): 2
+    Hex code (type L to list codes): L
+     0  Empty           1b  Hidden Win95 FA 64  Novell Netware  bb  Boot Wizard hid
+     1  FAT12           1c  Hidden Win95 FA 65  Novell Netware  c1  DRDOS/sec (FAT-
+     2  XENIX root      1e  Hidden Win95 FA 70  DiskSecure Mult c4  DRDOS/sec (FAT-
+     3  XENIX usr       24  NEC DOS         75  PC/IX           c6  DRDOS/sec (FAT-
+     4  FAT16 &amp;lt;32M      39  Plan 9          80  Old Minix       c7  Syrinx
+     5  Extended        3c  PartitionMagic  81  Minix / old Lin da  Non-FS data
+     6  FAT16           40  Venix 80286     82  Linux swap      db  CP/M / CTOS / .
+     7  HPFS/NTFS       41  PPC PReP Boot   83  Linux           de  Dell Utility
+     8  AIX             42  SFS             84  OS/2 hidden C:  df  BootIt
+     9  AIX bootable    4d  QNX4.x          85  Linux extended  e1  DOS access
+     a  OS/2 Boot Manag 4e  QNX4.x 2nd part 86  NTFS volume set e3  DOS R/O
+     b  Win95 FAT32     4f  QNX4.x 3rd part 87  NTFS volume set e4  SpeedStor
+     c  Win95 FAT32 (LB 50  OnTrack DM      8e  Linux LVM       eb  BeOS fs
+     e  Win95 FAT16 (LB 51  OnTrack DM6 Aux 93  Amoeba          ee  EFI GPT
+     f  Win95 Ext&#39;d (LB 52  CP/M            94  Amoeba BBT      ef  EFI (FAT-12/16/
+    10  OPUS            53  OnTrack DM6 Aux 9f  BSD/OS          f0  Linux/PA-RISC b
+    11  Hidden FAT12    54  OnTrackDM6      a0  IBM Thinkpad hi f1  SpeedStor
+    12  Compaq diagnost 55  EZ-Drive        a5  BSD/386         f4  SpeedStor
+    14  Hidden FAT16 &amp;lt;3 56  Golden Bow      a6  OpenBSD         f2  DOS secondary
+    16  Hidden FAT16    5c  Priam Edisk     a7  NeXTSTEP        fd  Linux raid auto
+    17  Hidden HPFS/NTF 61  SpeedStor       b7  BSDI fs         fe  LANstep
+    18  AST SmartSleep  63  GNU HURD or Sys b8  BSDI swap       ff  BBT
+    Hex code (type L to list codes): 82
+    Changed system type of partition 2 to 82 (Linux swap)
+# 反映
+    Command (m for help): w
+    The partition table has been altered!
+
+    Syncing disks.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;※ちなみにパーティション削除するときは以下コマンドできれいさっぱり消えちゃいます。※要注意！&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (1)lenny化</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-01-lennyhua/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-01-lennyhua/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-1lenny化&#34;&gt;玄箱HG debian lenny (1)lenny化&lt;/h1&gt;
+&lt;p&gt;玄人志向.玄箱HG(KURO-BOX/HG)購入しdebian lennyをインストールした時のメモ。&lt;/p&gt;
+&lt;h2 id=&#34;debian化&#34;&gt;debian化&lt;/h2&gt;
+&lt;h3 id=&#34;ファームウェアアップデート&#34;&gt;ファームウェアアップデート&lt;/h3&gt;
+&lt;p&gt;ファイアウォール切断、IPアドレスを玄箱と合わせ(母艦PCのIP⇒192.168.198.XXに変更？だったかな？)、
+玄箱手順どおりに最新ファームウェアを導入する。&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;http://www.kuroutoshikou.com/products/kuro-box/kuro-box_hgfset.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  本家サイト
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;h3 id=&#34;イメージファイルのダウンロード&#34;&gt;イメージファイルのダウンロード&lt;/h3&gt;
+&lt;p&gt;下記サイトからダウンロードします。&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;http://www.revulo.com/kuro-box/Debian/lenny.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  玄箱に Debian 5.0 (lenny) をインストールする
+&lt;/a&gt;
+&lt;br&gt;
+以下７ファイル。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;debian-lenny-installer-kuroBOX-20090317.tgz&lt;/li&gt;
+&lt;li&gt;debian-lenny-kuroBOX-20090317.tgz&lt;/li&gt;
+&lt;li&gt;kuro-bootsel2-debian.tgz&lt;/li&gt;
+&lt;li&gt;kuro-bootsel2.20080419.tar.gz&lt;/li&gt;
+&lt;li&gt;loader.o&lt;/li&gt;
+&lt;li&gt;kernelimage-2.6.25.1-kuroHG.tgz&lt;/li&gt;
+&lt;li&gt;modules-2.6.25.1-kuroHG.tgz&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;ダウンロードしたファイルを玄箱HGへFTP接続などしてファイルを転送&lt;br&gt;
+/mnt/share/配下に配備する&lt;/p&gt;
+&lt;h3 id=&#34;インストール&#34;&gt;インストール&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ mkdir /tmp/lenny
+$ mv /mnt/share/* /tmp/lenny
+$ cd /tmp/lenny
+$ tar xvzf debian-lenny-installer-kuroBOX-20090317.tgz
+$ sh ./debian-lenny-installer-kuroHG.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再起動&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ reboot
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;接続テスト&#34;&gt;接続テスト&lt;/h3&gt;
+&lt;p&gt;玄箱セットアップディスクなどで玄箱HGを検索しIPアドレスを探る&lt;br&gt;
+IPは「192.168.0.100」となっている為、母艦側を玄箱HGに合わせる(192.168.0.XX)&lt;br&gt;
+みつかればtelnetでログインしてみる。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (10)ddclientインストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-10-ddclientinsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-10-ddclientinsutoru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-10ddclientインストール&#34;&gt;玄箱HG debian lenny (10)ddclientインストール&lt;/h1&gt;
+&lt;p&gt;ipアドレスが変更となった場合の更新処理を自動化する。&lt;br&gt;
+ddclientの他にipcheckがあるようですが、ここでは、ddclientで設定します。&lt;/p&gt;
+&lt;h2 id=&#34;ddclientを導入&#34;&gt;ddclientを導入&lt;/h2&gt;
+&lt;h3 id=&#34;インストール&#34;&gt;インストール&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://d.hatena.ne.jp/yuki_rinrin/20100130/1264846312&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install ddclient
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;設定&#34;&gt;設定&lt;/h3&gt;
+&lt;p&gt;インストール時にいろいろ聞かれ /etc/ddclient.conf というサンプルのファイルが出来上がるが dyndnsのサイトが conf
+ファイルを自動生成してくれるのでそっちを使った方が楽らしい。&lt;br&gt;
+以下が出来上がったファイル&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## ddclient configuration file
+daemon=600
+# check every 600 seconds
+syslog=yes
+# log update msgs to syslog
+mail-failure=メールアドレス # Mail failed updates to user
+pid=/var/run/ddclient.pid
+# record PID in file.
+## Detect IP with our CheckIP server
+use=web, web=checkip.dyndns.com/, web-skip=&#39;IP Address&#39;
+## DynDNS username and password here
+login=DynDNSユーザ名
+password=DynDNSパスワード
+## Default options
+protocol=dyndns2
+server=members.dyndns.org
+## Dynamic DNS hosts(更新したいドメイン名をカンマ区切りで記述)
+hogehoge.com,hugahuga.co.jp
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ddclient再起動&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (2)ユーザ設定</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-02-yuzashe-ding/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-02-yuzashe-ding/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-2ユーザ設定&#34;&gt;玄箱HG debian lenny (2)ユーザ設定&lt;/h1&gt;
+&lt;h2 id=&#34;ユーザ設定&#34;&gt;ユーザ設定&lt;/h2&gt;
+&lt;h3 id=&#34;roottmp-kunパスワード変更&#34;&gt;root,tmp-kunパスワード変更&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ su
+$ passwd
+    パスワード入力
+$ psswd tmp-kun
+    パスワード入力
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;新規ユーザ作成&#34;&gt;新規ユーザ作成&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ useradd -g users -m 作成するユーザ名
+$ passwd 作成したユーザ名
+    パスワード入力
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;tmp-kunのグループidをusersに変更&#34;&gt;tmp-kunのグループIDをusersに変更&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ usermod -g users tmp-kun
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;tmp-kunのファイルグループid変更&#34;&gt;tmp-kunのファイルグループID変更&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ chgrp -R users /home/tmp-kun
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;グループ-tmp-kun-を削除&#34;&gt;グループ tmp-kun を削除&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ delgroup tmp-kun
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;tmp-kun削除&#34;&gt;tmp-kun削除&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ deluser tmp-kun
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;パスワードシャドウパスワード編集&#34;&gt;パスワード、シャドウパスワード編集&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ vipw
+$ vipw -s
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (3)ネットワーク設定</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-03-netutowakushe-ding/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-03-netutowakushe-ding/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-3ネットワーク設定&#34;&gt;玄箱HG debian lenny (3)ネットワーク設定&lt;/h1&gt;
+&lt;h2 id=&#34;ネットワーク設定&#34;&gt;ネットワーク設定&lt;/h2&gt;
+&lt;h3 id=&#34;ip変更&#34;&gt;IP変更&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ vi /etc/network/interfaces
+
+
+    address 192.168.0.2
+    network 192.168.0.0
+    broadcast 192.168.0.255
+    gateway 192.168.0.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;hostname変更&#34;&gt;hostname変更&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ vi /etc/hostname
+    hogehost
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;hosts変更&#34;&gt;hosts変更&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ vi /etc/hosts
+  追加
+    127.0.0.1       localhost.localadmin    localhost
+    192.168.0.2    hogehost
+    192.168.0.21   hogebokan
+  などなど
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;dns設定&#34;&gt;DNS設定&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ vi /etc/resolv.conf
+    nameserver=192.168.0.1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再起動&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (4)sudo インストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-04-sudo-insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-04-sudo-insutoru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-4sudo-インストール&#34;&gt;玄箱HG debian lenny (4)sudo インストール&lt;/h1&gt;
+&lt;h2 id=&#34;sudo-インストール&#34;&gt;sudo インストール&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://pelican.ddo.jp/fukurou/mediawiki/index.php/Sudo%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  こちら
+&lt;/a&gt;
+を参考に&lt;/p&gt;
+&lt;h3 id=&#34;パッケージ検索&#34;&gt;パッケージ検索&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ apt-cache search sudo | grep ^sudo
+    sudo - Provide limited super user privileges to specific users
+    sudo-ldap - Provide limited super user privileges to specific users
+    sudoku - console based sudoku
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;sudoインストール&#34;&gt;sudoインストール&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ apt-get install sudo
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;⇒パッケージを署名しているGPG鍵が原因でワーニング（&lt;a class=&#34;link&#34; href=&#34;http://hidelafoglia.wordpress.com/2008/01/11/apt-get-warning-the-following-packages-cannot-be-authenticated/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参照
+&lt;/a&gt;
+）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;The following packages cannot be authenticated
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・GPG鍵更新？&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ apt-get install debian-archive-keyring
+	Reading package lists... Done
+	Building dependency tree
+	Reading state information... Done
+	debian-archive-keyring is already the newest version.
+	0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.	
+	⇒正しく更新できていない。。。
+
+・んん～
+	$ apt-get update
+		Get:1 http://ftp.jp.debian.org lenny Release.gpg [1033B]
+		Get:2 http://ftp.jp.debian.org lenny Release [73.8kB]
+		Ign http://ftp.jp.debian.org lenny/main Packages/DiffIndex
+		Get:3 http://ftp.jp.debian.org lenny/main Packages [6784kB]
+		Get:4 http://security.debian.org lenny/updates Release.gpg [835B]
+		Get:5 http://security.debian.org lenny/updates Release [40.8kB]
+		Ign http://security.debian.org lenny/updates Release
+		Get:6 http://security.debian.org lenny/updates/main Packages [413kB]
+		Fetched 7314kB in 15s (469kB/s)
+		Reading package lists... Done
+		W: GPG error: http://security.debian.org lenny/updates Release: The following signatures couldn&#39;t be verified because the public key is not available:
+		 NO_PUBKEY AED4B06F473041FA
+		W: You may want to run apt-get update to correct these problems
+		⇒ほらね。。。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・入っている公開鍵を表示&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (5) apt設定他もろもろ</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-05-aptshe-ding-ta-moromoro/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-05-aptshe-ding-ta-moromoro/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-5apt設定他もろもろ&#34;&gt;玄箱HG debian lenny (5)apt設定&amp;ndash;他もろもろ&lt;/h1&gt;
+&lt;h2 id=&#34;apt設定近くのミラーサイトの探し方と-apt-の設定方法&#34;&gt;apt設定（近くのミラーサイトの探し方と APT の設定方法）&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;$ cd /etc/apt
+$ apt-get install wget
+$ wget http://www.debian.or.jp/apt/sources.list.http.ring.airnet.ne.jp
+	⇒index.htmlができる？
+$ cp -p sources.list.http.ring.airnet.ne.jp sources.list
+	⇒「cp -p」パーミッションやタイムスタンプを保持したままコピー
+	⇒エラー：cp: cannot stat `sources.list.http.ring.airnet.ne.jp&#39;: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;⇒アドレスが古い。squeeze化か！？やり直し([参考](&lt;a class=&#34;link&#34; href=&#34;http://www.debian.or.jp/using/mirror.html#neares&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://www.debian.or.jp/using/mirror.html#neares
+&lt;/a&gt;
+
+tmirror))&lt;/p&gt;
+&lt;p&gt;・apt-spyパッケージインストール&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo aptitude install apt-spy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・ apt-spy を実行。ここでは日本国内の安定版 (stable) を取得する前提でサーバを探す？&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-spy -s jp -d stable
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・/etc/apt/sources.list の中身を確認してみます。&lt;br&gt;
+・apt-spy が書き込む前のファイルが バックアップされているので、結果が思わしくない場合はここから復帰&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/etc/apt/sources.list.bak
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・データベースの変更を反映&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ aptitude update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;mount設定&#34;&gt;mount設定&lt;/h2&gt;
+&lt;p&gt;玄箱付属のセットアップディスクでファーマットした為、パーティションは/dev/hda3までしか存在しない。&lt;br&gt;
+まぁいいか。特にすることなし。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (6)sambaインストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-06-sambainsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-06-sambainsutoru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-6sambaインストール&#34;&gt;玄箱HG debian lenny (6)sambaインストール&lt;/h1&gt;
+&lt;h2 id=&#34;sambaをインストール&#34;&gt;sambaをインストール&lt;/h2&gt;
+&lt;p&gt;参考にしたのはこちら&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://d.hatena.ne.jp/aiueo88/20100317/1268825017&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考1
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://www.studionadesico.com/snkm/knowledge/debian_samba_n01.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考2
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;インストール&#34;&gt;インストール&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get update
+$ sudo apt-get install samba
+    ⇒全てデフォルト。WORKGROUP。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;設定&#34;&gt;設定&lt;/h3&gt;
+&lt;p&gt;設定ファイル編集&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo vi /etc/samba/smb.conf
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以下のような設定 参考はこちら&lt;a class=&#34;link&#34; href=&#34;http://blog.r-unit.co.jp/archives/52&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  「samba3: 日本語コード指定方法」
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# [global]セクション
+# 文字コード設定として以下を追加
+    dos charset = CP932
+    unix charset = UTF-8
+    display charset = UTF-8
+
+# Sambaが通信を許可するホスト、ネットワークIPアドレス、ネットワークインターフェースなどを指定
+    interfaces = eth0 127.0.0.1 192.168.24.0/24
+
+# Sambaに関係するネーム・サービスへの接続
+    bind interfaces only = yes
+
+# Sambaへの接続を許可するホストやネットワークを指定
+    hosts allow = 192.168.24.
+
+# ユーザ認証を有効化
+    security = user
+
+
+# 以下共有したいディレクリの設定
+    [hogehoge]
+        path=/hogehoge
+        read only = no
+        writable = yes
+        force create mode = 0644
+        force directory mode = 0755
+        force user = ユーザ名
+        force group = users
+        guest ok = no
+        valid users = ユーザ名
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;smbaユーザ追加&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (7)apache2インストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-07-apache2insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-07-apache2insutoru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-7apache2インストール&#34;&gt;玄箱HG debian lenny (7)apache2インストール&lt;/h1&gt;
+&lt;h2 id=&#34;apache2を導入&#34;&gt;apache2を導入&lt;/h2&gt;
+&lt;h3 id=&#34;インストール&#34;&gt;インストール&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install apache2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;apache2con設定&#34;&gt;apache2.con設定&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo vi /etc/apache2/apache2.conf
+    #DefaultType text/plain
+  変更⇒
+    DefaultType application/octet-stream
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;バーチャルホスト設定ファイル作成&#34;&gt;バーチャルホスト設定ファイル作成&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://server.riopi.net/apache-1.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考1
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ cd /etc/apache2/sites-available
+$ sudo cp default hogehoge
+$ sudo vi hogehoge
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・サイト有効設定&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo a2ensite
+    有効にするサイトを選択「hogehoge」
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・サイト無効設定&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo a2dissite
+    無効にするサイトを選択「default」
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・apache 再起動&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo /etc/init.d/apache2 reload
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (8)mysqlインストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-08-mysqlinsutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-08-mysqlinsutoru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-8mysqlインストール&#34;&gt;玄箱HG debian lenny (8)mysqlインストール&lt;/h1&gt;
+&lt;h2 id=&#34;mysqlを導入&#34;&gt;mysqlを導入&lt;/h2&gt;
+&lt;h3 id=&#34;インストール&#34;&gt;インストール&lt;/h3&gt;
+&lt;p&gt;・インストール&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo apt-get install mysql-server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・mysql動作確認&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ mysqladmin ping -u root -p
+    正常動作時
+    Enter password:
+    mysqld is alive
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;パスワード変更&#34;&gt;パスワード変更&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ mysql -u root -p
+    rootパスワード入力
+    SET PASSWORD FOR root@localhost=PASSWORD(&#39;new_password&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;ユーザ確認&#34;&gt;ユーザ確認&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;ログイン
+$ mysql -u root -p
+SQL実行
+mysql&amp;gt; SELECT host,user,password FROM mysql.user;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;文字コード設定&#34;&gt;文字コード設定&lt;/h3&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://d.hatena.ne.jp/apple_v_apple/20100105/1262712431&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考1
+&lt;/a&gt;
+&lt;br&gt;
+&lt;a class=&#34;link&#34; href=&#34;http://d.hatena.ne.jp/shimonoakio/20080129/1201609465&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考2
+&lt;/a&gt;
+&lt;br&gt;
+現状確認&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sql&amp;gt; status
+    Server characterset:    latin1
+    Db     characterset:    latin1
+    Client characterset:    latin1
+    Conn.  characterset:    latin1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;/etc/mysql/conf.d/以下に「character_set.cnf」というファイルを新規作成し、編集。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>玄箱HG debian lenny (9)php5インストール</title>
+      <link>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-09-php5insutoru/</link>
+      <pubDate>Mon, 21 Mar 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-03-21-%E7%8E%84%E7%AE%B1hg-debian-lenny-09-php5insutoru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hg-debian-lenny-9php5インストール&#34;&gt;玄箱HG debian lenny (9)php5インストール&lt;/h1&gt;
+&lt;h2 id=&#34;php5を導入&#34;&gt;php5を導入&lt;/h2&gt;
+&lt;h3 id=&#34;インストール&#34;&gt;インストール&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install php5 libapache2-mod-php5 php5-mysql php-pear php5-gd
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;設定&#34;&gt;設定&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd /etc/php5/apache2/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・バックアップ&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cp php.ini php.orignal
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・php.ini設定&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo vi php.ini
+    以下のように設定
+        default_charset  = UTF-8
+        expose_php = Off #HTTPヘッダーの PHP に関する情報を隠蔽
+        display_errors = Off #エラーをブラウザに非表示
+        error_log = /var/log/php.logエラーログを出力するファイルを指定
+        
+        mbstring.language = Japanese
+        mbstring.internal_encoding = UTF-8
+        mbstring.http_input  = auto
+        mbstring.http_output = UTF-8
+        mbstring.encoding_translation = On
+        mbstring.detect_order = auto
+        mbstring.substitute_character = none
+        mbstring.func_overload = 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;・apache再起動&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

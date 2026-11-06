@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>graph-api on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/graph-api/</link>
+    <description>Recent content in graph-api on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 22 Sep 2023 22:20:33 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/graph-api/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>インスタ投稿をブログへ設置する為のInstagramビジネスアカウントIDと長期トークンを取得する</title>
+      <link>https://tro3373.github.io/posts/2023/2023-07-15-add-insta-posts-to-blog/</link>
+      <pubDate>Sat, 15 Jul 2023 06:45:31 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-07-15-add-insta-posts-to-blog/</guid>
+      <description>&lt;h2 id=&#34;instagramグラフapiを利用して無期限アクセストークンを発行しinstagramのビジネスアカウントidなどのjsonデータを取得する&#34;&gt;InstagramグラフAPIを利用して無期限アクセストークンを発行し、InstagramのビジネスアカウントIDなどのJSONデータを取得する&lt;/h2&gt;
+&lt;p&gt;手順は以下の通り&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Instagramアカウントをビジネスアカウントに変更する。&lt;/li&gt;
+&lt;li&gt;Facebookページ（無ければ作成）でInstagramアカウントをリンクする。&lt;/li&gt;
+&lt;li&gt;Facebook開発者ツールを使って新たにアプリを作成する。&lt;/li&gt;
+&lt;li&gt;Facebook開発者ツールでFacebookページの短期アクセストークンを取得する。&lt;/li&gt;
+&lt;li&gt;短期アクセストークンを使って長期アクセストークンを取得する。&lt;/li&gt;
+&lt;li&gt;長期アクセストークンを使って無期限アクセストークンを取得する。&lt;/li&gt;
+&lt;li&gt;無期限アクセストークンを使ってInstagramのビジネスアカウントIDなどのJSONデータを取得する。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;注意点&#34;&gt;注意点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;アクセストークンを取得するには、Instagramビジネスアカウントが紐付いたFacebookページの管理者権限を持っていることが必要&lt;/li&gt;
+&lt;li&gt;無期限アクセストークンの取得には3段階の手順（短期アクセストークンの取得、短期アクセストークンを使った長期アクセストークンの取得、長期アクセストークンを使った無期限アクセストークンの取得）が必要&lt;/li&gt;
+&lt;li&gt;InstagramのビジネスアカウントIDは、「無期限アクセストークン」と「Instagramのアカウントが紐づいているFacebookページのID」が必要で、「グラフAPIエクスプローラ」で取得可能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;1-instagramアカウントをビジネスアカウントに変更する&#34;&gt;1. Instagramアカウントをビジネスアカウントに変更する。&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Instagramアプリを開き、プロフィールページ右上のメニューボタンをタップする&lt;/li&gt;
+&lt;li&gt;「Settings」を選択する&lt;/li&gt;
+&lt;li&gt;「Account」を選択する&lt;/li&gt;
+&lt;li&gt;メニューの下の方にある「Switch Account Type」を選択する&lt;/li&gt;
+&lt;li&gt;「Switch to Business Account」を選択する&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;注意：アカウントタイプの変更はInstagramアプリからのみ可能（&lt;a class=&#34;link&#34; href=&#34;https://help.instagram.com/502981923235522&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  公式ヘルプ
+&lt;/a&gt;
+）&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2-facebookページ無ければ作成でinstagramアカウントをリンクする&#34;&gt;2. Facebookページ（無ければ作成）でInstagramアカウントをリンクする。&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Facebookページにアクセスし、「ページを管理メニュー」内の「設定」を選択する&lt;/li&gt;
+&lt;li&gt;「Instagram」を選択する&lt;/li&gt;
+&lt;li&gt;「アカウントをリンク」を選択し、Instagramアカウントを指定してリンクする&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;3-facebook開発者ツールを使って新たにアプリを作成する&#34;&gt;3. Facebook開発者ツールを使って新たにアプリを作成する。&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;「&lt;a class=&#34;link&#34; href=&#34;https://developers.facebook.com/apps/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  マイアプリ
+&lt;/a&gt;
+」にアクセスする&lt;/li&gt;
+&lt;li&gt;「アプリを作成」をクリックして新しいアプリを作成する&lt;/li&gt;
+&lt;li&gt;アプリのタイプとして「ビジネス」を選択し、Instagram Graph API用のアプリを作成する&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;作成したアプリのAPIバージョンを確認する&lt;/strong&gt;
+&lt;ul&gt;
+&lt;li&gt;作成したアプリのダッシュボードを開く&lt;/li&gt;
+&lt;li&gt;左メニューの「設定」を選択する&lt;/li&gt;
+&lt;li&gt;「詳細設定」を選択し、APIバージョンが確認できる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;4-facebook開発者ツールでfacebookページの短期アクセストークンを取得する&#34;&gt;4. Facebook開発者ツールでFacebookページの短期アクセストークンを取得する。&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;短期アクセストークンを使って長期アクセストークンを取得する。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://developers.facebook.com&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://developers.facebook.com
+&lt;/a&gt;
+ から取得した短期アクセストークン, App ID, App Secretをフォームに入力し、ボタンを押下&lt;/li&gt;
+&lt;li&gt;短期アクセストークンを使って長期アクセストークンを取得する。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;api_ver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;v17.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;app_id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;xxxxxxxxxxxxxxxxxxxx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;app_secret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;xxxxxxxxxxxxxxxx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;fb_exchange_token&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;xxxxxxxxx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://graph.facebook.com/&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;api_ver&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/oauth/access_token?grant_type=fb_exchange_token&amp;amp;client_id=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$app_id&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;amp;client_secret=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$app_secret&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;amp;fb_exchange_token=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$fb_exchange_token&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 表示されるURLへブラウザでアクセスする&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下のような形式でトークンが取れる&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# {&amp;#34;access_token&amp;#34;:&amp;#34;xxx&amp;#34;,&amp;#34;token_type&amp;#34;:&amp;#34;bearer&amp;#34;,&amp;#34;expires_in&amp;#34;:5183874}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;長期アクセストークンを使って無期限アクセストークンを取得する。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;api_ver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;v17.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;long_token&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;xxxxxxxxxxxxxxxxxxxxxxxxx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://graph.facebook.com/&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;api_ver&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/me?access_token=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$long_token&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 表示されるURLへブラウザでアクセスする&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下のような形式でトークンが取れる&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# {&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#    &amp;#34;data&amp;#34;: [&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       {&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#          &amp;#34;access_token&amp;#34;: &amp;#34;xxxxx&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#          &amp;#34;category&amp;#34;: &amp;#34;xxxxx&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#          &amp;#34;category_list&amp;#34;: [&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#             {&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#                &amp;#34;id&amp;#34;: &amp;#34;xxxxx&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#                &amp;#34;name&amp;#34;: &amp;#34;xxxxx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#             }&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#          ],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#          &amp;#34;name&amp;#34;: &amp;#34;xxxxx&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#          &amp;#34;id&amp;#34;: &amp;#34;xxxxx&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#          &amp;#34;tasks&amp;#34;: [&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#             &amp;#34;ADVERTISE&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#             &amp;#34;ANALYZE&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#             &amp;#34;CREATE_CONTENT&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#             &amp;#34;MESSAGING&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#             &amp;#34;MODERATE&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#             &amp;#34;MANAGE&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#          ]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       }&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#    ],&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#    &amp;#34;paging&amp;#34;: {&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       &amp;#34;cursors&amp;#34;: {&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#          &amp;#34;before&amp;#34;: &amp;#34;xxxxx&amp;#34;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#          &amp;#34;after&amp;#34;: &amp;#34;xxxxx&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#       }&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#    }&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# }&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;無期限アクセストークンを使ってInstagramのビジネスアカウントIDを取得する。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;api_ver&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;v17.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;long_token&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;xxxxxxxxxxxxxxxxxxxxxxxxx
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;https://graph.facebook.com/&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;api_ver&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/me?fields=instagram_business_account&amp;amp;access_token=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$long_token&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 表示されるURLへブラウザでアクセスする&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 以下のような形式でInstagramのビジネスアカウントIDを取得する。&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# {&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   &amp;#34;instagram_business_account&amp;#34;: {&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     &amp;#34;id&amp;#34;: &amp;#34;17841456177805490&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   },&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#   &amp;#34;id&amp;#34;: &amp;#34;106485662348753&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# }&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

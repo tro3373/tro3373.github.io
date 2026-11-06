@@ -1,0 +1,1521 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>android on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/android/</link>
+    <description>Recent content in android on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 13 May 2023 17:16:54 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Android でリリース用KeyStoreだけでなく、デバッグ用も外だし（共通化）してコマンドからAPKを作る</title>
+      <link>https://tro3373.github.io/posts/2022/2022-12-22-make_sign_debug_apk_from_command_line/</link>
+      <pubDate>Thu, 22 Dec 2022 14:02:17 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2022/2022-12-22-make_sign_debug_apk_from_command_line/</guid>
+      <description>&lt;h2 id=&#34;buildgradle&#34;&gt;build.gradle&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;signingConfig/&lt;/code&gt; 配下を外だしするので、build.gradleではIncludeするような指定を行う
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;apply from: &#39;signingConfigs/config.gradle&#39;, to: android&lt;/code&gt; の部分&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;signingConfig signingConfigs.debug&lt;/code&gt; の部分を追加することで、
+通常のAndroid署名キー（ &lt;code&gt;%USERPROFILE%/.android/debug.keystore&lt;/code&gt; ）を参照しなくなる模様&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-app/build.gradle&#34; data-lang=&#34;app/build.gradle&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;apply&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;from:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;signingConfigs/config.gradle&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;to:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;android&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;buildTypes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;debug&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;debuggable&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;applicationIdSuffix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;.debug&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;versionNameSuffix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;-debug&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;signingConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;signingConfigs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;debug&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;release&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;minifyEnabled&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;proguardFiles&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getDefaultProguardFile&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;proguard-android-optimize.txt&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;proguard-rules.pro&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;signingConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;signingConfigs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;release&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;signingconfigconfiggradle&#34;&gt;signingConfig/config.gradle&lt;/h2&gt;
+&lt;h3 id=&#34;vcs管理外のシークレット情報として以下&#34;&gt;VCS管理外のシークレット情報として、以下&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;app/signingConfig/**&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;signingConfigs/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ├── config.gradle
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    ├── debug.jks
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    └── release.jks&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;debug.jks は Windowsの場合 &lt;code&gt;%USERPROFILE%/.android/debug.keystore&lt;/code&gt; からコピーすると
+Windowsで使用していた署名キーを引き継げる.
+storePassword や keyAlias は Androidデフォルトの値&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-config.gradle&#34; data-lang=&#34;config.gradle&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;signingConfigs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;debug&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;storeFile&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;./debug.jks&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;storePassword&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;android&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;keyAlias&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;androiddebugkey&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;keyPassword&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;android&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;release&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;storeFile&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;./release.jks&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;storePassword&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;XXXXXXXXXXXXXX&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;keyAlias&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;xxxx&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;keyPassword&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;XXXXXXXXXXXXXX&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;バージョン名からタグつけたり、APK作ったり、slf4jでファイル保存したログ引っ張ったり
+等々、便利コマンドも色々つくったので、Makefileを抜粋して貼っつけておく&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Android アプリ開発時にアンインストール=&gt;インストールでデータが残る問題</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-24-disable_account_remaining_cache_when_reinstall_android_debug_app/</link>
+      <pubDate>Mon, 24 Oct 2022 19:04:55 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2022/2022-10-24-disable_account_remaining_cache_when_reinstall_android_debug_app/</guid>
+      <description>&lt;p&gt;アプリで保存したデータが再インストールで復活する事や、
+WebViewで実装した画面のローカルストレージ保存したデータ等が復活する事が気になっていたの調べた.&lt;/p&gt;
+&lt;p&gt;特にWebViewでログイン画面実装して、アカウント情報などをWebViewキャッシュ保存とかしてると、
+再インストールとかしたのに復活するので、開発時などは無効設定が好ましい.&lt;/p&gt;
+&lt;p&gt;単純にAndroidのバックアップ機能が有効になっていた.&lt;/p&gt;
+&lt;h2 id=&#34;androidmanifestxml&#34;&gt;AndroidManifest.xml&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;android:allowBackup: バックアップ自体を実施するかどうか&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-AndroidManifest.xml&#34; data-lang=&#34;AndroidManifest.xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;application&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;android:allowBackup=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;false&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;err&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;android:fullBackupContent: バックアップする内容を指定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;androidfullbackupcontent&#34;&gt;android:fullBackupContent&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-AndroidManifest.xml&#34; data-lang=&#34;AndroidManifest.xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;application&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;android:allowBackup=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;na&#34;&gt;android:fullBackupContent=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;@xml/backup_rules&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;err&#34;&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&#34;xmlbackup_rules&#34;&gt;@xml/backup_rules&lt;/h4&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;utf-8&amp;#34;?&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;full-backup-content&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;lt;include domain=&amp;#34;sharedpref&amp;#34; path=&amp;#34;.&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &amp;lt;exclude domain=&amp;#34;sharedpref&amp;#34; path=&amp;#34;device.xml&amp;#34;/&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&amp;lt;/full-backup-content&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;ユーザデータの自動バックアップ設定&#34;&gt;ユーザデータの自動バックアップ設定&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Android 6.0（API レベル 23）以上をターゲットとするアプリで、自動的に自動バックアップが有効&lt;/li&gt;
+&lt;li&gt;アプリデータはGoogleDriveにバックアップされる&lt;/li&gt;
+&lt;li&gt;Android9以降のデバイスでは、デバイスのPIN、パスワード、パターンを使用し、エンドツーエンドで暗号化&lt;/li&gt;
+&lt;li&gt;アプリ1つあたり25Mb,最新データのみ保存&lt;/li&gt;
+&lt;li&gt;バックアップデータに関しては追加料金なし&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;refs&#34;&gt;Refs&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://developer.android.com/guide/topics/data/autobackup?hl=ja#EnablingAutoBackup&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  自動バックアップでユーザーデータをバックアップする  |  Android デベロッパー  |  Android Developers
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Android で環境設定ファイルからBuildConfig環境変数を生成する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-18-android_generate_build_config_class_for_env_variable_from_env_properties_file/</link>
+      <pubDate>Tue, 18 Oct 2022 17:38:21 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2022/2022-10-18-android_generate_build_config_class_for_env_variable_from_env_properties_file/</guid>
+      <description>&lt;p&gt;環境設定ファイル(env.propertiese)に定義したをビルドタイプで設定値を読み分ける関数を定義して、
+それぞれの環境ビルド時に &lt;code&gt;buildConfigField&lt;/code&gt; で定義
+という感じ&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-build.gradle&#34; data-lang=&#34;build.gradle&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;envPropertiesFile&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rootProject&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;env.properties&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;envProperties&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Properties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;envProperties&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;load&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;FileInputStream&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;envPropertiesFile&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;ext&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;buildConfigFieldFromEnvProp&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;keys&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;apiPrefix&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;cognitoPoolId&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;cognitoClientId&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;cognitoClientSecret&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;cognitoRegion&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;key&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;keys&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;defaultConfig&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;buildConfigField&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;String&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;key&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;\&amp;#34;${envProperties[&amp;#34;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;$env&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;$key&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;]}\&amp;#34;&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;buildTypes&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;debug&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;debuggable&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;applicationIdSuffix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;.debug&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;versionNameSuffix&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;-debug&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;buildConfigFieldFromEnvProp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;dev&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;n&#34;&gt;release&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;minifyEnabled&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;proguardFiles&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;getDefaultProguardFile&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;proguard-android-optimize.txt&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;proguard-rules.pro&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;signingConfig&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;signingConfigs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;release&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nf&#34;&gt;buildConfigFieldFromEnvProp&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;prd&amp;#34;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-env.properties&#34; data-lang=&#34;env.properties&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;dev.apiPrefix&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;https://xxxx&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;dev.cognitoPoolId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;xxx&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;dev.cognitoClientId&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;xxx&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;dev.cognitoClientSecret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;xxx&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;na&#34;&gt;dev.cognitoRegion&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;xxx&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>Android で 位置情報取得＆Bluetooth接続を定期実行するForegroundServiceを実装する</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-07-implment_android_persistent_forground_service/</link>
+      <pubDate>Fri, 07 Oct 2022 18:41:13 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2022/2022-10-07-implment_android_persistent_forground_service/</guid>
+      <description>&lt;p&gt;Android で 位置情報取得を定期実行する方法をしらべたので、メモっておく&lt;/p&gt;
+&lt;h1 id=&#34;foreground-実装&#34;&gt;Foreground 実装&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://unluckysystems.com/%E3%83%90%E3%83%83%E3%82%AF%E3%82%B0%E3%83%A9%E3%82%A6%E3%83%B3%E3%83%89%E3%81%A7%E5%8B%95%E4%BD%9C%E3%81%95%E3%81%9B%E3%82%8B%E3%81%9F%E3%82%81%E3%81%AE%E3%83%95%E3%82%A9%E3%82%A2%E3%82%B0%E3%83%A9/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  フォアグラウンドサービスの最低限の実装について【Kotlin, Android Studio, バックグラウンドでのアプリ実行】 - アンラッキーシステムズのやり方、方法論。
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/naoi/items/03e76d10948fe0d45597&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Foreground Serviceの基本 - Qiita
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://dev.classmethod.jp/articles/android-use-foreground-service-for-location-background/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  AndroidアプリでForeground Serviceを使って、画面スリープ状態でも位置情報を定期取得する | DevelopersIO
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://akira-watson.com/android/service.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Android Service の使い方
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://pdfandfont.blogspot.com/2020/07/android-foreground-service.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  趣味のプログラム: Android Foreground Serviceのメモ
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://developer.android.com/about/versions/12/foreground-services?hl=ja&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  フォアグラウンド サービスの起動に関する制限  |  Android 12  |  Android Developers
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://codechacha.com/ja/android-start-foreground-service/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Android - Foreground Service実行
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.gigas-jp.com/appnews/archives/6228&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  長期間Serviceを起動したい時 | 技術情報 | アプリ関連ニュース | ギガスジャパン
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/swlh/all-about-auto-start-foreground-service-in-android-8bba7569123e&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Auto-Start Foreground Service in Android | by CodingwithSaud | The Startup | Medium
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;androidアプリでバックグラウンド状態で位置情報が取得できるのか調査した---酢ろぐ&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.ch3cooh.jp/entry/android/get_location_information_in_background#%E3%83%90%E3%83%83%E3%82%AF%E3%82%B0%E3%83%A9%E3%82%A6%E3%83%B3%E3%83%89%E3%81%A7%E4%BD%8D%E7%BD%AE%E6%83%85%E5%A0%B1%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%99%E3%82%8B%E3%82%A2%E3%83%97%E3%83%AA%E3%81%AB%E3%81%AF%E7%89%B9%E5%88%A5%E3%81%AA%E5%AF%A9%E6%9F%BB%E3%81%8C%E5%BF%85%E8%A6%81&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Androidアプリでバックグラウンド状態で位置情報が取得できるのか調査した - 酢ろぐ！
+&lt;/a&gt;
+&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;バックグラウンドで位置情報アクセスするアプリには特別な審査が必要&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>Android で kotlin-logging を使用してLogcatと同時にファイル出力も行う</title>
+      <link>https://tro3373.github.io/posts/2022/2022-09-13-enable-kotlin-logging/</link>
+      <pubDate>Tue, 13 Sep 2022 16:03:14 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2022/2022-09-13-enable-kotlin-logging/</guid>
+      <description>&lt;p&gt;とある案件でネイティブAndroidアプリを作成しているが、内部でエラーが発生したか、
+どう動いたかなど、問い合わせがあった場合にログが無い困るケースがあった&lt;/p&gt;
+&lt;p&gt;標準のログではLogcatで流れてしまい、また端末をPCへ接続できないと、やはりデバッグとしては辛い&lt;/p&gt;
+&lt;p&gt;Android でログをファイル出力する方法を模索し、slf4j 使ってファイル保存することにした。
+保存したログファイルは別途S3へアップロード
+ここでは、slf4j でログ出力するところを記載&lt;/p&gt;
+&lt;h3 id=&#34;appbuildgradle&#34;&gt;app/build.gradle&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-app/build.gradle&#34; data-lang=&#34;app/build.gradle&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;implementation&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;org.slf4j:slf4j-api:1.7.25&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;implementation&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;com.github.tony19:logback-android:2.0.0&amp;#39;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;appsrcmainassetslogbackxml&#34;&gt;app/src/main/assets/logback.xml&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-app/src/main/assets/logback.xml&#34; data-lang=&#34;app/src/main/assets/logback.xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;configuration&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;debug=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;true&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;appender&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;logcat&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ch.qos.logback.classic.android.LogcatAppender&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;tagEncoder&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;pattern&amp;gt;&lt;/span&gt;%d{yyyy-MM-dd HH:mm:ss.SSS} %class{0}.%method:%L&lt;span class=&#34;nt&#34;&gt;&amp;lt;/pattern&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/tagEncoder&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;encoder&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;pattern&amp;gt;&lt;/span&gt;[%t] %-5level %msg%n&lt;span class=&#34;nt&#34;&gt;&amp;lt;/pattern&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/encoder&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/appender&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;property&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;LOG_DIR&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;value=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;/data/data/${PACKAGE_NAME}/files/logs&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;appender&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;name=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;file&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ch.qos.logback.core.rolling.RollingFileAppender&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;file&amp;gt;&lt;/span&gt;${LOG_DIR}/app.log&lt;span class=&#34;nt&#34;&gt;&amp;lt;/file&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;rollingPolicy&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;class=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;fileNamePattern&amp;gt;&lt;/span&gt;${LOG_DIR}/archives/app.%d{yyyy-MM-dd}.%i.log.gz&lt;span class=&#34;nt&#34;&gt;&amp;lt;/fileNamePattern&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- each archived file, size max 10MB --&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;maxFileSize&amp;gt;&lt;/span&gt;10MB&lt;span class=&#34;nt&#34;&gt;&amp;lt;/maxFileSize&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- total size of all archive files, if total size &amp;gt; 5GB, it will delete old archived file --&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;totalSizeCap&amp;gt;&lt;/span&gt;5GB&lt;span class=&#34;nt&#34;&gt;&amp;lt;/totalSizeCap&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;maxHistory&amp;gt;&lt;/span&gt;60&lt;span class=&#34;nt&#34;&gt;&amp;lt;/maxHistory&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/rollingPolicy&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;append&amp;gt;&lt;/span&gt;true&lt;span class=&#34;nt&#34;&gt;&amp;lt;/append&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;encoder&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;c&#34;&gt;&amp;lt;!-- %-4relative [%-20thread] [%thread] %-5level %logger %logger{35} - %msg%n --&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;pattern&amp;gt;&lt;/span&gt;%d{yyyy-MM-dd HH:mm:ss.SSS} %class{0}.%method:%L [%t] %-5level %msg%n&lt;span class=&#34;nt&#34;&gt;&amp;lt;/pattern&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/encoder&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/appender&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;root&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;level=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;DEBUG&amp;#34;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;appender-ref&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;ref=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;logcat&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;appender-ref&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;ref=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;file&amp;#34;&lt;/span&gt; &lt;span class=&#34;nt&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;nt&#34;&gt;&amp;lt;/root&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;mainapplicationkt&#34;&gt;MainApplication.kt&lt;/h3&gt;
+&lt;p&gt;どこからでも呼べるように、&lt;code&gt;kotlin.Any.logger&lt;/code&gt; で定義&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>android 4.4.2 keystore grep 結果メモ</title>
+      <link>https://tro3373.github.io/posts/2014/2014-05-29-android-4-4-2-keystore-grep-jie-guo-memo/</link>
+      <pubDate>Thu, 29 May 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-05-29-android-4-4-2-keystore-grep-jie-guo-memo/</guid>
+      <description>&lt;h1 id=&#34;android-442-keystore-grep-結果メモ&#34;&gt;android 4.4.2 keystore grep 結果メモ&lt;/h1&gt;
+&lt;p&gt;調査した際のログメモ&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ cd env/android/android-4.4.2_r2/
+$ ls
+Makefile  art     bootable  cts     developers   device  external    hardware  libnativehelper  packages  prebuilts  system
+abi       bionic  build     dalvik  development  docs    frameworks  libcore   ndk              pdk       sdk        tools
+$ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java
+^C    
+$ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java
+$ find ./packages/apps/ -name CredentialHelper.java
+./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java
+$ g ./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java
+$ find ./packages/apps/CertInstaller/ -name *.java |xargs grep createSystemInstallIntent |grep createSystemInstallIntent
+./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java:                                        mCredentials.createSystemInstallIntent(),
+./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java:    Intent createSystemInstallIntent() {
+$ find ./frameworks/base/core -name CredentialStorage.java
+$ find ./frameworks/base -name CredentialStorage.java
+$ find ./frameworks/ -name CredentialStorage.java
+$ find ./ -name CredentialStorage.java
+./packages/apps/Settings/src/com/android/settings/CredentialStorage.java
+$ g ./packages/apps/Settings/src/com/android/settings/CredentialStorage.java
+$ find ./ -name KeyStore.java
+./frameworks/base/keystore/java/android/security/KeyStore.java
+./libcore/luni/src/main/java/java/security/KeyStore.java
+$ g ./frameworks/base/keystore/java/android/security/KeyStore.java
+$ find ./ -name *.java |xargs grep IKeystoreService |grep IKeystoreService
+./frameworks/base/core/java/android/security/IKeystoreService.java:public interface IKeystoreService extends IInterface {
+./frameworks/base/core/java/android/security/IKeystoreService.java:    public static abstract class Stub extends Binder implements IKeystoreService {
+./frameworks/base/core/java/android/security/IKeystoreService.java:        private static class Proxy implements IKeystoreService {
+./frameworks/base/core/java/android/security/IKeystoreService.java:         * Cast an IBinder object into an IKeystoreService interface, generating
+./frameworks/base/core/java/android/security/IKeystoreService.java:        public static IKeystoreService asInterface(IBinder obj) {
+./frameworks/base/core/java/android/security/IKeystoreService.java:            if (iin != null &amp;amp;&amp;amp; iin instanceof IKeystoreService) {
+./frameworks/base/core/java/android/security/IKeystoreService.java:                return (IKeystoreService) iin;
+./frameworks/base/core/java/android/security/IKeystoreService.java:            return new IKeystoreService.Stub.Proxy(obj);
+./frameworks/base/keystore/java/android/security/KeyStore.java:    private final IKeystoreService mBinder;
+./frameworks/base/keystore/java/android/security/KeyStore.java:    private KeyStore(IKeystoreService binder) {
+./frameworks/base/keystore/java/android/security/KeyStore.java:        IKeystoreService keystore = IKeystoreService.Stub.asInterface(ServiceManager
+$ g ./frameworks/base/core/java/android/security/IKeystoreService.java
+$ 
+$ 
+$ 
+$ 
+$ find ./ -name *.java |xargs grep KeystoreService |grep KeystoreService
+./frameworks/base/core/java/android/security/IKeystoreService.java:public interface IKeystoreService extends IInterface {
+./frameworks/base/core/java/android/security/IKeystoreService.java:    public static abstract class Stub extends Binder implements IKeystoreService {
+./frameworks/base/core/java/android/security/IKeystoreService.java:        private static class Proxy implements IKeystoreService {
+./frameworks/base/core/java/android/security/IKeystoreService.java:         * Cast an IBinder object into an IKeystoreService interface, generating
+./frameworks/base/core/java/android/security/IKeystoreService.java:        public static IKeystoreService asInterface(IBinder obj) {
+./frameworks/base/core/java/android/security/IKeystoreService.java:            if (iin != null &amp;amp;&amp;amp; iin instanceof IKeystoreService) {
+./frameworks/base/core/java/android/security/IKeystoreService.java:                return (IKeystoreService) iin;
+./frameworks/base/core/java/android/security/IKeystoreService.java:            return new IKeystoreService.Stub.Proxy(obj);
+./frameworks/base/keystore/java/android/security/KeyStore.java:    private final IKeystoreService mBinder;
+./frameworks/base/keystore/java/android/security/KeyStore.java:    private KeyStore(IKeystoreService binder) {
+./frameworks/base/keystore/java/android/security/KeyStore.java:        IKeystoreService keystore = IKeystoreService.Stub.asInterface(ServiceManager
+$ 
+$ 
+$ 
+$ 
+$ 
+$ find ./ -name *.cpp |xargs grep IKeystoreService |grep IKeystoreService
+./system/security/keystore-engine/eng_keystore.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore-engine/eng_keystore.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore-engine/dsa_meth.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore-engine/dsa_meth.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore-engine/rsa_meth.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore-engine/rsa_meth.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore-engine/rsa_meth.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore-engine/ecdsa_meth.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore-engine/ecdsa_meth.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore/keystore.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore/IKeystoreService.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore/IKeystoreService.cpp:class BpKeystoreService: public BpInterface&amp;lt;IKeystoreService&amp;gt;
+./system/security/keystore/IKeystoreService.cpp:        : BpInterface&amp;lt;IKeystoreService&amp;gt;(impl)
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/keystore_get.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore/keystore_get.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore/keystore_cli.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore/keystore_cli.cpp:static int saw(sp&amp;lt;IKeystoreService&amp;gt; service, const String16&amp;amp; name, int uid) {
+./system/security/keystore/keystore_cli.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+$ 
+$ 
+$ 
+$ 
+$ g ./system/security/keystore/IKeystoreService.cpp
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ find ./ -name *.java |xargs grep &amp;quot;KeyStore.getInstance&amp;quot; |grep &amp;quot;KeyStore.getInstance&amp;quot;
+./external/nist-sip/java/gov/nist/core/net/SslNetworkLayer.java:        KeyStore keyStore = KeyStore.getInstance(keyStoreType);
+./external/nist-sip/java/gov/nist/core/net/SslNetworkLayer.java:        KeyStore trustStore = KeyStore.getInstance(keyStoreType);
+./external/conscrypt/src/main/java/org/conscrypt/KeyManagerFactoryImpl.java:            keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/conscrypt/src/main/java/org/conscrypt/DefaultSSLContextImpl.java:        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/conscrypt/src/main/java/org/conscrypt/DefaultSSLContextImpl.java:        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/conscrypt/src/main/java/org/conscrypt/TrustManagerFactoryImpl.java:            keyStore = KeyStore.getInstance(&amp;quot;AndroidCAStore&amp;quot;);
+./external/apache-harmony/security/src/test/support/common/java/org/apache/harmony/security/tests/support/cert/TestUtils.java:            KeyStore ks = KeyStore.getInstance(keyStoreType);
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        // KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:     * @tests java.security.KeyStore#getInstance(java.lang.String)
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        // java.security.KeyStore.getInstance(java.lang.String)
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:     * @tests java.security.KeyStore#getInstance(java.lang.String,
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        // java.security.KeyStore.getInstance(java.lang.String,
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(&amp;quot;PKCS#12/Netscape&amp;quot;,
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(&amp;quot;PKCS#12/Netscape&amp;quot;,
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(&amp;quot;PKCS#12/Netscape&amp;quot;,
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:        kpg[0] = KeyStore.getInstance(defaultType);
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:        kpg[1] = KeyStore.getInstance(defaultType, defaultProvider);
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:        kpg[2] = KeyStore.getInstance(defaultType, defaultProviderName);
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:            KeyStore.getInstance(null);
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:                KeyStore.getInstance(invalidValues[i]);
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/api/java/org/apache/harmony/security/tests/java/security/KeyStore3Test.java:        KeyStore ks = KeyStore.getInstance(alias);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl3Test.java:        kpg[0] = KeyStore.getInstance(defaultType);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl3Test.java:        kpg[1] = KeyStore.getInstance(defaultType, defaultProvider);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl3Test.java:        kpg[2] = KeyStore.getInstance(defaultType, defaultProviderName);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:        kpg[0] = KeyStore.getInstance(defaultType);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:        kpg[1] = KeyStore.getInstance(defaultType, defaultProvider);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:        kpg[2] = KeyStore.getInstance(defaultType, defaultProviderName);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:            ks = KeyStore.getInstance(validValues[i]);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:                KeyStore.getInstance(validValues[i], provider);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:                KeyStore.getInstance(validValues[i], &amp;quot;&amp;quot;);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:                    KeyStore.getInstance(validValues[i], invalidValues[j]);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:            KeyStore.getInstance(null, defaultProviderName);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:                KeyStore.getInstance(invalidValues[i], defaultProviderName);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:            ks = KeyStore.getInstance(validValues[i], defaultProviderName);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:                KeyStore.getInstance(validValues[i], provider);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:            KeyStore.getInstance(null, defaultProvider);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:                KeyStore.getInstance(invalidValues[i], defaultProvider);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl1Test.java:            ks = KeyStore.getInstance(validValues[i], defaultProvider);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KSBuilder_ImplTest.java:            KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KSBuilder_ImplTest.java:        KeyStore ks = KeyStore.getInstance(defaultType);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KSBuilder_ImplTest.java:            ks = KeyStore.getInstance(defaultType);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:            KeyStore.getInstance(null);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:                KeyStore.getInstance(invalidValues[i]);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:            keyS = KeyStore.getInstance(validValues[i]);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:            KeyStore.getInstance(null, mProv.getName());
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:                KeyStore.getInstance(invalidValues[i], mProv.getName());
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:                KeyStore.getInstance(validValues[i], prov);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:                    KeyStore.getInstance(validValues[i], invalidValues[j]);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:            keyS = KeyStore.getInstance(validValues[i], mProv.getName());
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:            KeyStore.getInstance(null, mProv);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:                KeyStore.getInstance(invalidValues[i], mProv);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:                KeyStore.getInstance(validValues[i], prov);
+./external/apache-harmony/security/src/test/impl/java/org/apache/harmony/security/tests/java/security/KeyStore_Impl2Test.java:            keyS = KeyStore.getInstance(validValues[i], mProv);
+./external/apache-harmony/x-net/src/test/java/javax/net/ssl/KeyManagerFactorySpiTests.java:            kStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/x-net/src/test/java/javax/net/ssl/TrustManagerFactorySpiTests.java:            kStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/x-net/src/test/support/common/java/org/apache/harmony/xnet/provider/jsse/JSSETestData.java:            keyStore = KeyStore.getInstance(ksDefaultType);
+./external/apache-harmony/x-net/src/test/api/java/org/apache/harmony/xnet/tests/javax/net/ssl/TrustManagerFactory1Test.java:        ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/x-net/src/test/api/java/org/apache/harmony/xnet/tests/javax/net/ssl/TrustManagerFactory2Test.java:            kStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/x-net/src/test/api/java/org/apache/harmony/xnet/tests/javax/net/ssl/KeyManagerFactory2Test.java:            kStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/x-net/src/test/api/java/org/apache/harmony/xnet/tests/javax/net/ssl/KeyManagerFactory1Test.java:        ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/apache-harmony/x-net/src/test/impl/java/org/apache/harmony/xnet/tests/provider/jsse/TrustManagerFactoryImplTest.java:        ks = KeyStore.getInstance(&amp;quot;BKS&amp;quot;);
+./external/apache-harmony/x-net/src/test/impl/java/org/apache/harmony/xnet/tests/provider/jsse/KeyManagerFactoryImplTest.java:        ks = KeyStore.getInstance(&amp;quot;BKS&amp;quot;);
+./external/apache-harmony/x-net/src/test/impl/java.injected/org/apache/harmony/xnet/provider/jsse/TrustManagerImplTest.java:        KeyStore ks = KeyStore.getInstance(&amp;quot;BKS&amp;quot;);
+./external/apache-harmony/x-net/src/test/impl/java.injected/org/apache/harmony/xnet/provider/jsse/KeyManagerImplTest.java:        ks = KeyStore.getInstance(&amp;quot;BKS&amp;quot;);
+./external/apache-harmony/luni/src/test/api/common/org/apache/harmony/luni/tests/internal/net/www/protocol/https/HttpsURLConnectionTest.java:        KeyStore ks = KeyStore.getInstance(type);
+./external/chromium_org/net/test/android/javatests/src/org/chromium/net/test/util/TestWebServer.java:            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/chromium_org/net/android/java/src/org/chromium/net/X509Util.java:                sTestKeyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/smack/src/org/jivesoftware/smack/ServerTrustManager.java:                    trustStore = KeyStore.getInstance(options.getType());
+./external/smack/src/org/jivesoftware/smack/XMPPConnection.java:                    ks = KeyStore.getInstance(&amp;quot;PKCS11&amp;quot;,p);
+./external/smack/src/org/jivesoftware/smack/XMPPConnection.java:                ks = KeyStore.getInstance(&amp;quot;KeychainStore&amp;quot;,&amp;quot;Apple&amp;quot;);
+./external/smack/src/org/jivesoftware/smack/XMPPConnection.java:                ks = KeyStore.getInstance(config.getKeystoreType());
+./external/okhttp/samples/static-server/src/main/java/com/squareup/okhttp/sample/SampleServer.java:    KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+./external/okhttp/mockwebserver/src/main/java/com/squareup/okhttp/internal/SslContextBuilder.java:      KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./frameworks/base/wifi/java/android/net/wifi/WifiConfigStore.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./frameworks/base/tests/CoreTests/android/core/SSLSocketTest.java:            KeyStore ks = KeyStore.getInstance(&amp;quot;BKS&amp;quot;);
+./frameworks/base/tests/CoreTests/android/core/SSLSocketTest.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./frameworks/base/services/java/com/android/server/net/LockdownVpnTracker.java:        return KeyStore.getInstance().contains(Credentials.LOCKDOWN_VPN);
+./frameworks/base/services/java/com/android/server/net/LockdownVpnTracker.java:                    mVpn.startLegacyVpn(mProfile, KeyStore.getInstance(), egressProp);
+./frameworks/base/services/java/com/android/server/pm/PackageManagerService.java:        final KeyStore keyStore = KeyStore.getInstance();
+./frameworks/base/services/java/com/android/server/pm/PackageManagerService.java:            String sdEncKey = SystemKeyStore.getInstance().retrieveKeyHexString(
+./frameworks/base/services/java/com/android/server/pm/PackageManagerService.java:                sdEncKey = SystemKeyStore.getInstance().generateNewKeyHexString(128,
+./frameworks/base/services/java/com/android/server/ConnectivityService.java:        mKeyStore = KeyStore.getInstance();
+./frameworks/base/services/java/com/android/server/LockSettingsService.java:            final KeyStore keyStore = KeyStore.getInstance();
+./frameworks/base/core/tests/coretests/src/android/net/http/X509TrustManagerExtensionsTest.java:        TrustManagerImpl tmi = new TrustManagerImpl(KeyStore.getInstance(defaultType));
+./frameworks/base/core/tests/coretests/src/android/net/http/X509TrustManagerExtensionsTest.java:        tmf.init(KeyStore.getInstance(defaultKeystoreType));
+./frameworks/base/keystore/java/android/security/AndroidKeyPairGenerator.java: * {@link java.security.KeyStore#getInstance(String)} using the
+./frameworks/base/keystore/java/android/security/AndroidKeyPairGenerator.java:        mKeyStore = android.security.KeyStore.getInstance();
+./frameworks/base/keystore/java/android/security/KeyChain.java:        return KeyStore.getInstance().isHardwareBacked(algorithm);
+./frameworks/base/keystore/java/android/security/KeyStore.java:    public static KeyStore getInstance() {
+./frameworks/base/keystore/java/android/security/SystemKeyStore.java:    public static SystemKeyStore getInstance() {
+./frameworks/base/keystore/java/android/security/AndroidKeyStore.java: * it can be created via the {@link java.security.KeyStore#getInstance(String)
+./frameworks/base/keystore/java/android/security/AndroidKeyStore.java: * KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;)} interface. This returns a
+./frameworks/base/keystore/java/android/security/AndroidKeyStore.java:        mKeyStore = android.security.KeyStore.getInstance();
+./frameworks/base/keystore/tests/src/android/security/SystemKeyStoreTest.java:        mSysKeyStore = SystemKeyStore.getInstance();
+./frameworks/base/keystore/tests/src/android/security/KeyStoreTest.java:        mKeyStore = KeyStore.getInstance();
+./frameworks/base/keystore/tests/src/android/security/AndroidKeyPairGeneratorTest.java:        mAndroidKeyStore = android.security.KeyStore.getInstance();
+./frameworks/base/keystore/tests/src/android/security/AndroidKeyStoreTest.java:        mAndroidKeyStore = android.security.KeyStore.getInstance();
+./frameworks/base/keystore/tests/src/android/security/AndroidKeyStoreTest.java:        mKeyStore = java.security.KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./development/samples/Vault/src/com/example/android/vault/SecretKeyWrapper.java:        final KeyStore keyStore = KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./development/samples/KeyChainDemo/src/com/example/android/keychain/SecureWebServer.java:            KeyStore ks = KeyStore.getInstance(&amp;quot;PKCS12&amp;quot;);
+./development/samples/ApiDemos/src/com/example/android/apis/security/KeyStoreUsage.java:                KeyStore ks = KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./development/samples/ApiDemos/src/com/example/android/apis/security/KeyStoreUsage.java:                KeyStore ks = KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./development/samples/ApiDemos/src/com/example/android/apis/security/KeyStoreUsage.java:                KeyStore ks = KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./development/samples/ApiDemos/src/com/example/android/apis/security/KeyStoreUsage.java:                KeyStore ks = KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./development/samples/browseable/BasicAndroidKeyStore/src/com.example.android.basicandroidkeystore/BasicAndroidKeyStoreFragment.java:        KeyStore ks = KeyStore.getInstance(SecurityConstants.KEYSTORE_PROVIDER_ANDROID_KEYSTORE);
+./development/samples/browseable/BasicAndroidKeyStore/src/com.example.android.basicandroidkeystore/BasicAndroidKeyStoreFragment.java:        KeyStore ks = KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./sdk/eclipse/plugins/com.android.ide.eclipse.adt/src/com/android/ide/eclipse/adt/internal/wizards/export/KeySelectionPage.java:                KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./sdk/eclipse/plugins/com.android.ide.eclipse.adt/src/com/android/ide/eclipse/adt/internal/wizards/export/KeyCheckPage.java:                    KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./sdk/eclipse/plugins/com.android.ide.eclipse.adt/src/com/android/ide/eclipse/adt/internal/wizards/export/ExportWizard.java:                KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/CertInstaller/src/com/android/certinstaller/CredentialHelper.java:        java.security.KeyStore keystore = java.security.KeyStore.getInstance(&amp;quot;PKCS12&amp;quot;);
+./packages/apps/Settings/src/com/android/settings/wifi/WifiConfigController.java:        String[] certs = KeyStore.getInstance().saw(prefix, android.os.Process.WIFI_UID);
+./packages/apps/Settings/src/com/android/settings/SecuritySettings.java:        mKeyStore = KeyStore.getInstance(); // needs to be initialized for onResume()
+./packages/apps/Settings/src/com/android/settings/CredentialStorage.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/Settings/src/com/android/settings/ChooseLockGeneric.java:            mKeyStore = KeyStore.getInstance();
+./packages/apps/Settings/src/com/android/settings/vpn2/VpnSettings.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/Settings/src/com/android/settings/vpn2/VpnSettings.java:            final KeyStore keyStore = KeyStore.getInstance();
+./packages/apps/Settings/src/com/android/settings/vpn2/VpnDialog.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/KeyChain/tests/src/com/android/keychain/tests/KeyChainServiceTest.java:            KeyStore keyStore = KeyStore.getInstance();
+./packages/apps/KeyChain/support/src/com/android/keychain/tests/support/KeyChainServiceTestSupport.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/KeyChain/src/com/android/keychain/KeyChainService.java:        private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/KeyChain/src/com/android/keychain/KeyChainActivity.java:    private KeyStore mKeyStore = KeyStore.getInstance();
+./cts/libs/testserver/src/android/webkit/cts/CtsTestServer.java:            KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./cts/tests/tests/security/src/android/security/cts/CertificateTest.java:        KeyStore keyStore = KeyStore.getInstance(&amp;quot;AndroidCAStore&amp;quot;);
+./cts/tests/tests/keystore/src/android/keystore/cts/AndroidKeyPairGeneratorTest.java:        mKeyStore = KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./cts/tests/tests/keystore/src/android/keystore/cts/AndroidKeyStoreTest.java:        KeyStore ksTemp = KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./cts/tests/tests/keystore/src/android/keystore/cts/AndroidKeyStoreTest.java:        mKeyStore = KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./developers/samples/android/security/keystore/BasicAndroidKeyStore/BasicAndroidKeyStoreSample/src/main/java/com/example/android/basicandroidkeystore/BasicAndroidKeyStoreFragment.java:        KeyStore ks = KeyStore.getInstance(SecurityConstants.KEYSTORE_PROVIDER_ANDROID_KEYSTORE);
+./developers/samples/android/security/keystore/BasicAndroidKeyStore/BasicAndroidKeyStoreSample/src/main/java/com/example/android/basicandroidkeystore/BasicAndroidKeyStoreFragment.java:        KeyStore ks = KeyStore.getInstance(&amp;quot;AndroidKeyStore&amp;quot;);
+./libcore/support/src/test/java/org/apache/harmony/security/tests/support/cert/TestUtils.java:            KeyStore ks = KeyStore.getInstance(keyStoreType);
+./libcore/support/src/test/java/org/apache/harmony/xnet/tests/support/X509KeyManagerImpl.java:            keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/support/src/test/java/org/apache/harmony/xnet/tests/support/X509KeyManagerImpl.java:                //keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/support/src/test/java/org/apache/harmony/xnet/tests/support/X509KeyManagerImpl.java:                //keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/support/src/test/java/libcore/java/security/TestKeyStore.java:            KeyStore keyStore = KeyStore.getInstance(StandardNames.KEY_STORE_ALGORITHM);
+./libcore/luni/src/main/java/java/security/KeyStore.java:    public static KeyStore getInstance(String type) throws KeyStoreException {
+./libcore/luni/src/main/java/java/security/KeyStore.java:    public static KeyStore getInstance(String type, String provider)
+./libcore/luni/src/main/java/java/security/KeyStore.java:    public static KeyStore getInstance(String type, Provider provider) throws KeyStoreException {
+./libcore/luni/src/test/java/tests/security/cert/PKIXBuilderParametersTest.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/tests/security/cert/PKIXBuilderParametersTest.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/tests/security/cert/PKIXBuilderParametersTest.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/tests/security/cert/PKIXBuilderParametersTest.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/tests/security/cert/PKIXBuilderParametersTest.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/tests/security/cert/PKIXBuilderParametersTest.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/tests/targets/security/KeyStoreTest.java:            keyStore = KeyStore.getInstance(algorithmName);
+./libcore/luni/src/test/java/tests/targets/security/KeyStoreTest.java:            keyStore = KeyStore.getInstance(algorithmName);
+./libcore/luni/src/test/java/tests/targets/security/cert/CertPathValidatorTestPKIX.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/tests/targets/security/cert/CertPathBuilderTestPKIX.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/tests/targets/security/cert/CertificateTest.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        // KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:     * java.security.KeyStore#getInstance(java.lang.String)
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        // java.security.KeyStore.getInstance(java.lang.String)
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore.getInstance(KeyStore.getDefaultType()).load(null);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:            KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore2Test.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:        kpg[0] = KeyStore.getInstance(defaultType);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:        kpg[1] = KeyStore.getInstance(defaultType, defaultProvider);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:        kpg[2] = KeyStore.getInstance(defaultType, defaultProviderName);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:            KeyStore.getInstance(null);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:                KeyStore.getInstance(invalidValues[i]);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStoreTest.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStoreBuilderTest.java:        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStoreBuilderTest.java:            ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStoreBuilderTest.java:            KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            keyStore = KeyStore.getInstance(KEY_STORE_TYPE);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            uninitialized = KeyStore.getInstance(KEY_STORE_TYPE);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore ks = KeyStore.getInstance(&amp;quot;TestKeyStore&amp;quot;);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore.getInstance(&amp;quot;UnknownKeyStore&amp;quot;);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore.getInstance(null);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore ks = KeyStore.getInstance(&amp;quot;TestKeyStore&amp;quot;, provider.getName());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore.getInstance(&amp;quot;UnknownKeyStore&amp;quot;, provider.getName());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore.getInstance(&amp;quot;TestKeyStore&amp;quot;, (String)null);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore.getInstance(&amp;quot;TestKeyStore&amp;quot;, &amp;quot;&amp;quot;);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore.getInstance(null, provider.getName());
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore.getInstance(&amp;quot;TestKeyStore&amp;quot;, &amp;quot;UnknownProvider&amp;quot;);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore ks = KeyStore.getInstance(&amp;quot;TestKeyStore&amp;quot;, provider);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore.getInstance(&amp;quot;UnknownKeyStore&amp;quot;, provider);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore.getInstance(&amp;quot;TestKeyStore&amp;quot;, (Provider)null);
+./libcore/luni/src/test/java/org/apache/harmony/security/tests/java/security/KeyStore4Test.java:            KeyStore.getInstance(null, provider);
+./libcore/luni/src/test/java/org/apache/harmony/luni/tests/internal/net/www/protocol/https/HttpsURLConnectionTest.java:        KeyStore ks = KeyStore.getInstance(type);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:                KeyStore ks = KeyStore.getInstance(algorithm, provider);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:                KeyStore ks = KeyStore.getInstance(algorithm, provider);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:    public void test_KeyStore_getInstance() throws Exception {
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:            KeyStore.getInstance(null);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:        assertNotNull(KeyStore.getInstance(type));
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:            KeyStore.getInstance(null, (String)null);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:            KeyStore.getInstance(null, providerName);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:            KeyStore.getInstance(type, (String)null);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:        assertNotNull(KeyStore.getInstance(type, providerName));
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:            KeyStore.getInstance(null, (Provider)null);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:            KeyStore.getInstance(null, provider);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:            KeyStore.getInstance(type, (Provider)null);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:        assertNotNull(KeyStore.getInstance(type, provider));
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:        KeyStore ks = KeyStore.getInstance(type);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:        KeyStore ks = KeyStore.getInstance(type);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:        KeyStore ks = KeyStore.getInstance(actual.getType(), actual.getProvider());
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:        KeyStore ks = KeyStore.getInstance(expected.getType(), expected.getProvider());
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:        KeyStore ks = KeyStore.getInstance(&amp;quot;AndroidCAStore&amp;quot;);
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:            KeyStore store = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:            KeyStore store = KeyStore.getInstance(StandardNames.KEY_STORE_ALGORITHM);
+./libcore/luni/src/test/java/libcore/java/security/cert/OldPKIXParametersTest.java:        KeyStore store = KeyStore.getInstance(&amp;quot;PKCS12&amp;quot;);
+./libcore/luni/src/test/java/libcore/java/security/cert/OldPKIXParametersTest.java:        store = KeyStore.getInstance(&amp;quot;PKCS12&amp;quot;);
+./libcore/luni/src/test/java/libcore/java/security/cert/OldPKIXParametersTest.java:        KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/SSLSocketTest.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/SSLServerSocketTest.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/TrustManagerFactory1Test.java:            KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/TrustManagerFactory1Test.java:        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/TrustManagerFactory1Test.java:            KeyStore kStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/X509KeyManagerTest.java:          keyTest = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/TrustManagerFactory2Test.java:            kStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/KeyManagerFactory2Test.java:            kStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/SSLSessionTest.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/TrustManagerFactorySpiTest.java:            ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/TrustManagerFactorySpiTest.java:            KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/TrustManagerFactorySpiTest.java:            KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/SSLContextSpiTest.java:            KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/SSLContextSpiTest.java:            KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/HandshakeCompletedEventTest.java:        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/SSLContext1Test.java:        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/SSLContext1Test.java:        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/SSLContext1Test.java:         KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/SSLContext1Test.java:             KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/KeyManagerFactorySpiTest.java:            ks = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/KeyManagerFactorySpiTest.java:            KeyStore kst = KeyStore.getInstance(KeyStore.getDefaultType());
+./libcore/harmony-tests/src/test/java/org/apache/harmony/tests/javax/net/ssl/KeyManagerFactory1Test.java:            ks = KeyStore.getInstance(KeyStore.getDefaultType());
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ find ./ -name *.java |xargs grep &amp;quot;KeyStore.getInstance()&amp;quot; |grep &amp;quot;KeyStore.getInstance()&amp;quot;
+./frameworks/base/wifi/java/android/net/wifi/WifiConfigStore.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./frameworks/base/services/java/com/android/server/net/LockdownVpnTracker.java:        return KeyStore.getInstance().contains(Credentials.LOCKDOWN_VPN);
+./frameworks/base/services/java/com/android/server/net/LockdownVpnTracker.java:                    mVpn.startLegacyVpn(mProfile, KeyStore.getInstance(), egressProp);
+./frameworks/base/services/java/com/android/server/pm/PackageManagerService.java:        final KeyStore keyStore = KeyStore.getInstance();
+./frameworks/base/services/java/com/android/server/pm/PackageManagerService.java:            String sdEncKey = SystemKeyStore.getInstance().retrieveKeyHexString(
+./frameworks/base/services/java/com/android/server/pm/PackageManagerService.java:                sdEncKey = SystemKeyStore.getInstance().generateNewKeyHexString(128,
+./frameworks/base/services/java/com/android/server/ConnectivityService.java:        mKeyStore = KeyStore.getInstance();
+./frameworks/base/services/java/com/android/server/LockSettingsService.java:            final KeyStore keyStore = KeyStore.getInstance();
+./frameworks/base/keystore/java/android/security/AndroidKeyPairGenerator.java:        mKeyStore = android.security.KeyStore.getInstance();
+./frameworks/base/keystore/java/android/security/KeyChain.java:        return KeyStore.getInstance().isHardwareBacked(algorithm);
+./frameworks/base/keystore/java/android/security/KeyStore.java:    public static KeyStore getInstance() {
+./frameworks/base/keystore/java/android/security/SystemKeyStore.java:    public static SystemKeyStore getInstance() {
+./frameworks/base/keystore/java/android/security/AndroidKeyStore.java:        mKeyStore = android.security.KeyStore.getInstance();
+./frameworks/base/keystore/tests/src/android/security/SystemKeyStoreTest.java:        mSysKeyStore = SystemKeyStore.getInstance();
+./frameworks/base/keystore/tests/src/android/security/KeyStoreTest.java:        mKeyStore = KeyStore.getInstance();
+./frameworks/base/keystore/tests/src/android/security/AndroidKeyPairGeneratorTest.java:        mAndroidKeyStore = android.security.KeyStore.getInstance();
+./frameworks/base/keystore/tests/src/android/security/AndroidKeyStoreTest.java:        mAndroidKeyStore = android.security.KeyStore.getInstance();
+./packages/apps/CertInstaller/src/com/android/certinstaller/CertInstaller.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/Settings/src/com/android/settings/wifi/WifiConfigController.java:        String[] certs = KeyStore.getInstance().saw(prefix, android.os.Process.WIFI_UID);
+./packages/apps/Settings/src/com/android/settings/SecuritySettings.java:        mKeyStore = KeyStore.getInstance(); // needs to be initialized for onResume()
+./packages/apps/Settings/src/com/android/settings/CredentialStorage.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/Settings/src/com/android/settings/ChooseLockGeneric.java:            mKeyStore = KeyStore.getInstance();
+./packages/apps/Settings/src/com/android/settings/vpn2/VpnSettings.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/Settings/src/com/android/settings/vpn2/VpnSettings.java:            final KeyStore keyStore = KeyStore.getInstance();
+./packages/apps/Settings/src/com/android/settings/vpn2/VpnDialog.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/KeyChain/tests/src/com/android/keychain/tests/KeyChainServiceTest.java:            KeyStore keyStore = KeyStore.getInstance();
+./packages/apps/KeyChain/support/src/com/android/keychain/tests/support/KeyChainServiceTestSupport.java:    private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/KeyChain/src/com/android/keychain/KeyChainService.java:        private final KeyStore mKeyStore = KeyStore.getInstance();
+./packages/apps/KeyChain/src/com/android/keychain/KeyChainActivity.java:    private KeyStore mKeyStore = KeyStore.getInstance();
+./libcore/luni/src/test/java/libcore/java/security/KeyStoreTest.java:    public void test_KeyStore_getInstance() throws Exception {
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ find ./ -name *.cpp |xargs grep IKeystoreService |grep IKeystoreService
+./system/security/keystore-engine/eng_keystore.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore-engine/eng_keystore.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore-engine/dsa_meth.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore-engine/dsa_meth.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore-engine/rsa_meth.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore-engine/rsa_meth.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore-engine/rsa_meth.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore-engine/ecdsa_meth.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore-engine/ecdsa_meth.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore/keystore.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore/IKeystoreService.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore/IKeystoreService.cpp:class BpKeystoreService: public BpInterface&amp;lt;IKeystoreService&amp;gt;
+./system/security/keystore/IKeystoreService.cpp:        : BpInterface&amp;lt;IKeystoreService&amp;gt;(impl)
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:        data.writeInterfaceToken(IKeystoreService::getInterfaceDescriptor());
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/IKeystoreService.cpp:            CHECK_INTERFACE(IKeystoreService, data, reply);
+./system/security/keystore/keystore_get.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore/keystore_get.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+./system/security/keystore/keystore_cli.cpp:#include &amp;lt;keystore/IKeystoreService.h&amp;gt;
+./system/security/keystore/keystore_cli.cpp:static int saw(sp&amp;lt;IKeystoreService&amp;gt; service, const String16&amp;amp; name, int uid) {
+./system/security/keystore/keystore_cli.cpp:    sp&amp;lt;IKeystoreService&amp;gt; service = interface_cast&amp;lt;IKeystoreService&amp;gt;(binder);
+$ 
+$ 
+$ 
+$ 
+$ 
+$ find ./ -name IKeystoreService.h
+./system/security/keystore/include/keystore/IKeystoreService.h
+$ g ./system/security/keystore/include/keystore/IKeystoreService.h
+$ 
+$ 
+$ 
+$ 
+$ 
+$ find ./ -name BnKeystoreService.java -o BnKeystoreService.cpp
+find: パス名は評価式の前に置かなければいけません: BnKeystoreService.cpp
+使用法: find [-H] [-L] [-P] [-Olevel] [-D help|tree|search|stat|rates|opt|exec] [path...] [expression]
+$ 
+$ 
+$ 
+$ 
+$ find ./ -name BnKeystoreService.java
+$ find ./ -name BnKeystoreService.cpp
+$ find ./ -name &amp;quot;*.java&amp;quot; -o &amp;quot;*.cpp&amp;quot; |xargs grep BnKeystoreService |grep BnKeystoreService
+find: パス名は評価式の前に置かなければいけません: *.cpp
+使用法: find [-H] [-L] [-P] [-Olevel] [-D help|tree|search|stat|rates|opt|exec] [path...] [expression]
+$ find ./ -name &amp;quot;*.java&amp;quot; -o -name &amp;quot;*.cpp&amp;quot; |xargs grep BnKeystoreService |grep BnKeystoreService
+./system/security/keystore/keystore.cpp:class KeyStoreProxy : public BnKeystoreService, public IBinder::DeathRecipient {
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::TEST, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::GET, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::INSERT, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::DEL, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::EXIST, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::SAW, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::RESET, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::PASSWORD, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::LOCK, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::UNLOCK, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::ZERO, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::GENERATE, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::IMPORT, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::SIGN, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::VERIFY, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::GET_PUBKEY, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::DEL_KEY, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::GRANT, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::UNGRANT, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::GETMTIME, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::DUPLICATE, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::IS_HARDWARE_BACKED, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:        status_t status = remote()-&amp;gt;transact(BnKeystoreService::CLEAR_UID, data, &amp;amp;reply);
+./system/security/keystore/IKeystoreService.cpp:status_t BnKeystoreService::onTransact(
+$ g ./system/security/keystore/keystore.cpp
+$ g ./system/security/keystore/keystore.h
+$ find ./ -name keystore.h
+./external/chromium_org/net/android/keystore.h
+./system/security/keystore/include/keystore/keystore.h
+$ g ./system/security/keystore/include/keystore/keystore.h
+$ find ./ -name *.cpp |xargs grep keymaster_device_t |grep keymaster_device_t
+./system/security/softkeymaster/keymaster_openssl.cpp:typedef UniquePtr&amp;lt;keymaster_device_t&amp;gt; Unique_keymaster_device_t;
+./system/security/softkeymaster/keymaster_openssl.cpp:int openssl_generate_keypair(const keymaster_device_t*,
+./system/security/softkeymaster/keymaster_openssl.cpp:int openssl_import_keypair(const keymaster_device_t*,
+./system/security/softkeymaster/keymaster_openssl.cpp:int openssl_sign_data(const keymaster_device_t*,
+./system/security/softkeymaster/keymaster_openssl.cpp:int openssl_verify_data(const keymaster_device_t*,
+./system/security/softkeymaster/module.cpp:typedef UniquePtr&amp;lt;keymaster_device_t&amp;gt; Unique_keymaster_device_t;
+./system/security/softkeymaster/module.cpp:    Unique_keymaster_device_t dev(new keymaster_device_t);
+./system/security/keystore/keystore.cpp:static int keymaster_device_initialize(keymaster_device_t** dev) {
+./system/security/keystore/keystore.cpp:static void keymaster_device_release(keymaster_device_t* dev) {
+./system/security/keystore/keystore.cpp:    KeyStore(Entropy* entropy, keymaster_device_t* device)
+./system/security/keystore/keystore.cpp:    keymaster_device_t* getDevice() const {
+./system/security/keystore/keystore.cpp:    keymaster_device_t* mDevice;
+./system/security/keystore/keystore.cpp:        const keymaster_device_t* device = mKeyStore-&amp;gt;getDevice();
+./system/security/keystore/keystore.cpp:        const keymaster_device_t* device = mKeyStore-&amp;gt;getDevice();
+./system/security/keystore/keystore.cpp:        const keymaster_device_t* device = mKeyStore-&amp;gt;getDevice();
+./system/security/keystore/keystore.cpp:        const keymaster_device_t* device = mKeyStore-&amp;gt;getDevice();
+./system/security/keystore/keystore.cpp:        const keymaster_device_t* device = mKeyStore-&amp;gt;getDevice();
+./system/security/keystore/keystore.cpp:        const keymaster_device_t* device = mKeyStore-&amp;gt;getDevice();
+./system/security/keystore/keystore.cpp:        const keymaster_device_t* device = mKeyStore-&amp;gt;getDevice();
+./system/security/keystore/keystore.cpp:    keymaster_device_t* dev;
+./hardware/samsung_slsi/exynos5/libkeymaster/keymaster_mobicore.cpp:typedef UniquePtr&amp;lt;keymaster_device_t&amp;gt; Unique_keymaster_device_t;
+./hardware/samsung_slsi/exynos5/libkeymaster/keymaster_mobicore.cpp:static int exynos_km_generate_keypair(const keymaster_device_t* dev,
+./hardware/samsung_slsi/exynos5/libkeymaster/keymaster_mobicore.cpp:static int exynos_km_import_keypair(const keymaster_device_t* dev,
+./hardware/samsung_slsi/exynos5/libkeymaster/keymaster_mobicore.cpp:static int exynos_km_sign_data(const keymaster_device_t* dev,
+./hardware/samsung_slsi/exynos5/libkeymaster/keymaster_mobicore.cpp:static int exynos_km_verify_data(const keymaster_device_t* dev,
+./hardware/samsung_slsi/exynos5/libkeymaster/keymaster_mobicore.cpp:    Unique_keymaster_device_t dev(new keymaster_device_t);
+./hardware/qcom/keymaster/keymaster_qcom.cpp:typedef UniquePtr&amp;lt;keymaster_device_t&amp;gt; Unique_keymaster_device_t;
+./hardware/qcom/keymaster/keymaster_qcom.cpp:static int qcom_km_generate_keypair(const keymaster_device_t* dev,
+./hardware/qcom/keymaster/keymaster_qcom.cpp:static int qcom_km_import_keypair(const keymaster_device_t* dev,
+./hardware/qcom/keymaster/keymaster_qcom.cpp:static int qcom_km_sign_data(const keymaster_device_t* dev,
+./hardware/qcom/keymaster/keymaster_qcom.cpp:static int qcom_km_verify_data(const keymaster_device_t* dev,
+./hardware/qcom/keymaster/keymaster_qcom.cpp:    keymaster_device_t* km_dev = (keymaster_device_t *)dev;
+./hardware/qcom/keymaster/keymaster_qcom.cpp:    Unique_keymaster_device_t dev(new keymaster_device_t);
+./hardware/libhardware/tests/keymaster/keymaster_test.cpp:    UniqueKey(keymaster_device_t** dev, uint8_t* bytes, size_t length) :
+./hardware/libhardware/tests/keymaster/keymaster_test.cpp:            keymaster_device_t* dev = *mDevice;
+./hardware/libhardware/tests/keymaster/keymaster_test.cpp:    keymaster_device_t** mDevice;
+./hardware/libhardware/tests/keymaster/keymaster_test.cpp:    static keymaster_device_t* sDevice;
+./hardware/libhardware/tests/keymaster/keymaster_test.cpp:keymaster_device_t* KeymasterBaseTest::sDevice = NULL;
+./device/asus/tilapia/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:typedef UniquePtr&amp;lt;keymaster_device_t&amp;gt; Unique_keymaster_device_t;
+./device/asus/tilapia/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:static int tee_generate_keypair(const keymaster_device_t* dev,
+./device/asus/tilapia/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:static int tee_import_keypair(const keymaster_device_t* dev,
+./device/asus/tilapia/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:static int tee_sign_data(const keymaster_device_t* dev,
+./device/asus/tilapia/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:static int tee_verify_data(const keymaster_device_t* dev,
+./device/asus/tilapia/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:    keymaster_device_t *keymaster_dev = (keymaster_device_t *) dev;
+./device/asus/tilapia/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:    Unique_keymaster_device_t dev(new keymaster_device_t);
+./device/asus/grouper/keymaster/keymaster_grouper.cpp:typedef UniquePtr&amp;lt;keymaster_device_t&amp;gt; Unique_keymaster_device_t;
+./device/asus/grouper/keymaster/keymaster_grouper.cpp:static int tee_generate_keypair(const keymaster_device_t* dev,
+./device/asus/grouper/keymaster/keymaster_grouper.cpp:static int tee_import_keypair(const keymaster_device_t* dev,
+./device/asus/grouper/keymaster/keymaster_grouper.cpp:static int tee_sign_data(const keymaster_device_t* dev,
+./device/asus/grouper/keymaster/keymaster_grouper.cpp:static int tee_verify_data(const keymaster_device_t* dev,
+./device/asus/grouper/keymaster/keymaster_grouper.cpp:    keymaster_device_t *keymaster_dev = (keymaster_device_t *) dev;
+./device/asus/grouper/keymaster/keymaster_grouper.cpp:    Unique_keymaster_device_t dev(new keymaster_device_t);
+./device/asus/grouper/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:typedef UniquePtr&amp;lt;keymaster_device_t&amp;gt; Unique_keymaster_device_t;
+./device/asus/grouper/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:static int tee_generate_keypair(const keymaster_device_t* dev,
+./device/asus/grouper/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:static int tee_import_keypair(const keymaster_device_t* dev,
+./device/asus/grouper/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:static int tee_sign_data(const keymaster_device_t* dev,
+./device/asus/grouper/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:static int tee_verify_data(const keymaster_device_t* dev,
+./device/asus/grouper/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:    keymaster_device_t *keymaster_dev = (keymaster_device_t *) dev;
+./device/asus/grouper/self-extractors/nvidia/staging/keymaster/keymaster_grouper.cpp:    Unique_keymaster_device_t dev(new keymaster_device_t);
+$ ]
+]: コマンドが見つかりません
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ 
+$ find ./ -name *.h |xargs grep keymaster_device_t |grep keymaster_device_t
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeSnowLeopard/SDL: そのようなファイルやディレクトリはありません
+grep: OpenGL: そのようなファイルやディレクトリはありません
+grep: Application/SDLMain.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeSnowLeopard/SDL: そのようなファイルやディレクトリはありません
+grep: OpenGL: そのようなファイルやディレクトリはありません
+grep: Application/atlantis/atlantis.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeSnowLeopard/SDL: そのようなファイルやディレクトリはありません
+grep: Cocoa: そのようなファイルやディレクトリはありません
+grep: Application/SDLMain.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeSnowLeopard/SDL: そのようなファイルやディレクトリはありません
+grep: Application/SDLMain.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeLeopard/SDL: そのようなファイルやディレクトリはありません
+grep: OpenGL: そのようなファイルやディレクトリはありません
+grep: Application/SDLMain.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeLeopard/SDL: そのようなファイルやディレクトリはありません
+grep: OpenGL: そのようなファイルやディレクトリはありません
+grep: Application/atlantis/atlantis.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeLeopard/SDL: そのようなファイルやディレクトリはありません
+grep: Cocoa: そのようなファイルやディレクトリはありません
+grep: Application/SDLMain.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeLeopard/SDL: そのようなファイルやディレクトリはありません
+grep: Application/SDLMain.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeTiger/SDL: そのようなファイルやディレクトリはありません
+grep: OpenGL: そのようなファイルやディレクトリはありません
+grep: Application/SDLMain.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeTiger/SDL: そのようなファイルやディレクトリはありません
+grep: OpenGL: そのようなファイルやディレクトリはありません
+grep: Application/atlantis/atlantis.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeTiger/SDL: そのようなファイルやディレクトリはありません
+grep: Cocoa: そのようなファイルやディレクトリはありません
+grep: Application/SDLMain.h: そのようなファイルやディレクトリはありません
+grep: ./external/qemu/distrib/sdl-1.2.15/Xcode/TemplatesForXcodeTiger/SDL: そのようなファイルやディレクトリはありません
+grep: Application/SDLMain.h: そのようなファイルやディレクトリはありません
+grep: ./external/clang/test/ARCMT/with: そのようなファイルやディレクトリはありません
+grep: space/test.h: そのようなファイルやディレクトリはありません
+./system/security/softkeymaster/include/keymaster/softkeymaster.h:int openssl_generate_keypair(const keymaster_device_t* dev,
+./system/security/softkeymaster/include/keymaster/softkeymaster.h:int openssl_import_keypair(const keymaster_device_t* dev,
+./system/security/softkeymaster/include/keymaster/softkeymaster.h:int openssl_sign_data(const keymaster_device_t* dev,
+./system/security/softkeymaster/include/keymaster/softkeymaster.h:int openssl_verify_data(const keymaster_device_t* dev,
+./hardware/libhardware/include/hardware/keymaster.h:typedef struct keymaster_device keymaster_device_t;
+./hardware/libhardware/include/hardware/keymaster.h:        keymaster_device_t** device)
+./hardware/libhardware/include/hardware/keymaster.h:static inline int keymaster_close(keymaster_device_t* device)
+$ g ./hardware/libhardware/include/hardware/keymaster.h
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>tf201 root化</title>
+      <link>https://tro3373.github.io/posts/2012/2012-08-16-tf201-roothua/</link>
+      <pubDate>Thu, 16 Aug 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-08-16-tf201-roothua/</guid>
+      <description>&lt;p&gt;tags: [&amp;ldquo;tf201&amp;rdquo;,&amp;ldquo;android&amp;rdquo;]
+title: 20120816 tf201 root化&lt;/p&gt;
+&lt;h1 id=&#34;tf201-root化&#34;&gt;tf201 root化&lt;/h1&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://sitr.us/2012/05/12/installing-a-custom-rom-on-the-transformer-prime.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考１
+&lt;/a&gt;
+
+&lt;a class=&#34;link&#34; href=&#34;http://androidforums.com/transformer-prime-all-things-root/518654-faq-asus-transformer-prime-tf201-all-things-root.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考２
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;bootloader-unlock&#34;&gt;bootloader unlock&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;download apk &lt;a class=&#34;link&#34; href=&#34;http://support.asus.com/Download.aspx?SLanguage=en&amp;amp;p=20&amp;amp;s=16&amp;amp;m=Eee&amp;#43;Pad&amp;#43;Transformer&amp;#43;Prime&amp;#43;TF201&amp;amp;os=32&amp;amp;ft=14&amp;amp;f_name=UnLock_Device_App_V6.apk&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  here
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Unlock Device App&lt;/li&gt;
+&lt;li&gt;install apk &amp;amp; done&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;flash-recovery-clockworkmod&#34;&gt;flash recovery clockworkmod&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;fastboot mode&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Boot your tablet into fastboot by holding down the power and volume-down buttons.&lt;br&gt;
+The tablet will power off and reboot.&lt;br&gt;
+Wait until you see several lines of white text in the upper-left corner of the screen,&lt;br&gt;
+then let go of the power and volume buttons.&lt;br&gt;
+Then wait for five seconds and you will see the fastboot options.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;check&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; fastboot -i 0x0b05
+     finished. total time: 1345126235.306s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;flash recovery image&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; fastboot -i 0x0b05 flash recovery recovery-clockwork-5.8.3.4-tf201.img 
+     sending &#39;recovery&#39; (5408 KB)...
+     OKAY [  3.242s]
+     writing &#39;recovery&#39;...
+     OKAY [  2.136s]
+     finished. total time: 5.379s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
+      <title>android Toastを上げるサンプル</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-20-android-toastwoshang-gerusanpuru/</link>
+      <pubDate>Wed, 20 Jun 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-06-20-android-toastwoshang-gerusanpuru/</guid>
+      <description>&lt;h1 id=&#34;android-toastを上げるサンプル&#34;&gt;android Toastを上げるサンプル&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;Toast.makeText(
+        this,
+        &amp;quot;Build.DEVICE=&amp;quot; + Build.DEVICE + &amp;quot;:&amp;quot; + &amp;quot;Build.VERSION.SDK_INT=&amp;quot;
+                + Build.VERSION.SDK_INT,
+        android.widget.Toast.LENGTH_LONG).show();
+Intent intent = new Intent();
+intent.setClassName(&amp;quot;com.google.android.gsf&amp;quot;, &amp;quot;com.google.android.gsf.gtalkservice.diagnostics.GTalkDiagnostics&amp;quot;);
+startActivity(intent);
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Galaxy Nexus タップ時の音を変更する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-09-galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</link>
+      <pubDate>Sat, 09 Jun 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-06-09-galaxy-nexus-tatupushi-noyin-wobian-geng-suru/</guid>
+      <description>&lt;h1 id=&#34;galaxy-nexus-タップ時の音を変更する&#34;&gt;Galaxy Nexus タップ時の音を変更する&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;タップ時に鳴らす音を用意する（NexusSより抜いた）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;名前を以下に変更する&lt;/p&gt;
+&lt;p&gt;Effect_Tick.ogg&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/systemを書き込み権限付きでremountする（要ルート）&lt;/p&gt;
+&lt;p&gt;mount -o rw,remount /system&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;adbでpushする&lt;/p&gt;
+&lt;p&gt;adb push ./Effect_Tick.ogg /system/media/audio/ui&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
+      <title>android メモリリーク調査</title>
+      <link>https://tro3373.github.io/posts/2011/2011-12-01-android-memoririkudiao-cha/</link>
+      <pubDate>Thu, 01 Dec 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-12-01-android-memoririkudiao-cha/</guid>
+      <description>&lt;h1 id=&#34;android-メモリリーク調査&#34;&gt;android メモリリーク調査&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Eclise 新規ソフトウェアーより、以下を追加&lt;/p&gt;
+&lt;p&gt;BIRT
+&lt;a class=&#34;link&#34; href=&#34;http://download.eclipse.org/birt/update-site/3.7&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://download.eclipse.org/birt/update-site/3.7
+&lt;/a&gt;
+
+BIRT 3.7 Engine OSGi Runtime SDK 0.0.0
+mat
+&lt;a class=&#34;link&#34; href=&#34;http://download.eclipse.org/mat/1.1.1/update-site/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://download.eclipse.org/mat/1.1.1/update-site/
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;DDMS、Deviceより。Heapを選択。↓矢印のついているheapアイコンでhprofファイルが作成される
+できたhprofファイルは現状バグっているらしいので、hprofツールで再度加工しなおす。
+/env/gb234/android/out/host/linux-x86/bin/hprof-conv system_process.hprof ./TMP/temp.hprof
+eclipseファイルを開くから、できたhprofを選択すると、展開され、hprof取得タイミングでのメモリ情報が表示される。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>Nexus S ビルド〜ロム焼き まで</title>
+      <link>https://tro3373.github.io/posts/2011/2011-07-30-nexus-s-birudo-romushao-ki-made/</link>
+      <pubDate>Sat, 30 Jul 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-07-30-nexus-s-birudo-romushao-ki-made/</guid>
+      <description>&lt;h1 id=&#34;nexus-s-ビルドロム焼き-まで&#34;&gt;Nexus S ビルド〜ロム焼き まで&lt;/h1&gt;
+&lt;p&gt;Nexus S 目指せ文鎮化！ぐらいの勢いで、ソースビルドからロム焼き&lt;/p&gt;
+&lt;h2 id=&#34;前提条件&#34;&gt;前提条件&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;環境PC
+&lt;ul&gt;
+&lt;li&gt;Ubuntu 10.10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;端末
+&lt;ul&gt;
+&lt;li&gt;Samsung製 Nexus S gingerbread 2.3.4 GRJ22&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ベースバンドバージョン
+&lt;ul&gt;
+&lt;li&gt;I9023XXKD1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;カーネルバージョン
+&lt;ul&gt;
+&lt;li&gt;2.6.35.7-ge382d80&lt;/li&gt;
+&lt;li&gt;android-build@apa28 #1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;ソース
+&lt;ul&gt;
+&lt;li&gt;android 2.3.4ソースをrepoより取得している。&lt;/li&gt;
+&lt;li&gt;ライブラリ等については、通常ビルドできる状態とする。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ubuntu-1010-に-nexus-s-を認識させる&#34;&gt;Ubuntu 10.10 に Nexus S を認識させる。&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;lsusb&lt;/code&gt; で &lt;code&gt;Google inc.&lt;/code&gt; を探す&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;sudo gedit /etc/udev/rules.d/51-android.rules&lt;/code&gt;でデバイス情報を登録してやる&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  # 以下を追加
+  SUBSYSTEM==&amp;quot;usb&amp;quot;, SYSFS{idVendor}==&amp;quot;18d1&amp;quot;, MODE=&amp;quot;0666&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;リカバリイメージのダウンロード&#34;&gt;リカバリイメージのダウンロード&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://www.koushikdutta.com/2010/02/clockwork-recovery-image.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Clockwork Recovery image置き場
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ビルド用のソースを取得&#34;&gt;ビルド用のソースを取得&lt;/h2&gt;
+&lt;p&gt;ソース取得したいディレクトリへ移動&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ソース取得したいディレクトリ
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;repo 初期化&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;repo init -u git://android.git.kernel.org/platform/manifest.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;取得対象のブランチ一覧を表示する（&lt;a class=&#34;link&#34; href=&#34;http://stackoverflow.com/questions/2874347/how-to-display-available-branches-in-android-source-tree&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考
+&lt;/a&gt;
+）&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ./.repo/manifest
+git branch -r
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;対象ブランチの決定&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>androidフレームワーク開発Tips</title>
+      <link>https://tro3373.github.io/posts/2011/2011-07-01-androidhuremuwakukai-fa-tips/</link>
+      <pubDate>Fri, 01 Jul 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-07-01-androidhuremuwakukai-fa-tips/</guid>
+      <description>&lt;h2 id=&#34;android-life-cycle&#34;&gt;Android Life Cycle&lt;/h2&gt;
+&lt;h3 id=&#34;activity&#34;&gt;Activity&lt;/h3&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2011/2011-07-01-androidhuremuwakukai-fa-tips/android-lifecycle.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;fragment&#34;&gt;Fragment&lt;/h3&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2011/2011-07-01-androidhuremuwakukai-fa-tips/android-fragment-lifecycle-1.jpg&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;ビルド&#34;&gt;ビルド&lt;/h1&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# For Nexus S&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /path/to/the/sourcedirectory/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; build/envsetup.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lunch &lt;span class=&#34;m&#34;&gt;4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;time&lt;/span&gt; make -j9 update-api
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;time&lt;/span&gt; make -j9
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# For vega&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; build/envsetup.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;time&lt;/span&gt; brunch vega -j9
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# For Xoom&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;USE_CCACHE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;TMP_CCACHE_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/env/build.cache/wingray.tmp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;CCACHE_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$TMP_CCACHE_DIR&lt;/span&gt;/.ccache
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;prebuilt/linux-x86/ccache/ccache -M 20G
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt; build/envsetup.sh
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;lunch &lt;span class=&#34;m&#34;&gt;5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;time&lt;/span&gt; make -j9&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;flash-image&#34;&gt;Flash image&lt;/h1&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# crespo(Nexus S)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;ENVPATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/env/nexus/kmpf-android-2.3.4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;DEVICE_NAME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;crespo
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fastboot flash boot &lt;span class=&#34;nv&#34;&gt;$ENVPATH&lt;/span&gt;/out/target/product/&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;DEVICE_NAME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/boot.img
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fastboot flash recovery &lt;span class=&#34;nv&#34;&gt;$ENVPATH&lt;/span&gt;/out/target/product/&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;DEVICE_NAME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/recovery.img
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fastboot flash userdata &lt;span class=&#34;nv&#34;&gt;$ENVPATH&lt;/span&gt;/out/target/product/&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;DEVICE_NAME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/userdata.img
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fastboot flash system &lt;span class=&#34;nv&#34;&gt;$ENVPATH&lt;/span&gt;/out/target/product/&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;DEVICE_NAME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/system.img
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# passion(Nexus One)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;ENVPATH&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/env/nexus.one/svn-source_kmpf-android-2.3.4
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;DEVICE_NAME&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;passion
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fastboot flash boot &lt;span class=&#34;nv&#34;&gt;$ENVPATH&lt;/span&gt;/out/target/product/&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;DEVICE_NAME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/boot.img
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fastboot flash recovery &lt;span class=&#34;nv&#34;&gt;$ENVPATH&lt;/span&gt;/out/target/product/&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;DEVICE_NAME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/recovery.img
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fastboot flash userdata &lt;span class=&#34;nv&#34;&gt;$ENVPATH&lt;/span&gt;/out/target/product/&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;DEVICE_NAME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/userdata.img
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;fastboot flash system &lt;span class=&#34;nv&#34;&gt;$ENVPATH&lt;/span&gt;/out/target/product/&lt;span class=&#34;si&#34;&gt;${&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;DEVICE_NAME&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;/system.img
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# vega(Xvision)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;TOOLS_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;~/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;TARGET_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/env/vega/kmpf-cm71-android-2.3.5-n
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;OUT_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$TARGET_DIR&lt;/span&gt;/out/target/product/vega
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nvflash --bl &lt;span class=&#34;nv&#34;&gt;$TOOLS_DIR&lt;/span&gt;/bootloader.bin --go
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nvflash -r --download &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/system.img --download &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/boot.img --download &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/userdata.img --download &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/recovery.img
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# vega(Xvision)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;TOOLS_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;~/bin
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;OUT_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/env/vega/vega/out/target/product/vega
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nvflash --bl &lt;span class=&#34;nv&#34;&gt;$TOOLS_DIR&lt;/span&gt;/bootloader.bin --go
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nvflash -r --download &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/system.img --download &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/boot.img --download &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/userdata.img --download &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/recovery.img&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;adb-shell&#34;&gt;adb shell&lt;/h1&gt;
+&lt;p&gt;cd /env/gb234/android/out/host/linux-x86/sdk/android-sdk_eng.username_linux-x86/platform-tools
+./adb shell&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Android GingerBread ビルド色々</title>
+      <link>https://tro3373.github.io/posts/2011/2011-01-01-android-gingerbread-se/</link>
+      <pubDate>Sat, 01 Jan 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-01-01-android-gingerbread-se/</guid>
+      <description>&lt;h2 id=&#34;sdkビルドしたoutディレクトリからemulatorを立ち上げる&#34;&gt;SDKビルドしたoutディレクトリから、emulatorを立ち上げる&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /env/gb/gingerbread/out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/tools
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./android list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ⇒    以下が正しく無いとして、起動できず&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     ・sdklib.jar&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     ・sdkmanager.jar&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     ・sdkuilib.jar&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ⇒    Eclipseより取得したファイルより、上書き&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#     以下のように正しく表示される&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#         Available Android targets:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#         id: 1 or &amp;#34;android-9&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#              Name: Android 2.3.1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#              Type: Platform&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#              API level: 9&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#              Revision: 1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#              Skins: QVGA, WVGA800, WQVGA400, HVGA (default), WQVGA432, WVGA854&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#         Available Android Virtual Devices:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#         The following Android Virtual Devices could not be loaded:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#             Name: jb&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#             Path: /home/hogeuser/.android/avd/jb.avd&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#            Error: Invalid value in image.sysdir. Run &amp;#39;android update avd -n jb&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./android create avd -t -s DTS400 &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; -n sdk23_84
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./emulator -avd sdk23_84 -scale 1.0 -skin DTS400&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;sdkビルドしたoutディレクトリからログキャットを立ち上げる&#34;&gt;SDKビルドしたoutディレクトリから、ログキャットを立ち上げる&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; out/host/linux-x86/sdk/android-sdk_eng.hogeuser_linux-x86/platform-tools
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./adb logcat -v time&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;実機カーネルログを出力する&#34;&gt;実機カーネルログを出力する&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# adbシェルディレクトリにて、&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;adb shell cat /proc/kmsg&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>Xivision(vega) ロム焼き</title>
+      <link>https://tro3373.github.io/posts/2010/2010-08-10-xivisionvega-romushao-ki/</link>
+      <pubDate>Tue, 10 Aug 2010 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2010/2010-08-10-xivisionvega-romushao-ki/</guid>
+      <description>&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Xivision(vega) ロム焼き&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;TOOLS_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;~/work/30.tools
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nv&#34;&gt;OUT_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/env/vega/vega/out/target/product/vega
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nvflash --bl &lt;span class=&#34;nv&#34;&gt;$TOOLS_DIR&lt;/span&gt;/bootloader.bin --go
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;nvflash -r --download &lt;span class=&#34;m&#34;&gt;8&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/system.img --download &lt;span class=&#34;m&#34;&gt;7&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/boot.img --download &lt;span class=&#34;m&#34;&gt;11&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/userdata.img --download &lt;span class=&#34;m&#34;&gt;6&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$OUT_DIR&lt;/span&gt;/recovery.img&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+  </channel>
+</rss>

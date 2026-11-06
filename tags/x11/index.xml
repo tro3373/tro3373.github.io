@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>x11 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/x11/</link>
+    <description>Recent content in x11 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 24 Apr 2023 20:20:00 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/x11/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>x11 and wayland</title>
+      <link>https://tro3373.github.io/posts/2023/2023-01-19-x11_wayland/</link>
+      <pubDate>Thu, 19 Jan 2023 09:29:39 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-01-19-x11_wayland/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.google.com/search?q=docker&amp;#43;wayland&amp;#43;%E8%BB%A2%E9%80%81&amp;amp;oq=docker&amp;#43;wayland&amp;#43;%E8%BB%A2%E9%80%81&amp;amp;aqs=chrome..69i57.5307j0j7&amp;amp;sourceid=chrome&amp;amp;ie=UTF-8&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  docker wayland 転送 - Google 検索
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://zenn.dev/ysuito/articles/7693a3c1934fb4&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  WSLgとdocker composeで全部やる
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Waylandのソケットは、/mnt/wslg/runtime-dir/wayland-0にあります。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://unix.stackexchange.com/questions/330366/how-can-i-run-a-graphical-application-in-a-container-under-wayland&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  x11 - How can I run a graphical application in a container under Wayland? - Unix &amp;amp; Linux Stack Exchange
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LinuxとWSLとDockerとXの仕組み&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ここで注目すべき(?)はRDPの存在で、これまでのWindowsのリモートデスクトップの枠組みを拡張して（？）、VAILやRAILといった仕組みでデスクトップではなくWindowレベルでの「リモートデスクトップ」を実現しているということです。
+この他、Xパケットの転送のみでは実現できなかった「音情報」の転送も組み込んでいます。
+Docker on WSL2 on Windows 10?
+Docker Desktopを企業活動で利用するのが有料になったことから、Docker Desktop を使わずに Windows で Docker する - プログラム の超個人的なメモという魔術が出回るようになりました。このアーキテクチャの場合、TCPでX11 Protocolを書き出しているので、Unix Domain Socketではなく、ポートフォワードで実現するのかなと思います（未確認）
+&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/chachay/items/44fcf17ef84bb9f31d53&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  理解しながら動かすGUIアプリ on Docker - Qiita
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;wsl側からホスト側のアドレスは &lt;code&gt;イーサネット アダプター vEthernet (WSL)&lt;/code&gt; を探す&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; &lt;span class=&#34;k&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;DISPLAY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;aaa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;bbb&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ccc&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ddd&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://qiita.com/ryoi084/items/0dff11134592d0bb895c&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  WSL2におけるVcXsrvの設定 - Qiita
+&lt;/a&gt;
+&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

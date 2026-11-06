@@ -1,0 +1,49 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="800" height="400" fill="#f8f9fa"/>
+  
+  <!-- タイトル -->
+  <text x="400" y="60" text-anchor="middle" font-family="Arial" font-size="24" fill="#1a73e8" font-weight="bold">Cloud Functions から IAM認証で Cloud SQL へ接続</text>
+  
+  <!-- Cloud Functions アイコン -->
+  <g transform="translate(200,180)">
+    <rect x="-60" y="-60" width="120" height="120" rx="10" fill="#4285f4" opacity="0.1"/>
+    <path d="M-40,-20 L40,-20 L40,20 L-40,20 Z M-30,-10 L30,-10 M-30,0 L30,0 M-30,10 L30,10" 
+          stroke="#4285f4" 
+          fill="none" 
+          stroke-width="3"/>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial" font-size="16">Cloud Functions</text>
+  </g>
+
+  <!-- IAM認証の表現 -->
+  <g transform="translate(400,180)">
+    <circle cx="0" cy="0" r="40" fill="#fbbc05" opacity="0.1"/>
+    <path d="M-20,-10 L20,-10 L20,20 L-20,20 Z M-10,0 L10,0" 
+          stroke="#fbbc05" 
+          fill="none" 
+          stroke-width="3"/>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial" font-size="16">IAM認証</text>
+  </g>
+
+  <!-- Cloud SQL アイコン -->
+  <g transform="translate(600,180)">
+    <rect x="-60" y="-60" width="120" height="120" rx="10" fill="#34a853" opacity="0.1"/>
+    <circle cx="0" cy="0" r="30" stroke="#34a853" fill="none" stroke-width="3"/>
+    <path d="M-15,-15 L15,15 M-15,15 L15,-15" stroke="#34a853" stroke-width="3"/>
+    <text x="0" y="50" text-anchor="middle" font-family="Arial" font-size="16">Cloud SQL</text>
+    <text x="0" y="70" text-anchor="middle" font-family="Arial" font-size="14">(PostgreSQL)</text>
+  </g>
+
+  <!-- 接続線 -->
+  <g stroke="#666" stroke-width="2">
+    <path d="M280,180 L320,180" marker-end="url(#arrow)"/>
+    <path d="M480,180 L520,180" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- 矢印マーカー -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#666"/>
+    </marker>
+  </defs>
+</svg>

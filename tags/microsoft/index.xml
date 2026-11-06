@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>microsoft on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/microsoft/</link>
+    <description>Recent content in microsoft on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 23 May 2013 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/microsoft/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Microsoft wiress mouse 3500 ubuntu patch settings</title>
+      <link>https://tro3373.github.io/posts/2013/2013-05-23-microsoft-wiress-mouse-3500-ubuntu-patch-settings/</link>
+      <pubDate>Thu, 23 May 2013 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2013/2013-05-23-microsoft-wiress-mouse-3500-ubuntu-patch-settings/</guid>
+      <description>&lt;h1 id=&#34;microsoft-wiress-mouse-3500-ubuntu-patch-settings&#34;&gt;Microsoft wiress mouse 3500 ubuntu patch settings&lt;/h1&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://bugs.launchpad.net/ubuntu/&amp;#43;source/compiz/&amp;#43;bug/658235&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;Ubuntu で Microsoft Wiress Mouse 3500 を使用した際、マウスホイールの動きが おかしいので、パッチを当てる、という話。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

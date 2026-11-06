@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cache on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/cache/</link>
+    <description>Recent content in cache on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 07 Oct 2026 13:38:10 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/cache/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go のキャッシュが追わない入力と巻き込む範囲</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-07-go-build-test-cache-pitfalls/</link>
+      <pubDate>Wed, 07 Oct 2026 13:38:10 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-07-go-build-test-cache-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;go test&lt;/code&gt; の結果キャッシュは、テストバイナリ・cacheable なフラグ・テストが読んだ環境変数・モジュールの中で開いたファイルで照合する。モジュールの外のファイルは、書き換えても &lt;code&gt;(cached)&lt;/code&gt; のまま緑になる&lt;/li&gt;
+&lt;li&gt;境界はパッケージのディレクトリではなくモジュールルート。外のフィクスチャは、モジュール内に張った symlink 越しに読めば追跡される&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-coverprofile&lt;/code&gt; / &lt;code&gt;-coverpkg&lt;/code&gt; 付きの実行もキャッシュされ、カバレッジ率も前回の値が出る&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;GOFLAGS=-count=1&lt;/code&gt; は、そのフラグを持たない &lt;code&gt;go build&lt;/code&gt; / &lt;code&gt;vet&lt;/code&gt; / &lt;code&gt;list&lt;/code&gt; / &lt;code&gt;fmt&lt;/code&gt; / &lt;code&gt;run&lt;/code&gt; では無視され、エラーにならない。Makefile で export すれば、全ターゲットの &lt;code&gt;go test&lt;/code&gt; をキャッシュから外せる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CGO_ENABLED&lt;/code&gt; を変えると、cgo のファイルを持つ &lt;code&gt;net&lt;/code&gt; と、それを import するパッケージがすべて別のキーで作り直される&lt;/li&gt;
+&lt;li&gt;ビルドキャッシュはユーザ単位で、全リポジトリが共有する。1 つのリポジトリの &lt;code&gt;go clean -cache&lt;/code&gt; / &lt;code&gt;-testcache&lt;/code&gt; が、同じマシンの全プロジェクトに効く&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は Go 1.26.4 (linux/amd64) で実測した。実験では &lt;code&gt;GOCACHE&lt;/code&gt; を一時ディレクトリに向け、手元のキャッシュには触れていない。&lt;/p&gt;
+&lt;h2 id=&#34;前提-テスト結果のキャッシュは何で照合するか&#34;&gt;前提: テスト結果のキャッシュは何で照合するか&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;テスト結果のキャッシュは 4 つの入力で照合し、モジュールの外のファイルはキーに入らない&#34; loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2026/2026-10-07-go-build-test-cache-pitfalls/fig-cache-key.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;go help test&lt;/code&gt; は次のとおり書いている。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The rule for a match in the cache is that the run involves the same test binary and the flags on the command line come entirely from a restricted set of &amp;lsquo;cacheable&amp;rsquo; test flags, defined as -benchtime, -coverprofile, -cpu, -failfast, -fullpath, -list, -outputdir, -parallel, -run, -short, -skip, -timeout and -v. If a run of go test has any test or non-test flags outside this set, the result is not cached. (中略) The idiomatic way to disable test caching explicitly is to use -count=1. Tests that open files within the package&amp;rsquo;s module or that consult environment variables only match future runs in which the files and environment variables are unchanged.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+  </channel>
+</rss>

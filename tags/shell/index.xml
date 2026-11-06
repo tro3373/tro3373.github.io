@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>shell on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/shell/</link>
+    <description>Recent content in shell on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 05 Nov 2026 13:36:50 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>bash の trap で書く後始末と終了コード</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-05-bash-trap-cleanup-pitfalls/</link>
+      <pubDate>Thu, 05 Nov 2026 13:36:50 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-05-bash-trap-cleanup-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;trap&lt;/code&gt; は渡した文字列を登録し、発火した時点でコードとして読み直す。単引用符なら変数は発火時の値になり、二重引用符なら張った時点の値が構文の一部として埋まる&lt;/li&gt;
+&lt;li&gt;EXIT trap が発火するのはシェルの終了時で、張った関数の中ではない。その関数の &lt;code&gt;local&lt;/code&gt; 変数はもう無いので、値は &lt;code&gt;printf -v q &#39;%q&#39;&lt;/code&gt; で埋めるか、グローバル変数に置く&lt;/li&gt;
+&lt;li&gt;EXIT trap は SIGINT・SIGTERM・SIGHUP で止められても走り、SIGKILL では走らない。&lt;code&gt;trap cleanup EXIT INT&lt;/code&gt; と INT も並べると、Ctrl-C の後もスクリプトが先へ進む&lt;/li&gt;
+&lt;li&gt;trap はシェルに 1 つの表で、関数ごとの範囲を持たない。ライブラリの &lt;code&gt;trap - EXIT&lt;/code&gt; は呼び出し元の EXIT trap も消し、関数で張った RETURN trap は呼び出し元の return でも発火する&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;set -e&lt;/code&gt; の下では、EXIT trap の中の失敗が終了コードを書き換え、trap の残りの行を飛ばす。&lt;code&gt;set -u&lt;/code&gt; だけなら trap は止まるが、終了コードは残る&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は GNU bash 5.3.20 / Linux x86_64 で実測した。&lt;/p&gt;
+&lt;h2 id=&#34;前提-trap-は後で読み直す文字列をシェルの表に登録する&#34;&gt;前提: trap は「後で読み直す文字列」をシェルの表に登録する&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;trap &#39;&amp;lt;文字列&amp;gt;&#39; EXIT&lt;/code&gt; は、その場では何も実行しない。文字列をシェルの表に登録し、発火したときに新しいコマンドとして読み直す。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;表はシェル (プロセス) に 1 つで、シグナル (EXIT・RETURN を含む) ごとに 1 本の文字列を持つ。同じシグナルに張り直すと、前の文字列は置き換わる&lt;/li&gt;
+&lt;li&gt;登録した文字列は &lt;code&gt;trap -p &amp;lt;シグナル&amp;gt;&lt;/code&gt; で読める&lt;/li&gt;
+&lt;li&gt;張った時点と発火した時点では、変数の値も、呼び出し中の関数も、表の中身も変わりうる。以下の罠はどれもこのずれから起きる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;set -e&lt;/code&gt; 自体の効き方は &lt;a class=&#34;link&#34; href=&#34;https://tro3373.github.io/posts/2026/2026-09-28-bash-set-e-errexit-pitfalls/&#34;
+  
+  &gt;
+  bash の set -e が効かない場所と効きすぎる場所
+&lt;/a&gt;
+ に、
+ERR trap がパイプの失敗で発火しない件は &lt;a class=&#34;link&#34; href=&#34;https://tro3373.github.io/posts/2021/2021-04-09-trap-not-work-with-pipe/&#34;
+  
+  &gt;
+  trap コマンドは pipe と併用すると動作しない
+&lt;/a&gt;
+ に書いた。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>bash のパイプが返す終了コードと SIGPIPE</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-27-bash-pipeline-exit-status-sigpipe/</link>
+      <pubDate>Tue, 27 Oct 2026 13:39:45 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-27-bash-pipeline-exit-status-sigpipe/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;パイプの終了コードは、既定では末尾のコマンドのもの。&lt;code&gt;set -o pipefail&lt;/code&gt; を立てると、最後に非 0 で終わったコマンドのものになる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;||&lt;/code&gt; と &lt;code&gt;if&lt;/code&gt; はパイプ全体の終了コードを見る。&lt;code&gt;cmd | grep -v X || true&lt;/code&gt; は cmd の失敗も 0 にし、&lt;code&gt;if cmd | grep -q X&lt;/code&gt; は取得の失敗を「一致なし」と同じ偽にする&lt;/li&gt;
+&lt;li&gt;読み手が終わった後に書き手が書くと、書き手は SIGPIPE で 141 になり、&lt;code&gt;pipefail&lt;/code&gt; がそれを全体の終了コードにする。&lt;code&gt;| head&lt;/code&gt;、&lt;code&gt;| grep -q&lt;/code&gt;、stdin を読まない読み手で起き、出力が小さくても書く順番しだいで起きる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mapfile &amp;lt; &amp;lt;(cmd)&lt;/code&gt; はパイプではないので、cmd の失敗はどこにも残らない&lt;/li&gt;
+&lt;li&gt;判定に使う出力は先に変数へ取り、here-string で渡す。fallback 付きのコマンドは、成功したときだけ stdout に出す&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は GNU bash 5.3.15 / GNU coreutils 9.11 / GNU grep 3.12 / Linux x86_64 で実測した。回数を書いたものはタイミングで決まるので、環境によって数字が変わる。&lt;/p&gt;
+&lt;h2 id=&#34;前提-パイプの終了コードはどのコマンドのものか&#34;&gt;前提: パイプの終了コードはどのコマンドのものか&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;既定ではパイプの終了コードは右端のコマンドのもので、pipefail を立てると最後に非 0 で終わったコマンドのものになる&#34; loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2026/2026-10-27-bash-pipeline-exit-status-sigpipe/fig-status.webp&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>スクリプトから呼ぶ fzf が返す値と終了コード</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-16-fzf-in-shell-scripts-pitfalls/</link>
+      <pubDate>Fri, 16 Oct 2026 13:48:23 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-16-fzf-in-shell-scripts-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;--select-1&lt;/code&gt; は候補が 1 件なら、&lt;code&gt;--exit-0&lt;/code&gt; は 0 件なら、一覧を出さずに終わる。「fzf で人が選ぶ」前提の導線でも、1 件に絞れた候補はそのまま確定する&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--query&lt;/code&gt; の既定はあいまい一致で、行全体を照合する。&lt;code&gt;api&lt;/code&gt; は &lt;code&gt;apps-migration&lt;/code&gt; に当たり、&lt;code&gt;--exact&lt;/code&gt; でも &lt;code&gt;main&lt;/code&gt; は &lt;code&gt;domain-model&lt;/code&gt; に当たる。行と完全に一致させるのは &lt;code&gt;^main$&lt;/code&gt; だけ&lt;/li&gt;
+&lt;li&gt;fzf は &lt;code&gt;--filter&lt;/code&gt; 以外では起動時に &lt;code&gt;/dev/tty&lt;/code&gt; を開く。制御端末の無いプロセスでは、&lt;code&gt;--select-1&lt;/code&gt; で 1 件に絞れても &lt;code&gt;failed to open /dev/tty&lt;/code&gt; で exit 2 になる&lt;/li&gt;
+&lt;li&gt;終了コードは 0 (選んだ) / 1 (一致なし) / 2 (エラー) / 130 (中断)。&lt;code&gt;--expect=&lt;/code&gt; (キー無し) は 2。&lt;code&gt;producer | fzf&lt;/code&gt; は、fzf が先に終わると producer が SIGPIPE の 141 で終わり、&lt;code&gt;pipefail&lt;/code&gt; で全体が 141 になる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{}&lt;/code&gt; &lt;code&gt;{1}&lt;/code&gt; はシングルクォートで囲んだ 1 引数に展開される。自分で &lt;code&gt;&amp;quot;{}&amp;quot;&lt;/code&gt; と囲むと、そのクォートが値に混ざる&lt;/li&gt;
+&lt;li&gt;preview は行ごとに別の &lt;code&gt;$SHELL -c&lt;/code&gt; で走り、呼び出し元の関数と export していない変数は見えない&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;--multi&lt;/code&gt; の出力は選んだ順。&lt;code&gt;--tac&lt;/code&gt; は入力の並びを反転するだけで、カーソルは常に並びの先頭に乗る&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は fzf 0.74.3 / bash 5.3.15 / linux/amd64 で実測した。対話の操作は &lt;code&gt;script&lt;/code&gt; コマンドが作る疑似端末 (pty) の中で fzf を動かし、キーを送って再現した。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>bash の set -e が効かない場所と効きすぎる場所</title>
+      <link>https://tro3373.github.io/posts/2026/2026-09-28-bash-set-e-errexit-pitfalls/</link>
+      <pubDate>Mon, 28 Sep 2026 09:56:02 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-09-28-bash-set-e-errexit-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;set -e&lt;/code&gt; は「条件の文脈の外で、コマンドが非 0 を返したら止まる」だけの仕組みで、失敗を報告はしない&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;効きすぎる&lt;/strong&gt;: 関数の戻り値、&lt;code&gt;x=$(cmd)&lt;/code&gt; の代入、&lt;code&gt;((n++))&lt;/code&gt;、&lt;code&gt;wait&lt;/code&gt;、&lt;code&gt;read&lt;/code&gt; が非 0 を返すと、メッセージ無しでその行で終わる&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;効かない&lt;/strong&gt;: &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; / &lt;code&gt;||&lt;/code&gt; の途中、&lt;code&gt;if&lt;/code&gt; / &lt;code&gt;while&lt;/code&gt; の条件、そこから呼んだ関数と subshell の中、&lt;code&gt;$( )&lt;/code&gt; の中、&lt;code&gt;set -e&lt;/code&gt; より前の行&lt;/li&gt;
+&lt;li&gt;失敗の扱いは &lt;code&gt;set -e&lt;/code&gt; 任せにせず、その文に &lt;code&gt;|| return 1&lt;/code&gt; や &lt;code&gt;|| fallback&lt;/code&gt; を付けて明示する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下のコードはすべて GNU bash 5.3.15 で実測した。&lt;/p&gt;
+&lt;h2 id=&#34;前提-set--e-が止めない文脈&#34;&gt;前提: set -e が止めない文脈&lt;/h2&gt;
+&lt;p&gt;bash は、失敗したコマンドが次のどれかに当たるとき &lt;code&gt;set -e&lt;/code&gt; で終了しない。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;while&lt;/code&gt; / &lt;code&gt;until&lt;/code&gt; の直後のコマンドリスト&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;if&lt;/code&gt; / &lt;code&gt;elif&lt;/code&gt; の条件&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; / &lt;code&gt;||&lt;/code&gt; のリストの途中 (最後以外)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;!&lt;/code&gt; で反転したコマンド&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;この免除は、その文脈で実行される関数本体と subshell の中まで及ぶ。
+逆に、この文脈の外で非 0 を返した文は、関数呼び出しでも代入文でも止まる。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

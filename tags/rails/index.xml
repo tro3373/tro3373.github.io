@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Rails on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/rails/</link>
+    <description>Recent content in Rails on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 14 Nov 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/rails/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu 14.04 で、ruby on rails passenger をインストールして apache 連携する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</link>
+      <pubDate>Fri, 14 Nov 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-11-14-ubuntu-14-04-de-ruby-on-rails-passenger-woinsutorusite-apache-lian-xi-suru/</guid>
+      <description>&lt;h2 id=&#34;passenger-インストール&#34;&gt;passenger インストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/
+rbenv exec gem install passenger
+rbenv rehash
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;passenger-install-apache2-module実行&#34;&gt;passenger-install-apache2-module実行&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;rbenv exec passenger-install-apache2-module
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;passenger-install-apache2-module 詳細&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  This installer will guide you through the entire installation process. It
+  shouldn&#39;t take more than 3 minutes in total.
+
+  Here&#39;s what you can expect from the installation process:
+
+   1. The Apache 2 module will be installed for you.
+   2. You&#39;ll learn how to configure Apache.
+   3. You&#39;ll learn how to deploy a Ruby on Rails application.
+
+  Don&#39;t worry if anything goes wrong. This installer will advise you on how to
+  solve any problems.
+
+  Press Enter to continue, or Ctrl-C to abort.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Which languages are you interested in?
+
+  Use &amp;lt;space&amp;gt; to select.
+  If the menu doesn&#39;t display correctly, press &#39;!&#39;
+
+   ? ?  Ruby
+     ?  Python
+     ?  Node.js
+     ?  Meteor
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;! 入力&lt;br&gt;
+上下でカーソルを移動できる&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  &amp;gt; (*)  Ruby
+     (*)  Python
+     (*)  Node.js
+     ( )  Meteor
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ruby を選択し、Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Checking for required software...
+
+   * Checking for C compiler...
+        Found: yes
+        Location: /usr/bin/cc
+   * Checking for C++ compiler...
+        Found: yes
+        Location: /usr/bin/c++
+   * Checking for Curl development headers with SSL support...
+        Found: no
+        Error: Cannot find the `curl-config` command.
+   * Checking for OpenSSL development headers...
+        Found: yes
+        Location: /usr/include/openssl/ssl.h
+   * Checking for Zlib development headers...
+        Found: yes
+        Location: /usr/include/zlib.h
+   * Checking for Apache 2...
+        Found: yes
+        Location of httpd: /usr/sbin/apache2
+        Apache version: 2.4.7
+   * Checking for Apache 2 development headers...
+        Found: no
+   * Checking for Rake (associated with /home/[loginusername]/.rbenv/versions/2.1.2/bin/ruby)...
+        Found: yes
+        Location: /home/[loginusername]/.rbenv/versions/2.1.2/bin/ruby /home/[loginusername]/.rbenv/versions/2.1.2/bin/rake
+   * Checking for OpenSSL support for Ruby...
+        Found: yes
+   * Checking for RubyGems...
+        Found: yes
+   * Checking for Ruby development headers...
+        Found: yes
+        Location: /home/[loginusername]/.rbenv/versions/2.1.2/include/ruby-2.1.0/ruby.h
+   * Checking for rack...
+        Found: yes
+   * Checking for Apache Portable Runtime (APR) development headers...
+        Found: no
+   * Checking for Apache Portable Runtime Utility (APU) development headers...
+        Found: no
+
+  Some required software is not installed.
+  But don&#39;t worry, this installer will tell you how to install them.
+  Press Enter to continue, or Ctrl-C to abort.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Installation instructions for required software
+
+   * To install Curl development headers with SSL support:
+     Please run apt-get install libcurl4-openssl-dev or libcurl4-gnutls-dev, whichever you prefer.
+
+   * To install Apache 2 development headers:
+     Please install it with apt-get install apache2-threaded-dev
+
+   * To install Apache Portable Runtime (APR) development headers:
+     Please install it with apt-get install libapr1-dev
+
+   * To install Apache Portable Runtime Utility (APU) development headers:
+     Please install it with apt-get install libaprutil1-dev
+
+  If the aforementioned instructions didn&#39;t solve your problem, then please take
+  a look at the Users Guide:
+
+    /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53/doc/Users guide Apache.html
+    https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ガイドに従い、必要なパッケージをインストールする&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  sudo apt-get install libcurl4-openssl-dev apache2-threaded-dev libapr1-dev libaprutil1-dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再度インストールコマンド実行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  rbenv exec passenger-install-apache2-module
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再度エラーが出る場合は、パッケージインストール、&lt;code&gt;passenger-install-apache2-module&lt;/code&gt; を&lt;br&gt;
+エラーがなくなるまで、繰り返す
+エラーがなくなると、自動でコンパイルが始まる&lt;br&gt;
+最後に以下が表示される&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+  Almost there!
+
+  Please edit your Apache configuration file, and add these lines:
+
+     LoadModule passenger_module /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53/buildout/apache2/mod_passenger.so
+     &amp;lt;IfModule mod_passenger.c&amp;gt;
+       PassengerRoot /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53
+       PassengerDefaultRuby /home/[loginusername]/.rbenv/versions/2.1.2/bin/ruby
+     &amp;lt;/IfModule&amp;gt;
+
+  After you restart Apache, you are ready to deploy any number of web
+  applications on Apache, with a minimum amount of configuration!
+
+  Press ENTER to continue.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上記をコピーし、控えておく&lt;br&gt;
+再度表示したい場合は、&lt;code&gt;rbenv exec passenger-install-apache2-module --snippet&lt;/code&gt;を実行すると
+上記と同じものが表示される&lt;br&gt;
+Enter 入力&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  --------------------------------------------
+
+  Deploying a web application: an example
+
+  Suppose you have a web application in /somewhere. Add a virtual host to your
+  Apache configuration file and set its DocumentRoot to /somewhere/public:
+
+     &amp;lt;VirtualHost *:80&amp;gt;
+        ServerName www.yourhost.com
+        # !!! Be sure to point DocumentRoot to &#39;public&#39;!
+        DocumentRoot /somewhere/public
+        &amp;lt;Directory /somewhere/public&amp;gt;
+           # This relaxes Apache security settings.
+           AllowOverride all
+           # MultiViews must be turned off.
+           Options -MultiViews
+           # Uncomment this if you&#39;re on Apache &amp;gt;= 2.4:
+           #Require all granted
+        &amp;lt;/Directory&amp;gt;
+     &amp;lt;/VirtualHost&amp;gt;
+
+  And that&#39;s it! You may also want to check the Users Guide for security and
+  optimization tips, troubleshooting and other useful information:
+
+    /home/[loginusername]/.rbenv/versions/2.1.2/lib/ruby/gems/2.1.0/gems/passenger-4.0.53/doc/Users guide Apache.html
+    https://www.phusionpassenger.com/documentation/Users%20guide%20Apache.html
+
+  Enjoy Phusion Passenger, a product of Phusion (www.phusion.nl) :-)
+  https://www.phusionpassenger.com
+
+  Phusion Passenger is a trademark of Hongli Lai &amp;amp; Ninh Bui.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;最後にapache バーチャルホスト設定のサンプルも表示されるので、控えておく&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 libwebsockets クライアントを試す</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</guid>
+      <description>&lt;h2 id=&#34;libwebsockets-build&#34;&gt;libwebsockets build&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install cmake
+cd ~/works
+git clone git://git.libwebsockets.org/libwebsockets
+cd libwebsockets/
+mkdir build
+cd build
+cmake ..
+make -j8
+# sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;サンプルとして作成したサーバに-libwebsocket-test-echo-サンプルからアクセスする&#34;&gt;サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする&lt;/h2&gt;
+&lt;h3 id=&#34;server&#34;&gt;server&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;rails 上に em-websocket を実装したcontrollerを用意する&lt;br&gt;
+※ rails に関しては、省略&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;ubuntu-1404-libwebsockets-クライアントを試す&#34;&gt;Ubuntu 14.04 libwebsockets クライアントを試す&lt;/h1&gt;
+&lt;h2 id=&#34;libwebsockets-build-1&#34;&gt;libwebsockets build&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install cmake
+cd ~/works
+git clone git://git.libwebsockets.org/libwebsockets
+cd libwebsockets/
+mkdir build
+cd build
+cmake ..
+make -j8
+# sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;サンプルとして作成したサーバに-libwebsocket-test-echo-サンプルからアクセスする-1&#34;&gt;サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする&lt;/h2&gt;
+&lt;h3 id=&#34;server-1&#34;&gt;server&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;rails 上に em-websocket を実装したcontrollerを用意する&lt;br&gt;
+※ rails に関しては、省略&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;gem-settings&#34;&gt;gem settings&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/works/test_rails
+vim GemFile
+----------------- 以下を追加
+gem &#39;em-websocket&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;gem-install&#34;&gt;gem install&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;bundle update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;mod-controller&#34;&gt;mod controller&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;任意のcontrollerに以下を追加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  require &amp;quot;em-websocket&amp;quot;
+  ～ 省略 ～
+  connections = EM::Channel.new
+  EM::WebSocket.start(host: &amp;quot;[server address]&amp;quot;, port: 3001) do |ws_conn|
+    ws_conn.onopen do
+      puts &amp;quot;connected&amp;quot;
+      # EventMachine#subscribeを用い、コネクションオブジェクトと処理を登録
+      connections.subscribe{|message| ws_conn.send(message) }
+    end
+    ws_conn.onmessage do |message|
+      # onopen内で登録した処理を呼び出し
+      puts &amp;quot;received:&amp;quot; + message
+      connections.push(message)
+    end
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 rails scoffoldでEntity作成、からDB migrateまで</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-rails-scoffolddeentityzuo-cheng-karadb-migratemade/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-rails-scoffolddeentityzuo-cheng-karadb-migratemade/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;以下のような形式で generate できる
+bundle exec rails generate scaffold [entity_name] [column_name]:[data_type][column_name]:[data_type] 
+# 間違えたら！
+bundle exec rails destroy scaffold &amp;quot;name&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;data type
+&lt;ul&gt;
+&lt;li&gt;integer, string, timestamp などなどが使える&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;generateした各ファイルをそれぞれ条件を追加するように下記のように修正&#34;&gt;Generateした各ファイルをそれぞれ条件を追加するように、下記のように修正&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;db/migrate/YYYYMMDDhhmmss_create_[entity_name].rb
+以下のように、NotNullや桁指定、デフォルト指定ができる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;class CreateEvents &amp;lt; ActiveRecord::Migration
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  def change
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    create_table :[entity_name] do |t|
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      t.string :column_name, :null =&amp;gt; false, :limit =&amp;gt; 1, :default =&amp;gt; 0
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      t.timestamps
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    end
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  end
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;end&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;作成した-rb-ファイルでdb再作成&#34;&gt;作成した rb ファイルで、DB再作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;# 通常DB作成
+# bundle exec rake db:migrate
+# DB再作成（db/schema.rb より再実行）
+# bundle exec rake db:reset
+# DB再作成（db/migrate/**.rb より再実行）
+# →今回は追加する形であるので、以下を実行する
+# →DROP→CREATEされる
+bundle exec rake db:migrate:reset
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;サーバ立ち上げ&#34;&gt;サーバ立ち上げ&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails server
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 ruby2.1.2 で ActiveRecord4.1.6 を使用し、postgresql4.1.6 へアクセス</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-ruby2-1-2-de-activerecord4-1-6-woshi-yong-si-postgresql4-1-6-heakusesu/</guid>
+      <description>&lt;h2 id=&#34;まずはdatabase-確認&#34;&gt;まずはdatabase 確認&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo su postgres -c psql
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;install-activerecordpg&#34;&gt;install activerecord,pg&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p ~/works/99_sample/02_activerecord
+cd ~/works/99_sample/02_activerecord
+gem install activerecord
+gem install pg
+gem list
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;dbユーザtest_nameを作成しておく&#34;&gt;DBユーザ&lt;code&gt;test_name&lt;/code&gt;を作成しておく&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;sudo su postgres -c psql
+create role test_name superuser login;
+\password test_name
+  Enter new password: test_name
+  Enter it again: test_name
+create database test_name;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;configdatabaseyml&#34;&gt;config/database.yml&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;mkdir -p config &amp;amp;&amp;amp; vim config/database.yml&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;db:
+  production:
+    adapter:  postgresql
+    host:     localhost
+    username: test_name
+    password: test_name
+    database: test_name
+
+  development:
+    adapter:  postgresql
+    host:     localhost
+    username: test_name
+    password: test_name
+    database: test_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;dbmigrate配下に３ファイルを配置rails環境からコピー&#34;&gt;&lt;code&gt;db/migrate&lt;/code&gt;配下に、３ファイルを配置(rails環境からコピー)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;mkdir -p db/migrate&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 で websocket, zeroMQ</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</guid>
+      <description>&lt;p&gt;rails 、postgresql、zeroMQ、websocketを使って通信するサンプル環境を作成中&lt;/p&gt;
+&lt;h3 id=&#34;create-rails-project&#34;&gt;create rails project&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+rails new test_rails_postgres -d postgresql
+cd test_rails_postgres
+bundle install --path vendor/bundle
+bundle exec rake db:create db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;テスト起動確認&#34;&gt;テスト起動確認&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+rails server
+http://[サーバアドレス]:3000へアクセス
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;git-管理開始&#34;&gt;git 管理開始&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+git init
+vim .gitignore
+以下を追加
+    doc/
+    *.swp
+    *~
+    .project
+    .DS_Store
+    .idea
+    .secret
+git add .
+git commit -m &amp;quot;initial commit.&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;テスト設定&#34;&gt;テスト設定&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails generate scaffold book title:string author:string outline:text
+bundle exec rake db:migrate
+bundle exec rails server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;db確認&#34;&gt;db確認&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;-- database list
+\l
+-- user list
+select * from pg_user;
+-- table list
+\d
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;routes-の確認&#34;&gt;routes の確認&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;http://localhost:3000/rails/info/routes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-へwebsocket実装&#34;&gt;rails へwebsocket実装&lt;/h2&gt;
+&lt;h3 id=&#34;websocket-rails-install&#34;&gt;websocket-rails install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+vim Gemfile
+# 以下を追加  
+    gem &#39;websocket-rails&#39;
+bundle install
+rails g websocket_rails:install
+# コントローラ作成
+vim app/controllers/websocket_chat_controller.rb
+    # WebsocketRails::BaseControllerを継承
+    class WebsocketChatController &amp;lt; WebsocketRails::BaseController
+      def message_recieve
+        # クライアントからのメッセージを取得
+        recieve_message = message()
+        # websocket_chatイベントで接続しているクライアントにブロードキャスト
+        broadcast_message(:websocket_chat, recieve_message)
+      end
+    end
+vim config/events.rb
+    WebsocketRails::EventMap.describe do
+          # websocket_chatイベントのマッピング
+        subscribe :websocket_chat, to: WebsocketChatController,
+        with_method: :message_recieve
+    end
+
+# クライアント
+rails g controller chat index
+vim app/views/chat/index.html.erb
+以下追加
+    &amp;lt;!-- チャット表示部分 --&amp;gt;
+    &amp;lt;ul id=&amp;quot;chat_area&amp;quot;&amp;gt;
+    &amp;lt;/ul&amp;gt;
+    &amp;lt;!-- コメントフォーム --&amp;gt;
+    &amp;lt;input id=&amp;quot;comment&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;
+    &amp;lt;input id=&amp;quot;send&amp;quot; type=&amp;quot;button&amp;quot; value=&amp;quot;send&amp;quot;&amp;gt;
+    &amp;lt;script&amp;gt;
+      var ws_rails = new WebSocketRails(&amp;quot;[url]:3000/websocket&amp;quot;);
+      // メッセージ受信時の処理
+      ws_rails.bind(&amp;quot;websocket_chat&amp;quot;, function(message){
+        var message_li = document.createElement(&amp;quot;li&amp;quot;);
+        message_li.textContent = message;
+        
+        document.getElementById(&amp;quot;chat_area&amp;quot;).appendChild(message_li);
+      })
+      // メッセージ送信時の処理
+      document.getElementById(&amp;quot;send&amp;quot;).onclick =  function(){
+        var comment = document.getElementById(&amp;quot;comment&amp;quot;).value;
+        ws_rails.trigger(&amp;quot;websocket_chat&amp;quot;, comment);
+      }
+    &amp;lt;/script&amp;gt;
+vim config/environments/development.rb
+    # 以下を追加
+    config.middleware.delete Rack::Lock
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;test-websocket-client作成&#34;&gt;test websocket client作成&lt;/h2&gt;
+&lt;h3 id=&#34;gem-install&#34;&gt;gem install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gem install websocket-client-simple
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;client-program動かない&#34;&gt;client program(動かない)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;vim websocket_client.rb
+    require &#39;rubygems&#39;
+    require &#39;websocket-client-simple&#39;
+    
+    ws = WebSocket::Client::Simple.connect &#39;[url]:3000/websocket&#39;
+    
+    ws.on :message do |msg|
+      puts msg.data
+    end
+    
+    ws.on :open do
+      ws.send &#39;hello!!!&#39;
+    end
+    
+    ws.on :close do |e|
+      p e
+      exit 1
+    end
+    
+    loop do
+      ws.send STDIN.gets.strip
+    end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;execjs-install不要&#34;&gt;execjs install(不要)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gem install execjs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;zeromq-install&#34;&gt;zeromq install&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+git clone https://github.com/zeromq/zeromq4-x.git
+cd zeromq4-x
+# git checkout origin/v4.0.1
+sudo aptitude install libtool autoconf uuid-dev
+./autogen.sh
+#./configure --prefix=/usr/local/zmq
+./configure
+make
+sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;zeromq導入&#34;&gt;ZeroMQ導入&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;vim Gemfile
+--------------------
+# Use zeroMq
+gem &#39;rbzmq&#39;
+#gem &#39;ffi-rzmq&#39;
+#gem &#39;zqm&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ffi-rzmqのバージョンが合っている201が要る&#34;&gt;ffi-rzmqのバージョンが合っている2.0.1が要る？&lt;/h2&gt;
+&lt;h2 id=&#34;rails-コントローラにzmqスレッドを立ち上げる&#34;&gt;rails コントローラにZMQスレッドを立ち上げる&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;vim websocket_chat_controller.rb
+---------------------------------------------------
+require &#39;rbzmq&#39;
+# WebsocketRails::BaseControllerを継承
+class WebsocketChatController &amp;lt; WebsocketRails::BaseController
+  context = ZMQ::Context.new
+  publisher = context.socket ZMQ::PUB
+  publisher.bind &amp;quot;tcp://*:5563&amp;quot;
+  begin
+    t = Thread.new do
+      Thread.pass    # メインスレッドが確実にjoinするように
+      puts &amp;quot;[rails] Tread loop start.&amp;quot;
+      loop do
+        publisher.send_string &#39;A&#39;, ZMQ::SNDMORE
+        publisher.send_string &amp;quot;We don&#39;t want to see this.&amp;quot;
+
+        publisher.send_string &#39;B&#39;, ZMQ::SNDMORE
+        publisher.send_string &amp;quot;We would like to see this.&amp;quot;
+
+        sleep 1
+      end
+      publisher.close
+      raise &amp;quot;unhandled exception&amp;quot;
+    end
+    t.join
+  rescue
+    p $!  # =&amp;gt; &amp;quot;unhandled exception&amp;quot;
+  end
+
+  puts &amp;quot;[rails] WebsocketChatController is started!!!!!&amp;quot;
+  def message_recieve
+    # クライアントからのメッセージを取得
+    recieve_message = message()
+    puts &amp;quot;[rails] server message receive and broadcast =&amp;gt; #{recieve_message}&amp;quot;
+    # websocket_chatイベントで接続しているクライアントにブロードキャスト
+    broadcast_message(:websocket_chat, recieve_message)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-server立ち上げ&#34;&gt;rails server立ち上げ&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;em-websocket-in-rails&#34;&gt;em-websocket in rails&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;vim websocket_chat_controller.rb
+require &amp;ldquo;em-websocket&amp;rdquo;
+# 省略
+puts &amp;ldquo;rails emwebsocket server start&amp;rdquo;
+# 配列ではなくEventMachineオブジェクトを生成
+connections = EM::Channel.new
+EM::WebSocket.start(host: &amp;ldquo;172.19.1.94&amp;rdquo;, port: 3001) do |ws_conn|
+ws_conn.onopen do
+puts &amp;ldquo;connected&amp;rdquo;
+# EventMachine#subscribeを用い、コネクションオブジェクトと処理を登録
+connections.subscribe{|message| ws_conn.send(message) }
+end
+ws_conn.onmessage do |message|
+# onopen内で登録した処理を呼び出し
+puts &amp;ldquo;received:&amp;rdquo; + message
+connections.push(message)
+end
+end&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

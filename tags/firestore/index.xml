@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>firestore on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/firestore/</link>
+    <description>Recent content in firestore on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 08 Oct 2026 13:39:28 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/firestore/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Firestore のトランザクションが守るのは読んだ文書だけ</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-08-firestore-transaction-protects-only-reads/</link>
+      <pubDate>Thu, 08 Oct 2026 13:39:28 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-08-firestore-transaction-protects-only-reads/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Firestore のトランザクションが競合として扱うのは、その中で &lt;code&gt;tx.Get&lt;/code&gt; した文書だけ。
+トランザクションの外で読んだ値、読まずに書いた文書、クエリで「無かった」ことは守らない&lt;/li&gt;
+&lt;li&gt;悲観 (Standard の既定) と楽観 (Enterprise の既定) で違うのは決着の時点だけで、守る範囲は同じ。
+判定に使う値をコールバックの中で読み直せば、同じコードがどちらでも通る&lt;/li&gt;
+&lt;li&gt;「1 件だけ」を守りたい値はドキュメント ID にして名指しで読む。件数を数える判定は、エミュレータでも条件次第で 2 件できた&lt;/li&gt;
+&lt;li&gt;SDK はコールバックの中での生のクライアントの書き込みも、外側の ctx で張った &lt;code&gt;RunTransaction&lt;/code&gt; も止めない。どちらもトランザクションの外で確定する&lt;/li&gt;
+&lt;li&gt;複数の文書を「全部か、無しか」で書くなら &lt;code&gt;RunTransaction&lt;/code&gt;。&lt;code&gt;BulkWriter&lt;/code&gt; はアトミックでない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は &lt;code&gt;cloud.google.com/go/firestore&lt;/code&gt; v1.26.0 / Firestore エミュレータ v1.22.0 / Go 1.26.4 で実測した。
+エミュレータは &lt;code&gt;--database-edition=standard&lt;/code&gt; と &lt;code&gt;--database-edition=enterprise&lt;/code&gt; の 2 つを立てた。
+本番の Firestore では試していない。&lt;/p&gt;
+&lt;h2 id=&#34;前提-競合として扱うのはトランザクション内で読んだ文書だけ&#34;&gt;前提: 競合として扱うのは、トランザクション内で読んだ文書だけ&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;トランザクションが監視するのは tx.Get で読んだ文書だけで、外で読んだ値、書くだけの文書、クエリに出なかった文書は監視しない&#34; loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2026/2026-10-08-firestore-transaction-protects-only-reads/fig-read-set.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;公式ドキュメントは、並行制御の 2 つの方式をどちらも「読んだ文書」で説明している
+(&lt;a class=&#34;link&#34; href=&#34;https://docs.cloud.google.com/firestore/native/docs/transaction-data-contention&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Data contention in transactions
+&lt;/a&gt;
+)。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;悲観: &amp;ldquo;transactions place locks on the documents they read&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;楽観: 読んだ文書を追跡し、&amp;ldquo;only if none of those documents changed&amp;rdquo; のときだけ書き込みを確定する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;読んでいない文書はロックも照合もされない。
+書くだけの文書、トランザクションの外で読んだ値、クエリの結果に入らなかった文書は、守る対象に入らない。
+以下の節は、どれもこの 1 点から出てくる。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go の Firestore SDK で消える項目と通らない値</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-03-go-firestore-sdk-dropped-fields/</link>
+      <pubDate>Sat, 03 Oct 2026 13:38:01 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-03-go-firestore-sdk-dropped-fields/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Go の Firestore SDK は、struct とドキュメントの間で項目を消しても、読み飛ばしてもエラーを返さない&lt;/li&gt;
+&lt;li&gt;書く側: &lt;code&gt;Set&lt;/code&gt; は文書を丸ごと置き換える。&lt;code&gt;serverTimestamp&lt;/code&gt; の項目は非ゼロだと書かれないので、読んで詰め直した &lt;code&gt;Set&lt;/code&gt; で作成日時が消える。&lt;code&gt;MergeAll&lt;/code&gt; は map 専用で、map の中の struct は丸ごと置き換わる。&lt;code&gt;omitempty&lt;/code&gt; は &lt;code&gt;false&lt;/code&gt; / &lt;code&gt;0&lt;/code&gt; / ゼロ時刻を消し、struct は消さない&lt;/li&gt;
+&lt;li&gt;読む側: &lt;code&gt;DataTo&lt;/code&gt; は struct に無いキーを捨てる。&lt;code&gt;null&lt;/code&gt; を string や int に読んでも何もしない。int には整数で表せる double は入り、文字列は入らない&lt;/li&gt;
+&lt;li&gt;通らない値: ID・日時・クエリの値の規則を、SDK は一部しか検査しない。ID の規則違反は読みと書きで違うエラーになり、不正な UTF-8 を where に渡すと期限まで返ってこない&lt;/li&gt;
+&lt;li&gt;書き込みの経路ごとに、エミュレータで実際の文書を読んで確かめる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は &lt;code&gt;cloud.google.com/go/firestore&lt;/code&gt; v1.26.0 / Firestore エミュレータ v1.22.0 / Go 1.26.4 で実測した。
+本番の Firestore では試していない。&lt;/p&gt;
+&lt;h2 id=&#34;前提-書き込み-api-ごとに書く範囲が違う&#34;&gt;前提: 書き込み API ごとに書く範囲が違う&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;書き込み API は、文書が無いときの扱いと、書く範囲と、serverTimestamp タグが効くかで分かれる&#34; loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2026/2026-10-03-go-firestore-sdk-dropped-fields/fig-write-apis.webp&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>FirestoreのorderByには暗黙のフィルタがある</title>
+      <link>https://tro3373.github.io/posts/2025/2025-11-18-cloud-firestore-order-and-limit-data/</link>
+      <pubDate>Tue, 18 Nov 2025 13:50:49 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2025/2025-11-18-cloud-firestore-order-and-limit-data/</guid>
+      <description>&lt;h2 id=&#34;結論orderbyは指定フィールドの存在でもフィルタリングする&#34;&gt;結論：orderByは指定フィールドの存在でもフィルタリングする&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Firestoreの&lt;code&gt;orderBy()&lt;/code&gt;句は、指定したフィールドが存在しないドキュメントを自動的に除外する。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;並べ替えだけでなく、&lt;strong&gt;暗黙的にフィルタリングも行う&lt;/strong&gt;ため、予期しないデータ欠落が発生する可能性がある。&lt;/p&gt;
+&lt;h2 id=&#34;問題orderbyで結果が減る&#34;&gt;問題：orderByで結果が減る&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 「createdAt」フィールドでソート&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;client&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Collection&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;users&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;OrderBy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;createdAt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;firestore&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Asc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;このクエリでは、&lt;code&gt;createdAt&lt;/code&gt;フィールドが存在しないドキュメントは結果に含まれない。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;例：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;✅ &lt;code&gt;{id: 1, name: &amp;quot;Alice&amp;quot;, createdAt: &amp;quot;2025-01-01&amp;quot;}&lt;/code&gt; → 結果に含まれる&lt;/li&gt;
+&lt;li&gt;❌ &lt;code&gt;{id: 2, name: &amp;quot;Bob&amp;quot;}&lt;/code&gt; → &lt;strong&gt;結果から除外される&lt;/strong&gt;（createdAtがない）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;公式ドキュメントの記載&#34;&gt;公式ドキュメントの記載&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;orderBy() 句は、指定したフィールドの有無によるフィルタも行います。指定したフィールドがないドキュメントは結果セットには含まれません。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://firebase.google.com/docs/firestore/query-data/order-limit-data?hl=ja&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Cloud Firestore でデータを並べ替えたり制限する | Firebase
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;範囲比較との組み合わせ制約&#34;&gt;範囲比較との組み合わせ制約&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;範囲比較（&lt;code&gt;&amp;lt;&lt;/code&gt;, &lt;code&gt;&amp;lt;=&lt;/code&gt;, &lt;code&gt;&amp;gt;&lt;/code&gt;, &lt;code&gt;&amp;gt;=&lt;/code&gt;）のフィルタがある場合、最初の&lt;code&gt;orderBy()&lt;/code&gt;は同じフィールドで行う必要がある。&lt;/strong&gt;&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ❌ NG: 範囲比較（age）と異なるフィールド（name）で最初にorderBy&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;client&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Collection&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;users&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Where&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;age&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;OrderBy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;firestore&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Asc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// エラー: 最初のorderByはageにする必要がある&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ✅ OK: 範囲比較と同じフィールド（age）で最初にorderBy&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;query&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;client&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Collection&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;users&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Where&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;age&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&amp;gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;OrderBy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;age&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;firestore&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Asc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;OrderBy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;firestore&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Asc&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;対策フィールド存在を意識する&#34;&gt;対策：フィールド存在を意識する&lt;/h2&gt;
+&lt;h3 id=&#34;1-デフォルト値を設定&#34;&gt;1. デフォルト値を設定&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ドキュメント作成時に必ずcreatedAtを設定&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;user&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;Alice&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;createdAt&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;time&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Now&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;2-フィールド存在チェック&#34;&gt;2. フィールド存在チェック&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// 存在しないフィールドでのソートは避ける&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// または、存在チェックのWhere句を追加（複合インデックス必要）&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;3-複合インデックスを作成&#34;&gt;3. 複合インデックスを作成&lt;/h3&gt;
+&lt;p&gt;範囲比較と複数フィールドでのソートを行う場合、複合インデックスが必要。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go言語omitemptyの罠：falseが保存できない</title>
+      <link>https://tro3373.github.io/posts/2025/2025-10-27-go-omitempty-tag-for-json-and-firestore/</link>
+      <pubDate>Mon, 27 Oct 2025 16:02:13 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2025/2025-10-27-go-omitempty-tag-for-json-and-firestore/</guid>
+      <description>&lt;h2 id=&#34;結論omitemptyは便利だが罠がある&#34;&gt;結論：omitemptyは便利だが罠がある&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;omitempty&lt;/code&gt;タグは空値を省略できて便利だが、&lt;code&gt;false&lt;/code&gt;や&lt;code&gt;0&lt;/code&gt;が保存できなくなる罠がある。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;特にboolean型で**「false」と「未設定」を区別したい場合は要注意**だ。&lt;/p&gt;
+&lt;h2 id=&#34;omitemptyとは&#34;&gt;omitemptyとは&lt;/h2&gt;
+&lt;p&gt;空値の場合にフィールドを省略するタグ。JSON/Firestoreへの保存時にデータサイズを削減できる。&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;User&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;`json:&amp;#34;name&amp;#34;`&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Email&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;`json:&amp;#34;email,omitempty&amp;#34;`&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 空なら省略&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;-最大の罠空とみなされる値&#34;&gt;⚠️ 最大の罠：「空」とみなされる値&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;以下の値は「空」として扱われ、omitempty付きフィールドから消える:&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;型&lt;/th&gt;
+					&lt;th&gt;空とみなされる値&lt;/th&gt;
+					&lt;th&gt;保存できない値の例&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;真偽値&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;❌ &lt;code&gt;false&lt;/code&gt;が保存不可&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;数値&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;0&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;❌ &lt;code&gt;0&lt;/code&gt;が保存不可&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;文字列&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;❌ 空文字列が保存不可&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;スライス/マップ&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;nil&lt;/code&gt; または長さ0&lt;/td&gt;
+					&lt;td&gt;❌ 空配列が保存不可&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;strong&gt;ポインタ&lt;/strong&gt;&lt;/td&gt;
+					&lt;td&gt;&lt;code&gt;nil&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;-&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;code&gt;time.Time&lt;/code&gt;のゼロ値は、JSONでは「空」に当たらず消えない。下の「struct と time.Time は omitempty で消えない」を参照。&lt;/p&gt;
+&lt;h2 id=&#34;実例boolean型の罠&#34;&gt;実例：boolean型の罠&lt;/h2&gt;
+&lt;h3 id=&#34;問題のあるコード&#34;&gt;問題のあるコード&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Config&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;EnableFeature&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;`firestore:&amp;#34;enableFeature,omitempty&amp;#34;`&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nx&#34;&gt;config&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Config&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;EnableFeature&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ❌ Firestoreに保存されない！&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// &amp;#34;enableFeature&amp;#34;フィールド自体が消える&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;これでは「false」と「未設定」が区別できない。&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Firestore MongoDB互換の要点まとめ</title>
+      <link>https://tro3373.github.io/posts/2025/2025-10-17-firestore-mongodb-compatibility-key-points/</link>
+      <pubDate>Fri, 17 Oct 2025 10:44:25 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2025/2025-10-17-firestore-mongodb-compatibility-key-points/</guid>
+      <description>&lt;h2 id=&#34;firestore-mongodb互換の要点まとめ&#34;&gt;Firestore MongoDB互換の要点まとめ&lt;/h2&gt;
+&lt;h3 id=&#34;概要&#34;&gt;概要&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Googleが「Firestore with MongoDB compatibility」を&lt;a class=&#34;link&#34; href=&#34;https://cloud.google.com/blog/products/databases/announcing-firestore-with-mongodb-compatibility?utm_source=chatgpt.com&amp;amp;hl=en&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  発表
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;MongoDB用ドライバやMQL（MongoDB Query Language）をそのまま使ってFirestoreを操作可能&lt;/li&gt;
+&lt;li&gt;Firestoreのスケーラブルな基盤の上にMongoDB互換レイヤーを構築&lt;/li&gt;
+&lt;li&gt;現時点ではEnterpriseエディションのPreview機能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;仕組み&#34;&gt;仕組み&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;MongoDBクエリをFirestore内部クエリに変換する互換APIレイヤーを提供&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;collection.find()&lt;/code&gt; などのMongoDBドライバ呼び出しをそのまま利用可能&lt;/li&gt;
+&lt;li&gt;MongoDB→Firestoreへのクエリ変換処理で、未対応や制限付きの演算子が存在&lt;/li&gt;
+&lt;li&gt;Firestoreのインデックス構造に基づいて最適化されるが、MongoDBとは挙動が異なる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;クエリ互換性&#34;&gt;クエリ互換性&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;基本的なクエリ（比較、論理、範囲、配列など）は概ね対応&lt;/li&gt;
+&lt;li&gt;複雑なAggregation Pipeline、ジオクエリ、テキスト検索（&lt;code&gt;$text&lt;/code&gt;）などは未対応または制限あり&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$regex&lt;/code&gt; など一部の正規表現検索は動作する可能性があるが完全な互換ではない&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$where&lt;/code&gt;、&lt;code&gt;$lookup&lt;/code&gt;などのサーバーサイドスクリプト・結合系クエリは非対応&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;like検索部分一致&#34;&gt;like検索・部分一致&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;MongoDBでは &lt;code&gt;$regex&lt;/code&gt; で部分一致検索が可能&lt;/li&gt;
+&lt;li&gt;Firestoreネイティブでは前方一致（prefix検索）のみ対応&lt;/li&gt;
+&lt;li&gt;MongoDB互換モードでも正規表現機能は一部制限あり&lt;/li&gt;
+&lt;li&gt;任意の位置一致や複雑な正規表現検索は非対応または非推奨&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;制限注意点&#34;&gt;制限・注意点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;現時点でPreview段階のためAPI変更の可能性あり&lt;/li&gt;
+&lt;li&gt;MongoDBすべての演算子を網羅していない&lt;/li&gt;
+&lt;li&gt;Firestore独自のクエリ制限（フィルター数上限など）は引き継がれる&lt;/li&gt;
+&lt;li&gt;同一クエリでもMongoDBより遅くなるケースあり（インデックス構造差による）&lt;/li&gt;
+&lt;li&gt;リアルタイム更新やオフライン対応などFirestore特有の機能との完全互換は未実装&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;利用上の位置づけ&#34;&gt;利用上の位置づけ&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;MongoDBからFirestoreへの移行を容易にするための互換レイヤー&lt;/li&gt;
+&lt;li&gt;機能完全再現ではなく、移行コスト低減が主目的&lt;/li&gt;
+&lt;li&gt;高度な全文検索や結合が必要な場合はMongoDB本体を利用すべき&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;refs&#34;&gt;Refs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://cloud.google.com/blog/products/databases/announcing-firestore-with-mongodb-compatibility&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://cloud.google.com/blog/products/databases/announcing-firestore-with-mongodb-compatibility
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://cloud.google.com/firestore/mongodb-compatibility/docs/overview&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://cloud.google.com/firestore/mongodb-compatibility/docs/overview
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://firebase.google.com/docs/firestore/enterprise/migrate-to-firestore-with-mongodb&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://firebase.google.com/docs/firestore/enterprise/migrate-to-firestore-with-mongodb
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://medium.com/@aswinalexandersam/firestore-with-mongodb-compatibility-current-state-limitations-and-opportunities-fbf03542d0c3&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://medium.com/@aswinalexandersam/firestore-with-mongodb-compatibility-current-state-limitations-and-opportunities-fbf03542d0c3
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dev.to/franckpachot/firestore-with-mongodb-compatibility-testing-pagination-queries-jmf&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://dev.to/franckpachot/firestore-with-mongodb-compatibility-testing-pagination-queries-jmf
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://stackoverflow.com/questions/79631546/the-query-limitation-with-max-30-filter-parameters-still-exists-in-gcp-firestore&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://stackoverflow.com/questions/79631546/the-query-limitation-with-max-30-filter-parameters-still-exists-in-gcp-firestore
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

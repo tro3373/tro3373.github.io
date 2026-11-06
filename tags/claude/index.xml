@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>claude on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/claude/</link>
+    <description>Recent content in claude on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 26 Nov 2025 06:18:08 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/claude/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Claude Skills マーケットプレイス完全ガイド</title>
+      <link>https://tro3373.github.io/posts/2025/2025-11-26-comprehensive-list-of-claude-skills-resources-and-marketplaces/</link>
+      <pubDate>Wed, 26 Nov 2025 06:18:08 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2025/2025-11-26-comprehensive-list-of-claude-skills-resources-and-marketplaces/</guid>
+      <description>&lt;h2 id=&#34;結論13000-skillsが7つのマーケットプレイスで公開中&#34;&gt;結論：13,000+ Skillsが7つのマーケットプレイスで公開中&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Claude Skillsは複数のマーケットプレイスとリポジトリで公開されており、目的に応じて使い分けられる。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;公式・コミュニティ合わせて13,000以上のSkillsが利用可能。&lt;/p&gt;
+&lt;h2 id=&#34;主要マーケットプレイス一覧&#34;&gt;主要マーケットプレイス一覧&lt;/h2&gt;
+&lt;h3 id=&#34;1-skillsmp最大級のコレクション&#34;&gt;1. SkillsMP（最大級のコレクション）&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;13,000+ Skillsを検索・閲覧できる最大級のGitHubコレクション&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特徴&lt;/strong&gt;: 星数2以上でフィルタ、品質指標（低品質排除）、カテゴリ検索&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;形式&lt;/strong&gt;: マーケットプレイス形式で一括インストール&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;例&lt;/strong&gt;: PDF生成、データ分析ワークフロー&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;リンク&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://skillsmp.com/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  skillsmp.com
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-anthropic-skills-repo公式&#34;&gt;2. Anthropic Skills Repo（公式）&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Anthropic公式のSkill例リポジトリ。ドキュメント処理中心&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特徴&lt;/strong&gt;: マーケットプレイス登録可能。人気Skillを&lt;code&gt;/plugin install&lt;/code&gt;で追加&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;規模&lt;/strong&gt;: 公式Skill数十種&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;例&lt;/strong&gt;: document-skills（Excel/PPT/PDF、ブランドガイド適用）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;リンク&lt;/strong&gt;: &lt;a class=&#34;link&#34; href=&#34;https://github.com/anthropics/skills&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  github.com/anthropics/skills
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-awesome-claude-skillsコミュニティ&#34;&gt;3. Awesome Claude Skills（コミュニティ）&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;コミュニティキュレーションのリスト。リソース・ツールも含む&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特徴&lt;/strong&gt;: GitHub星数ベースのランキング。カテゴリ（開発/デザイン/自動化）でソート&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;規模&lt;/strong&gt;: 数百のSkill/Agent&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;例&lt;/strong&gt;: prompt-engineering、テスト自動化&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;リンク&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/travisvn/awesome-claude-skills&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  github.com/travisvn/awesome-claude-skills
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/ComposioHQ/awesome-claude-skills&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  Composio版
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-claude-code-marketplace生産性向け&#34;&gt;4. Claude Code Marketplace（生産性向け）&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;プラグイン/Agent中心のマーケットプレイス。生産性向上ツール多め&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;特徴&lt;/strong&gt;: 人気度ソート（リサーチベース）。85+ Agent、47 Skill&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;規模&lt;/strong&gt;: 63プラグイン&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;例&lt;/strong&gt;: kubernetes-architect、code-reviewer&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;リンク&lt;/strong&gt;:
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://claudecodemarketplace.com/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  claudecodemarketplace.com
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/ananddtyagi/claude-code-marketplace&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  GitHub版
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;5-claude-skills-hubドメイン別&#34;&gt;5. Claude Skills Hub（ドメイン別）&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;サードパーティのキュレートマーケットプレイス。ドメイン別整理&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
