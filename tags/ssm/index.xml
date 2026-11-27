@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ssm on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ssm/</link>
+    <description>Recent content in ssm on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 08 May 2023 20:07:18 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/ssm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>terraform ステートを強制スキップする</title>
+      <link>https://tro3373.github.io/posts/2023/2023-05-08-terraform-could-not-find-resource-error/</link>
+      <pubDate>Mon, 08 May 2023 13:23:15 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-05-08-terraform-could-not-find-resource-error/</guid>
+      <description>&lt;h1 id=&#34;遭遇したエラー&#34;&gt;遭遇したエラー&lt;/h1&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;Error: reading Secrets Manager Secret &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;arn:aws:secretsmanager:ap-northeast-1:xxxxxxxxxxxx:secret:sample-secret-xxxxxx&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;: couldn&lt;span class=&#34;err&#34;&gt;&amp;#39;&lt;/span&gt;t find resource&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;環境構築時、デプロイ中にいきなりTokenの有効期限切れエラーが発生した。&lt;br&gt;
+terraformのステート管理はS3に保存している。
+&lt;a class=&#34;link&#34; href=&#34;https://github.com/99designs/aws-vault&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  99designs/aws-vault
+&lt;/a&gt;
+を使ってローカルでシークレット管理していたら急に..&lt;br&gt;
+ここの原因はわかってないけど、デプロイ中でしかもステート保存失敗のエラーが出たので、完全に状態がおかしくなった。&lt;br&gt;
+rdb接続情報のSecret保存部分でエラー&lt;br&gt;
+幸い新規構築中だったので、一度 &lt;code&gt;destroy&lt;/code&gt; してから再度作成しようとしていた。&lt;br&gt;
+このタイミングで上記エラーが発生しだした。&lt;br&gt;
+コンソールから削除しても、&lt;code&gt;refresh&lt;/code&gt; しても何してもだめなので、ステータスが壊れたのだと思う。&lt;br&gt;
+まずは、削除する上でもリソースのスキップが必要&lt;br&gt;
+下記内容で強制スキップし、リソースは手動削除するなどして、削除完了できた。&lt;/p&gt;
+&lt;h2 id=&#34;terraform-で持っている状態の一覧&#34;&gt;terraform で持っている状態の一覧&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ terraform state list
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;: &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;省略&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;module.db.aws_secretsmanager_secret.sample
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;: &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;省略&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;調べたステート名を指定して削除&#34;&gt;調べたステート名を指定して削除&lt;/h2&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ terraform state rm module.db.aws_secretsmanager_secret.sample&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+  </channel>
+</rss>

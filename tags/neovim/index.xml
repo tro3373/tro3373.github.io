@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>neovim on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/neovim/</link>
+    <description>Recent content in neovim on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 12 Nov 2026 13:46:34 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/neovim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>lazy.nvim の遅延ロードが取りこぼす起動経路</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-12-lazy-nvim-lazy-load-pitfalls/</link>
+      <pubDate>Thu, 12 Nov 2026 13:46:34 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-12-lazy-nvim-lazy-load-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;lazy.nvim の遅延ロードは、spec (プラグインごとに書く設定の表) に書いたきっかけが来るまでプラグインを読まない。きっかけが来ない起動の仕方では一度も読まれず、エラーも出ない&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;event = { &amp;quot;BufReadPost&amp;quot;, &amp;quot;BufNewFile&amp;quot; }&lt;/code&gt; で遅延したプラグインは、引数なしで起動すると読まれない。起動直後から要る statusline などは &lt;code&gt;lazy = false&lt;/code&gt; か &lt;code&gt;event = &amp;quot;VeryLazy&amp;quot;&lt;/code&gt; にする&lt;/li&gt;
+&lt;li&gt;プラグインが読まれる前にそのバッファの FileType が済んでいると、FileType はやり直されない。&lt;code&gt;nvim a.md&lt;/code&gt; では a.md の FileType が BufEnter より先に済むので、&lt;code&gt;event = &amp;quot;BufEnter&amp;quot;&lt;/code&gt; と &lt;code&gt;event = &amp;quot;VeryLazy&amp;quot;&lt;/code&gt; で読むプラグインは、a.md に ftplugin も FileType の autocmd も効かない。&lt;code&gt;:edit a.md&lt;/code&gt; で開けば効き、&lt;code&gt;ft = &amp;quot;markdown&amp;quot;&lt;/code&gt; と &lt;code&gt;event = &amp;quot;BufReadPost&amp;quot;&lt;/code&gt; なら &lt;code&gt;nvim a.md&lt;/code&gt; でも効く&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cmd = &amp;quot;Tool&amp;quot;&lt;/code&gt; で起動時に用意されるのは &lt;code&gt;:Tool&lt;/code&gt; だけで、&lt;code&gt;:ToolInstall&lt;/code&gt; のような他のコマンドと &lt;code&gt;plugin/*.vim&lt;/code&gt; が張るキーマップは、&lt;code&gt;:Tool&lt;/code&gt; を打って読まれるまで無い&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nvim --headless&lt;/code&gt; では UIEnter が来ないので、&lt;code&gt;VeryLazy&lt;/code&gt; のプラグインは読まれない。&lt;code&gt;-c &#39;qa!&#39;&lt;/code&gt; は VimEnter より前に終わる。headless で読まれないことは、UI を attach した起動で壊れている証拠にならない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は Neovim 0.12.5 と lazy.nvim v11.17.5 (の 4 commit 後、306a055) で確かめた。プラグインは、ローカルのディレクトリを spec の &lt;code&gt;dir&lt;/code&gt; で読ませた最小のものである。「実 UI」は、&lt;code&gt;script&lt;/code&gt; コマンドが作る疑似端末 (pty) の中で nvim を画面付きで起動し、起動 300ms 後の状態を記録した結果である。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>websocket on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/websocket/</link>
+    <description>Recent content in websocket on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 03 Oct 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/websocket/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu 14.04 libwebsockets クライアントを試す</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-libwebsockets-kuraiantowoshi-su/</guid>
+      <description>&lt;h2 id=&#34;libwebsockets-build&#34;&gt;libwebsockets build&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install cmake
+cd ~/works
+git clone git://git.libwebsockets.org/libwebsockets
+cd libwebsockets/
+mkdir build
+cd build
+cmake ..
+make -j8
+# sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;サンプルとして作成したサーバに-libwebsocket-test-echo-サンプルからアクセスする&#34;&gt;サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする&lt;/h2&gt;
+&lt;h3 id=&#34;server&#34;&gt;server&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;rails 上に em-websocket を実装したcontrollerを用意する&lt;br&gt;
+※ rails に関しては、省略&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;ubuntu-1404-libwebsockets-クライアントを試す&#34;&gt;Ubuntu 14.04 libwebsockets クライアントを試す&lt;/h1&gt;
+&lt;h2 id=&#34;libwebsockets-build-1&#34;&gt;libwebsockets build&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo aptitude install cmake
+cd ~/works
+git clone git://git.libwebsockets.org/libwebsockets
+cd libwebsockets/
+mkdir build
+cd build
+cmake ..
+make -j8
+# sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;サンプルとして作成したサーバに-libwebsocket-test-echo-サンプルからアクセスする-1&#34;&gt;サンプルとして作成したサーバに libwebsocket-test-echo サンプルからアクセスする&lt;/h2&gt;
+&lt;h3 id=&#34;server-1&#34;&gt;server&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;rails 上に em-websocket を実装したcontrollerを用意する&lt;br&gt;
+※ rails に関しては、省略&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;gem-settings&#34;&gt;gem settings&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/works/test_rails
+vim GemFile
+----------------- 以下を追加
+gem &#39;em-websocket&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;gem-install&#34;&gt;gem install&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;bundle update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;mod-controller&#34;&gt;mod controller&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;任意のcontrollerに以下を追加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  require &amp;quot;em-websocket&amp;quot;
+  ～ 省略 ～
+  connections = EM::Channel.new
+  EM::WebSocket.start(host: &amp;quot;[server address]&amp;quot;, port: 3001) do |ws_conn|
+    ws_conn.onopen do
+      puts &amp;quot;connected&amp;quot;
+      # EventMachine#subscribeを用い、コネクションオブジェクトと処理を登録
+      connections.subscribe{|message| ws_conn.send(message) }
+    end
+    ws_conn.onmessage do |message|
+      # onopen内で登録した処理を呼び出し
+      puts &amp;quot;received:&amp;quot; + message
+      connections.push(message)
+    end
+  end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu 14.04 で websocket, zeroMQ</title>
+      <link>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</link>
+      <pubDate>Fri, 03 Oct 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-10-03-ubuntu-14-04-de-websocket-zeromq/</guid>
+      <description>&lt;p&gt;rails 、postgresql、zeroMQ、websocketを使って通信するサンプル環境を作成中&lt;/p&gt;
+&lt;h3 id=&#34;create-rails-project&#34;&gt;create rails project&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+rails new test_rails_postgres -d postgresql
+cd test_rails_postgres
+bundle install --path vendor/bundle
+bundle exec rake db:create db:migrate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;テスト起動確認&#34;&gt;テスト起動確認&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+rails server
+http://[サーバアドレス]:3000へアクセス
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;git-管理開始&#34;&gt;git 管理開始&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+git init
+vim .gitignore
+以下を追加
+    doc/
+    *.swp
+    *~
+    .project
+    .DS_Store
+    .idea
+    .secret
+git add .
+git commit -m &amp;quot;initial commit.&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4 id=&#34;テスト設定&#34;&gt;テスト設定&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails generate scaffold book title:string author:string outline:text
+bundle exec rake db:migrate
+bundle exec rails server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;db確認&#34;&gt;db確認&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;-- database list
+\l
+-- user list
+select * from pg_user;
+-- table list
+\d
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;routes-の確認&#34;&gt;routes の確認&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;http://localhost:3000/rails/info/routes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-へwebsocket実装&#34;&gt;rails へwebsocket実装&lt;/h2&gt;
+&lt;h3 id=&#34;websocket-rails-install&#34;&gt;websocket-rails install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;cd test_rails_postgres
+vim Gemfile
+# 以下を追加  
+    gem &#39;websocket-rails&#39;
+bundle install
+rails g websocket_rails:install
+# コントローラ作成
+vim app/controllers/websocket_chat_controller.rb
+    # WebsocketRails::BaseControllerを継承
+    class WebsocketChatController &amp;lt; WebsocketRails::BaseController
+      def message_recieve
+        # クライアントからのメッセージを取得
+        recieve_message = message()
+        # websocket_chatイベントで接続しているクライアントにブロードキャスト
+        broadcast_message(:websocket_chat, recieve_message)
+      end
+    end
+vim config/events.rb
+    WebsocketRails::EventMap.describe do
+          # websocket_chatイベントのマッピング
+        subscribe :websocket_chat, to: WebsocketChatController,
+        with_method: :message_recieve
+    end
+
+# クライアント
+rails g controller chat index
+vim app/views/chat/index.html.erb
+以下追加
+    &amp;lt;!-- チャット表示部分 --&amp;gt;
+    &amp;lt;ul id=&amp;quot;chat_area&amp;quot;&amp;gt;
+    &amp;lt;/ul&amp;gt;
+    &amp;lt;!-- コメントフォーム --&amp;gt;
+    &amp;lt;input id=&amp;quot;comment&amp;quot; type=&amp;quot;text&amp;quot;&amp;gt;
+    &amp;lt;input id=&amp;quot;send&amp;quot; type=&amp;quot;button&amp;quot; value=&amp;quot;send&amp;quot;&amp;gt;
+    &amp;lt;script&amp;gt;
+      var ws_rails = new WebSocketRails(&amp;quot;[url]:3000/websocket&amp;quot;);
+      // メッセージ受信時の処理
+      ws_rails.bind(&amp;quot;websocket_chat&amp;quot;, function(message){
+        var message_li = document.createElement(&amp;quot;li&amp;quot;);
+        message_li.textContent = message;
+        
+        document.getElementById(&amp;quot;chat_area&amp;quot;).appendChild(message_li);
+      })
+      // メッセージ送信時の処理
+      document.getElementById(&amp;quot;send&amp;quot;).onclick =  function(){
+        var comment = document.getElementById(&amp;quot;comment&amp;quot;).value;
+        ws_rails.trigger(&amp;quot;websocket_chat&amp;quot;, comment);
+      }
+    &amp;lt;/script&amp;gt;
+vim config/environments/development.rb
+    # 以下を追加
+    config.middleware.delete Rack::Lock
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;test-websocket-client作成&#34;&gt;test websocket client作成&lt;/h2&gt;
+&lt;h3 id=&#34;gem-install&#34;&gt;gem install&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gem install websocket-client-simple
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;client-program動かない&#34;&gt;client program(動かない)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;vim websocket_client.rb
+    require &#39;rubygems&#39;
+    require &#39;websocket-client-simple&#39;
+    
+    ws = WebSocket::Client::Simple.connect &#39;[url]:3000/websocket&#39;
+    
+    ws.on :message do |msg|
+      puts msg.data
+    end
+    
+    ws.on :open do
+      ws.send &#39;hello!!!&#39;
+    end
+    
+    ws.on :close do |e|
+      p e
+      exit 1
+    end
+    
+    loop do
+      ws.send STDIN.gets.strip
+    end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;execjs-install不要&#34;&gt;execjs install(不要)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;gem install execjs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;zeromq-install&#34;&gt;zeromq install&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd 任意のディレクトリ
+git clone https://github.com/zeromq/zeromq4-x.git
+cd zeromq4-x
+# git checkout origin/v4.0.1
+sudo aptitude install libtool autoconf uuid-dev
+./autogen.sh
+#./configure --prefix=/usr/local/zmq
+./configure
+make
+sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;zeromq導入&#34;&gt;ZeroMQ導入&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;vim Gemfile
+--------------------
+# Use zeroMq
+gem &#39;rbzmq&#39;
+#gem &#39;ffi-rzmq&#39;
+#gem &#39;zqm&#39;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;ffi-rzmqのバージョンが合っている201が要る&#34;&gt;ffi-rzmqのバージョンが合っている2.0.1が要る？&lt;/h2&gt;
+&lt;h2 id=&#34;rails-コントローラにzmqスレッドを立ち上げる&#34;&gt;rails コントローラにZMQスレッドを立ち上げる&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;vim websocket_chat_controller.rb
+---------------------------------------------------
+require &#39;rbzmq&#39;
+# WebsocketRails::BaseControllerを継承
+class WebsocketChatController &amp;lt; WebsocketRails::BaseController
+  context = ZMQ::Context.new
+  publisher = context.socket ZMQ::PUB
+  publisher.bind &amp;quot;tcp://*:5563&amp;quot;
+  begin
+    t = Thread.new do
+      Thread.pass    # メインスレッドが確実にjoinするように
+      puts &amp;quot;[rails] Tread loop start.&amp;quot;
+      loop do
+        publisher.send_string &#39;A&#39;, ZMQ::SNDMORE
+        publisher.send_string &amp;quot;We don&#39;t want to see this.&amp;quot;
+
+        publisher.send_string &#39;B&#39;, ZMQ::SNDMORE
+        publisher.send_string &amp;quot;We would like to see this.&amp;quot;
+
+        sleep 1
+      end
+      publisher.close
+      raise &amp;quot;unhandled exception&amp;quot;
+    end
+    t.join
+  rescue
+    p $!  # =&amp;gt; &amp;quot;unhandled exception&amp;quot;
+  end
+
+  puts &amp;quot;[rails] WebsocketChatController is started!!!!!&amp;quot;
+  def message_recieve
+    # クライアントからのメッセージを取得
+    recieve_message = message()
+    puts &amp;quot;[rails] server message receive and broadcast =&amp;gt; #{recieve_message}&amp;quot;
+    # websocket_chatイベントで接続しているクライアントにブロードキャスト
+    broadcast_message(:websocket_chat, recieve_message)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;rails-server立ち上げ&#34;&gt;rails server立ち上げ&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;bundle exec rails server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;em-websocket-in-rails&#34;&gt;em-websocket in rails&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;vim websocket_chat_controller.rb
+require &amp;ldquo;em-websocket&amp;rdquo;
+# 省略
+puts &amp;ldquo;rails emwebsocket server start&amp;rdquo;
+# 配列ではなくEventMachineオブジェクトを生成
+connections = EM::Channel.new
+EM::WebSocket.start(host: &amp;ldquo;172.19.1.94&amp;rdquo;, port: 3001) do |ws_conn|
+ws_conn.onopen do
+puts &amp;ldquo;connected&amp;rdquo;
+# EventMachine#subscribeを用い、コネクションオブジェクトと処理を登録
+connections.subscribe{|message| ws_conn.send(message) }
+end
+ws_conn.onmessage do |message|
+# onopen内で登録した処理を呼び出し
+puts &amp;ldquo;received:&amp;rdquo; + message
+connections.push(message)
+end
+end&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

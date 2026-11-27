@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>lua on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/lua/</link>
+    <description>Recent content in lua on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 12 Nov 2026 13:46:34 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/lua/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>lazy.nvim の遅延ロードが取りこぼす起動経路</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-12-lazy-nvim-lazy-load-pitfalls/</link>
+      <pubDate>Thu, 12 Nov 2026 13:46:34 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-12-lazy-nvim-lazy-load-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;lazy.nvim の遅延ロードは、spec (プラグインごとに書く設定の表) に書いたきっかけが来るまでプラグインを読まない。きっかけが来ない起動の仕方では一度も読まれず、エラーも出ない&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;event = { &amp;quot;BufReadPost&amp;quot;, &amp;quot;BufNewFile&amp;quot; }&lt;/code&gt; で遅延したプラグインは、引数なしで起動すると読まれない。起動直後から要る statusline などは &lt;code&gt;lazy = false&lt;/code&gt; か &lt;code&gt;event = &amp;quot;VeryLazy&amp;quot;&lt;/code&gt; にする&lt;/li&gt;
+&lt;li&gt;プラグインが読まれる前にそのバッファの FileType が済んでいると、FileType はやり直されない。&lt;code&gt;nvim a.md&lt;/code&gt; では a.md の FileType が BufEnter より先に済むので、&lt;code&gt;event = &amp;quot;BufEnter&amp;quot;&lt;/code&gt; と &lt;code&gt;event = &amp;quot;VeryLazy&amp;quot;&lt;/code&gt; で読むプラグインは、a.md に ftplugin も FileType の autocmd も効かない。&lt;code&gt;:edit a.md&lt;/code&gt; で開けば効き、&lt;code&gt;ft = &amp;quot;markdown&amp;quot;&lt;/code&gt; と &lt;code&gt;event = &amp;quot;BufReadPost&amp;quot;&lt;/code&gt; なら &lt;code&gt;nvim a.md&lt;/code&gt; でも効く&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cmd = &amp;quot;Tool&amp;quot;&lt;/code&gt; で起動時に用意されるのは &lt;code&gt;:Tool&lt;/code&gt; だけで、&lt;code&gt;:ToolInstall&lt;/code&gt; のような他のコマンドと &lt;code&gt;plugin/*.vim&lt;/code&gt; が張るキーマップは、&lt;code&gt;:Tool&lt;/code&gt; を打って読まれるまで無い&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nvim --headless&lt;/code&gt; では UIEnter が来ないので、&lt;code&gt;VeryLazy&lt;/code&gt; のプラグインは読まれない。&lt;code&gt;-c &#39;qa!&#39;&lt;/code&gt; は VimEnter より前に終わる。headless で読まれないことは、UI を attach した起動で壊れている証拠にならない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は Neovim 0.12.5 と lazy.nvim v11.17.5 (の 4 commit 後、306a055) で確かめた。プラグインは、ローカルのディレクトリを spec の &lt;code&gt;dir&lt;/code&gt; で読ませた最小のものである。「実 UI」は、&lt;code&gt;script&lt;/code&gt; コマンドが作る疑似端末 (pty) の中で nvim を画面付きで起動し、起動 300ms 後の状態を記録した結果である。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>lua</title>
+      <link>https://tro3373.github.io/posts/2024/2024-01-03-lua/</link>
+      <pubDate>Wed, 03 Jan 2024 15:46:49 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2024/2024-01-03-lua/</guid>
+      <description>&lt;h2 id=&#34;lua色々&#34;&gt;Lua色々&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Luaにクラスがない&lt;/li&gt;
+&lt;li&gt;テーブルの添字に数字または文字列を指定可能&lt;/li&gt;
+&lt;li&gt;テーブルの値の型はなんでもよい&lt;/li&gt;
+&lt;li&gt;配列は0オリジンでない(1オリジン)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;lua-における--と--の違い&#34;&gt;Lua における . と : の違い&lt;/h2&gt;
+&lt;p&gt;関数呼び出し時に自分を含むか含まないか&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;local addTable = {
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    na = 1,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    nb = 2,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    add = function(this)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        return this.na + this.nb
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    end
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    diff_na = function(this, n)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        return this.na - n
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    end
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;addTabel.add(addTable)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;addTabel.diff_na(addTable, 1)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;addTabel:add()
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;addTabel:diff_na(1)&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;refs&#34;&gt;Refs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://ahpg.blog.shinobi.jp/lua/lua%20.-%E3%83%89%E3%83%83%E3%83%88-%E3%81%AB%E3%82%88%E3%82%8B%E9%96%A2%E6%95%B0%E5%91%BC%E3%81%B3%E5%87%BA%E3%81%97%E3%81%A8--%E3%82%B3%E3%83%AD%E3%83%B3-&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  姉好き変態プログラマーの備忘録 Lua .(ドット)による関数呼び出しと:(コロン)による関数呼び出し
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

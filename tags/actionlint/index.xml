@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>actionlint on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/actionlint/</link>
+    <description>Recent content in actionlint on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 13 Nov 2026 13:43:18 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/actionlint/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ShellCheck が読まない範囲と誤検知する書き方</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-13-shellcheck-scope-and-blind-spots/</link>
+      <pubDate>Fri, 13 Nov 2026 13:43:18 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-13-shellcheck-scope-and-blind-spots/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ShellCheck は、引数で渡したファイルを実行せずに読み、そこに書かれていることだけで指摘する。&lt;code&gt;source&lt;/code&gt; で読み込む先のファイルは、&lt;code&gt;-x&lt;/code&gt; か &lt;code&gt;.shellcheckrc&lt;/code&gt; の &lt;code&gt;external-sources=true&lt;/code&gt; が無いと読まない。読まないと、読み込み先で使う変数に SC2034 (未使用)、読み込み先で代入する変数に SC2154 (未代入) が出る&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;# shellcheck source=&lt;/code&gt; の相対パスは、shellcheck を起動したディレクトリ (cwd) から探される。&lt;code&gt;source-path=SCRIPTDIR&lt;/code&gt; を付けると、検査するスクリプトのディレクトリから探される&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;# shellcheck disable=&lt;/code&gt; がファイル全体に効くのは、最初のコマンドより前に置いたときだけ。コマンドの後ろに置くと、直後の 1 コマンドにしか効かない&lt;/li&gt;
+&lt;li&gt;終了コードは、severity が info の指摘しか無くても 1 になる。クォート漏れの SC2086 も info である&lt;/li&gt;
+&lt;li&gt;指摘しないもの: 代入がすべて空白やグロブの文字を含まないリテラルの変数のクォート漏れ、定義の無い関数の呼び出し、zsh のファイル (SC1071 で解析をやめる)、composite action の &lt;code&gt;run:&lt;/code&gt; (actionlint が ShellCheck に渡さない)&lt;/li&gt;
+&lt;li&gt;正しく動くのに指摘するもの: サブシェルの中で定義して、呼び出しが見えない関数 (SC2329)、本体を &lt;code&gt;( )&lt;/code&gt; で書いた関数の中での変数の書き換え (SC2030 / SC2031)、引数の位置に素のまま書いた &lt;code&gt;done&lt;/code&gt; (SC1010)、&lt;code&gt;$(&lt;/code&gt; の直後に続けた &lt;code&gt;((&lt;/code&gt; (SC1102)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は ShellCheck 0.11.0、bash 5.3.20、zsh 5.9.2、shfmt v3.14.1、actionlint v1.7.12 で確かめた。ShellCheck の出力の末尾に付く &lt;code&gt;For more information:&lt;/code&gt; と wiki への link の行は省く。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>svn on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/svn/</link>
+    <description>Recent content in svn on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 21 Jun 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/svn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>玄箱HG（debian lenny）へ SVN を導入する</title>
+      <link>https://tro3373.github.io/posts/2012/2012-06-21-%E7%8E%84%E7%AE%B1hg-debian-lennyhe-svn-wodao-ru-suru/</link>
+      <pubDate>Thu, 21 Jun 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-06-21-%E7%8E%84%E7%AE%B1hg-debian-lennyhe-svn-wodao-ru-suru/</guid>
+      <description>&lt;h1 id=&#34;玄箱hgdebian-lennyへ-svn-を導入する&#34;&gt;玄箱HG（debian lenny）へ SVN を導入する&lt;/h1&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://wlog.flatlib.jp/item/1289&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://wlog.flatlib.jp/item/1289
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;http://brokendish.org/debian/609/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  http://brokendish.org/debian/609/
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;subversionインストール&#34;&gt;subversionインストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get install subversion
+sudo apt-get install libapache2-svn libapache2-mod-encoding
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;subversionの設定&#34;&gt;subversionの設定&lt;/h1&gt;
+&lt;h2 id=&#34;svnロケーション設定&#34;&gt;svnロケーション設定&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd /etc/apache2
+sudo vi mods-available/dav_svn.conf 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;以下を追加&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;Location /svn&amp;gt;
+  DAV svn
+  SVNParentPath /path/to/svn_server_directory
+  SVNListParentPath on
+
+  #require ssl
+  SSLRequireSSL
+  AuthType Basic
+  # auto commit on
+  SVNAutoversioning on
+  AuthName &amp;quot;Subversion Repository&amp;quot;
+  AuthUserFile /etc/apache2/dav_svn.passwd
+  # require authentication other than require method for read repository.
+  Require valid-user
+&amp;lt;/Location&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;svnルートディレクトリの作成&#34;&gt;svnルートディレクトリの作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;mkdir -p /path/to/svn_server_directory
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;svnディレクトリプロジェクト単位の作成&#34;&gt;svnディレクトリ（プロジェクト単位？）の作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo svnadmin create --fs-type=fsfs /path/to/svn_server_directory/repo
+sudo chown -R www-data:www-data /path/to/svn_server_directory
+sudo chmod -R gu+w /path/to/svn_server_directory
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;svnアクセスユーザの作成&#34;&gt;svnアクセスユーザの作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;htpasswd -c /etc/apache2/dav_svn.passwd [user_name]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;作成したdav_svnの有効化&#34;&gt;作成したdav_svnの有効化&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo a2dismod dav_svn
+sudo a2enmod dav_svn
+sudo /etc/init.d/apache2 restart
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;svn基本ディレクトリを作成&#34;&gt;svn基本ディレクトリを作成&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;svn mkdir https://[server_url]/svn/repo/trunk -m &amp;quot;create&amp;quot;
+svn mkdir https://[server_url]/svn/repo/branches -m &amp;quot;create&amp;quot;
+svn mkdir https://[server_url]/svn/repo/tags -m &amp;quot;create&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;オラオラ認証のエラー対応&#34;&gt;オラオラ認証のエラー対応&lt;/h2&gt;
+&lt;p&gt;オラオラ認証なので以下のようなメッセージがでる。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Ubuntu で SVN差分のある変更ファイルをexportする</title>
+      <link>https://tro3373.github.io/posts/2011/2011-11-23-ubuntu-de-svnchai-fen-noarubian-geng-huairuwoexportsuru/</link>
+      <pubDate>Wed, 23 Nov 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-11-23-ubuntu-de-svnchai-fen-noarubian-geng-huairuwoexportsuru/</guid>
+      <description>&lt;h1 id=&#34;ubuntu-で-svn差分のある変更ファイルをexportする&#34;&gt;Ubuntu で SVN差分のある変更ファイルをexportする&lt;/h1&gt;
+&lt;h2 id=&#34;やりたいことは以下&#34;&gt;やりたいことは以下&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;SVNコマンドで変更したファイル一覧をExportしたい&lt;/li&gt;
+&lt;li&gt;変更したファイルについては、変更前のソースもExportしたい&lt;/li&gt;
+&lt;li&gt;上記２つよりDiffツールを使ってファイル差分を見たい&lt;/li&gt;
+&lt;li&gt;SVNの差分ファイル一覧は &lt;code&gt;svn diff | awk &#39;/^Index/ {print $NF}&#39;&lt;/code&gt; で取得できる&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下、作成したプログラム&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#!/bin/bash
+################################################################################
+# SETTINGS.
+ROOTDIR=/env/android-
+OUTDIR=~/デスクトップ
+FIXDIR=fix
+ORGDIR=original
+################################################################################
+shellFileName=`basename $0`
+
+fncEchoLog()
+{
+    dateStr=`date &#39;+%Y%m%d:%H:%M:%S&#39;`
+    outMsg=&amp;quot;[$shellFileName] $dateStr $*&amp;quot;
+    echo &amp;quot;$outMsg&amp;quot;
+}
+
+copyParents()
+{
+    targetFile=$1
+    fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot;
+    cp -p --parents $targetFile $OUTDIR
+}
+
+svnRevert()
+{
+    targetFile=$1
+    fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot;
+    svn revert $targetFile
+}
+
+compareable()
+{
+    targetFile=$1
+    fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot;
+
+    cp -p --parents $targetFile $OUTDIR/$FIXDIR
+    svn revert $targetFile
+    cp -p --parents $targetFile $OUTDIR/$ORGDIR
+    cp -pf $OUTDIR/$FIXDIR/$targetFile $ROOTDIR/$targetFile
+}
+
+copyRevert()
+{
+    targetFile=$1
+    fncEchoLog &amp;quot;=&amp;gt; $targetFile&amp;quot;
+    cp -p --parents $targetFile $OUTDIR
+    svn revert $targetFile
+}
+
+################################################################################
+fncEchoLog &amp;quot;--------------------------------------------------------------------&amp;quot;
+fncEchoLog &amp;quot;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt;&amp;gt; MISSIOIN START&amp;quot;
+fncEchoLog &amp;quot;--------------------------------------------------------------------&amp;quot;
+fncEchoLog &amp;quot;TARGET DIR [$ROOTDIR]&amp;quot;
+fncEchoLog &amp;quot;OUTPUT DIR [$OUTDIR]&amp;quot;
+
+cd $ROOTDIR
+fncEchoLog &amp;quot;now checking fixed files...&amp;quot;
+FIXED_FILES=&amp;quot;`svn diff | awk &#39;/^Index/ {print $NF}&#39;`&amp;quot;
+
+fncEchoLog &amp;quot;your fixed files of $ROOTDIR ...&amp;quot;
+echo &amp;quot;&amp;quot;
+for fff in $FIXED_FILES
+do
+    echo $fff
+done
+echo &amp;quot;&amp;quot;
+
+fncEchoLog &amp;quot;choose your mission type. 1:copy(default)/2:svn revert/3:compareable/4:copy and revert&amp;quot;
+read prcType
+fncEchoLog &amp;quot;2m&amp;quot;
+sleep 1
+fncEchoLog &amp;quot;1m&amp;quot;
+sleep 1
+mPrcType=1
+if [ &amp;quot;$prcType&amp;quot; = &amp;quot;2&amp;quot; ] ; then
+    mPrcType=2
+elif [ &amp;quot;$prcType&amp;quot; = &amp;quot;3&amp;quot; ] ; then
+    mPrcType=3
+    if [ ! -d $OUTDIR/$FIXDIR ] ; then
+        fncEchoLog &amp;quot;create directory... $OUTDIR/$FIXDIR&amp;quot;
+        mkdir $OUTDIR/$FIXDIR
+    fi
+    if [ ! -d $OUTDIR/$ORGDIR ] ; then
+        fncEchoLog &amp;quot;create directory... $OUTDIR/$ORGDIR&amp;quot;
+        mkdir $OUTDIR/$ORGDIR
+    fi
+elif [ &amp;quot;$prcType&amp;quot; = &amp;quot;4&amp;quot; ] ; then
+    mPrcType=4
+fi
+
+for fff in $FIXED_FILES
+do
+    if [ $mPrcType -eq 1 ] ; then
+        copyParents $fff
+    elif [ $mPrcType -eq 2 ] ; then
+        svnRevert $fff
+    elif [ $mPrcType -eq 3 ] ; then
+        compareable $fff
+    elif [ $mPrcType -eq 4 ] ; then
+        copyRevert $fff
+    fi
+done
+
+fncEchoLog &amp;quot;&amp;quot;
+fncEchoLog &amp;quot;--------------------------------------------------------------------&amp;quot;
+fncEchoLog &amp;quot;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&amp;lt; MISSIOIN COMPLETE&amp;quot;
+fncEchoLog &amp;quot;--------------------------------------------------------------------&amp;quot;
+read Wait
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Unix コマンド色々</title>
+      <link>https://tro3373.github.io/posts/2011/2011-08-12-ubuntu-komandose/</link>
+      <pubDate>Fri, 12 Aug 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-08-12-ubuntu-komandose/</guid>
+      <description>&lt;h1 id=&#34;unix-コマンド色々&#34;&gt;Unix コマンド色々&lt;/h1&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 検索した結果から削除&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;find ./ -name &lt;span class=&#34;s2&#34;&gt;&amp;#34;.repo&amp;#34;&lt;/span&gt; -exec rm -r &lt;span class=&#34;o&#34;&gt;{}&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ファイル差分&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;diff -y -W &lt;span class=&#34;m&#34;&gt;200&lt;/span&gt; ./tmp1/init.rc ./tmp2/init.rc
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ディレクトリ差分&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;diff -rNq --exclude&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;.svn&amp;#34;&lt;/span&gt; ./tmp1 ./tmp2
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ディレクトリ階層を含めてコピー&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cp -p --parents test/hogehoge.txt /var/tmp
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ダミーファイル作成&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;dd &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;/dev/zero &lt;span class=&#34;nv&#34;&gt;of&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;220M.dat &lt;span class=&#34;nv&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;220&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;bs&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1048576&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;## svn コマンド&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# チェックアウト&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;svn co &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;url&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 差分一覧&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;svn diff &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; awk &lt;span class=&#34;s1&#34;&gt;&amp;#39;/^Index/ {print $NF}&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 差分一覧(簡易)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;svn status&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+  </channel>
+</rss>

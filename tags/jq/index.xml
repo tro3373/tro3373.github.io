@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>jq on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/jq/</link>
+    <description>Recent content in jq on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 09 Nov 2026 13:36:09 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/jq/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jq の入力・真偽・シェルとの受け渡し</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-09-jq-input-truthiness-shell-boundary/</link>
+      <pubDate>Mon, 09 Nov 2026 13:36:09 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-09-jq-input-truthiness-shell-boundary/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;jq に渡す &lt;code&gt;.&lt;/code&gt; や &lt;code&gt;.branch&lt;/code&gt; のような式をフィルタと呼ぶ。jq の入力は「JSON 値の並び」で、フィルタは値ごとに動く。連結した JSON は値の数だけ結果を出し、壊れた箇所の手前の値は、終了コード 5 で失敗しても stdout に出る。1 値だけを受けるなら &lt;code&gt;-s&lt;/code&gt; で全体を読み、&lt;code&gt;length == 1&lt;/code&gt; と型を確かめる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-s&lt;/code&gt; は全部を読めてから配列を作るので、1 行でも壊れた JSON Lines (1 行に 1 つの JSON を書く形式) では何も出さない。壊れた行だけを捨てるなら &lt;code&gt;-R&lt;/code&gt; と &lt;code&gt;fromjson?&lt;/code&gt; を使う&lt;/li&gt;
+&lt;li&gt;偽になるのは &lt;code&gt;false&lt;/code&gt; と &lt;code&gt;null&lt;/code&gt; だけで、&lt;code&gt;0&lt;/code&gt;・&lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;・&lt;code&gt;[]&lt;/code&gt; は真、無い項目は &lt;code&gt;null&lt;/code&gt; になる。&lt;code&gt;//&lt;/code&gt; は &lt;code&gt;false&lt;/code&gt; も右辺に置き換える。フラグの判定は真偽でなく &lt;code&gt;== false&lt;/code&gt; や &lt;code&gt;&amp;gt; 0&lt;/code&gt; の比較で書く&lt;/li&gt;
+&lt;li&gt;ツリーを辿る &lt;code&gt;recurse(.children[])&lt;/code&gt; は &lt;code&gt;children&lt;/code&gt; の無いノードで止まるので、エラーを捨てる &lt;code&gt;?&lt;/code&gt; を付ける。祖先の条件を子孫に効かせるなら、後段の &lt;code&gt;select&lt;/code&gt; (条件が真の値だけを残す関数) でなく &lt;code&gt;recurse(f; cond)&lt;/code&gt; に書く&lt;/li&gt;
+&lt;li&gt;シェルとの境目では値の形が変わる。&lt;code&gt;@tsv&lt;/code&gt; は &lt;code&gt;\&lt;/code&gt; を二重にし、&lt;code&gt;IFS=$&#39;\t&#39; read&lt;/code&gt; は空の列を詰め、&lt;code&gt;--arg&lt;/code&gt; (シェルの値を jq の変数に渡すオプション) の値は 1 個 128 KiB までしか渡せない。1 件ごとに jq を起動すると、jq 1 回で全件を出す形より桁で遅い&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は jq 1.8.2 / GNU bash 5.3.20 / Linux x86_64 で実測した。出力の &lt;code&gt;rc=&lt;/code&gt; は &lt;code&gt;echo &amp;quot;rc=$?&amp;quot;&lt;/code&gt; で出した終了コードで、stderr のエラー文が stdout より先に並ぶのは、パイプへの stdout がバッファされ、終了時に書かれるためである。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

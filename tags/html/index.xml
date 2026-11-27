@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>html on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/html/</link>
+    <description>Recent content in html on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 18 Aug 2023 07:39:05 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>html a タグで target=&#34;_blank&#34; を使うときは、rel=&#34;noopener&#34; をつける</title>
+      <link>https://tro3373.github.io/posts/2023/2023-08-02-add-noopener-to-link-with-blank-target/</link>
+      <pubDate>Wed, 02 Aug 2023 06:36:21 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-08-02-add-noopener-to-link-with-blank-target/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;パフォーマンス改善&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;他のページがあなたのページと同じプロセスで実行されている可能性があります。
+他のページがJavaScriptを大量に実行している場合、あなたのページのパフォーマンスが低下する可能性があります。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;セキュリティ対策&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;他のページは、window.opener プロパティを使用してウィンドウ オブジェクトにアクセスできます。
+これにより、他のページがあなたのページを悪意のある URL にリダイレクトする可能性があります。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;リンク先が悪意のあるサイト、またはハッキングされている場合などに、window.openerを用いてリンク元が操作されてしまう可能性がある&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;refs&#34;&gt;Refs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Links to cross-origin destinations are unsafe - Chrome Developers &lt;a class=&#34;link&#34; href=&#34;https://developer.chrome.com/docs/lighthouse/best-practices/external-anchors-use-rel-noopener/?hl=ja&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://developer.chrome.com/docs/lighthouse/best-practices/external-anchors-use-rel-noopener/?hl=ja
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;リンクのへの rel=noopener 付与による Tabnabbing 対策 | blog.jxck.io &lt;a class=&#34;link&#34; href=&#34;https://blog.jxck.io/entries/2016-06-12/noopener.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://blog.jxck.io/entries/2016-06-12/noopener.html
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;rel=&amp;ldquo;noopener noreferrer&amp;quot;の意味とアフィリエイト広告への影響 - WEBST8のブログ &lt;a class=&#34;link&#34; href=&#34;https://webst8.com/blog/rel-noopener-noreferrer/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  https://webst8.com/blog/rel-noopener-noreferrer/
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

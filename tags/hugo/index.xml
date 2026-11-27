@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>hugo on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/hugo/</link>
+    <description>Recent content in hugo on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 24 Apr 2023 20:26:26 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hugo template 使用時 `{{-` `-}}` の `-` の意味はホワイトスペース削除</title>
+      <link>https://tro3373.github.io/posts/2022/2022-10-01-hugo-template-syntax-first-and-last-minus-mean/</link>
+      <pubDate>Sat, 01 Oct 2022 20:12:24 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2022/2022-10-01-hugo-template-syntax-first-and-last-minus-mean/</guid>
+      <description>&lt;h2 id=&#34;ホワイトスペースの削除の意味&#34;&gt;ホワイトスペースの削除の意味&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;次の例のようにテンプレート内で「{{」の代わりに「{{-」と指定することで、テンプレートのレンダリング時にその「{{-」の前にあるホワイトスペース（スペース、タブ、改行）を削除するよう指定できる。同様に「}}」の代わりに「-}}」を指定することで、「-}}」の後ろにあるホワイトスペースを削除できる。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://knowledge.sakura.ad.jp/22908/&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  静的サイトジェネレータ「Hugo」と技術文書公開向けテーマ「Docsy」でOSSサイトを作る | さくらのナレッジ
+&lt;/a&gt;
+&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>iac on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/iac/</link>
+    <description>Recent content in iac on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 06 Nov 2026 13:36:46 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/iac/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Terraform が張る依存と張らない依存</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-06-terraform-implicit-dependency-pitfalls/</link>
+      <pubDate>Fri, 06 Nov 2026 13:36:46 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-06-terraform-implicit-dependency-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Terraform がリソース間の依存を張るのは、式が別のリソースや module の output を参照したときと、&lt;code&gt;depends_on&lt;/code&gt; を書いたときだけ。同じ値を文字列や root の変数で渡しても依存はできず、親と子は並行に作られる&lt;/li&gt;
+&lt;li&gt;依存が無くても、親が既にある環境では通る。落ちるのはまっさらな環境への初回 apply だけで、Firestore の Field が &lt;code&gt;404&lt;/code&gt; になったり、API の有効化より先にリソースの作成が走ったりする&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;depends_on = [module.x]&lt;/code&gt; は x の全リソースを待つ。x の中に自分の出力を使うリソースがあると、依存が一周して cycle (循環参照) になり、&lt;code&gt;Error: Cycle&lt;/code&gt; で落ちる。x の output を書けば、その output が参照するリソースだけを待つ&lt;/li&gt;
+&lt;li&gt;設定を持つ provider ブロックを中に書いた module には、&lt;code&gt;depends_on&lt;/code&gt; (と &lt;code&gt;count&lt;/code&gt; / &lt;code&gt;for_each&lt;/code&gt;) を付けられない。provider は root へ上げる&lt;/li&gt;
+&lt;li&gt;module の &lt;code&gt;depends_on&lt;/code&gt; は、依存先に未適用の変更がある plan で、module 内の data source の読み込みを apply 時まで遅らせる。その値を ForceNew の属性に渡すと、何も変わっていなくても replace が出る&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下のコードと出力は Terraform v1.15.8 で確かめた。使ったのは &lt;code&gt;terraform init -backend=false&lt;/code&gt; と &lt;code&gt;terraform validate&lt;/code&gt; だけで、plan / apply は打っていない。
+GCP の API を呼ぶ節と data source の節は、作業ログの記録をもとに書いた。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

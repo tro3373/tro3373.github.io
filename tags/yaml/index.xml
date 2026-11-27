@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>yaml on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/yaml/</link>
+    <description>Recent content in yaml on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 12 Dec 2023 06:52:30 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/yaml/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>YAMLでの複数行文字列指定と改行方法</title>
+      <link>https://tro3373.github.io/posts/2023/2023-12-12-how-do-i-break-a-string-in-yaml-over-muliple-lines/</link>
+      <pubDate>Tue, 12 Dec 2023 06:23:17 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2023/2023-12-12-how-do-i-break-a-string-in-yaml-over-muliple-lines/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;YAMLでは複数行文字列を指定する際、特定の記法を用いる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;|&lt;/code&gt; を使用すると、改行がそのまま反映される&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;&lt;/code&gt; を使用すると、改行がスペースに変換される
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;|&lt;/code&gt; との違いは行末の扱い方&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;|-&lt;/code&gt; のように最後に &lt;code&gt;-&lt;/code&gt; をつけると最後の改行がなくなる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;|+&lt;/code&gt; のように最後に &lt;code&gt;+&lt;/code&gt; をつけると改行がそのまま反映される&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;&lt;/code&gt;, &lt;code&gt;&#39;&lt;/code&gt; または、なにもつけない場合で、改行したくない場合は &lt;code&gt;\&lt;/code&gt; でエスケープする&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;refs&#34;&gt;Refs&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://stackoverflow.com/questions/3790454/how-do-i-break-a-string-in-yaml-over-multiple-lines/21699210#21699210&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  syntax - How do I break a string in YAML over multiple lines? - Stack Overflow
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

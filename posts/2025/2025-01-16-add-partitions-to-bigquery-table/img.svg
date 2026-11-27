@@ -1,0 +1,34 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- 背景 -->
+    <rect width="800" height="400" fill="#f8f9fa"/>
+    
+    <!-- BigQueryのテーブルを表現する長方形 -->
+    <rect x="100" y="100" width="600" height="200" fill="#4285f4" opacity="0.1" rx="10"/>
+    <rect x="100" y="100" width="600" height="200" fill="none" stroke="#4285f4" stroke-width="3" rx="10"/>
+    
+    <!-- パーティション区切り線 -->
+    <line x1="250" y1="100" x2="250" y2="300" stroke="#4285f4" stroke-width="2" stroke-dasharray="5,5"/>
+    <line x1="400" y1="100" x2="400" y2="300" stroke="#4285f4" stroke-width="2" stroke-dasharray="5,5"/>
+    <line x1="550" y1="100" x2="550" y2="300" stroke="#4285f4" stroke-width="2" stroke-dasharray="5,5"/>
+    
+    <!-- 新規パーティション追加を表す矢印と'+' -->
+    <path d="M700 200 L750 200" stroke="#34a853" stroke-width="3" marker-end="url(#arrow)"/>
+    <circle cx="780" cy="200" r="15" fill="#34a853"/>
+    <text x="774" y="208" fill="white" font-size="20" font-weight="bold">+</text>
+    
+    <!-- 矢印のマーカー定義 -->
+    <defs>
+        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+            <path d="M0,0 L10,5 L0,10" fill="none" stroke="#34a853" stroke-width="2"/>
+        </marker>
+    </defs>
+    
+    <!-- タイトルテキスト -->
+    <text x="400" y="50" text-anchor="middle" font-size="28" font-weight="bold" fill="#202124" font-family="Arial, sans-serif">BigQueryテーブルへのパーティション追加</text>
+    
+    <!-- パーティションラベル -->
+    <text x="175" y="330" text-anchor="middle" font-size="14" fill="#666">Partition 1</text>
+    <text x="325" y="330" text-anchor="middle" font-size="14" fill="#666">Partition 2</text>
+    <text x="475" y="330" text-anchor="middle" font-size="14" fill="#666">Partition 3</text>
+    <text x="625" y="330" text-anchor="middle" font-size="14" fill="#666">Partition 4</text>
+</svg>

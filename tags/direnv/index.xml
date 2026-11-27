@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>direnv on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/direnv/</link>
+    <description>Recent content in direnv on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 27 Nov 2026 13:38:48 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/direnv/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>direnv の環境が入る経路と exit 0 で通る失敗</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-27-direnv-env-load-paths-exit-zero/</link>
+      <pubDate>Fri, 27 Nov 2026 13:38:48 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-27-direnv-env-load-paths-exit-zero/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;direnv が &lt;code&gt;.envrc&lt;/code&gt; の値を入れるのは、フックを入れた対話シェルと、&lt;code&gt;direnv exec&lt;/code&gt; で起動したコマンドだけ。direnv を読み込んでいないシェルやプロセスから、tmux の pane・cron・&lt;code&gt;bash -c&lt;/code&gt; のようにプロンプトを出さずに起動したコマンドには、cd しても入らない&lt;/li&gt;
+&lt;li&gt;読む &lt;code&gt;.envrc&lt;/code&gt; は、ディレクトリから上へ探して最初に見つかった 1 つだけ。親の値は、子の &lt;code&gt;.envrc&lt;/code&gt; に &lt;code&gt;source_up_if_exists&lt;/code&gt; を書いて読む。こうして読まれた親は、許可を確かめられない&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.envrc&lt;/code&gt; の中の失敗は終了コードに出ない。未定義の &lt;code&gt;use&lt;/code&gt;、&lt;code&gt;nix&lt;/code&gt; が PATH に無い &lt;code&gt;use flake&lt;/code&gt;、失敗するコマンドの行は、エラーを出すだけで後ろの行を評価し、&lt;code&gt;direnv exec&lt;/code&gt; は後ろのコマンドを走らせて 0 を返す。1 で止まったのは、未許可の &lt;code&gt;.envrc&lt;/code&gt;、存在しないディレクトリ、&lt;code&gt;.envrc&lt;/code&gt; が &lt;code&gt;exit&lt;/code&gt; で抜けたとき。止めたい行には &lt;code&gt;|| exit 1&lt;/code&gt; を付ける&lt;/li&gt;
+&lt;li&gt;direnv を読み込んだシェルの子が &lt;code&gt;.envrc&lt;/code&gt; の外でフックを走らせると、unload (読み込みの取り消し) が変数を読み込み前の値に戻す。読み込みの後に足した PATH の要素も消える&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は direnv 2.38.2 / zsh 5.9.2 / GNU bash 5.3.20 / Linux x86_64 で確かめた。
+コードは、どれも次の 2 行で作った一時ディレクトリで、上から順に実行した。
+&lt;code&gt;XDG_CONFIG_HOME&lt;/code&gt; と &lt;code&gt;XDG_DATA_HOME&lt;/code&gt; を一時ディレクトリに向けて、手元の direnv の設定と許可の記録を使わないようにしている (既定はそれぞれ &lt;code&gt;~/.config&lt;/code&gt; と &lt;code&gt;~/.local/share&lt;/code&gt;)。
+出力に出る一時ディレクトリのパスは &lt;code&gt;&amp;lt;tmp&amp;gt;&lt;/code&gt; と書く。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>sops の暗号文・鍵・平文はどこに残るか</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-06-sops-age-where-secrets-remain/</link>
+      <pubDate>Tue, 06 Oct 2026 13:38:45 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-06-sops-age-where-secrets-remain/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;sops のファイルは、値の暗号文を 1 つだけ持つ。受け取り手 (age の公開鍵) ごとの封筒と MAC は、同じファイルの &lt;code&gt;sops&lt;/code&gt; メタデータに入る&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.sops.yaml&lt;/code&gt; が効くのは新規の暗号化だけ。既存ファイルの受け取り手は &lt;code&gt;sops updatekeys&lt;/code&gt; を実行するまで変わらない&lt;/li&gt;
+&lt;li&gt;暗号化されるのは値とコメントで、キー名は平文で残る。MAC は既定で、暗号化していない値も覆う&lt;/li&gt;
+&lt;li&gt;復号鍵は 1 か所を選んで読むのではない。環境変数と &lt;code&gt;~/.config/sops/age/keys.txt&lt;/code&gt; など、見つかった鍵を全部足して試す&lt;/li&gt;
+&lt;li&gt;復号した平文は &lt;code&gt;exec-env&lt;/code&gt; / &lt;code&gt;exec-file&lt;/code&gt; で子プロセスへ渡せる。リポジトリに平文は残らないが、&lt;code&gt;direnv_load&lt;/code&gt; は一時ファイルを経由し、同じユーザーのプロセスからは読める&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は sops 3.13.3 / age v1.3.2 / direnv 2.37.1 で確かめた。
+ソースの参照先は &lt;code&gt;github.com/getsops/sops/v3@v3.13.3&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;前提-値はデータ鍵で-1-回だけ暗号化しデータ鍵を人数分の封筒に入れる&#34;&gt;前提: 値はデータ鍵で 1 回だけ暗号化し、データ鍵を人数分の封筒に入れる&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;値の暗号文は 1 つで、受け取り手ごとに増えるのはデータ鍵の封筒だけ&#34; loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2026/2026-10-06-sops-age-where-secrets-remain/fig-envelope.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;sops はファイルを新しく暗号化するときにランダムなデータ鍵を 1 つ作り、値をそのデータ鍵で AES-256-GCM 暗号化する。
+データ鍵は受け取り手それぞれの公開鍵で暗号化し (封筒)、ファイル末尾のメタデータに &lt;code&gt;recipient&lt;/code&gt; (公開鍵) と &lt;code&gt;enc&lt;/code&gt; (封筒) の組で並べる。
+復号する側は、自分の秘密鍵で開けられる封筒を探してデータ鍵を取り出し、値を復号する。&lt;/p&gt;
+&lt;p&gt;データ鍵はファイルごとに 1 つで、&lt;code&gt;sops edit&lt;/code&gt; で保存しても作り直さない。
+編集の前後で封筒 (&lt;code&gt;enc&lt;/code&gt;) は変わらず、触っていない値の暗号文も 1 文字も変わらなかった。変わるのは書き換えた値の暗号文だけ。
+データ鍵を作り直すのは &lt;code&gt;sops rotate&lt;/code&gt; だけ (&lt;a class=&#34;link&#34; href=&#34;#%e9%8d%b5%e3%81%ae%e8%bf%bd%e5%8a%a0%e3%81%a8%e5%89%8a%e9%99%a4%e3%81%af-updatekeys%e5%a4%96%e3%81%97%e3%81%9f%e9%8d%b5%e3%81%ab%e3%81%af-rotate-%e3%82%82%e8%a6%81%e3%82%8b&#34;
+  
+  &gt;
+  後述
+&lt;/a&gt;
+)。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

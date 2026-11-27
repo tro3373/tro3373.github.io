@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>mydns on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/mydns/</link>
+    <description>Recent content in mydns on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 05 May 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/mydns/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>dyndns.org の無料 DNS が切れたので、mydns へ変更</title>
+      <link>https://tro3373.github.io/posts/2014/2014-05-05-dyndns-org-nowu-liao-dns-gaqie-retanode-mydns-hebian-geng/</link>
+      <pubDate>Mon, 05 May 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-05-05-dyndns-org-nowu-liao-dns-gaqie-retanode-mydns-hebian-geng/</guid>
+      <description>&lt;h2 id=&#34;mydnsにてドメイン登録複数ドメイン複数アカウントを作成&#34;&gt;mydnsにてドメイン登録（複数ドメイン→複数アカウントを作成）&lt;/h2&gt;
+&lt;p&gt;アカウントID・パスワードを書き留めておく&lt;/p&gt;
+&lt;h2 id=&#34;apache2設定&#34;&gt;apache2設定&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;cd /etc/apache2/sites-available
+
+※もとサイト用の設定をコピーして再度作成しなおす
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;サイト有効化&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo a2ensite [create_site_setting_file_name]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;dyndns自動更新&#34;&gt;dyndns自動更新&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://kuro.crow2.net/server/mydns.htm&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;手動通知での確認&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wget http://www.mydns.jp/login.html --http-user=[user_account_name] --http-passwd=[user_account_password] -O /dev/null
+wget -q -O - &#39;http://[user_account_name]:[user_account_password]@www.mydns.jp/login.html&#39; |grep &amp;quot;login_status&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;スクリプト作成&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;vi /path/to/exec_file_setting_directory/ddns.sh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;ファイル内容は以下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#!/bin/sh
+##DDNS updata script.
+#
+
+#check wget
+if ! [ -x /usr/bin/wget ]
+    then echo &amp;quot;Not found : wget&amp;quot;; exit 0
+fi
+
+#updata DDNS
+#[site_url]
+echo [site_url] wget...
+wget -q -O - &#39;http://[user_account_name]:[user_account_password]@www.mydns.jp/login.html&#39; |grep &amp;quot;login_status&amp;quot;
+
+exit 0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;権限付与&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

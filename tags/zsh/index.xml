@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>zsh on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/zsh/</link>
+    <description>Recent content in zsh on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 27 Nov 2026 13:38:48 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/zsh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>direnv の環境が入る経路と exit 0 で通る失敗</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-27-direnv-env-load-paths-exit-zero/</link>
+      <pubDate>Fri, 27 Nov 2026 13:38:48 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-27-direnv-env-load-paths-exit-zero/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;direnv が &lt;code&gt;.envrc&lt;/code&gt; の値を入れるのは、フックを入れた対話シェルと、&lt;code&gt;direnv exec&lt;/code&gt; で起動したコマンドだけ。direnv を読み込んでいないシェルやプロセスから、tmux の pane・cron・&lt;code&gt;bash -c&lt;/code&gt; のようにプロンプトを出さずに起動したコマンドには、cd しても入らない&lt;/li&gt;
+&lt;li&gt;読む &lt;code&gt;.envrc&lt;/code&gt; は、ディレクトリから上へ探して最初に見つかった 1 つだけ。親の値は、子の &lt;code&gt;.envrc&lt;/code&gt; に &lt;code&gt;source_up_if_exists&lt;/code&gt; を書いて読む。こうして読まれた親は、許可を確かめられない&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;.envrc&lt;/code&gt; の中の失敗は終了コードに出ない。未定義の &lt;code&gt;use&lt;/code&gt;、&lt;code&gt;nix&lt;/code&gt; が PATH に無い &lt;code&gt;use flake&lt;/code&gt;、失敗するコマンドの行は、エラーを出すだけで後ろの行を評価し、&lt;code&gt;direnv exec&lt;/code&gt; は後ろのコマンドを走らせて 0 を返す。1 で止まったのは、未許可の &lt;code&gt;.envrc&lt;/code&gt;、存在しないディレクトリ、&lt;code&gt;.envrc&lt;/code&gt; が &lt;code&gt;exit&lt;/code&gt; で抜けたとき。止めたい行には &lt;code&gt;|| exit 1&lt;/code&gt; を付ける&lt;/li&gt;
+&lt;li&gt;direnv を読み込んだシェルの子が &lt;code&gt;.envrc&lt;/code&gt; の外でフックを走らせると、unload (読み込みの取り消し) が変数を読み込み前の値に戻す。読み込みの後に足した PATH の要素も消える&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は direnv 2.38.2 / zsh 5.9.2 / GNU bash 5.3.20 / Linux x86_64 で確かめた。
+コードは、どれも次の 2 行で作った一時ディレクトリで、上から順に実行した。
+&lt;code&gt;XDG_CONFIG_HOME&lt;/code&gt; と &lt;code&gt;XDG_DATA_HOME&lt;/code&gt; を一時ディレクトリに向けて、手元の direnv の設定と許可の記録を使わないようにしている (既定はそれぞれ &lt;code&gt;~/.config&lt;/code&gt; と &lt;code&gt;~/.local/share&lt;/code&gt;)。
+出力に出る一時ディレクトリのパスは &lt;code&gt;&amp;lt;tmp&amp;gt;&lt;/code&gt; と書く。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>bash のつもりの 1 行が zsh で変わる 6 か所</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-24-bash-oneliners-differ-in-zsh/</link>
+      <pubDate>Tue, 24 Nov 2026 13:41:14 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-24-bash-oneliners-differ-in-zsh/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;zsh は sh (POSIX のシェル) との互換を既定にしていない。bash で書いた 1 行を zsh が読むと、エラーにならずに結果だけが変わるか、コマンドが走らずに止まる&lt;/li&gt;
+&lt;li&gt;結果が変わる: 引用符の無い変数を 1 語のまま渡す。空の変数をパターンにした置換は、各文字の前に置換文字列を挿す。&lt;code&gt;PIPESTATUS&lt;/code&gt; と &lt;code&gt;BASH_REMATCH&lt;/code&gt; は空のまま&lt;/li&gt;
+&lt;li&gt;止まる: 何にも一致しない glob は &lt;code&gt;no matches found&lt;/code&gt; でコマンドごと止まる。引数付きの &lt;code&gt;$EDITOR&lt;/code&gt; は 127。&lt;code&gt;path&lt;/code&gt; に代入すると、以後のコマンドがすべて 127&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;#&lt;/code&gt; は bash より zsh の方が多く残す。bash は語の先頭の &lt;code&gt;#&lt;/code&gt; から行末までをコメントとして捨てるが、zsh は対話入力の &lt;code&gt;#&lt;/code&gt; をコメントにせず、引数として渡す&lt;/li&gt;
+&lt;li&gt;起きるのは zsh が読むときだけ。1 行目に &lt;code&gt;#!/usr/bin/env bash&lt;/code&gt; を書いたスクリプトと、&lt;code&gt;bash -c &#39;...&#39;&lt;/code&gt; で包んだ 1 行は bash が読むので起きない。bash 前提の処理はどちらかで渡す&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は zsh 5.9.2 / GNU bash 5.3.20 / fzf 0.74.4 / Linux x86_64 で実測した。
+zsh は &lt;code&gt;-f&lt;/code&gt; (&lt;code&gt;.zshrc&lt;/code&gt; などの起動ファイルを読まない) で起動し、設定に左右されない既定の挙動を測った。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>tmux サーバが握り続ける状態とエラーなしに通るコマンド</title>
+      <link>https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/</link>
+      <pubDate>Fri, 02 Oct 2026 13:39:27 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;tmux のキーバインド・オプション・&lt;code&gt;@&lt;/code&gt; 変数・環境変数はサーバのメモリにある。&lt;code&gt;.tmux.conf&lt;/code&gt; はサーバ起動時に 1 回流すコマンド列で、行を消して &lt;code&gt;source-file&lt;/code&gt; しても登録済みのものは消えない&lt;/li&gt;
+&lt;li&gt;ペイン・popup・&lt;code&gt;run-shell&lt;/code&gt;・&lt;code&gt;if-shell&lt;/code&gt; のプロセスは、操作中のシェルではなくサーバの環境を継承する。後から足した PATH は届かず、&lt;code&gt;if-shell &#39;command -v ...&#39;&lt;/code&gt; は偽になってブロックを警告なしに捨てる&lt;/li&gt;
+&lt;li&gt;popup とコマンド付きのペインのシェルは非ログイン・非対話で、zsh なら &lt;code&gt;.zshenv&lt;/code&gt; しか読まない&lt;/li&gt;
+&lt;li&gt;存在しない &lt;code&gt;-c&lt;/code&gt; のパス、解決できない &lt;code&gt;display-message -t&lt;/code&gt;、&lt;code&gt;.&lt;/code&gt; や &lt;code&gt;:&lt;/code&gt; を含むセッション名は、どれもその場ではエラーにならない (終了コード 0)。ずれは後で別の場所に出る&lt;/li&gt;
+&lt;li&gt;確かめるときは &lt;code&gt;-L &amp;lt;名前&amp;gt; -f /dev/null&lt;/code&gt; で隔離したサーバを使う。&lt;code&gt;-L&lt;/code&gt; だけだと &lt;code&gt;~/.tmux.conf&lt;/code&gt; を読む&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は tmux 3.7c / zsh 5.9.2 で実測した。コード例はすべて &lt;code&gt;-L demo&lt;/code&gt; の使い捨てサーバに対して打つので、普段のサーバには触れない。&lt;/p&gt;
+&lt;h2 id=&#34;前提-tmux-コマンドはサーバへの依頼でしかない&#34;&gt;前提: tmux コマンドはサーバへの依頼でしかない&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;tmux コマンドはサーバへコマンドを送るだけで、設定はサーバ起動時に 1 回読まれ、ペインや popup はサーバが起動する&#34; loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2026/2026-10-02-tmux-server-state-silent-pitfalls/fig-server-model.webp&#34;&gt;&lt;/p&gt;
+&lt;p&gt;tmux はクライアント・サーバ型になっている。端末で打つ &lt;code&gt;tmux ...&lt;/code&gt; はクライアントで、ソケット越しにサーバへコマンドを送って終わる。
+キーバインド・オプション・セッション・環境変数はサーバのメモリにあり、サーバが終わるまで残る。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;.tmux.conf&lt;/code&gt; を読むのはサーバの起動時だけ。新しいセッションを作っても読み直さない。&lt;code&gt;source-file&lt;/code&gt; は書かれたコマンドをもう 1 度流すだけ&lt;/li&gt;
+&lt;li&gt;ペイン・popup・&lt;code&gt;run-shell&lt;/code&gt;・&lt;code&gt;if-shell&lt;/code&gt; のプロセスを起動するのはサーバ。操作中のシェルの子ではない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下の罠は、どれもこの 2 点のどちらかから来る。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

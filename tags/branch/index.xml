@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>branch on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/branch/</link>
+    <description>Recent content in branch on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Wed, 25 Nov 2026 13:38:17 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/branch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git の取り込み済み判定は何を比べ、どこで誤るか</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-25-git-merged-branch-detection/</link>
+      <pubDate>Wed, 25 Nov 2026 13:38:17 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-25-git-merged-branch-detection/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;ブランチが取り込み済みかを、1 つのコマンドで言い切る方法は無い。git の判定は、コミットの SHA (base から辿れるか)、patch の中身 (patch-id)、ファイルの中身 (tree) のどれか 1 つだけを比べる。どれも、別の方法で取り込んだブランチを見落とす。base は取り込み先のブランチで、この記事では &lt;code&gt;main&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git branch --merged&lt;/code&gt;・&lt;code&gt;git rev-list --count&lt;/code&gt;・&lt;code&gt;git merge-base --is-ancestor&lt;/code&gt;・&lt;code&gt;git branch -d&lt;/code&gt; は SHA で比べる。squash merge・rebase・cherry-pick で取り込んだブランチを未取り込みと判定し、作っただけでコミットの無いブランチを取り込み済みと判定する。3 つの取り込み方は、どれも元のコミットとは別のコミットを base に作る (違いは&lt;a class=&#34;link&#34; href=&#34;#%e5%89%8d%e6%8f%90-3-%e3%81%a4%e3%81%ae%e6%af%94%e3%81%b9%e6%96%b9&#34;
+  
+  &gt;
+  前提
+&lt;/a&gt;
+の節)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git cherry&lt;/code&gt; は patch-id で比べるので、rebase・cherry-pick で取り込んだコミットに &lt;code&gt;-&lt;/code&gt; を付ける。2 本以上を 1 本にまとめた squash merge と、取り込むときに競合を手で直したコミットには &lt;code&gt;+&lt;/code&gt; を付ける&lt;/li&gt;
+&lt;li&gt;比べる相手は手元の ref。ref はブランチやタグのように、コミットを指す名前のこと。&lt;code&gt;--merged main&lt;/code&gt; の結果は &lt;code&gt;git fetch&lt;/code&gt; では変わらない&lt;/li&gt;
+&lt;li&gt;upstream は、ブランチに設定した追跡先のリモートのブランチ (&lt;code&gt;feat&lt;/code&gt; なら &lt;code&gt;origin/feat&lt;/code&gt; など)。HEAD は、いま checkout しているブランチ (またはコミット)。upstream が消えたブランチを &lt;code&gt;branch -d&lt;/code&gt; で消そうとすると、git は HEAD と比べる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;merge-base --is-ancestor&lt;/code&gt; の非 0 には、「祖先でない (1)」と「git のエラー (128)」の 2 つがある&lt;/li&gt;
+&lt;li&gt;「作っただけ」と「取り込んだ」の区別は reflog にしか残らない。reflog は、ブランチの先頭が作成・commit・reset などで動くたびに、手元の repo に 1 行ずつ書かれる記録。ブランチを消した後は、merge コミットの題名しか残らない&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下はすべて git 2.56.1 で実測した。&lt;code&gt;GIT_CONFIG_GLOBAL=/dev/null&lt;/code&gt; で &lt;code&gt;~/.gitconfig&lt;/code&gt; を読ませず、コミットの日時を固定して実行している。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

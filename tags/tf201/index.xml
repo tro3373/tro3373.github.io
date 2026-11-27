@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tf201 on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/tf201/</link>
+    <description>Recent content in tf201 on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Thu, 16 Aug 2012 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/tf201/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tf201 root化</title>
+      <link>https://tro3373.github.io/posts/2012/2012-08-16-tf201-roothua/</link>
+      <pubDate>Thu, 16 Aug 2012 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2012/2012-08-16-tf201-roothua/</guid>
+      <description>&lt;p&gt;tags: [&amp;ldquo;tf201&amp;rdquo;,&amp;ldquo;android&amp;rdquo;]
+title: 20120816 tf201 root化&lt;/p&gt;
+&lt;h1 id=&#34;tf201-root化&#34;&gt;tf201 root化&lt;/h1&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://sitr.us/2012/05/12/installing-a-custom-rom-on-the-transformer-prime.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考１
+&lt;/a&gt;
+
+&lt;a class=&#34;link&#34; href=&#34;http://androidforums.com/transformer-prime-all-things-root/518654-faq-asus-transformer-prime-tf201-all-things-root.html&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  参考２
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;bootloader-unlock&#34;&gt;bootloader unlock&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;download apk &lt;a class=&#34;link&#34; href=&#34;http://support.asus.com/Download.aspx?SLanguage=en&amp;amp;p=20&amp;amp;s=16&amp;amp;m=Eee&amp;#43;Pad&amp;#43;Transformer&amp;#43;Prime&amp;#43;TF201&amp;amp;os=32&amp;amp;ft=14&amp;amp;f_name=UnLock_Device_App_V6.apk&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  here
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;Unlock Device App&lt;/li&gt;
+&lt;li&gt;install apk &amp;amp; done&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;flash-recovery-clockworkmod&#34;&gt;flash recovery clockworkmod&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;fastboot mode&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Boot your tablet into fastboot by holding down the power and volume-down buttons.&lt;br&gt;
+The tablet will power off and reboot.&lt;br&gt;
+Wait until you see several lines of white text in the upper-left corner of the screen,&lt;br&gt;
+then let go of the power and volume buttons.&lt;br&gt;
+Then wait for five seconds and you will see the fastboot options.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;check&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; fastboot -i 0x0b05
+     finished. total time: 1345126235.306s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;flash recovery image&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; fastboot -i 0x0b05 flash recovery recovery-clockwork-5.8.3.4-tf201.img 
+     sending &#39;recovery&#39; (5408 KB)...
+     OKAY [  3.242s]
+     writing &#39;recovery&#39;...
+     OKAY [  2.136s]
+     finished. total time: 5.379s
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+  </channel>
+</rss>

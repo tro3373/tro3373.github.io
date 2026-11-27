@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>rsync on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/rsync/</link>
+    <description>Recent content in rsync on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 18 Nov 2011 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/rsync/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った</title>
+      <link>https://tro3373.github.io/posts/2011/2011-11-18-%E7%8E%84%E7%AE%B1hg-debian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</link>
+      <pubDate>Fri, 18 Nov 2011 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2011/2011-11-18-%E7%8E%84%E7%AE%B1hg-debian-lenny-nodetawolinkstationwoqi-dong-mauntosite-rsyncsurubatukuatupuchu-li-wozuo-tuta/</guid>
+      <description>&lt;h1 id=&#34;玄箱hgdebian-lenny-のデータをlinkstationを起動マウントしてrsyncするバックアップ処理を作った&#34;&gt;玄箱HG(debian lenny) のデータをLinkstationを起動、マウントして、rsyncするバックアップ処理を作った&lt;/h1&gt;
+&lt;p&gt;大まかな仕様は以下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;通常電源OFF状態の、同一ネットワーク内にあるLinkstationを 定時刻に wakeonlan にて起動&lt;/li&gt;
+&lt;li&gt;起動した Linkstation をネットワーク経由にてマウント&lt;/li&gt;
+&lt;li&gt;サーバデータを全てrsyncしてバックアップ&lt;/li&gt;
+&lt;li&gt;処理の開始、終了時、特定のメールアドレスへメール送信する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;必要パッケージのインストール&#34;&gt;必要パッケージのインストール&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt-get update
+sudp apt-get upgrade
+sudo apt-get install wakeonlan
+sudo apt-get install rsync
+# mysql はインストール済みとする
+# python はインストール済みとする
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;メール送信処理&#34;&gt;メール送信処理&lt;/h2&gt;
+&lt;p&gt;特定アドレスにGメール送信する処理
+Gmail 送信処理本体 &lt;code&gt;GmailApi.py&lt;/code&gt; と、それを使用する &lt;code&gt;sendMail.py&lt;/code&gt;で構成&lt;/p&gt;
+&lt;p&gt;まずは、Gmail送信処理から&lt;/p&gt;
+&lt;p&gt;新規作成 &lt;code&gt;vim GmailApi.py&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/python
+# -*- coding: utf-8 -*-
+import smtplib
+from email.MIMEText import MIMEText
+from email.Header import Header
+from email.Utils import formatdate
+
+class sendGmail:
+    def __init__(self, encoding, subject, body, from_addr, to_addr, login_addr, passwd):
+        self.date = formatdate()
+        self.encoding = encoding
+        self.subject = subject
+        self.body = body.encode(&#39;utf-8&#39;)
+        self.from_addr = from_addr
+        self.to_addr = to_addr
+        self.login_addr = login_addr
+        self.passwd = passwd
+
+    def sendMail(self):
+        msg = MIMEText(self.body, &#39;html&#39;, self.encoding)
+        msg[&#39;Subject&#39;] = Header(self.subject, self.encoding)
+        msg[&#39;From&#39;] = self.from_addr
+        msg[&#39;To&#39;] = self.to_addr
+        msg[&#39;Date&#39;] = self.date
+
+        s = smtplib.SMTP(&#39;smtp.gmail.com&#39;, 587)
+        s.ehlo()
+        s.starttls()
+        s.ehlo()
+        s.login(self.login_addr, self.passwd)
+        s.sendmail(self.from_addr, self.to_addr, msg.as_string())
+        s.close()
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上記を使用し、Gmail送信する処理
+引数は以下で&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

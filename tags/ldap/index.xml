@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ldap on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/ldap/</link>
+    <description>Recent content in ldap on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sun, 18 Oct 2015 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/ldap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ldapsearch コマンドで AD 情報を検索する</title>
+      <link>https://tro3373.github.io/posts/2015/2015-10-18-ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</link>
+      <pubDate>Sun, 18 Oct 2015 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2015/2015-10-18-ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/</guid>
+      <description>&lt;p&gt;&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-10-18-ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/20110425081720.png&#34;&gt;
+&lt;img loading=&#34;lazy&#34; src=&#34;https://tro3373.github.io/posts/2015/2015-10-18-ldapsearch-komandode-ad-qing-bao-wojian-suo-suru/samba-4.jpg&#34;&gt;&lt;/p&gt;
+&lt;p&gt;もう何がなんだかわからないので、とりあえずメモ。。&lt;/p&gt;
+&lt;h1 id=&#34;ldap-ワード集&#34;&gt;LDAP ワード集&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;DIT = Directory Information Tree&lt;/li&gt;
+&lt;li&gt;DN = 識別名（Distinguished Name）&lt;/li&gt;
+&lt;li&gt;DC = ドメイン構成要素(domain component)&lt;/li&gt;
+&lt;li&gt;O = 組織名(organization)&lt;/li&gt;
+&lt;li&gt;OU = 組織単位(organizational unit)&lt;/li&gt;
+&lt;li&gt;CN = 一般名称(common name)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;samplelocal-ドメインの場合の検索方法&#34;&gt;&lt;code&gt;sample.local&lt;/code&gt; ドメインの場合の検索方法&lt;/h3&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# ユーザ Administrator を検索&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ldapsearch -x -LLL -D &lt;span class=&#34;s2&#34;&gt;&amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34;&lt;/span&gt; -W -b &lt;span class=&#34;s2&#34;&gt;&amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# CN Users に属するユーザを検索&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ldapsearch -x -LLL -D &lt;span class=&#34;s2&#34;&gt;&amp;#34;cn=Administrator,cn=Users,dc=sample,dc=local&amp;#34;&lt;/span&gt; -W -b &lt;span class=&#34;s2&#34;&gt;&amp;#34;cn=Users,dc=sample,dc=local&amp;#34;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;以下、 &lt;code&gt;ldapsearch&lt;/code&gt; コマンドの OPTION 抜粋&lt;/p&gt;
+&lt;div&gt;
+    
+  
+  
+  
+  
+  &lt;div class=&#34;codeblock--content&#34;&gt;
+    &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; ldapsearch opens a connection to an LDAP server, binds,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; and performs a search using specified parameters.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; The filter should conform to the string representation
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; for search filters as defined in RFC 4515.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; If not provided, the default filter, (objectClass=*), is used.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; If ldapsearch finds one or more entries,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; the attributes specified by attrs are returned.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; If * is listed, all user attributes are returned.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; If + is listed, all operational attributes are returned.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; If no attrs are listed, all user attributes are returned.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; If only 1.1 is listed, no attributes will be returned.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; The search results are displayed using an extended version of LDIF.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; Option -L controls the format of the output.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -L                Search results are display in LDAP Data Interchange Format detailed in ldif(5).
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   A single -L restricts the output to LDIFv1.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   A second -L disables comments.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   A third -L disables printing of the LDIF version.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   The default is to use an extended version of LDIF.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -x                use simple authentication (as opposed to SASL)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -H &amp;lt;ldapuri&amp;gt;      Used to specify a URI or list of URI’s to of ldap servers.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   This can also be used to specify the protocol, server,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   and port for queries using SSL/TLS,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   ie: -H &amp;#34;ldaps://myserver.mydomain.com:636&amp;#34;.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -h &amp;lt;ldaphost&amp;gt;     specify host to query
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -p &amp;lt;port&amp;gt;         specify port to connect to; 389 is the default (optional)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -b &amp;lt;search base&amp;gt;  The starting point for the search.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   It often looks like &amp;#34;dc=mydomain,dc=com&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   「ベースDN」はLDAP検索のベース（基本）となるエントリを指定
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -D &amp;lt;binddn&amp;gt;       The DN to bind to the directory.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   In other words, the user you are authenticating with.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   The bind DN may look like “uid=myuser,dc=mydomain,dc=com” or
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   “cn=Directory Manager”.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   The Directory Manager is the directory’s superuser account.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -W                Prompt for the password.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   The password should match what is in your directory
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   for the the binddn (-D).  Mutually exclusive from -w.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -w &amp;lt;password&amp;gt;     Specify your password on the command line.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -s &amp;lt;scope&amp;gt;        speicfy the scope as &amp;lt;base|one|sub|children&amp;gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   Base searches just the base object, sub searches all subtrees,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   one searches one level, and children searches just child nodes.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   The default is sub.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -z 0              Set the sizelimit for a search in the event the server enforces
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   a limit that’s cutting off your results.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                   Only the super user account (Directory Manager) can do this.
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; -ZZ               Force use of StartTLS.&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;難しい。。。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

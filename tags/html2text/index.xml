@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>html2text on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/html2text/</link>
+    <description>Recent content in html2text on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Tue, 11 Nov 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/html2text/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>html ファイルから一括で markdown ファイルへ変換する</title>
+      <link>https://tro3373.github.io/posts/2014/2014-11-11-html-huairukara-gua-de-markdown-huairuhebian-huan-suru/</link>
+      <pubDate>Tue, 11 Nov 2014 00:00:00 +0000</pubDate>
+      <guid>https://tro3373.github.io/posts/2014/2014-11-11-html-huairukara-gua-de-markdown-huairuhebian-huan-suru/</guid>
+      <description>&lt;h1 id=&#34;html-から-markdown-へ変換する&#34;&gt;html から markdown へ変換する&lt;/h1&gt;
+&lt;p&gt;使用したツールは、&lt;a class=&#34;link&#34; href=&#34;https://github.com/aaronsw/html2text.git&#34;
+  
+   target=&#34;_blank&#34; rel=&#34;noopener&#34; &gt;
+  html2text
+&lt;/a&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;前提条件&#34;&gt;前提条件&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;python インストール済み&lt;/li&gt;
+&lt;li&gt;git インストール済み&lt;/li&gt;
+&lt;li&gt;変換する htmlファイルを用意する&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;インストール&#34;&gt;インストール&lt;/h2&gt;
+&lt;p&gt;git clone して実行するのみです。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd works
+git clone https://github.com/aaronsw/html2text.git
+cd html2text
+./html2text.py hogehoge.html &amp;gt;&amp;gt; hogehoge.md
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>makefile on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/makefile/</link>
+    <description>Recent content in makefile on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Mon, 28 Sep 2026 13:50:37 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/makefile/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GNU Make の展開タイミングとエラーにならない失敗</title>
+      <link>https://tro3373.github.io/posts/2026/2026-09-28-gnu-make-expansion-silent-failures/</link>
+      <pubDate>Mon, 28 Sep 2026 13:50:37 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-09-28-gnu-make-expansion-silent-failures/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;make は Makefile をすべて読み込んで依存グラフを作ってから、レシピを実行する。&lt;code&gt;:=&lt;/code&gt; の右辺、ルールの前提条件、&lt;code&gt;include&lt;/code&gt; の作り直しは読み込みの段階で走る&lt;/li&gt;
+&lt;li&gt;make は失敗をほとんど報告しない。未定義の変数は空文字になり、&lt;code&gt;.PHONY&lt;/code&gt; に名前だけあるターゲットやファイルが既にあるターゲットは「やることなし」で exit 0 になる&lt;/li&gt;
+&lt;li&gt;レシピは既定で &lt;code&gt;/bin/sh&lt;/code&gt; が実行し、pipefail が無い。シェルのメタ文字が無い行はシェルすら通らない&lt;/li&gt;
+&lt;li&gt;前提条件の並び順は実行順ではない。順序は依存関係か &lt;code&gt;.WAIT&lt;/code&gt; で書く&lt;/li&gt;
+&lt;li&gt;外から来た値を &lt;code&gt;$(shell ...)&lt;/code&gt; に埋めると、値がコマンドとして実行される&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下のコードはすべて GNU Make 4.4.1 で実測した。&lt;/p&gt;
+&lt;h2 id=&#34;前提-読み込みと実行の-2-段階&#34;&gt;前提: 読み込みと実行の 2 段階&lt;/h2&gt;
+&lt;p&gt;GNU make は 2 つの段階で動く。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;読み込み: include 先を含む全 makefile を読み、変数とルールを取り込んで依存グラフを作る&lt;/li&gt;
+&lt;li&gt;実行: グラフから更新が要るターゲットを決め、レシピを実行する&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;展開には、読み込みの段階で行う「即時」と、値が使われるまで遅らせる「遅延」がある。&lt;/p&gt;
+&lt;table&gt;
+	&lt;thead&gt;
+			&lt;tr&gt;
+					&lt;th&gt;構文&lt;/th&gt;
+					&lt;th&gt;即時に展開&lt;/th&gt;
+					&lt;th&gt;遅延&lt;/th&gt;
+			&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;VAR = value&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;左辺&lt;/td&gt;
+					&lt;td&gt;右辺 (参照されるたびに展開)&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;VAR ?= value&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;左辺&lt;/td&gt;
+					&lt;td&gt;右辺&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;VAR := value&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;左辺と右辺&lt;/td&gt;
+					&lt;td&gt;-&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;&lt;code&gt;target: prereq&lt;/code&gt;&lt;/td&gt;
+					&lt;td&gt;ターゲットと前提条件&lt;/td&gt;
+					&lt;td&gt;-&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+					&lt;td&gt;レシピ&lt;/td&gt;
+					&lt;td&gt;-&lt;/td&gt;
+					&lt;td&gt;全体&lt;/td&gt;
+			&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;以下の罠の多くは、この表と違うタイミングを想定して書いたときに起きる。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

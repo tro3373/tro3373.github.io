@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>worktree on tac lifelog</title>
+    <link>https://tro3373.github.io/tags/worktree/</link>
+    <description>Recent content in worktree on tac lifelog</description>
+    <image>
+      <title>tac lifelog</title>
+      <url>https://tro3373.github.io/favicon.png</url>
+      <link>https://tro3373.github.io/favicon.png</link>
+    </image>
+    <generator>Hugo</generator>
+    <language>ja</language>
+    <lastBuildDate>Sat, 07 Nov 2026 13:37:05 +0900</lastBuildDate>
+    <atom:link href="https://tro3373.github.io/tags/worktree/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>git worktree で共有されるものと分かれるもの</title>
+      <link>https://tro3373.github.io/posts/2026/2026-11-07-git-worktree-shared-and-separate/</link>
+      <pubDate>Sat, 07 Nov 2026 13:37:05 +0900</pubDate>
+      <guid>https://tro3373.github.io/posts/2026/2026-11-07-git-worktree-shared-and-separate/</guid>
+      <description>&lt;h2 id=&#34;結論&#34;&gt;結論&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;linked worktree は、object・ブランチ (&lt;code&gt;refs/heads/&lt;/code&gt;) とその reflog・&lt;code&gt;.git/config&lt;/code&gt; を本体と共有する。HEAD とその reflog・index・作業ツリーは worktree ごとに持つ&lt;/li&gt;
+&lt;li&gt;本体か worktree かは、&lt;code&gt;--git-dir&lt;/code&gt; と &lt;code&gt;--git-common-dir&lt;/code&gt; を &lt;code&gt;--path-format=absolute&lt;/code&gt; で絶対パスに揃えて比べる。揃えずに比べると、本体のサブディレクトリで worktree と判定される&lt;/li&gt;
+&lt;li&gt;1 つのブランチは 1 つの worktree でしか checkout できず、&lt;code&gt;git worktree list --porcelain&lt;/code&gt; の先頭は本体になる。ブランチ名から worktree を引くと、本体のパスが返ることがある&lt;/li&gt;
+&lt;li&gt;新しい worktree に入るのは追跡中のファイルだけ。ignored の &lt;code&gt;.env&lt;/code&gt; や &lt;code&gt;node_modules&lt;/code&gt; は無く、パスに紐づく仕組み (node のモジュール解決、direnv の許可) も本体とは別の場所として扱う&lt;/li&gt;
+&lt;li&gt;worktree で作ったコミットは、worktree とブランチを消すと reflog からも消える。gc の前なら &lt;code&gt;git fsck --lost-found&lt;/code&gt; で拾える&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以下は git 2.56.0 / GNU bash 5.3.20 / Linux x86_64 で実測した。出力の &lt;code&gt;&amp;lt;root&amp;gt;&lt;/code&gt; は再現に使った一時ディレクトリで、コマンドのパスは &lt;code&gt;&amp;lt;root&amp;gt;&lt;/code&gt; からの相対に縮めて書いた。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
